@@ -1,5 +1,5 @@
 import { getIframeElement, isIframe } from "./iframe";
-import { ConfigVar } from "../lib/setConfigVars";
+import { ConfigVar } from "../types/configVars";
 
 export enum PrismaticMessageEvent {
   INSTANCE_CONFIGURATION_CLOSED = "INSTANCE_CONFIGURATION_CLOSED",

@@ -26,7 +26,6 @@
   ],
   "scripts": {
     "build": "rm -rf dist/ && webpack",
-    "prebuild": "node -p \"'export const EMBEDDED_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "prepack": "npm run build",
     "check-format": "prettier --check './src/**/*.{js,jsx,ts,tsx,css,html,json,scss}'",
     "format": "prettier --loglevel error --write './src/**/*.{js,jsx,ts,tsx,css,html,json,scss}'",

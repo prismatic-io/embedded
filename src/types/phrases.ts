@@ -655,8 +655,8 @@ export interface UniquePhrases {
   /** English: "The page you requested was not found." */
   "404__text": SimplePhrase;
 
-  /** English: "Back to %{screen}" */
-  "404__button": ComplexPhrase<{ screen: string }>;
+  /** English: "Back to dashboard" */
+  "404__button": SimplePhrase;
 }
 
 export type PhrasesBase = SharedPhrases & UniquePhrases;

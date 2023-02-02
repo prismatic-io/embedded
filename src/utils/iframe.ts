@@ -1,6 +1,5 @@
 import merge from "lodash.merge";
 
-import { EMBEDDED_VERSION } from "../version";
 import { PrismaticMessageEvent } from "./postMessage";
 import { isPopover, Options } from "../types/options";
 import { openPopover } from "./popover";
@@ -96,9 +95,13 @@ export const setIframe = (
   }
 
   iframeContainerElement.innerHTML = /* html */ `
-    <iframe src="${
-      state.prismaticUrl
-    }/${route}/?${queryParams.toString()}" height="100%" width="100%" frameBorder="0"></iframe>
+    <iframe 
+      src="${state.prismaticUrl}/${route}/?${queryParams.toString()}" 
+      height="100%" 
+      width="100%" 
+      frameBorder="0"
+      allow="clipboard-read; clipboard-write"
+    ></iframe>
   `;
 
   const iframeElement = iframeContainerElement.querySelector("iframe");
@@ -114,7 +117,6 @@ export const setIframe = (
   }
 
   if (iframeElement) {
-    console.log({ iframeElement });
     iframeElement.onload = () => {
       if (EMBEDDED_VERSION) {
         postMessage({

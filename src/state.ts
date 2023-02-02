@@ -1,4 +1,7 @@
-import { Filters, ScreenConfiguration, Theme, Translation } from "./types";
+import { Filters } from "./types/filters";
+import { ScreenConfiguration } from "./types/screenConfiguration";
+import { Theme } from "./types/theme";
+import { Translation } from "./types/translation";
 
 export interface State {
   filters: Filters;

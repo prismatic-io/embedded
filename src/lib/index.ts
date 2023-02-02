@@ -1,5 +1,5 @@
 export { authenticate } from "./authenticate";
-export { configureIntegration } from "./configureIntegration";
+export { configureInstance } from "./configureInstance";
 export { graphqlRequest } from "./graphqlRequest";
 export { init } from "./init";
 export { setConfigVars } from "./setConfigVars";

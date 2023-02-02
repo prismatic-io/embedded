@@ -1,6 +1,6 @@
 import {
   authenticate,
-  configureIntegration,
+  configureInstance,
   graphqlRequest,
   init,
   setConfigVars,
@@ -12,18 +12,18 @@ import {
 } from "./lib";
 
 export {
+  MessageData,
+  PrismaticMessageEvent,
+  getMessageIframe,
+} from "./utils/postMessage";
+
+export {
   ConfigVar,
   ConnectionConfigVar,
   ConnectionConfigVarInput,
   DefaultConfigVar,
   DefaultConfigVarInput,
-} from "./lib/setConfigVars";
-
-export {
-  MessageData,
-  PrismaticMessageEvent,
-  getMessageIframe,
-} from "./utils/postMessage";
+} from "./types/configVars";
 
 export { ScreenConfiguration } from "./types/screenConfiguration";
 
@@ -31,7 +31,11 @@ export { Translation } from "./types/translation";
 
 export default {
   authenticate,
-  configureIntegration,
+  configureInstance,
+  /**
+   * @deprecated Use configureInstance instead
+   */
+  configureIntegration: configureInstance, // alias for backwards compatibility
   graphqlRequest,
   init,
   setConfigVars,

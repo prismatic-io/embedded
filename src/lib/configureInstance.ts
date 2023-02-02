@@ -1,17 +1,17 @@
-import { Options } from "../types";
+import { Options } from "../types/options";
 import { assertInit } from "../utils/assertInit";
 import { setIframe } from "../utils/iframe";
 
-type ConfigureIntegrationProps = Options & {
+type ConfigureInstanceProps = Options & {
   integrationName: string;
   skipRedirectOnRemove?: boolean;
 };
 
-export const configureIntegration = ({
+export const configureInstance = ({
   integrationName,
   skipRedirectOnRemove,
   ...options
-}: ConfigureIntegrationProps) => {
+}: ConfigureInstanceProps) => {
   assertInit("configureInstance");
 
   setIframe("find-integration-marketplace", options, {
