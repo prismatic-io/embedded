@@ -1,0 +1,47 @@
+{
+  "name": "@prismatic-io/embedded",
+  "description": "Embed your prismatic.io application within your existing application.",
+  "keywords": [
+    "prismatic",
+    "marketplace",
+    "iPaaS",
+    "integration",
+    "components",
+    "integration designer"
+  ],
+  "homepage": "https://prismatic.io",
+  "bugs": {
+    "url": "https://github.com/prismatic-io/embedded"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prismatic-io/embedded.git"
+  },
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "rm -rf dist/ && webpack",
+    "prepack": "npm run build",
+    "check-format": "prettier --check './src/**/*.{js,jsx,ts,tsx,css,html,json,scss}'",
+    "format": "prettier --loglevel error --write './src/**/*.{js,jsx,ts,tsx,css,html,json,scss}'",
+    "lint": "echo \"Warning: no lint specified\"",
+    "test": "echo \"Warning: no test specified\""
+  },
+  "devDependencies": {
+    "@types/node": "18.11.18",
+    "prettier": "2.8.3",
+    "ts-loader": "9.4.2",
+    "typescript": "4.9.5",
+    "webpack": "5.75.0",
+    "webpack-cli": "5.0.1"
+  },
+  "dependencies": {
+    "lodash.merge": "4.6.2",
+    "url-join": "5.0.0"
+  }
+}
