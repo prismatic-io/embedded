@@ -3,7 +3,7 @@ import { closePopover } from "../utils/popover";
 import { state, State } from "../state";
 import {
   EMBEDDED_ID,
-  EMBEDDED_IFRAME_CLASS,
+  EMBEDDED_IFRAME_CONTAINER_CLASS,
   EMBEDDED_OVERLAY_CLASS,
   EMBEDDED_OVERLAY_SELECTOR,
   EMBEDDED_OVERLAY_VISIBLE_CLASS,
@@ -42,7 +42,7 @@ export const init = (options?: InitProps) => {
     <div class="${EMBEDDED_OVERLAY_CLASS}">
       <div class="${EMBEDDED_POPOVER_CLASS}">
         <button class="${EMBEDDED_POPOVER_CLOSE_CLASS}" aria-label="close popover" data-close>✕</button>
-        <div class="${EMBEDDED_IFRAME_CLASS}"></div>
+        <div class="${EMBEDDED_IFRAME_CONTAINER_CLASS}"></div>
       </div>
     </div>
   `;
