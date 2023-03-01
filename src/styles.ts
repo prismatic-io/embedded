@@ -1,5 +1,5 @@
 import {
-  EMBEDDED_IFRAME_CLASS,
+  EMBEDDED_IFRAME_CONTAINER_CLASS,
   EMBEDDED_OVERLAY_CLASS,
   EMBEDDED_OVERLAY_VISIBLE_CLASS,
   EMBEDDED_POPOVER_CLASS,
@@ -45,7 +45,7 @@ export const styles = /* html */ `<style>
     right: 1.5em;
     top: 1.3em;
   }
-  .${EMBEDDED_IFRAME_CLASS} {
+  .${EMBEDDED_IFRAME_CONTAINER_CLASS} {
     height: 100%
   }
 </style>`;

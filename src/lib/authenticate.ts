@@ -1,6 +1,9 @@
 import urlJoin from "url-join";
 
+import { EMBEDDED_IFRAME_ID } from "../utils/iframe";
+import { PrismaticMessageEvent } from "../utils/postMessage";
 import { assertInit } from "../utils/assertInit";
+import { postMessage } from "../utils/postMessage";
 import { state } from "../state";
 
 const ERROR_MESSAGE =
@@ -26,6 +29,20 @@ export const authenticate = async (props: AuthenticateProps) => {
   }
 
   const { token } = props;
+
+  const iframeElement = document.getElementById(
+    EMBEDDED_IFRAME_ID
+  ) as HTMLIFrameElement;
+
+  if (state.jwt !== token && iframeElement) {
+    postMessage({
+      iframe: iframeElement,
+      event: {
+        event: PrismaticMessageEvent.SET_TOKEN,
+        data: token,
+      },
+    });
+  }
 
   state.jwt = token;
 

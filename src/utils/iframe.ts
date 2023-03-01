@@ -7,8 +7,9 @@ import { postMessage } from "./postMessage";
 import { state } from "../state";
 
 export const EMBEDDED_ID = "pio__embedded";
-export const EMBEDDED_IFRAME_CLASS = "pio__iframe";
-export const EMBEDDED_IFRAME_CONTAINER_SELECTOR = `#${EMBEDDED_ID} .${EMBEDDED_IFRAME_CLASS}`;
+export const EMBEDDED_IFRAME_ID = "pio__iframe";
+export const EMBEDDED_IFRAME_CONTAINER_CLASS = "pio__iframeContainer";
+export const EMBEDDED_IFRAME_CONTAINER_SELECTOR = `#${EMBEDDED_ID} .${EMBEDDED_IFRAME_CONTAINER_CLASS}`;
 export const EMBEDDED_OVERLAY_CLASS = "pio__overlay";
 export const EMBEDDED_OVERLAY_SELECTOR = `#${EMBEDDED_ID} > .${EMBEDDED_OVERLAY_CLASS}`;
 export const EMBEDDED_OVERLAY_VISIBLE_CLASS = `${EMBEDDED_OVERLAY_CLASS}--is_visible`;
@@ -96,6 +97,7 @@ export const setIframe = (
 
   iframeContainerElement.innerHTML = /* html */ `
     <iframe 
+      id="${EMBEDDED_IFRAME_ID}"
       src="${state.prismaticUrl}/${route}/?${queryParams.toString()}" 
       height="100%" 
       width="100%" 
@@ -118,6 +120,17 @@ export const setIframe = (
 
   if (iframeElement) {
     iframeElement.onload = () => {
+      // TODO: JC - This is redundant for the fact that the JWT is still being passed as a query param. We'll eventually do this refactor to avoid passing the JWT as a query param. Reference https://github.com/prismatic-io/prismatic/pull/5324
+      if (state.jwt) {
+        postMessage({
+          iframe: iframeElement,
+          event: {
+            event: PrismaticMessageEvent.SET_TOKEN,
+            data: state.jwt,
+          },
+        });
+      }
+
       if (EMBEDDED_VERSION) {
         postMessage({
           iframe: iframeElement,
