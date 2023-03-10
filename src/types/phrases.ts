@@ -165,6 +165,12 @@ interface SharedPhrases {
   /** English: "Clear filters" */
   "filterBar.clearFiltersButton": SimplePhrase;
 
+  /** English: "Refresh" */
+  "filterBar.refreshButton": SimplePhrase;
+
+  /** English: "Auto-polling is only available with default filters." */
+  "filterBar.refreshTooltip": SimplePhrase;
+
   /** English: "[Empty String]" */
   "filterBar.title": SimplePhrase;
 
@@ -634,12 +640,6 @@ export interface UniquePhrases {
 
   /** English: "To add logs, make sure your instance is running." */
   "integrations.id.logs__filterResults.placeholderText--hasInstance": SimplePhrase;
-
-  /** English: "Refresh logs" */
-  "integrations.id.logs__filterBar.refreshButton": SimplePhrase;
-
-  /** English: "Polling is only available with default filters." */
-  "integrations.id.logs__filterBar.refreshTooltip": SimplePhrase;
 
   // marketplace not found
   /** English: "Not Found" */
