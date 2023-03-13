@@ -10,6 +10,8 @@ export type ComplexPhrase<
 };
 
 export enum PhraseNamespace {
+  INTEGRATIONS = "integrations",
+  COMPONENTS = "components",
   MARKETPLACE = "integration-marketplace",
   MARKETPLACE_INTEGRATION_ALERT_MONITORS = "integrations.id.alert-monitors",
   MARKETPLACE_INTEGRATION_CONFIGURATION = "integrations.id.configurations",
@@ -22,6 +24,12 @@ export enum PhraseNamespace {
 
 interface SharedPhrases {
   // common
+  /** English: "Don’t see an action you’re looking for?" */
+  "common.contactUsText": SimplePhrase;
+
+  /** English: "Contact us" */
+  "common.contactUsButton": SimplePhrase;
+
   /** English: "Loading" */
   "common.loading": SimplePhrase;
 
@@ -30,6 +38,9 @@ interface SharedPhrases {
 
   /** English: "You must be authenticated." */
   "common.unauthorized": SimplePhrase;
+
+  /** English: "This version has no publish message" */
+  "common.noPublishedMessage": SimplePhrase;
 
   // dialogs
   /** English: "Remove %{removeType}" */
@@ -159,6 +170,9 @@ interface SharedPhrases {
   /** English: "Instances" */
   "filterBar.breadcrumb.instances": SimplePhrase;
 
+  /** English: "Components" */
+  "filterBar.breadcrumb.components": SimplePhrase;
+
   /** English: "Filter" */
   "filterBar.openFiltersButton": SimplePhrase;
 
@@ -212,6 +226,9 @@ interface SharedPhrases {
   /** English: "Customer" */
   "input.customerLabel": SimplePhrase;
 
+  /** English: "Description" */
+  "input.descriptionLabel": SimplePhrase;
+
   /** English: "Email" */
   "input.emailLabel": SimplePhrase;
 
@@ -236,6 +253,12 @@ interface SharedPhrases {
   /** English: "Value" */
   "input.headersValueLabel": SimplePhrase;
 
+  /** English: "Include customer components" */
+  "input.includeCustomerComponentsLabel": SimplePhrase;
+
+  /** English: "Include customer integrations" */
+  "input.includeCustomerIntegrationsLabel": SimplePhrase;
+
   /** English: "Instance" */
   "input.instanceLabel": SimplePhrase;
 
@@ -247,6 +270,9 @@ interface SharedPhrases {
 
   /** English: "Designer Version" */
   "input.integrationVersionLatestLabel": SimplePhrase;
+
+  /** English: "Labels" */
+  "input.labelsLabel": SimplePhrase;
 
   /** English: "Designer Version" */
   "input.latestVersionLabel": SimplePhrase;
@@ -272,6 +298,9 @@ interface SharedPhrases {
   /** English: "None" */
   "input.noneValue": SimplePhrase;
 
+  /** English: "Show only failed preprocess flows" */
+  "input.failedPreprocessFlowsOnlyLabel": SimplePhrase;
+
   /** English: "Show original executions only" */
   "input.originalOnlyLabel": SimplePhrase;
 
@@ -293,6 +322,12 @@ interface SharedPhrases {
   /** English: "Start Date/Time" */
   "input.startDateLabel": SimplePhrase;
 
+  /** English: "Show only private components" */
+  "input.showOnlyPrivateComponentsLabel": SimplePhrase;
+
+  /** English: "Show only templates" */
+  "input.showOnlyTemplatesLabel": SimplePhrase;
+
   /** English: "Failed" */
   "input.status.failedValue": SimplePhrase;
 
@@ -310,6 +345,13 @@ interface SharedPhrases {
 
   /** English: "URL" */
   "input.urlLabel": SimplePhrase;
+
+  // chips
+  /** English: "Template" */
+  "chip.templateLabel": SimplePhrase;
+
+  /** English: "Private" */
+  "chip.privateLabel": SimplePhrase;
 
   // details
   /** English: "Category" */
@@ -335,6 +377,12 @@ interface SharedPhrases {
 
   /** English: "Integration" */
   "detail.integrationLabel": SimplePhrase;
+
+  /** English: "Labels" */
+  "detail.labelsLabel": SimplePhrase;
+
+  /** English: "Last Run" */
+  "detail.lastRunLabel": SimplePhrase;
 
   /** English: "Overview" */
   "detail.overviewLabel": SimplePhrase;
@@ -367,11 +415,26 @@ interface SharedPhrases {
   "detail.versionLabel": SimplePhrase;
 
   // data table
+  /** English: "Active Instances" */
+  "dataTable.activeInstancesLabel": SimplePhrase;
+
+  /** English: "Category" */
+  "dataTable.categoryLabel": SimplePhrase;
+
   /** English: "Connection" */
   "dataTable.connectionLabel": SimplePhrase;
 
+  /** English: "Comments" */
+  "dataTable.commentsLabel": SimplePhrase;
+
   /** English: "Customer" */
   "dataTable.customerLabel": SimplePhrase;
+
+  /** English: "Default" */
+  "dataTable.defaultLabel": SimplePhrase;
+
+  /** English: "Description" */
+  "dataTable.descriptionLabel": SimplePhrase;
 
   /** English: "Email" */
   "dataTable.emailLabel": SimplePhrase;
@@ -379,14 +442,28 @@ interface SharedPhrases {
   /** English: "Events" */
   "dataTable.eventsLabel": SimplePhrase;
 
+  /** English: "Example" */
+  "dataTable.exampleLabel": SimplePhrase;
+
   /** English: "Flow" */
   "dataTable.flowLabel": SimplePhrase;
+
+  /** English: "Input" */
+  "dataTable.inputLabel": SimplePhrase;
+
+  /** English: "Inputs ${count}" */
+  "dataTable.inputsText": ComplexPhrase<{
+    count: number;
+  }>;
 
   /** English: "Instance" */
   "dataTable.instanceLabel": SimplePhrase;
 
   /** English: "Integration" */
   "dataTable.integrationLabel": SimplePhrase;
+
+  /** English: "Labels" */
+  "dataTable.labelsLabel": SimplePhrase;
 
   /** English: "Last triggered" */
   "dataTable.lastTriggeredAtLabel": SimplePhrase;
@@ -397,11 +474,39 @@ interface SharedPhrases {
   /** English: "Name" */
   "dataTable.nameLabel": SimplePhrase;
 
+  /** English: "Required" */
+  "dataTable.requiredLabel": SimplePhrase;
+
+  /** English: "Published" */
+  "dataTable.publishedLabel": SimplePhrase;
+
   /** English: "Timestamp" */
   "dataTable.timestampLabel": SimplePhrase;
 
   /** English: "Triggers" */
   "dataTable.triggersLabel": SimplePhrase;
+
+  /** English: "Type" */
+  "dataTable.typeLabel": SimplePhrase;
+
+  /** English: "Version" */
+  "dataTable.versionLabel": SimplePhrase;
+
+  // headers
+  /** English: "Actions" */
+  "header.actionsText": SimplePhrase;
+
+  /** English: "Connections" */
+  "header.connectionsText": SimplePhrase;
+
+  /** English: "Data Sources" */
+  "header.dataSourcesText": SimplePhrase;
+
+  /** English: "Triggers" */
+  "header.triggersText": SimplePhrase;
+
+  /** English: "Uncategorized" */
+  "header.uncategorizedText": SimplePhrase;
 
   // tooltips
   /** English: "Close" */
@@ -647,6 +752,10 @@ export interface UniquePhrases {
 
   /** English: "The page you requested was not found." */
   "app.marketplace-not-found__text": SimplePhrase;
+
+  // integrations
+  /** English: "Add integration" */
+  "integrations__filterBar.addButton": SimplePhrase;
 
   // 404
   /** English: "404" */
