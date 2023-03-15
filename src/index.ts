@@ -8,6 +8,7 @@ import {
   showComponents,
   showDesigner,
   showIntegrations,
+  showLogs,
   showMarketplace,
 } from "./lib";
 
@@ -43,5 +44,6 @@ export default {
   showComponents,
   showDesigner,
   showIntegrations,
+  showLogs,
   showMarketplace,
 };

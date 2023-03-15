@@ -7,4 +7,5 @@ export { showComponent } from "./showComponent";
 export { showComponents } from "./showComponents";
 export { showDesigner } from "./showDesigner";
 export { showIntegrations } from "./showIntegrations";
+export { showLogs } from "./showLogs";
 export { showMarketplace } from "./showMarketplace";
