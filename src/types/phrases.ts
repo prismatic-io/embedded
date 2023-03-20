@@ -10,15 +10,15 @@ export type ComplexPhrase<
 };
 
 export enum PhraseNamespace {
-  INTEGRATIONS = "integrations",
   COMPONENTS = "components",
+  INTEGRATIONS = "integrations",
   MARKETPLACE = "integration-marketplace",
   MARKETPLACE_INTEGRATION_ALERT_MONITORS = "integrations.id.alert-monitors",
   MARKETPLACE_INTEGRATION_CONFIGURATION = "integrations.id.configurations",
   MARKETPLACE_INTEGRATION_EXECUTIONS = "integrations.id.executions",
   MARKETPLACE_INTEGRATION_LOGS = "integrations.id.logs",
-  MARKETPLACE_INTEGRATION_TEST = "integrations.id.test",
   MARKETPLACE_INTEGRATION_SUMMARY = "integrations.id",
+  MARKETPLACE_INTEGRATION_TEST = "integrations.id.test",
   MARKETPLACE_NOT_FOUND = "app.marketplace-not-found",
 }
 
@@ -200,7 +200,7 @@ interface SharedPhrases {
 
   // inputs
   /** English: "Monitor" */
-  "input.alertMonitor": SimplePhrase;
+  "input.alertMonitorLabel": SimplePhrase;
 
   /** English: "Alert Trigger" */
   "input.alertTriggerLabel": SimplePhrase;
@@ -217,6 +217,9 @@ interface SharedPhrases {
   /** English: "Category" */
   "input.categoryLabel": SimplePhrase;
 
+  /** English: "Edit" */
+  "input.codePlaceholder": SimplePhrase;
+
   /** English: "Confirmation text" */
   "input.confirmRequiredTextLabel": SimplePhrase;
 
@@ -226,8 +229,17 @@ interface SharedPhrases {
   /** English: "Customer" */
   "input.customerLabel": SimplePhrase;
 
+  /** English: "There was an error" */
+  "input.dateError": SimplePhrase;
+
+  /** English: "There was an error" */
+  "input.dateTimeError": SimplePhrase;
+
   /** English: "Description" */
   "input.descriptionLabel": SimplePhrase;
+
+  /** English: "Default Value" */
+  "input.defaultValueLabel": SimplePhrase;
 
   /** English: "Email" */
   "input.emailLabel": SimplePhrase;
@@ -237,6 +249,9 @@ interface SharedPhrases {
 
   /** English: "External ID" */
   "input.externalIdLabel": SimplePhrase;
+
+  /** English: "Show only failed preprocess flows" */
+  "input.failedPreprocessFlowsOnlyLabel": SimplePhrase;
 
   /** English: "Search %{type}" */
   "input.filterSearchPlaceholder": ComplexPhrase<{ type?: string }>;
@@ -274,6 +289,12 @@ interface SharedPhrases {
   /** English: "Labels" */
   "input.labelsLabel": SimplePhrase;
 
+  /** English: "Key" */
+  "input.keyLabel": SimplePhrase;
+
+  /** English: "Key" */
+  "input.keyPlaceholder": SimplePhrase;
+
   /** English: "Designer Version" */
   "input.latestVersionLabel": SimplePhrase;
 
@@ -298,8 +319,8 @@ interface SharedPhrases {
   /** English: "None" */
   "input.noneValue": SimplePhrase;
 
-  /** English: "Show only failed preprocess flows" */
-  "input.failedPreprocessFlowsOnlyLabel": SimplePhrase;
+  /** English: "Edit" */
+  "input.objectFieldMapPlaceholder": SimplePhrase;
 
   /** English: "Show original executions only" */
   "input.originalOnlyLabel": SimplePhrase;
@@ -345,6 +366,15 @@ interface SharedPhrases {
 
   /** English: "URL" */
   "input.urlLabel": SimplePhrase;
+
+  /** English: "Value" */
+  "input.valueLabel": SimplePhrase;
+
+  /** English: "Add a value" */
+  "input.valuePlaceholder": SimplePhrase;
+
+  /** English: "Add value" */
+  "input.valueAddButton": SimplePhrase;
 
   // chips
   /** English: "Template" */
@@ -512,6 +542,12 @@ interface SharedPhrases {
   /** English: "Close" */
   "tooltip.close": SimplePhrase;
 
+  /** English: "Connection Logs" */
+  "tooltip.connectionLogs": SimplePhrase;
+
+  /** English: "No Connection Logs" */
+  "tooltip.connectionLogs--noLogs": SimplePhrase;
+
   /** English: "Copied to clipboard!" */
   "tooltip.copyConfirmed": SimplePhrase;
 
@@ -662,6 +698,40 @@ interface SharedPhrases {
 
   /** English: "Executions" */
   "executionOptions.title": SimplePhrase;
+
+  // config wizard
+  /** English: "This configuration page has no configuration." */
+  "configWizard.noConfigurationText": SimplePhrase;
+
+  // oauth connection component
+  /** English: "Connect" */
+  "oAuthConnection.connectButton": SimplePhrase;
+
+  /** English: "Disconnect" */
+  "oAuthConnection.disconnectButton": SimplePhrase;
+
+  // no results component
+  /** English: "No results" */
+  "noResults.title": SimplePhrase;
+
+  /** English: "Your search of "{searchTerm}" returned no results." */
+  "noResults.text": ComplexPhrase<{ searchTerm: string }>;
+
+  // listing pages empty state
+  /** English: "Integration marketplace" */
+  "emptyState.integrationMarketplaceTitle": SimplePhrase;
+
+  /** English: "Your integration marketplace is where your customers go to browse your integration offerings and self-activate the ones they want. It can be white-labeled and embedded in your app to create a native integration experience." */
+  "emptyState.integrationMarketplaceText": SimplePhrase;
+
+  /** English: "Here is where you set up which integrations are included in your marketplace and how they appear." */
+  "emptyState.integrationMarketplaceTextTwo": SimplePhrase;
+
+  /** English: "Learn about the integration marketplace" */
+  "emptyState.integrationMarketplaceDocsButton": SimplePhrase;
+
+  /** English: "Embedding marketplace in your app" */
+  "emptyState.integrationMarketplaceDocsButtonTwo": SimplePhrase;
 }
 
 export interface UniquePhrases {
