@@ -18,17 +18,7 @@ export {
   getMessageIframe,
 } from "./utils/postMessage";
 
-export {
-  ConfigVar,
-  ConnectionConfigVar,
-  ConnectionConfigVarInput,
-  DefaultConfigVar,
-  DefaultConfigVarInput,
-} from "./types/configVars";
-
-export { ScreenConfiguration } from "./types/screenConfiguration";
-
-export { Translation } from "./types/translation";
+export * from "./types";
 
 export default {
   authenticate,
