@@ -2,7 +2,7 @@ import { Options } from "../types/options";
 import { assertInit } from "../utils/assertInit";
 import { setIframe } from "../utils/iframe";
 
-type ShowDesignerProps = Options & {
+export type ShowDesignerProps = Options & {
   integrationId: string;
 };
 

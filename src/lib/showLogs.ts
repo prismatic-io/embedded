@@ -2,7 +2,7 @@ import { Options } from "../types/options";
 import { assertInit } from "../utils/assertInit";
 import { setIframe } from "../utils/iframe";
 
-type ShowLogsProps = Options & {};
+export type ShowLogsProps = Options & {};
 
 export const showLogs = (options: ShowLogsProps) => {
   assertInit("showLogs");

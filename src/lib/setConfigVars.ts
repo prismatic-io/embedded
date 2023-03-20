@@ -20,9 +20,12 @@ export type SetConfigVarsProps =
   | IFrameSetConfigVarProps
   | SelectorSetConfigVarProps;
 
-export const setConfigVars = ({ configVars, ...props }: SetConfigVarsProps) => {
+export const setConfigVars = ({
+  configVars,
+  ...options
+}: SetConfigVarsProps) => {
   postMessage({
-    ...props,
+    ...options,
     event: { event: "SET_CONFIG_VAR", data: configVars },
   });
 };
