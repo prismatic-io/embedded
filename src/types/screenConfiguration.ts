@@ -6,8 +6,11 @@ export interface InstanceScreenConfiguration {
 }
 
 export interface MarketplaceConfiguration {
-  configuration: "allow-details" | "always-show-details" | "disallow-details";
-  /** Include all active Integrations including those activated outside the Marketplace. */
+  configuration?: "allow-details" | "always-show-details" | "disallow-details";
+  /**
+   * Include all active Integrations including those activated outside the Marketplace.
+   * @default true
+   */
   includeActiveIntegrations?: boolean;
 }
 
