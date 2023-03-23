@@ -2,7 +2,7 @@ import { Options } from "../types/options";
 import { assertInit } from "../utils/assertInit";
 import { setIframe } from "../utils/iframe";
 
-type ConfigureInstanceProps = Options & {
+export type ConfigureInstanceProps = Options & {
   integrationName: string;
   skipRedirectOnRemove?: boolean;
 };

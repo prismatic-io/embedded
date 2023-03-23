@@ -3,7 +3,7 @@ import urlJoin from "url-join";
 import { state } from "../state";
 import { assertInit } from "../utils/assertInit";
 
-export interface graphqlRequestProps {
+export interface GraphqlRequestProps {
   query: string;
   variables?: Record<string, unknown>;
 }
@@ -11,7 +11,7 @@ export interface graphqlRequestProps {
 export const graphqlRequest = async ({
   query,
   variables,
-}: graphqlRequestProps) => {
+}: GraphqlRequestProps) => {
   assertInit("authenticate");
 
   const { jwt: accessToken, prismaticUrl } = state;

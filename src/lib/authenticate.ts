@@ -15,20 +15,20 @@ export interface AuthenticateProps {
   token: string;
 }
 
-export const authenticate = async (props: AuthenticateProps) => {
+export const authenticate = async (options: AuthenticateProps) => {
   assertInit("authenticate");
 
-  if (!props) {
+  if (!options) {
     throw new Error(ERROR_MESSAGE);
   }
 
-  const givenProps = new Set(Object.keys(props));
+  const givenProps = new Set(Object.keys(options));
 
   if (!EXPECTED_KEYS.every((key) => givenProps.has(key))) {
     throw new Error(ERROR_MESSAGE);
   }
 
-  const { token } = props;
+  const { token } = options;
 
   const iframeElement = document.getElementById(
     EMBEDDED_IFRAME_ID
@@ -46,7 +46,7 @@ export const authenticate = async (props: AuthenticateProps) => {
 
   state.jwt = token;
 
-  const prismaticUrl = props.prismaticUrl ?? state.prismaticUrl;
+  const prismaticUrl = options.prismaticUrl ?? state.prismaticUrl;
 
   const authResponse = await fetch(
     urlJoin(prismaticUrl, "embedded", "authenticate"),

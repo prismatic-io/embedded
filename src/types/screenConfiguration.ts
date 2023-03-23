@@ -1,24 +1,24 @@
-type TriggerDetails = "default" | "default-open" | "hidden";
+export type TriggerDetails = "default" | "default-open" | "hidden";
 
-interface InstanceScreenConfiguration {
+export interface InstanceScreenConfiguration {
   hideBackToMarketplace?: boolean;
   hideTabs?: Array<"Test" | "Executions" | "Monitors" | "Logs">;
 }
 
-interface MarketplaceConfiguration {
+export interface MarketplaceConfiguration {
   configuration: "allow-details" | "always-show-details" | "disallow-details";
   /** Include all active Integrations including those activated outside the Marketplace. */
   includeActiveIntegrations?: boolean;
 }
 
-interface InitializingConfiguration {
+export interface InitializingConfiguration {
   /** The background color of the loading screen */
   background: string;
   /** The font color of the loading screen text and loading icon */
   color: string;
 }
 
-interface ConfigurationWizardConfiguration {
+export interface ConfigurationWizardConfiguration {
   hideSidebar?: boolean;
   isInModal?: boolean;
   triggerDetailsConfiguration?: TriggerDetails;
