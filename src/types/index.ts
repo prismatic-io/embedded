@@ -25,6 +25,15 @@ export {
   TriggerDetails,
 } from "./screenConfiguration";
 
+export {
+  InstanceConfigurationData,
+  MessageData, // deprecated, aliased from PostMessage
+  PostMessage,
+  PostMessageEvent,
+  PrismaticMessageEvent, // deprecated, aliased from PostMessageEvent
+  UserConfigurationData,
+} from "./postMessage";
+
 export { InitProps } from "../lib/init";
 
 export { ShowMarketplaceProps } from "../lib/showMarketplace";

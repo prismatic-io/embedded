@@ -1,68 +1,18 @@
 import { getIframeElement, isIframe } from "./iframe";
-import { ConfigVar } from "../types/configVars";
 
-export enum PrismaticMessageEvent {
-  INSTANCE_CONFIGURATION_CLOSED = "INSTANCE_CONFIGURATION_CLOSED",
-  INSTANCE_CONFIGURATION_LOADED = "INSTANCE_CONFIGURATION_LOADED",
-  INSTANCE_CONFIGURATION_OPENED = "INSTANCE_CONFIGURATION_OPENED",
-  INSTANCE_CREATED = "INSTANCE_CREATED",
-  INSTANCE_DELETED = "INSTANCE_DELETED",
-  INSTANCE_DEPLOYED = "INSTANCE_DEPLOYED",
-  SET_CONFIG_VAR = "SET_CONFIG_VAR",
-  SET_SCREEN_CONFIGURATION = "SET_SCREEN_CONFIGURATION",
-  SET_TOKEN = "SET_TOKEN",
-  SET_TRANSLATION = "SET_TRANSLATION",
-  SET_VERSION = "SET_VERSION",
-}
-
-interface InstanceData {
-  customerId: string;
-  customerName: string;
-  instanceId: string;
-  instanceName: string;
-  integrationName: string;
-  integrationVersionNumber: number;
-}
-
-export type MessageData =
-  | {
-      data: InstanceData;
-      event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_OPENED;
-    }
-  | {
-      data: InstanceData & { configVars: Record<string, ConfigVar> };
-      event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_LOADED;
-    }
-  | {
-      data: InstanceData;
-      event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_CLOSED;
-    }
-  | {
-      data: InstanceData;
-      event: PrismaticMessageEvent.INSTANCE_CREATED;
-    }
-  | {
-      data: InstanceData;
-      event: PrismaticMessageEvent.INSTANCE_DELETED;
-    }
-  | {
-      data: InstanceData;
-      event: PrismaticMessageEvent.INSTANCE_DEPLOYED;
-    };
-
-interface BasePostMessageProps {
+interface PostMessageBase {
   event: unknown;
 }
 
-export interface SelectorPostMessageProps extends BasePostMessageProps {
+export interface SelectorPostMessage extends PostMessageBase {
   selector?: string;
 }
 
-export interface ElementPostMessageProps extends BasePostMessageProps {
+export interface ElementPostMessage extends PostMessageBase {
   iframe: Element;
 }
 
-type PostMessageProps = SelectorPostMessageProps | ElementPostMessageProps;
+type PostMessageProps = SelectorPostMessage | ElementPostMessage;
 
 export const getMessageIframe = (event: MessageEvent) =>
   Array.from(document.getElementsByTagName("iframe")).find(
@@ -71,7 +21,7 @@ export const getMessageIframe = (event: MessageEvent) =>
 
 const isIframePostMessage = (
   props: PostMessageProps
-): props is ElementPostMessageProps => "iframe" in props;
+): props is ElementPostMessage => "iframe" in props;
 
 export const postMessage = (props: PostMessageProps) => {
   const iframeElement = isIframePostMessage(props)

@@ -1,7 +1,7 @@
 import urlJoin from "url-join";
 
+import { PostMessageEvent } from "../types/postMessage";
 import { EMBEDDED_IFRAME_ID } from "../utils/iframe";
-import { PrismaticMessageEvent } from "../utils/postMessage";
 import { assertInit } from "../utils/assertInit";
 import { postMessage } from "../utils/postMessage";
 import { state } from "../state";
@@ -38,7 +38,7 @@ export const authenticate = async (options: AuthenticateProps) => {
     postMessage({
       iframe: iframeElement,
       event: {
-        event: PrismaticMessageEvent.SET_TOKEN,
+        event: PostMessageEvent.SET_TOKEN,
         data: token,
       },
     });

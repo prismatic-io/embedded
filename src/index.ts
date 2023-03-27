@@ -12,11 +12,7 @@ import {
   showMarketplace,
 } from "./lib";
 
-export {
-  MessageData,
-  PrismaticMessageEvent,
-  getMessageIframe,
-} from "./utils/postMessage";
+export { getMessageIframe } from "./utils/postMessage";
 
 export * from "./types";
 

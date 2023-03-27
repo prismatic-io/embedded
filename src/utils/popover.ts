@@ -5,6 +5,7 @@ import {
   getIframeContainerElement,
   isIframe,
 } from "./iframe";
+import { PostMessageEvent } from "../types/postMessage";
 
 export const getPopover = () =>
   document.querySelector(EMBEDDED_OVERLAY_SELECTOR);
@@ -22,7 +23,7 @@ export const closePopover = () => {
   }
 
   iframeElement.contentWindow?.postMessage(
-    { event: "MARKETPLACE_CLOSED" },
+    { event: PostMessageEvent.MARKETPLACE_CLOSED },
     "*"
   );
 

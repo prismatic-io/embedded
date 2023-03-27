@@ -1,3 +1,4 @@
+import { PostMessageEvent } from "../types/postMessage";
 import { postMessage } from "../utils/postMessage";
 import {
   ConnectionConfigVarInput,
@@ -26,6 +27,6 @@ export const setConfigVars = ({
 }: SetConfigVarsProps) => {
   postMessage({
     ...options,
-    event: { event: "SET_CONFIG_VAR", data: configVars },
+    event: { event: PostMessageEvent.SET_CONFIG_VAR, data: configVars },
   });
 };
