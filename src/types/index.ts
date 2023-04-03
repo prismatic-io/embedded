@@ -27,10 +27,8 @@ export {
 
 export {
   InstanceConfigurationData,
-  MessageData, // deprecated, aliased from PostMessage
-  PostMessage,
-  PostMessageEvent,
-  PrismaticMessageEvent, // deprecated, aliased from PostMessageEvent
+  MessageData,
+  PrismaticMessageEvent,
   UserConfigurationData,
 } from "./postMessage";
 

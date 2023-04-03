@@ -1,4 +1,4 @@
-import { PostMessageEvent } from "../types/postMessage";
+import { PrismaticMessageEvent } from "../types/postMessage";
 import { postMessage } from "../utils/postMessage";
 import {
   ConnectionConfigVarInput,
@@ -27,6 +27,6 @@ export const setConfigVars = ({
 }: SetConfigVarsProps) => {
   postMessage({
     ...options,
-    event: { event: PostMessageEvent.SET_CONFIG_VAR, data: configVars },
+    event: { event: PrismaticMessageEvent.SET_CONFIG_VAR, data: configVars },
   });
 };

@@ -21,7 +21,7 @@ export interface UserConfigurationData extends InstanceConfigurationBase {
   userName: string;
 }
 
-export enum PostMessageEvent {
+export enum PrismaticMessageEvent {
   INSTANCE_CONFIGURATION_CLOSED = "INSTANCE_CONFIGURATION_CLOSED",
   INSTANCE_CONFIGURATION_LOADED = "INSTANCE_CONFIGURATION_LOADED",
   INSTANCE_CONFIGURATION_OPENED = "INSTANCE_CONFIGURATION_OPENED",
@@ -41,58 +41,48 @@ export enum PostMessageEvent {
   USER_CONFIGURATION_OPENED = "USER_CONFIGURATION_OPENED",
 }
 
-/**
- * @deprecated Use PostMessageEvent instead
- */
-export type PrismaticMessageEvent = PostMessageEvent;
-
-export type PostMessage =
+export type MessageData =
   | {
       data: InstanceConfigurationData;
-      event: PostMessageEvent.INSTANCE_CONFIGURATION_OPENED;
+      event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_OPENED;
     }
   | {
       data: InstanceConfigurationData;
-      event: PostMessageEvent.INSTANCE_CONFIGURATION_LOADED;
+      event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_LOADED;
     }
   | {
       data: InstanceConfigurationData;
-      event: PostMessageEvent.INSTANCE_CONFIGURATION_CLOSED;
+      event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_CLOSED;
     }
   | {
       data: InstanceConfigurationData;
-      event: PostMessageEvent.INSTANCE_CREATED;
+      event: PrismaticMessageEvent.INSTANCE_CREATED;
     }
   | {
       data: InstanceConfigurationData;
-      event: PostMessageEvent.INSTANCE_DELETED;
+      event: PrismaticMessageEvent.INSTANCE_DELETED;
     }
   | {
       data: InstanceConfigurationData;
-      event: PostMessageEvent.INSTANCE_DEPLOYED;
+      event: PrismaticMessageEvent.INSTANCE_DEPLOYED;
     }
   | {
       data: UserConfigurationData;
-      event: PostMessageEvent.USER_CONFIGURATION_DELETED;
+      event: PrismaticMessageEvent.USER_CONFIGURATION_DELETED;
     }
   | {
       data: UserConfigurationData;
-      event: PostMessageEvent.USER_CONFIGURATION_DEPLOYED;
+      event: PrismaticMessageEvent.USER_CONFIGURATION_DEPLOYED;
     }
   | {
       data: UserConfigurationData;
-      event: PostMessageEvent.USER_CONFIGURATION_CLOSED;
+      event: PrismaticMessageEvent.USER_CONFIGURATION_CLOSED;
     }
   | {
       data: UserConfigurationData;
-      event: PostMessageEvent.USER_CONFIGURATION_LOADED;
+      event: PrismaticMessageEvent.USER_CONFIGURATION_LOADED;
     }
   | {
       data: UserConfigurationData;
-      event: PostMessageEvent.USER_CONFIGURATION_OPENED;
+      event: PrismaticMessageEvent.USER_CONFIGURATION_OPENED;
     };
-
-/**
- * @deprecated Use PostMessage instead
- */
-export type MessageData = PostMessage;

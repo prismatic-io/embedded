@@ -1,6 +1,6 @@
 import merge from "lodash.merge";
 
-import { PostMessageEvent } from "../types/postMessage";
+import { PrismaticMessageEvent } from "../types/postMessage";
 import { isPopover, Options } from "../types/options";
 import { openPopover } from "./popover";
 import { postMessage } from "./postMessage";
@@ -125,7 +125,7 @@ export const setIframe = (
         postMessage({
           iframe: iframeElement,
           event: {
-            event: PostMessageEvent.SET_TOKEN,
+            event: PrismaticMessageEvent.SET_TOKEN,
             data: state.jwt,
           },
         });
@@ -135,7 +135,7 @@ export const setIframe = (
         postMessage({
           iframe: iframeElement,
           event: {
-            event: PostMessageEvent.SET_VERSION,
+            event: PrismaticMessageEvent.SET_VERSION,
             data: EMBEDDED_VERSION,
           },
         });
@@ -145,7 +145,7 @@ export const setIframe = (
         postMessage({
           iframe: iframeElement,
           event: {
-            event: PostMessageEvent.SET_TRANSLATION,
+            event: PrismaticMessageEvent.SET_TRANSLATION,
             data: state.translation,
           },
         });
@@ -155,7 +155,7 @@ export const setIframe = (
         postMessage({
           iframe: iframeElement,
           event: {
-            event: PostMessageEvent.SET_SCREEN_CONFIGURATION,
+            event: PrismaticMessageEvent.SET_SCREEN_CONFIGURATION,
             data: state.screenConfiguration,
           },
         });
