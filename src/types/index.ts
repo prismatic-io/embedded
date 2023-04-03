@@ -25,6 +25,13 @@ export {
   TriggerDetails,
 } from "./screenConfiguration";
 
+export {
+  InstanceConfigurationData,
+  MessageData,
+  PrismaticMessageEvent,
+  UserConfigurationData,
+} from "./postMessage";
+
 export { InitProps } from "../lib/init";
 
 export { ShowMarketplaceProps } from "../lib/showMarketplace";

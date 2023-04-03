@@ -1,7 +1,7 @@
 import urlJoin from "url-join";
 
+import { PrismaticMessageEvent } from "../types/postMessage";
 import { EMBEDDED_IFRAME_ID } from "../utils/iframe";
-import { PrismaticMessageEvent } from "../utils/postMessage";
 import { assertInit } from "../utils/assertInit";
 import { postMessage } from "../utils/postMessage";
 import { state } from "../state";

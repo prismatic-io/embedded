@@ -1,6 +1,6 @@
 import merge from "lodash.merge";
 
-import { PrismaticMessageEvent } from "./postMessage";
+import { PrismaticMessageEvent } from "../types/postMessage";
 import { isPopover, Options } from "../types/options";
 import { openPopover } from "./popover";
 import { postMessage } from "./postMessage";
