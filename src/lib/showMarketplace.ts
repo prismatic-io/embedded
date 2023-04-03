@@ -4,7 +4,9 @@ import { setIframe } from "../utils/iframe";
 
 export type ShowMarketplaceProps = Options & {};
 
-export const showMarketplace = (options: ShowMarketplaceProps) => {
+export const showMarketplace = (
+  options: ShowMarketplaceProps = { usePopover: true }
+) => {
   assertInit("showMarketplace");
 
   setIframe(
@@ -12,10 +14,10 @@ export const showMarketplace = (options: ShowMarketplaceProps) => {
     {
       ...options,
       screenConfiguration: {
-        ...options.screenConfiguration,
+        ...(options?.screenConfiguration ?? {}),
         marketplace: {
           includeActiveIntegrations: true,
-          ...options.screenConfiguration?.marketplace,
+          ...(options?.screenConfiguration?.marketplace ?? {}),
         },
       },
     },
