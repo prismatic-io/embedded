@@ -1,5 +1,13 @@
+import { configureInstance } from "./configureInstance";
+
 export { authenticate } from "./authenticate";
-export { configureInstance } from "./configureInstance";
+export {
+  configureInstance,
+  /**
+   * @deprecated Use configureInstance instead
+   */
+  configureInstance as configureIntegration, // alias for backwards compatibility
+};
 export { graphqlRequest } from "./graphqlRequest";
 export { init } from "./init";
 export { setConfigVars } from "./setConfigVars";
