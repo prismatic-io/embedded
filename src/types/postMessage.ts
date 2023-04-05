@@ -1,6 +1,6 @@
 import { ConfigVar } from "./configVars";
 
-interface InstanceConfigurationData {
+export interface InstanceConfigurationData {
   customerId: string;
   customerName: string;
   instanceId: string;
