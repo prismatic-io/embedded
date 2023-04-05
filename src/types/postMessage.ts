@@ -1,6 +1,6 @@
 import { ConfigVar } from "./configVars";
 
-interface InstanceConfigurationBase {
+interface InstanceConfigurationData {
   customerId: string;
   customerName: string;
   instanceId: string;
@@ -9,11 +9,12 @@ interface InstanceConfigurationBase {
   integrationVersionNumber: number;
 }
 
-export interface InstanceConfigurationData extends InstanceConfigurationBase {
-  configVars: Record<string, ConfigVar> | undefined;
+export interface InstanceConfigurationLoadedData
+  extends InstanceConfigurationData {
+  configVars: Record<string, ConfigVar>;
 }
 
-export interface UserConfigurationData extends InstanceConfigurationBase {
+export interface UserConfigurationData extends InstanceConfigurationData {
   userConfigId: string | undefined;
   userEmail: string;
   userId: string;
@@ -47,7 +48,7 @@ export type MessageData =
       event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_OPENED;
     }
   | {
-      data: InstanceConfigurationData;
+      data: InstanceConfigurationLoadedData;
       event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_LOADED;
     }
   | {
