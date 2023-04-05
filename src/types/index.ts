@@ -27,6 +27,7 @@ export {
 
 export {
   InstanceConfigurationData,
+  InstanceConfigurationLoadedData,
   MessageData,
   PrismaticMessageEvent,
   UserConfigurationData,
