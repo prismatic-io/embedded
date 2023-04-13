@@ -68,30 +68,10 @@ export const setIframe = (
     queryParams.set("theme", state.theme);
   }
 
-  if (state.filters?.category) {
-    queryParams.set("categorySearch", state.filters.category);
-  }
-
-  if (state.filters?.label) {
-    queryParams.set("labelSearch", state.filters.label);
-  }
-
   if (state.screenConfiguration?.initializing) {
     queryParams.set(
       "initializing",
       JSON.stringify(state.screenConfiguration.initializing)
-    );
-  }
-
-  if (state.filters) {
-    queryParams.set(
-      "hiddenFilters",
-      Object.entries(state.filters)
-        .reduce<string[]>(
-          (acc, [key, value]) => (value ? acc.concat(`${key}Search`) : acc),
-          []
-        )
-        .join(",")
     );
   }
 
@@ -157,6 +137,16 @@ export const setIframe = (
           event: {
             event: PrismaticMessageEvent.SET_SCREEN_CONFIGURATION,
             data: state.screenConfiguration,
+          },
+        });
+      }
+
+      if (state.filters) {
+        postMessage({
+          iframe: iframeElement,
+          event: {
+            event: PrismaticMessageEvent.SET_FILTERS,
+            data: state.filters,
           },
         });
       }
