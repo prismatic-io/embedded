@@ -256,6 +256,9 @@ interface SharedPhrases {
   /** English: "Search %{type}" */
   "input.filterSearchPlaceholder": ComplexPhrase<{ type?: string }>;
 
+   /** English: "Has outdated components" */
+   "input.hasOutdatedComponentsLabel": SimplePhrase;
+
   /** English: "Add header" */
   "input.headersAddButton": SimplePhrase;
 
