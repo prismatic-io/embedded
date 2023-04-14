@@ -16,6 +16,7 @@ export interface State {
 export const state: State = {
   filters: {
     category: undefined,
+    filterQuery: undefined,
     label: undefined,
   },
   initComplete: false,

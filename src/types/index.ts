@@ -4,7 +4,12 @@ export { Translation } from "./translation";
 
 export { SelectorOptions, PopoverOptions, Options } from "./options";
 
-export { Filters } from "./filters";
+export {
+  BooleanOperator,
+  ConditionalExpression,
+  Filters,
+  TermOperator,
+} from "./filters";
 
 export { Theme } from "./theme";
 
