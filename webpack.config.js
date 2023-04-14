@@ -4,7 +4,7 @@ const package = require("./package.json");
 
 module.exports = {
   mode: "production",
-  target: "node",
+  node: { global: true },
   module: {
     rules: [
       {
