@@ -1,4 +1,4 @@
-export { Phrases } from "./phrases";
+export { Phrases } from "@prismatic-io/translations";
 
 export { Translation } from "./translation";
 
