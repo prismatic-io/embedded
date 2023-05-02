@@ -66,7 +66,7 @@ export type MessageData =
       event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_LOADED;
     }
   | {
-      data: InstanceConfigurationLoadedData;
+      data: InstanceConfigurationPageLoadedData;
       event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_PAGE_LOADED;
     }
   | {
