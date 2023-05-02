@@ -102,6 +102,10 @@ export type MessageData =
       event: PrismaticMessageEvent.USER_CONFIGURATION_LOADED;
     }
   | {
+      data: UserConfigurationPageData;
+      event: PrismaticMessageEvent.USER_CONFIGURATION_PAGE_LOADED;
+    }
+  | {
       data: UserConfigurationData;
       event: PrismaticMessageEvent.USER_CONFIGURATION_OPENED;
     };
