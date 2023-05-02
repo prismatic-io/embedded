@@ -14,6 +14,12 @@ export interface InstanceConfigurationLoadedData
   configVars: Record<string, ConfigVar>;
 }
 
+export interface InstanceConfigurationPageLoadedData
+  extends InstanceConfigurationLoadedData {
+  pageName: string;
+  pageContent: Record<string, unknown>;
+}
+
 export interface UserConfigurationData extends InstanceConfigurationData {
   userConfigId: string | undefined;
   userEmail: string;
@@ -22,9 +28,15 @@ export interface UserConfigurationData extends InstanceConfigurationData {
   userName: string;
 }
 
+export interface UserConfigurationPageData extends UserConfigurationData {
+  pageName: string;
+  pageContent: Record<string, unknown>;
+}
+
 export enum PrismaticMessageEvent {
   INSTANCE_CONFIGURATION_CLOSED = "INSTANCE_CONFIGURATION_CLOSED",
   INSTANCE_CONFIGURATION_LOADED = "INSTANCE_CONFIGURATION_LOADED",
+  INSTANCE_CONFIGURATION_PAGE_LOADED = "INSTANCE_CONFIGURATION_PAGE_LOADED",
   INSTANCE_CONFIGURATION_OPENED = "INSTANCE_CONFIGURATION_OPENED",
   INSTANCE_CREATED = "INSTANCE_CREATED",
   INSTANCE_DELETED = "INSTANCE_DELETED",
@@ -40,6 +52,7 @@ export enum PrismaticMessageEvent {
   USER_CONFIGURATION_DELETED = "USER_CONFIGURATION_DELETED",
   USER_CONFIGURATION_DEPLOYED = "USER_CONFIGURATION_DEPLOYED",
   USER_CONFIGURATION_LOADED = "USER_CONFIGURATION_LOADED",
+  USER_CONFIGURATION_PAGE_LOADED = "USER_CONFIGURATION_PAGE_LOADED",
   USER_CONFIGURATION_OPENED = "USER_CONFIGURATION_OPENED",
 }
 
@@ -51,6 +64,10 @@ export type MessageData =
   | {
       data: InstanceConfigurationLoadedData;
       event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_LOADED;
+    }
+  | {
+      data: InstanceConfigurationLoadedData;
+      event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_PAGE_LOADED;
     }
   | {
       data: InstanceConfigurationData;
