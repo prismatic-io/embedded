@@ -18,16 +18,16 @@ export interface InitProps
 export const init = (options?: InitProps) => {
   const existingElement = document.getElementById(EMBEDDED_ID);
 
-  if (existingElement) {
-    return;
-  }
-
   if (options) {
     Object.entries(options).forEach(([key, value]) => {
       if (key in state) {
         state[key] = value;
       }
     });
+  }
+
+  if (existingElement) {
+    return;
   }
 
   state.initComplete = true;
