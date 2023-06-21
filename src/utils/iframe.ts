@@ -76,17 +76,66 @@ export const setIframe = (
   }
 
   iframeContainerElement.innerHTML = /* html */ `
-    <iframe 
+    <iframe
       id="${EMBEDDED_IFRAME_ID}"
-      src="${state.prismaticUrl}/${route}/?${queryParams.toString()}" 
-      height="100%" 
-      width="100%" 
+      src="${state.prismaticUrl}/${route}/?${queryParams.toString()}"
+      height="100%"
+      width="100%"
       frameBorder="0"
       allow="clipboard-read; clipboard-write"
     ></iframe>
   `;
 
   const iframeElement = iframeContainerElement.querySelector("iframe");
+
+  if (iframeElement) {
+    window.addEventListener(
+      "message",
+      (event: MessageEvent<{ event: string }>) => {
+        if (event.data?.event === "PRISMATIC_INITIALIZED") {
+          postMessage({
+            iframe: iframeElement,
+            event: {
+              event: PrismaticMessageEvent.SET_TOKEN,
+              data: state.jwt,
+            },
+          });
+
+          postMessage({
+            iframe: iframeElement,
+            event: {
+              event: PrismaticMessageEvent.SET_VERSION,
+              data: EMBEDDED_VERSION,
+            },
+          });
+
+          postMessage({
+            iframe: iframeElement,
+            event: {
+              event: PrismaticMessageEvent.SET_TRANSLATION,
+              data: state.translation,
+            },
+          });
+
+          postMessage({
+            iframe: iframeElement,
+            event: {
+              event: PrismaticMessageEvent.SET_SCREEN_CONFIGURATION,
+              data: state.screenConfiguration,
+            },
+          });
+
+          postMessage({
+            iframe: iframeElement,
+            event: {
+              event: PrismaticMessageEvent.SET_FILTERS,
+              data: state.filters,
+            },
+          });
+        }
+      }
+    );
+  }
 
   if (iframeElement && options?.autoFocusIframe !== false) {
     iframeElement.addEventListener("mouseenter", () => {
@@ -96,60 +145,5 @@ export const setIframe = (
 
   if (isPopover(options)) {
     openPopover();
-  }
-
-  if (iframeElement) {
-    iframeElement.onload = () => {
-      // TODO: JC - This is redundant for the fact that the JWT is still being passed as a query param. We'll eventually do this refactor to avoid passing the JWT as a query param. Reference https://github.com/prismatic-io/prismatic/pull/5324
-      if (state.jwt) {
-        postMessage({
-          iframe: iframeElement,
-          event: {
-            event: PrismaticMessageEvent.SET_TOKEN,
-            data: state.jwt,
-          },
-        });
-      }
-
-      if (EMBEDDED_VERSION) {
-        postMessage({
-          iframe: iframeElement,
-          event: {
-            event: PrismaticMessageEvent.SET_VERSION,
-            data: EMBEDDED_VERSION,
-          },
-        });
-      }
-
-      if (state.translation) {
-        postMessage({
-          iframe: iframeElement,
-          event: {
-            event: PrismaticMessageEvent.SET_TRANSLATION,
-            data: state.translation,
-          },
-        });
-      }
-
-      if (state.screenConfiguration) {
-        postMessage({
-          iframe: iframeElement,
-          event: {
-            event: PrismaticMessageEvent.SET_SCREEN_CONFIGURATION,
-            data: state.screenConfiguration,
-          },
-        });
-      }
-
-      if (state.filters) {
-        postMessage({
-          iframe: iframeElement,
-          event: {
-            event: PrismaticMessageEvent.SET_FILTERS,
-            data: state.filters,
-          },
-        });
-      }
-    };
   }
 };
