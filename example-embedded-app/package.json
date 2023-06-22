@@ -1,0 +1,58 @@
+{
+  "name": "example-embedded-app",
+  "version": "1.0.0",
+  "title": "Example app for embedding Prismatic",
+  "author": {
+    "name": "Prismatic",
+    "url": "https://prismatic.io"
+  },
+  "private": true,
+  "dependencies": {
+    "@emotion/cache": "11.11.0",
+    "@emotion/react": "11.11.1",
+    "@emotion/server": "11.11.0",
+    "@emotion/styled": "11.11.0",
+    "@mui/base": "^5.0.0-beta.4",
+    "@mui/icons-material": "5.11.16",
+    "@mui/material": "5.13.5",
+    "@mui/styles": "5.13.2",
+    "@prismatic-io/embedded": "^1.5.4",
+    "apexcharts": "3.41.0",
+    "axios": "^0.27.2",
+    "clsx": "1.2.1",
+    "context-api": "0.0.2",
+    "date-fns": "2.30.0",
+    "jsonwebtoken": "^9.0.0",
+    "next": "12.1.6",
+    "nprogress": "0.2.0",
+    "react": "17.0.2",
+    "react-apexcharts": "1.4.0",
+    "react-custom-scrollbars-2": "4.5.0",
+    "react-dom": "17.0.2",
+    "react-markdown": "^8.0.7",
+    "swr": "^2.1.5"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "lint": "next lint",
+    "lint-fix": "next lint --fix",
+    "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\" --config ./.prettierrc"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.39",
+    "@types/nprogress": "0.2.0",
+    "@types/react": "17.0.40",
+    "@types/react-dom": "17.0.13",
+    "eslint": "8.42.0",
+    "eslint-config-next": "13.4.5",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "next-transpile-modules": "10.0.0",
+    "prettier": "2.8.8",
+    "raw-loader": "^4.0.2",
+    "typescript": "4.7.3"
+  }
+}
