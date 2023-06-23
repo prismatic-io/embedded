@@ -150,8 +150,23 @@ function CustomUiElements() {
             {marketplaceIntegrations
               .filter((integration) => integration.isCustomerDeployable)
               .map((integration) => (
-                <Grid item xs={6} md={4} key={integration.id}>
-                  <Card elevation={3}>
+                <Grid
+                  item
+                  xs={6}
+                  md={4}
+                  key={integration.id}
+                  display="stretch"
+                  flexDirection="column"
+                >
+                  <Card
+                    elevation={3}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      height: "100%",
+                    }}
+                  >
                     <CardHeader
                       avatar={
                         <PrismaticAvatar
