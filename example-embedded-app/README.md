@@ -19,7 +19,7 @@ While some code in this directory is boilerplate NextJS code, these files contai
 
 To run this example embedded application yourself, ensure that you have a modern version of [Node.js](https://nodejs.org/) installed. Then, install this package's dependencies by running `npm install` from the `example-embedded-app` directory.
 
-Next, make a copy of `prismatic/config.ts.template` called `prismatic/config.ts`.Populate `prismatic/config.ts` with the information you need to generate JWT tokens for customer user authentication:
+Next, make a copy of `prismatic/config.ts.template` called `prismatic/config.ts`. Populate `prismatic/config.ts` with the information you need to generate JWT tokens for customer user authentication:
 
 - Replace `signingKey` with a signing key that you generate [in Prismatic](https://prismatic.io/docs/installing-embedded/#jwt-signing-keys).
 - If your tenant is not in the US commercial region, replace `prismaticUrl` with your tenant's region.

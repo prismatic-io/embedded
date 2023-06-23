@@ -61,15 +61,22 @@ function PrismaticAvatar({ avatarUrl, token }) {
   const [src, setSrc] = React.useState("");
 
   useEffect(() => {
+    let mounted = true;
     if (avatarUrl) {
       fetch(`${config.prismaticUrl}${avatarUrl}`, {
         headers: { Authorization: `Bearer ${token}` },
       }).then((response) => {
         response.json().then((data) => {
-          setSrc(data.url);
+          if (mounted) {
+            setSrc(data.url);
+          }
         });
       });
     }
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   if (!avatarUrl) {
@@ -91,6 +98,8 @@ function CustomUiElements() {
   >([]);
 
   React.useEffect(() => {
+    let mounted = true;
+
     if (authenticated && token) {
       const fetchMarketplaceData = async () => {
         const query = `query getMarketplaceIntegrations {
@@ -125,11 +134,20 @@ function CustomUiElements() {
           }
         }`;
         const response = await prismatic.graphqlRequest({ query });
-        setMarketplaceIntegrations(response.data.marketplaceIntegrations.nodes);
-        setMarketplaceLoading(false);
+
+        if (mounted) {
+          setMarketplaceIntegrations(
+            response.data.marketplaceIntegrations.nodes,
+          );
+          setMarketplaceLoading(false);
+        }
       };
       fetchMarketplaceData();
     }
+
+    return () => {
+      mounted = false;
+    };
   }, [authenticated, token]);
 
   return (

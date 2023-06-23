@@ -1,4 +1,4 @@
-import type { ReactElement, ReactNode } from "react";
+import { useEffect, type ReactElement, type ReactNode } from "react";
 
 import prismatic from "@prismatic-io/embedded";
 import config from "../prismatic/config";
@@ -34,9 +34,20 @@ function ExampleApp(props: ExampleAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  Router.events.on("routeChangeStart", nProgress.start);
-  Router.events.on("routeChangeError", nProgress.done);
-  Router.events.on("routeChangeComplete", nProgress.done);
+  useEffect(() => {
+    const handleStart = nProgress.start;
+    const handleDone = nProgress.done;
+
+    Router.events.on("routeChangeStart", handleStart);
+    Router.events.on("routeChangeError", handleDone);
+    Router.events.on("routeChangeComplete", handleDone);
+
+    () => {
+      Router.events.off("routeChangeStart", handleStart);
+      Router.events.off("routeChangeError", handleDone);
+      Router.events.off("routeChangeComplete", handleDone);
+    };
+  }, []);
 
   return (
     <CacheProvider value={emotionCache}>
