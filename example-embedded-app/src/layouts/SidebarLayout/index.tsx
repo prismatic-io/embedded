@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import { BorderBottom } from "@mui/icons-material";
 
 interface SidebarLayoutProps {
   children?: ReactNode;
