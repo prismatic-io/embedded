@@ -1,0 +1,135 @@
+category: ''
+configPages:
+  - elements:
+      - type: htmlElement
+        value: <h2>Acme Connection Information</h2>
+      - type: htmlElement
+        value: <p>We will fill in values for API URL and API Key on your behalf.</p>
+      - type: configVar
+        value: Acme API URL
+      - type: configVar
+        value: Acme API Key
+      - type: htmlElement
+        value: <h2>Third-Party Connection Information</h2>
+      - type: configVar
+        value: Third-Party Credentials
+    name: Configuration
+    tagline: ''
+definitionVersion: 7
+description: ''
+documentation: ''
+endpointType: flow_specific
+flows:
+  - description: ''
+    endpointSecurityType: customer_optional
+    isSynchronous: false
+    name: Flow 1
+    steps:
+      - action:
+          key: webhook
+          component:
+            isPublic: true
+            key: webhook-triggers
+            version: LATEST
+        description: ''
+        inputs:
+          body:
+            type: value
+            value: ''
+          contentType:
+            type: value
+            value: ''
+          headers:
+            type: complex
+            value: []
+          statusCode:
+            type: value
+            value: ''
+        isTrigger: true
+        name: Integration Trigger
+      - action:
+          key: httpPost
+          component:
+            isPublic: true
+            key: http
+            version: LATEST
+        description: ''
+        inputs:
+          connection:
+            type: configVar
+            value: Acme API Key
+          data:
+            type: value
+            value: '{"exampleData": "exampleValue"}'
+          debugRequest:
+            type: value
+            value: 'false'
+          headers:
+            type: complex
+            value: []
+          ignoreSslErrors:
+            type: value
+            value: 'false'
+          includeFullResponse:
+            type: value
+            value: 'false'
+          maxRetries:
+            type: value
+            value: '0'
+          queryParams:
+            type: complex
+            value: []
+          responseType:
+            type: value
+            value: json
+          retryDelayMS:
+            type: value
+            value: '0'
+          retryOnAllErrors:
+            type: value
+            value: 'false'
+          timeout:
+            type: value
+            value: ''
+          url:
+            type: configVar
+            value: Acme API URL
+          useExponentialBackoff:
+            type: value
+            value: 'false'
+        name: POST Request
+name: Setting Config Variables Example
+requiredConfigVars:
+  - dataType: string
+    defaultValue: ''
+    key: Acme API URL
+    orgOnly: false
+  - connection:
+      key: apiKey
+      component:
+        isPublic: true
+        key: http
+        version: LATEST
+    dataType: connection
+    inputs:
+      apiKey:
+        type: value
+        value: ''
+    key: Acme API Key
+    orgOnly: false
+  - connection:
+      key: basic
+      component:
+        isPublic: true
+        key: http
+        version: LATEST
+    dataType: connection
+    inputs:
+      password:
+        type: value
+        value: ''
+      username:
+        type: value
+        value: ''
+    key: Third-Party Credentials
+    orgOnly: false
