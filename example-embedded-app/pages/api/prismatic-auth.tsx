@@ -18,6 +18,7 @@ export default function handler(req, res) {
       customer: config.customer,
       iat: currentTime,
       exp: currentTime + 60 * 60 * 4, // 4 hours from now
+      role: config.role,
     },
     config.signingKey, // Store this somewhere safe
     { algorithm: "RS256" },
