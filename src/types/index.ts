@@ -23,6 +23,7 @@ export {
 
 export {
   ConfigurationWizardConfiguration,
+  DashboardScreenConfiguration,
   InitializingConfiguration,
   InstanceScreenConfiguration,
   MarketplaceConfiguration,

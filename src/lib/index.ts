@@ -13,6 +13,7 @@ export { init } from "./init";
 export { setConfigVars } from "./setConfigVars";
 export { showComponent } from "./showComponent";
 export { showComponents } from "./showComponents";
+export { showDashboard } from "./showDashboard";
 export { showDesigner } from "./showDesigner";
 export { showIntegrations } from "./showIntegrations";
 export { showLogs } from "./showLogs";
