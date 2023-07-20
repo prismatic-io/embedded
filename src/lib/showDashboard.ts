@@ -9,21 +9,5 @@ export const showDashboard = (
 ) => {
   assertInit("showDashboard");
 
-  setIframe(
-    "dashboard",
-    {
-      ...options,
-      screenConfiguration: {
-        ...(options?.screenConfiguration ?? {}),
-        dashboard: {
-          ...(options.screenConfiguration?.dashboard ?? {}),
-          hideTabs: [
-            ...(options.screenConfiguration?.dashboard?.hideTabs ?? []),
-            "Details",
-          ],
-        },
-      },
-    },
-    {}
-  );
+  setIframe("dashboard", options, {});
 };

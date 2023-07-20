@@ -31,7 +31,6 @@ export interface DashboardScreenConfiguration {
   hideTabs?: Array<
     | "Attachments"
     | "Components"
-    | "Details"
     | "Executions"
     | "Instances"
     | "Integrations"
