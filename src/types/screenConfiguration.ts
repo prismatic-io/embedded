@@ -10,6 +10,7 @@ export interface MarketplaceConfiguration {
   /**
    * Include all active Integrations including those activated outside the Marketplace.
    * @default true
+   * @deprecated Use marketplace filter instead
    */
   includeActiveIntegrations?: boolean;
 }

@@ -6,8 +6,11 @@ export { SelectorOptions, PopoverOptions, Options } from "./options";
 
 export {
   BooleanOperator,
+  ComponentsFilters,
   ConditionalExpression,
   Filters,
+  IntegrationsFilters,
+  MarketplaceFilters,
   TermOperator,
 } from "./filters";
 
