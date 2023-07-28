@@ -43,6 +43,8 @@ export { InitProps } from "../lib/init";
 
 export { ShowMarketplaceProps } from "../lib/showMarketplace";
 
+export { ShowDashboardProps } from "../lib/showDashboard";
+
 export { ShowLogsProps } from "../lib/showLogs";
 
 export { ShowIntegrationsProps } from "../lib/showIntegrations";
