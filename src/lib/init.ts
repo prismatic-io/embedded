@@ -12,7 +12,6 @@ import {
   EMBEDDED_POPOVER_CLASS,
   EMBEDDED_POPOVER_CLOSE_CLASS,
 } from "../utils/iframe";
-import { showMarketplaceDefaults } from "./showMarketplace";
 
 export interface InitProps
   extends Pick<State, "screenConfiguration" | "theme" | "translation">,
@@ -20,12 +19,16 @@ export interface InitProps
 
 const optionsDefault = {
   filters: {
-    ...showMarketplaceDefaults["filters"],
+    marketplace: {
+      includeActiveIntegrations: true,
+    },
     integrations: {},
     components: {},
   },
   screenConfiguration: {
-    ...showMarketplaceDefaults["screenConfiguration"],
+    configurationWizard: {},
+    instance: {},
+    marketplace: {},
     initializing: {},
   },
   theme: {},

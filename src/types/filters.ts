@@ -39,15 +39,15 @@ export interface IntegrationsFilters {
 
 export type Filters = {
   /**
-   * @deprecated Use marketplace instead
+   * @deprecated Use marketplace instead, this will be removed in the next major version (v2.0.0)
    */
   category?: string;
   /**
-   * @deprecated Use marketplace instead
+   * @deprecated Use marketplace instead, this will be removed in the next major version (v2.0.0)
    */
   filterQuery?: ConditionalExpression;
   /**
-   * @deprecated Use marketplace instead
+   * @deprecated Use marketplace instead, this will be removed in the next major version (v2.0.0)
    */
   label?: string;
   components?: ComponentsFilters;
