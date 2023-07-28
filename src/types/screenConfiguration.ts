@@ -35,8 +35,6 @@ export interface DashboardScreenConfiguration {
     | "Instances"
     | "Integrations"
     | "Logs"
-    | "Monitors"
-    | "Users"
   >;
 }
 
