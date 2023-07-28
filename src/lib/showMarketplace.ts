@@ -9,18 +9,5 @@ export const showMarketplace = (
 ) => {
   assertInit("showMarketplace");
 
-  setIframe(
-    "integration-marketplace",
-    {
-      ...options,
-      screenConfiguration: {
-        ...(options?.screenConfiguration ?? {}),
-        marketplace: {
-          includeActiveIntegrations: true,
-          ...(options?.screenConfiguration?.marketplace ?? {}),
-        },
-      },
-    },
-    {}
-  );
+  setIframe("integration-marketplace", options, {});
 };

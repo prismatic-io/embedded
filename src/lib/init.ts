@@ -1,3 +1,5 @@
+import merge from "lodash.merge";
+
 import { styles } from "../styles";
 import { closePopover } from "../utils/popover";
 import { state, State } from "../state";
@@ -15,8 +17,28 @@ export interface InitProps
   extends Pick<State, "screenConfiguration" | "theme" | "translation">,
     Partial<Pick<State, "filters" | "prismaticUrl">> {}
 
-export const init = (options?: InitProps) => {
+const optionsDefault = {
+  filters: {
+    marketplace: {
+      includeActiveIntegrations: true,
+    },
+    integrations: {},
+    components: {},
+  },
+  screenConfiguration: {
+    configurationWizard: {},
+    instance: {},
+    marketplace: {},
+    initializing: {},
+  },
+  theme: {},
+  translation: {},
+};
+
+export const init = (optionsBase?: InitProps) => {
   const existingElement = document.getElementById(EMBEDDED_ID);
+
+  const options: InitProps = merge({}, optionsDefault, optionsBase);
 
   if (options) {
     Object.entries(options).forEach(([key, value]) => {

@@ -4,7 +4,7 @@ export { authenticate } from "./authenticate";
 export {
   configureInstance,
   /**
-   * @deprecated Use configureInstance instead
+   * @deprecated Use configureInstance instead, this will be removed in the next major version (v2.0.0)
    */
   configureInstance as configureIntegration, // alias for backwards compatibility
 };
