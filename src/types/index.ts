@@ -23,6 +23,7 @@ export {
 
 export {
   ConfigurationWizardConfiguration,
+  DashboardScreenConfiguration,
   InitializingConfiguration,
   InstanceScreenConfiguration,
   MarketplaceConfiguration,
@@ -41,6 +42,8 @@ export {
 export { InitProps } from "../lib/init";
 
 export { ShowMarketplaceProps } from "../lib/showMarketplace";
+
+export { ShowDashboardProps } from "../lib/showDashboard";
 
 export { ShowLogsProps } from "../lib/showLogs";
 

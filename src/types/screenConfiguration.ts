@@ -27,8 +27,20 @@ export interface ConfigurationWizardConfiguration {
   triggerDetailsConfiguration?: TriggerDetails;
 }
 
+export interface DashboardScreenConfiguration {
+  hideTabs?: Array<
+    | "Attachments"
+    | "Components"
+    | "Executions"
+    | "Instances"
+    | "Integrations"
+    | "Logs"
+  >;
+}
+
 export interface ScreenConfiguration {
   configurationWizard?: ConfigurationWizardConfiguration;
+  dashboard?: DashboardScreenConfiguration;
   initializing?: InitializingConfiguration;
   instance?: InstanceScreenConfiguration;
   marketplace?: MarketplaceConfiguration;
