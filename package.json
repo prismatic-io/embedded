@@ -18,7 +18,7 @@
     "url": "https://github.com/prismatic-io/embedded.git"
   },
   "license": "MIT",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

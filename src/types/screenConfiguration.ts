@@ -36,6 +36,7 @@ export interface DashboardScreenConfiguration {
     | "Instances"
     | "Integrations"
     | "Logs"
+    | "Marketplace"
   >;
 }
 
