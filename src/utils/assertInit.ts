@@ -1,7 +1,7 @@
-import { state } from "../state";
+import { getCurrentState } from "../state";
 
 export const assertInit = (functionName: string) => {
-  if (!state.initComplete) {
+  if (!getCurrentState().initComplete) {
     throw new Error(
       `Expected init to be called before calling ${functionName}`
     );

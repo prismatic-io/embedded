@@ -2,7 +2,7 @@ import merge from "lodash.merge";
 
 import { styles } from "../styles";
 import { closePopover } from "../utils/popover";
-import { state, State } from "../state";
+import { setCurrentState, State, getCopyOfDefaultState } from "../state";
 import {
   EMBEDDED_ID,
   EMBEDDED_IFRAME_CONTAINER_CLASS,
@@ -40,12 +40,17 @@ export const init = (optionsBase?: InitProps) => {
 
   const options: InitProps = merge({}, optionsDefault, optionsBase);
 
+  // when we initialize, start from the fresh default state
+  const state = getCopyOfDefaultState();
+
   if (options) {
     Object.entries(options).forEach(([key, value]) => {
       if (key in state) {
         state[key] = value;
       }
     });
+
+    setCurrentState(state);
   }
 
   if (existingElement) {
@@ -53,6 +58,8 @@ export const init = (optionsBase?: InitProps) => {
   }
 
   state.initComplete = true;
+
+  setCurrentState(state);
 
   document.head.insertAdjacentHTML("beforeend", styles);
 

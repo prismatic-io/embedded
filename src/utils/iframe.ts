@@ -4,7 +4,7 @@ import { PrismaticMessageEvent } from "../types/postMessage";
 import { isPopover, Options } from "../types/options";
 import { openPopover } from "./popover";
 import { postMessage } from "./postMessage";
-import { state } from "../state";
+import { getCopyOfState } from "../state";
 
 export const EMBEDDED_ID = "pio__embedded";
 export const EMBEDDED_IFRAME_ID = "pio__iframe";
@@ -45,6 +45,9 @@ export const setIframe = (
   if (!iframeContainerElement) {
     return;
   }
+
+  // we use a copy of state so that changes to this only impact this iframe and do not update the shared state
+  const state = getCopyOfState();
 
   if (options) {
     Object.entries(options).forEach(([key, value]) => {
