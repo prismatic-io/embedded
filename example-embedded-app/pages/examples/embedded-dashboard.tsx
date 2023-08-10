@@ -10,23 +10,28 @@ import { Container, styled } from "@mui/material";
 import Footer from "@/components/Footer";
 import usePrismaticAuth from "@/usePrismaticAuth";
 
-import embeddedMarketplaceHelperText from "./embedded-marketplace.md";
+import embeddedDashboardHelperText from "./embedded-dashboard.md";
 
-const EmbeddedMarketplaceWrapper = styled(Container)(() => ({
+const EmbeddedDashboardWrapper = styled(Container)(() => ({
   height: "70vh",
   width: "100%",
 }));
 
-const embeddedDivId = "embedded-marketplace-div";
+const embeddedDivId = "embedded-dashboard-div";
 
-function EmbeddedMarketplace() {
+function EmbeddedDashboard() {
   const { authenticated } = usePrismaticAuth();
 
   React.useEffect(() => {
     if (authenticated) {
-      prismatic.showMarketplace({
+      prismatic.showDashboard({
         selector: `#${embeddedDivId}`,
         theme: "LIGHT",
+        screenConfiguration: {
+          dashboard: {
+            hideTabs: ["Attachments"],
+          },
+        },
       });
     }
   }, [authenticated]);
@@ -34,12 +39,12 @@ function EmbeddedMarketplace() {
   return (
     <>
       <Head>
-        <title>Embedded Marketplace</title>
+        <title>Embedded Dashboard</title>
       </Head>
       <PageTitleWrapper>
-        <ExampleHeader markdown={embeddedMarketplaceHelperText} />
+        <ExampleHeader markdown={embeddedDashboardHelperText} />
       </PageTitleWrapper>
-      <EmbeddedMarketplaceWrapper
+      <EmbeddedDashboardWrapper
         id={embeddedDivId}
         maxWidth={false}
         disableGutters
@@ -49,6 +54,6 @@ function EmbeddedMarketplace() {
   );
 }
 
-EmbeddedMarketplace.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
+EmbeddedDashboard.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
-export default EmbeddedMarketplace;
+export default EmbeddedDashboard;
