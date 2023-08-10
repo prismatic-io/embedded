@@ -1,7 +1,7 @@
-import { state } from "../state";
+import stateService from "../state";
 
 export const assertInit = (functionName: string) => {
-  if (!state.initComplete) {
+  if (!stateService.getStateCopy().initComplete) {
     throw new Error(
       `Expected init to be called before calling ${functionName}`
     );
