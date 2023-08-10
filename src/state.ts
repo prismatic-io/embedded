@@ -27,6 +27,10 @@ const defaultState: State = {
   translation: undefined,
 };
 
+export const ValidKeys: Set<string> = new Set<string>(
+  Object.keys(defaultState)
+);
+
 class StateService {
   private defaultState: State;
   private state: State | null = null;

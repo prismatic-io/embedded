@@ -4,7 +4,7 @@ import { PrismaticMessageEvent } from "../types/postMessage";
 import { isPopover, Options } from "../types/options";
 import { openPopover } from "./popover";
 import { postMessage } from "./postMessage";
-import stateService from "../state";
+import stateService, { ValidKeys } from "../state";
 
 export const EMBEDDED_ID = "pio__embedded";
 export const EMBEDDED_IFRAME_ID = "pio__iframe";
@@ -51,7 +51,7 @@ export const setIframe = (
 
   if (options) {
     Object.entries(options).forEach(([key, value]) => {
-      if (key in state) {
+      if (ValidKeys.has(key)) {
         if (state[key] instanceof Object) {
           state[key] = merge(state[key], value);
         } else {

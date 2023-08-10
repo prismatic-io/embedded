@@ -2,7 +2,7 @@ import merge from "lodash.merge";
 
 import { styles } from "../styles";
 import { closePopover } from "../utils/popover";
-import stateService, { State } from "../state";
+import stateService, { State, ValidKeys } from "../state";
 import {
   EMBEDDED_ID,
   EMBEDDED_IFRAME_CONTAINER_CLASS,
@@ -45,21 +45,18 @@ export const init = (optionsBase?: InitProps) => {
 
   if (options) {
     Object.entries(options).forEach(([key, value]) => {
-      if (key in state) {
+      if (ValidKeys.has(key)) {
         state[key] = value;
       }
     });
-
-    stateService.setState(state);
   }
+
+  state.initComplete = true;
+  stateService.setState(state);
 
   if (existingElement) {
     return;
   }
-
-  state.initComplete = true;
-
-  stateService.setState(state);
 
   document.head.insertAdjacentHTML("beforeend", styles);
 
