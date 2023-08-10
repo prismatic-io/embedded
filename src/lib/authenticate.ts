@@ -4,7 +4,7 @@ import { PrismaticMessageEvent } from "../types/postMessage";
 import { EMBEDDED_IFRAME_ID } from "../utils/iframe";
 import { assertInit } from "../utils/assertInit";
 import { postMessage } from "../utils/postMessage";
-import { getCurrentState, setCurrentState } from "../state";
+import stateService from "../state";
 
 const ERROR_MESSAGE =
   "The authenticate method expects an object containing a token and additional optional configuration.";
@@ -34,7 +34,7 @@ export const authenticate = async (options: AuthenticateProps) => {
     EMBEDDED_IFRAME_ID
   ) as HTMLIFrameElement;
 
-  const state = getCurrentState();
+  const state = stateService.getStateCopy();
   if (state.jwt !== token && iframeElement) {
     postMessage({
       iframe: iframeElement,
@@ -47,7 +47,7 @@ export const authenticate = async (options: AuthenticateProps) => {
 
   state.jwt = token;
 
-  setCurrentState(state);
+  stateService.setState(state);
 
   const prismaticUrl = options.prismaticUrl ?? state.prismaticUrl;
 

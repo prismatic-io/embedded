@@ -27,20 +27,36 @@ const defaultState: State = {
   translation: undefined,
 };
 
-let state: State | null = null;
+class StateService {
+  private defaultState: State;
+  private state: State | null = null;
 
-export const getCopyOfDefaultState = (): State => structuredClone(defaultState);
+  constructor(defaultState: State) {
+    this.defaultState = defaultState;
+  }
 
-export const getCopyOfState = (): State =>
-  structuredClone(state ?? defaultState);
+  getInitialState() {
+    return JSON.parse(JSON.stringify(this.defaultState));
+  }
 
-export const getCurrentState = (): State => {
-  // if we do not have a cached state then return a copy of the default state so that it can be safely mutated
-  if (!state) return getCopyOfDefaultState();
+  /**
+   * A function that returns a copy of the current state.  If a mutation is desired, you must call
+   * `stateService.setState` afterwards to persist the updated copy.
+   * @returns A deep copy of the state to prevent accidental mutations.
+   */
+  getStateCopy() {
+    if (this.state) {
+      return JSON.parse(JSON.stringify(this.state));
+    }
 
-  return state;
-};
+    return this.getInitialState();
+  }
 
-export const setCurrentState = (newState: State): void => {
-  state = newState;
-};
+  setState(state: State) {
+    this.state = state;
+  }
+}
+
+const stateService = new StateService(defaultState);
+
+export default stateService;

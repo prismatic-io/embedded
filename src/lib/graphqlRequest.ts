@@ -1,6 +1,6 @@
 import urlJoin from "url-join";
 
-import { getCurrentState } from "../state";
+import stateService from "../state";
 import { assertInit } from "../utils/assertInit";
 
 export interface GraphqlRequestProps {
@@ -14,7 +14,7 @@ export const graphqlRequest = async ({
 }: GraphqlRequestProps) => {
   assertInit("authenticate");
 
-  const { jwt: accessToken, prismaticUrl } = getCurrentState();
+  const { jwt: accessToken, prismaticUrl } = stateService.getStateCopy();
 
   const response = await fetch(urlJoin(prismaticUrl, "api"), {
     method: "POST",
