@@ -1,6 +1,9 @@
 import Head from "next/head";
 
-import prismatic from "@prismatic-io/embedded";
+import prismatic, {
+  BooleanOperator,
+  TermOperator,
+} from "@prismatic-io/embedded";
 
 import React from "react";
 import SidebarLayout from "@/layouts/SidebarLayout";
@@ -29,6 +32,15 @@ function EmbeddedDesigner() {
       prismatic.showIntegrations({
         selector: `#${embeddedDivId}`,
         theme: "LIGHT",
+        filters: {
+          components: {
+            filterQuery: [
+              BooleanOperator.and,
+              [TermOperator.notEqual, "key", "ftp"],
+              [TermOperator.notEqual, "key", "sftp"],
+            ],
+          },
+        },
       });
     }
   }, [authenticated, allowEmbeddedDesigner]);

@@ -15,6 +15,7 @@ import NextLink from "next/link";
 import { SidebarContext } from "src/contexts/SidebarContext";
 import {
   ConstructionTwoTone,
+  DashboardTwoTone,
   PictureInPictureTwoTone,
   RocketLaunchTwoTone,
   TerminalTwoTone,
@@ -156,6 +157,11 @@ const embeddedSidebarMenuItems: EmbeddedSidebarMenuProps[] = [
     path: "/examples/embedded-designer",
     title: "Embedded Designer",
     icon: ConstructionTwoTone,
+  },
+  {
+    path: "/examples/embedded-dashboard",
+    title: "Embedded Dashboard",
+    icon: DashboardTwoTone,
   },
   {
     path: "/examples/custom-ui-elements",

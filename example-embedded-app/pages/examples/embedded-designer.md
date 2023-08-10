@@ -7,4 +7,7 @@ To use embedded designer, please ensure that:
 1. Your organization has embedded designer enabled (Prismatic support can help you with that).
 2. You have enabled embedded designer for the currently logged in customer.
 
+This examples uses a [Filter Query](https://prismatic.io/docs/embedded-designer/#filtering-components-in-the-embedded-designer) to hide the FTP and SFTP component.
+You can use filter queries to choose which components your customers can interact with.
+
 You can edit this page by modifying `pages/examples/embedded-designer.tsx`.
