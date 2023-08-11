@@ -31,7 +31,7 @@ const optionsDefault = {
     marketplace: {},
     initializing: {},
   },
-  theme: {},
+  theme: "",
   translation: {},
 };
 
