@@ -77,6 +77,12 @@ export const setIframe = (
       JSON.stringify(state.screenConfiguration.initializing)
     );
   }
+  if (state.fontConfiguration) {
+    queryParams.set(
+      "fontConfiguration",
+      JSON.stringify(state.fontConfiguration)
+    );
+  }
 
   iframeContainerElement.innerHTML = /* html */ `
     <iframe
