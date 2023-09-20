@@ -22,7 +22,14 @@ type NextPageWithLayout = NextPage & {
 
 /** Initialize Prismatic */
 if (typeof window !== "undefined") {
-  prismatic.init({ prismaticUrl: config.prismaticUrl });
+  prismatic.init({
+    prismaticUrl: config.prismaticUrl,
+    fontConfiguration: {
+      google: {
+        families: ["Inter"],
+      },
+    },
+  });
 }
 
 interface ExampleAppProps extends AppProps {

@@ -18,4 +18,4 @@ yarn-error.log*
 /.next
 
 # Ignore prismatic config values
-prismatic/config.ts
+prismatic/config*.ts
