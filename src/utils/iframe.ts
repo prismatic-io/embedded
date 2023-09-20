@@ -5,6 +5,7 @@ import { isPopover, Options } from "../types/options";
 import { openPopover } from "./popover";
 import { postMessage } from "./postMessage";
 import stateService, { ValidKeys } from "../state";
+import urlJoin from "url-join";
 
 export const EMBEDDED_ID = "pio__embedded";
 export const EMBEDDED_IFRAME_ID = "pio__iframe";
@@ -84,10 +85,12 @@ export const setIframe = (
     );
   }
 
+  const iframeSrc = urlJoin(state.prismaticUrl, route, `?${queryParams}`);
+
   iframeContainerElement.innerHTML = /* html */ `
     <iframe
       id="${EMBEDDED_IFRAME_ID}"
-      src="${state.prismaticUrl}/${route}/?${queryParams.toString()}"
+      src="${iframeSrc}"
       height="100%"
       width="100%"
       frameBorder="0"
