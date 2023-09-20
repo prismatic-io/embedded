@@ -14,7 +14,10 @@ import {
 } from "../utils/iframe";
 
 export interface InitProps
-  extends Pick<State, "screenConfiguration" | "theme" | "translation">,
+  extends Pick<
+      State,
+      "screenConfiguration" | "theme" | "fontConfiguration" | "translation"
+    >,
     Partial<Pick<State, "filters" | "prismaticUrl">> {}
 
 const optionsDefault = {
@@ -32,6 +35,7 @@ const optionsDefault = {
     initializing: {},
   },
   theme: "LIGHT",
+  fontConfiguration: undefined,
   translation: {},
 };
 

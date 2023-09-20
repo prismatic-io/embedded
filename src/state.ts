@@ -2,6 +2,7 @@ import { Filters } from "./types/filters";
 import { ScreenConfiguration } from "./types/screenConfiguration";
 import { Theme } from "./types/theme";
 import { Translation } from "./types/translation";
+import WebFont from "webfontloader";
 
 export interface State {
   filters: Filters;
@@ -10,6 +11,7 @@ export interface State {
   prismaticUrl: string;
   screenConfiguration?: ScreenConfiguration;
   theme?: Theme;
+  fontConfiguration?: Pick<WebFont.Config, "google">;
   translation?: Translation;
 }
 
@@ -24,6 +26,7 @@ const defaultState: State = {
   prismaticUrl: "https://app.prismatic.io",
   screenConfiguration: undefined,
   theme: undefined,
+  fontConfiguration: undefined,
   translation: undefined,
 };
 
@@ -39,7 +42,7 @@ class StateService {
     this.defaultState = defaultState;
   }
 
-  getInitialState() {
+  getInitialState(): State {
     return JSON.parse(JSON.stringify(this.defaultState));
   }
 
@@ -48,7 +51,7 @@ class StateService {
    * `stateService.setState` afterwards to persist the updated copy.
    * @returns A deep copy of the state to prevent accidental mutations.
    */
-  getStateCopy() {
+  getStateCopy(): State {
     if (this.state) {
       return JSON.parse(JSON.stringify(this.state));
     }
