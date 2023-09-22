@@ -26,6 +26,16 @@ export interface ConfigurationWizardConfiguration {
   hideSidebar?: boolean;
   isInModal?: boolean;
   triggerDetailsConfiguration?: TriggerDetails;
+  /**
+   * Disable logs on integrations deployed via marketplace
+   * @default "never"
+   */
+  logsDisabled?: "always" | "never" | "optional";
+  /**
+   * Disable step results on integrations deployed via marketplace
+   * @default "never"
+   */
+  stepResultsDisabled?: "always" | "never" | "optional";
 }
 
 export interface DashboardScreenConfiguration {
