@@ -9,5 +9,5 @@ export const showMarketplace = (
 ) => {
   assertInit("showMarketplace");
 
-  setIframe("integration-marketplace", options, {});
+  setIframe("/integration-marketplace/", options, {});
 };

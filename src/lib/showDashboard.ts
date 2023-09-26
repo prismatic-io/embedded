@@ -9,5 +9,5 @@ export const showDashboard = (
 ) => {
   assertInit("showDashboard");
 
-  setIframe("dashboard", options, {});
+  setIframe("/dashboard/", options, {});
 };

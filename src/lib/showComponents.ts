@@ -7,5 +7,5 @@ export type ShowComponentsProps = Options & {};
 export const showComponents = (options: ShowComponentsProps) => {
   assertInit("showComponents");
 
-  setIframe("components", options, {});
+  setIframe("/components/", options, {});
 };

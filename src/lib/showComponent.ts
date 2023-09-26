@@ -12,5 +12,5 @@ export const showComponent = ({
 }: ShowComponentProps) => {
   assertInit("showComponent");
 
-  setIframe(`components/${componentId}`, options, {});
+  setIframe(`/components/${componentId}/`, options, {});
 };

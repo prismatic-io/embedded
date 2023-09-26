@@ -7,5 +7,5 @@ export type ShowIntegrationsProps = Options & {};
 export const showIntegrations = (options: ShowIntegrationsProps) => {
   assertInit("showIntegrations");
 
-  setIframe("integrations", options, {});
+  setIframe("/integrations/", options, {});
 };
