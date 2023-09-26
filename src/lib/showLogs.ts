@@ -7,5 +7,5 @@ export type ShowLogsProps = Options & {};
 export const showLogs = (options: ShowLogsProps) => {
   assertInit("showLogs");
 
-  setIframe("logs", options, {});
+  setIframe("/logs/", options, {});
 };

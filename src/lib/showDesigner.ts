@@ -12,5 +12,5 @@ export const showDesigner = ({
 }: ShowDesignerProps) => {
   assertInit("showDesigner");
 
-  setIframe(`integrations/${integrationId}`, options, {});
+  setIframe(`/integrations/${integrationId}/`, options, {});
 };

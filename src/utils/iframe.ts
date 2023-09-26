@@ -85,7 +85,7 @@ export const setIframe = (
     );
   }
 
-  const iframeSrc = urlJoin(state.prismaticUrl, route, `?${queryParams}`);
+  const iframeSrc = `${urlJoin(state.prismaticUrl, route)}?${queryParams}`;
 
   iframeContainerElement.innerHTML = /* html */ `
     <iframe
