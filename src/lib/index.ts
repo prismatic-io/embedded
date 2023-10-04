@@ -9,7 +9,7 @@ export {
   configureInstance as configureIntegration, // alias for backwards compatibility
 };
 export { graphqlRequest } from "./graphqlRequest";
-export { init } from "./init";
+export { init, EMBEDDED_DEFAULTS } from "./init";
 export { setConfigVars } from "./setConfigVars";
 export { showComponent } from "./showComponent";
 export { showComponents } from "./showComponents";

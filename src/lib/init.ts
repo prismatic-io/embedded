@@ -20,7 +20,7 @@ export interface InitProps
     >,
     Partial<Pick<State, "filters" | "prismaticUrl">> {}
 
-const optionsDefault = {
+export const EMBEDDED_DEFAULTS = {
   filters: {
     marketplace: {
       includeActiveIntegrations: true,
@@ -42,7 +42,7 @@ const optionsDefault = {
 export const init = (optionsBase?: InitProps) => {
   const existingElement = document.getElementById(EMBEDDED_ID);
 
-  const options: InitProps = merge({}, optionsDefault, optionsBase);
+  const options: InitProps = merge({}, EMBEDDED_DEFAULTS, optionsBase);
 
   // when we initialize, start from the fresh default state
   const state = stateService.getInitialState();
