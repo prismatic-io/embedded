@@ -24,6 +24,7 @@ export interface MarketplaceFilters {
   filterQuery?: ConditionalExpression;
   includeActiveIntegrations?: boolean;
   label?: string;
+  strictMatchFilterQuery?: boolean;
 }
 
 export interface ComponentsFilters {
