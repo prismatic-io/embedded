@@ -25,7 +25,7 @@ export const configureInstance = ({
           },
         },
       }
-    : { ...options };
+    : options;
 
   setIframe("find-integration-marketplace", updatedOptions, {
     integrationName,
