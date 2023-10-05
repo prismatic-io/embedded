@@ -30,10 +30,11 @@ export const isIframe = (
 ): element is HTMLIFrameElement =>
   Boolean(element && element.tagName === "IFRAME");
 
+type QueryParamKey = "integrationName";
 export const setIframe = (
   route: string,
   options: Options,
-  params?: Record<string, string>
+  params?: Partial<Record<QueryParamKey, string>>
 ) => {
   if (!isPopover(options) && !options.selector) {
     console.error("Could not find display selector.");

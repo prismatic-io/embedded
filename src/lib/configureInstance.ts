@@ -14,8 +14,20 @@ export const configureInstance = ({
 }: ConfigureInstanceProps) => {
   assertInit("configureInstance");
 
-  setIframe("/find-integration-marketplace/", options, {
+  const updatedOptions = skipRedirectOnRemove
+    ? {
+        ...options,
+        screenConfiguration: {
+          ...options.screenConfiguration,
+          instance: {
+            ...options.screenConfiguration?.instance,
+            skipRedirectOnRemove: true,
+          },
+        },
+      }
+    : { ...options };
+
+  setIframe("find-integration-marketplace", updatedOptions, {
     integrationName,
-    ...(skipRedirectOnRemove ? { skipRedirectOnRemove: "true" } : {}),
   });
 };
