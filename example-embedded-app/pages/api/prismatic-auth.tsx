@@ -7,7 +7,7 @@ import jsonwebtoken from "jsonwebtoken";
  * and lives in your backend API (i.e. do not expose your signing key to the client).
  */
 
-export default function handler(req, res) {
+export default function handler(_req, res) {
   const currentTime = Math.floor(Date.now() / 1000);
   const token = jsonwebtoken.sign(
     {
@@ -16,6 +16,7 @@ export default function handler(req, res) {
       name: config.name,
       organization: config.organization,
       customer: config.customer,
+      nbf: currentTime,
       iat: currentTime,
       exp: currentTime + 60 * 60 * 4, // 4 hours from now
       role: config.role,
