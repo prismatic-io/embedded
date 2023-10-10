@@ -43,7 +43,6 @@
   "dependencies": {
     "@prismatic-io/spectral": "7.6.1",
     "@prismatic-io/translations": "latest",
-    "@types/webfontloader": "^1.6.35",
     "lodash.merge": "4.6.2",
     "url-join": "5.0.0"
   }

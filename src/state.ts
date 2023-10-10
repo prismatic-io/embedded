@@ -2,7 +2,6 @@ import { Filters } from "./types/filters";
 import { ScreenConfiguration } from "./types/screenConfiguration";
 import { Theme } from "./types/theme";
 import { Translation } from "./types/translation";
-import WebFont from "webfontloader";
 
 export interface State {
   filters: Filters;
@@ -11,7 +10,11 @@ export interface State {
   prismaticUrl: string;
   screenConfiguration?: ScreenConfiguration;
   theme?: Theme;
-  fontConfiguration?: Pick<WebFont.Config, "google">;
+  fontConfiguration?: {
+    google: {
+      families: Array<string>;
+    };
+  };
   translation?: Translation;
 }
 
