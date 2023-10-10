@@ -24,6 +24,8 @@ export {
   DefaultConfigVarInput,
 } from "./configVars";
 
+export { FontConfiguration, GoogleFontFamilies } from "./fontConfiguration";
+
 export {
   ConfigurationWizardConfiguration,
   DashboardScreenConfiguration,

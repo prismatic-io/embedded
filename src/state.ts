@@ -1,4 +1,5 @@
 import { Filters } from "./types/filters";
+import { FontConfiguration } from "./types/fontConfiguration";
 import { ScreenConfiguration } from "./types/screenConfiguration";
 import { Theme } from "./types/theme";
 import { Translation } from "./types/translation";
@@ -10,11 +11,7 @@ export interface State {
   prismaticUrl: string;
   screenConfiguration?: ScreenConfiguration;
   theme?: Theme;
-  fontConfiguration?: {
-    google: {
-      families: Array<string>;
-    };
-  };
+  fontConfiguration?: FontConfiguration;
   translation?: Translation;
 }
 
