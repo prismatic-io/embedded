@@ -18,6 +18,7 @@ export { Theme } from "./theme";
 
 export {
   ConfigVar,
+  ConfigVars,
   ConnectionConfigVar,
   ConnectionConfigVarInput,
   DefaultConfigVar,
