@@ -1,12 +1,9 @@
+import { ConfigVars } from "../types/configVars";
 import { PrismaticMessageEvent } from "../types/postMessage";
 import { postMessage } from "../utils/postMessage";
-import {
-  ConnectionConfigVarInput,
-  DefaultConfigVarInput,
-} from "../types/configVars";
 
 interface SetConfigVarsPropsBase {
-  configVars: Record<string, DefaultConfigVarInput | ConnectionConfigVarInput>;
+  configVars: ConfigVars;
 }
 
 interface SelectorSetConfigVarProps extends SetConfigVarsPropsBase {

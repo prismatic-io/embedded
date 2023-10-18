@@ -57,6 +57,11 @@ export interface ConnectionConfigVar {
 
 export type ConfigVar = DefaultConfigVar | ConnectionConfigVar;
 
+export type ConfigVars = Record<
+  string,
+  DefaultConfigVarInput | ConnectionConfigVarInput
+>;
+
 interface BaseConfigVarInput {
   value: string;
 }
