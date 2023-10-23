@@ -13,6 +13,10 @@ export const getPopover = () =>
 export const openPopover = () =>
   getPopover()?.classList.add(EMBEDDED_OVERLAY_VISIBLE_CLASS);
 
+/**
+ * Closes an open popover
+ * @returns void
+ */
 export const closePopover = () => {
   const iframeElement = getIframeContainerElement(
     `${EMBEDDED_IFRAME_CONTAINER_SELECTOR} > iframe`
