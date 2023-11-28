@@ -57,4 +57,5 @@ export interface ScreenConfiguration {
   initializing?: InitializingConfiguration;
   instance?: InstanceScreenConfiguration;
   marketplace?: MarketplaceConfiguration;
+  isInPopover?: boolean;
 }

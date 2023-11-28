@@ -2,10 +2,11 @@ import merge from "lodash.merge";
 
 import { PrismaticMessageEvent } from "../types/postMessage";
 import { isPopover, Options } from "../types/options";
-import { openPopover } from "./popover";
+import { closePopover, openPopover } from "./popover";
 import { postMessage } from "./postMessage";
 import stateService, { ValidKeys } from "../state";
 import urlJoin from "url-join";
+import { ScreenConfiguration } from "../types/screenConfiguration";
 
 export const EMBEDDED_ID = "pio__embedded";
 export const EMBEDDED_IFRAME_ID = "pio__iframe";
@@ -129,11 +130,18 @@ export const setIframe = (
             },
           });
 
+          const screenConfigurationToPost: ScreenConfiguration | undefined =
+            isPopover(options)
+              ? {
+                  ...(state.screenConfiguration ?? {}),
+                  isInPopover: true,
+                }
+              : state.screenConfiguration;
           postMessage({
             iframe: iframeElement,
             event: {
               event: PrismaticMessageEvent.SET_SCREEN_CONFIGURATION,
-              data: state.screenConfiguration,
+              data: screenConfigurationToPost,
             },
           });
 
@@ -144,6 +152,10 @@ export const setIframe = (
               data: state.filters,
             },
           });
+        } else if (
+          event.data?.event === PrismaticMessageEvent.POPOVER_CLOSE_REQUESTED
+        ) {
+          closePopover();
         }
       }
     );
