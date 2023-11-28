@@ -42,6 +42,7 @@ export enum PrismaticMessageEvent {
   INSTANCE_DELETED = "INSTANCE_DELETED",
   INSTANCE_DEPLOYED = "INSTANCE_DEPLOYED",
   MARKETPLACE_CLOSED = "MARKETPLACE_CLOSED",
+  POPOVER_CLOSE_REQUESTED = "POPOVER_CLOSE_REQUESTED",
   SET_CONFIG_VAR = "SET_CONFIG_VAR",
   SET_FILTERS = "SET_FILTERS",
   SET_SCREEN_CONFIGURATION = "SET_SCREEN_CONFIGURATION",
@@ -84,6 +85,10 @@ export type MessageData =
   | {
       data: InstanceConfigurationData;
       event: PrismaticMessageEvent.INSTANCE_DEPLOYED;
+    }
+  | {
+      data: {};
+      event: PrismaticMessageEvent.POPOVER_CLOSE_REQUESTED;
     }
   | {
       data: UserConfigurationData;
