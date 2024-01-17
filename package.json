@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@prismatic-io/spectral": "7.9.0",
-    "@prismatic-io/translations": "latest",
+    "@prismatic-io/translations": "1.10.0",
     "lodash.merge": "4.6.2",
     "url-join": "5.0.0"
   }
