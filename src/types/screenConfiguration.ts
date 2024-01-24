@@ -13,6 +13,7 @@ export interface MarketplaceConfiguration {
    * @deprecated Use marketplace filters instead, this will be removed in the next major version (v3.0.0)
    */
   includeActiveIntegrations?: boolean;
+  hideSearch?: boolean;
 }
 
 export interface InitializingConfiguration {
