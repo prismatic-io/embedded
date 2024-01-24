@@ -45,7 +45,7 @@ export const init = (optionsBase?: InitProps) => {
   // tmp fix to hide search bar to avoid confusion when dynamic phrases are provided
   const options: InitProps = merge({}, EMBEDDED_DEFAULTS, {
     ...optionsBase,
-    screenConfiruation: {
+    screenConfiguration: {
       ...optionsBase?.screenConfiguration,
       marketplace: {
         ...optionsBase?.screenConfiguration?.marketplace,
