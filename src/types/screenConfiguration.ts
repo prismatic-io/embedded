@@ -14,6 +14,7 @@ export interface MarketplaceConfiguration {
    */
   includeActiveIntegrations?: boolean;
   hideSearch?: boolean;
+  hideActiveIntegrationsFilter?: boolean;
 }
 
 export interface InitializingConfiguration {

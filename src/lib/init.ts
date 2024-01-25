@@ -42,17 +42,7 @@ export const EMBEDDED_DEFAULTS = {
 export const init = (optionsBase?: InitProps) => {
   const existingElement = document.getElementById(EMBEDDED_ID);
 
-  // tmp fix to hide search bar to avoid confusion when dynamic phrases are provided
-  const options: InitProps = merge({}, EMBEDDED_DEFAULTS, {
-    ...optionsBase,
-    screenConfiguration: {
-      ...optionsBase?.screenConfiguration,
-      marketplace: {
-        ...optionsBase?.screenConfiguration?.marketplace,
-        hideSearch: optionsBase?.translation?.phrases ? true : false,
-      },
-    },
-  });
+  const options: InitProps = merge({}, EMBEDDED_DEFAULTS, optionsBase);
 
   // when we initialize, start from the fresh default state
   const state = stateService.getInitialState();
