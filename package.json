@@ -18,7 +18,7 @@
     "url": "https://github.com/prismatic-io/embedded.git"
   },
   "license": "MIT",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@prismatic-io/spectral": "7.9.0",
-    "@prismatic-io/translations": "1.10.0",
+    "@prismatic-io/translations": "1.11.3",
     "lodash.merge": "4.6.2",
     "url-join": "5.0.0"
   }
