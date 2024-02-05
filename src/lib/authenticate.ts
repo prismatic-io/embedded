@@ -5,6 +5,7 @@ import { EMBEDDED_IFRAME_ID } from "../utils/iframe";
 import { assertInit } from "../utils/assertInit";
 import { postMessage } from "../utils/postMessage";
 import stateService from "../state";
+import { graphqlRequest } from "./graphqlRequest";
 
 const ERROR_MESSAGE =
   "The authenticate method expects an object containing a token and additional optional configuration.";
@@ -72,5 +73,18 @@ export const authenticate = async (options: AuthenticateProps) => {
 
   state.jwt = token;
 
+  stateService.setState(state);
+
+  const result = await graphqlRequest({
+    query: `{
+      authenticatedUser {
+        customer {
+          allowEmbeddedDesigner
+        }
+      }
+    }`,
+  });
+  state.embeddedDesignerEnabled =
+    result.data.authenticatedUser.customer.allowEmbeddedDesigner;
   stateService.setState(state);
 };
