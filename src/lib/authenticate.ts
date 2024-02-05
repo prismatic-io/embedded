@@ -45,10 +45,6 @@ export const authenticate = async (options: AuthenticateProps) => {
     });
   }
 
-  state.jwt = token;
-
-  stateService.setState(state);
-
   const prismaticUrl = options.prismaticUrl ?? state.prismaticUrl;
 
   const authResponse = await fetch(
@@ -73,4 +69,8 @@ export const authenticate = async (options: AuthenticateProps) => {
       );
     }
   }
+
+  state.jwt = token;
+
+  stateService.setState(state);
 };
