@@ -8,6 +8,7 @@ export interface State {
   filters: Filters;
   initComplete: boolean;
   jwt: string;
+  embeddedDesignerEnabled: boolean;
   prismaticUrl: string;
   screenConfiguration?: ScreenConfiguration;
   theme?: Theme;
@@ -23,6 +24,7 @@ const defaultState: State = {
   },
   initComplete: false,
   jwt: "",
+  embeddedDesignerEnabled: false,
   prismaticUrl: "https://app.prismatic.io",
   screenConfiguration: undefined,
   theme: undefined,
