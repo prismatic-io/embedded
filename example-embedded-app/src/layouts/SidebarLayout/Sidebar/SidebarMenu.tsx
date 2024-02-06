@@ -19,6 +19,7 @@ import {
   PictureInPictureTwoTone,
   RocketLaunchTwoTone,
   TerminalTwoTone,
+  TranslateTwoTone,
   ViewComfyAltTwoTone,
   WebTwoTone,
 } from "@mui/icons-material";
@@ -172,6 +173,11 @@ const embeddedSidebarMenuItems: EmbeddedSidebarMenuProps[] = [
     path: "/examples/dynamically-set-config-variables",
     title: "Set Config Variables",
     icon: TerminalTwoTone,
+  },
+  {
+    path: "examples/i18n",
+    title: "Internationalization (i18n)",
+    icon: TranslateTwoTone,
   },
 ];
 

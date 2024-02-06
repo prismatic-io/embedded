@@ -28,4 +28,4 @@ Next, make a copy of `prismatic/config.ts.template` called `prismatic/config.ts`
 - Replace `customer` with the _external ID_ of a customer that you've created in Prismatic.
 - _Optional_. Replace `name` with the customer's name.
 
-Once your configuration is in place, you can run `npm run dev` to run the example embedded app locally. The app should be available in your browser at http://localhost:3000.
+Once your configuration is in place, you can run `npm run dev` to run the example embedded app locally. The app should be available in your browser at http://localhost:3001.
