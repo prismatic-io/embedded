@@ -1,6 +1,6 @@
 # @prismatic-io/embedded
 
-`@prismatic-io/embedded` allows you to to embed Prismatic's [Application](https://prismatic.io/docs/embedded/) within your web application, giving your customers the ability to manage integrations, instances, and components you've built in Prismatic.
+`@prismatic-io/embedded` allows you to to embed Prismatic's [Application](https://prismatic.io/docs/embedding-marketplace/) within your web application, giving your customers the ability to manage integrations, instances, and components you've built in Prismatic.
 
 ## What is Prismatic?
 
