@@ -7,6 +7,7 @@ import React, { useEffect, useMemo } from "react";
 interface UserInfoProps {
   authenticatedUser: {
     customer: {
+      id: string;
       allowEmbeddedDesigner: boolean;
     };
   };
@@ -26,6 +27,7 @@ const getUserInfo = async (): Promise<UserInfoProps> => {
   const query = `{
     authenticatedUser {
       customer {
+        id
         allowEmbeddedDesigner
       }
     }

@@ -22,4 +22,13 @@ export interface PrismaticConfig {
 
   /** Signing key for signing JWT access tokens */
   signingKey: string;
+
+  /**
+   * Optional Prismatic API refresh token. This can be used to query the Prismatic API from the backend
+   * as an organization user. You can generate a refresh token with `prism me:token --type refresh`.
+   *
+   * See https://prismatic.io/docs/api/api-overview/#querying-prismatics-api-programmatically
+   * for documentation
+   */
+  prismaticRefreshToken?: string;
 }
