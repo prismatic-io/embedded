@@ -18,7 +18,7 @@ export interface InitProps
       State,
       "screenConfiguration" | "theme" | "fontConfiguration" | "translation"
     >,
-    Partial<Pick<State, "filters" | "prismaticUrl">> {}
+    Partial<Pick<State, "filters" | "prismaticUrl" | "skipPreload">> {}
 
 export const EMBEDDED_DEFAULTS = {
   filters: {
@@ -34,6 +34,7 @@ export const EMBEDDED_DEFAULTS = {
     marketplace: {},
     initializing: {},
   },
+  skipPreload: false,
   theme: "LIGHT",
   fontConfiguration: undefined,
   translation: {},
@@ -60,6 +61,24 @@ export const init = (optionsBase?: InitProps) => {
 
   if (existingElement) {
     return;
+  }
+
+  /**
+   * This establishes a connection to the prismatic url and preloads
+   * assets (css, js, fonts, etc.) into browser cache. Subsequent
+   * calls, use existing connections and cached assets.
+   */
+  if (!options.skipPreload) {
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `<iframe
+        src="${state.prismaticUrl}/embedded"
+        title="PIO Embedded Preload"
+        height="0"
+        width="0"
+        style="visibility: hidden; display: none;"
+      />`
+    );
   }
 
   document.head.insertAdjacentHTML("beforeend", styles);
