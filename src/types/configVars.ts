@@ -16,6 +16,7 @@ type CollectionTypeEnum = "valuelist" | "keyvaluelist";
 type CodeLanguageEnum = "json" | "xml" | "html";
 
 interface BaseConfigVar {
+  id: string;
   codeLanguage: CodeLanguageEnum | null;
   collectionType: CollectionTypeEnum | null;
   dataType: DefaultConfigVarDataTypeEnum | null;
@@ -50,7 +51,7 @@ enum InstanceConfigVariableStatus {
   PENDING = "PENDING",
 }
 
-export interface ConnectionConfigVar {
+export interface ConnectionConfigVar extends BaseConfigVar {
   inputs: Record<string, { value: string }>;
   status: InstanceConfigVariableStatus | null;
 }
