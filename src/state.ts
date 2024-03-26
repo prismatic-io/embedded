@@ -11,6 +11,7 @@ export interface State {
   embeddedDesignerEnabled: boolean;
   prismaticUrl: string;
   screenConfiguration?: ScreenConfiguration;
+  skipPreload?: boolean;
   theme?: Theme;
   fontConfiguration?: FontConfiguration;
   translation?: Translation;
