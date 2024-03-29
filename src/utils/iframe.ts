@@ -10,6 +10,7 @@ import { ScreenConfiguration } from "../types/screenConfiguration";
 
 export const EMBEDDED_ID = "pio__embedded";
 export const EMBEDDED_IFRAME_ID = "pio__iframe";
+export const EMBEDDED_IFRAME_PRELOAD_ID = "pio__iframe-preload";
 export const EMBEDDED_IFRAME_CONTAINER_CLASS = "pio__iframeContainer";
 export const EMBEDDED_IFRAME_CONTAINER_SELECTOR = `#${EMBEDDED_ID} .${EMBEDDED_IFRAME_CONTAINER_CLASS}`;
 export const EMBEDDED_OVERLAY_CLASS = "pio__overlay";
@@ -79,6 +80,7 @@ export const setIframe = (
       JSON.stringify(state.screenConfiguration.initializing)
     );
   }
+
   if (state.fontConfiguration) {
     queryParams.set(
       "fontConfiguration",
