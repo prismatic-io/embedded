@@ -7,6 +7,7 @@ export interface InstanceConfigurationData {
   instanceName: string;
   integrationName: string;
   integrationVersionNumber: number;
+  readOnly: boolean;
 }
 
 export interface InstanceConfigurationLoadedData
