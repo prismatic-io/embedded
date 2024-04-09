@@ -6,6 +6,7 @@ import stateService, { State, ValidKeys } from "../state";
 import {
   EMBEDDED_ID,
   EMBEDDED_IFRAME_CONTAINER_CLASS,
+  EMBEDDED_IFRAME_PRELOAD_ID,
   EMBEDDED_OVERLAY_CLASS,
   EMBEDDED_OVERLAY_SELECTOR,
   EMBEDDED_OVERLAY_VISIBLE_CLASS,
@@ -41,8 +42,6 @@ export const EMBEDDED_DEFAULTS = {
 };
 
 export const init = (optionsBase?: InitProps) => {
-  const existingElement = document.getElementById(EMBEDDED_ID);
-
   const options: InitProps = merge({}, EMBEDDED_DEFAULTS, optionsBase);
 
   // when we initialize, start from the fresh default state
@@ -57,7 +56,10 @@ export const init = (optionsBase?: InitProps) => {
   }
 
   state.initComplete = true;
+
   stateService.setState(state);
+
+  const existingElement = document.getElementById(EMBEDDED_ID);
 
   if (existingElement) {
     return;
@@ -68,15 +70,19 @@ export const init = (optionsBase?: InitProps) => {
    * assets (css, js, fonts, etc.) into browser cache. Subsequent
    * calls, use existing connections and cached assets.
    */
-  if (!options.skipPreload) {
+  const existingIframePreload = document.getElementById(
+    EMBEDDED_IFRAME_PRELOAD_ID
+  );
+
+  if (!existingIframePreload && !options.skipPreload) {
     document.body.insertAdjacentHTML(
       "beforeend",
       `<iframe
+        id="${EMBEDDED_IFRAME_PRELOAD_ID}"
         src="${state.prismaticUrl}/embedded"
-        title="PIO Embedded Preload"
+        style="visibility: hidden; display: none;"
         height="0"
         width="0"
-        style="visibility: hidden; display: none;"
       />`
     );
   }

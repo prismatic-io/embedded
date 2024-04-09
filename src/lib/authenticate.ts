@@ -36,6 +36,7 @@ export const authenticate = async (options: AuthenticateProps) => {
   ) as HTMLIFrameElement;
 
   const state = stateService.getStateCopy();
+
   if (state.jwt !== token && iframeElement) {
     postMessage({
       iframe: iframeElement,
@@ -60,6 +61,7 @@ export const authenticate = async (options: AuthenticateProps) => {
 
   if (!authResponse.ok) {
     const responseText = await authResponse.text();
+
     if (responseText) {
       throw new Error(
         `Authentication failed. Server sent back: ${responseText}`
@@ -84,7 +86,9 @@ export const authenticate = async (options: AuthenticateProps) => {
       }
     }`,
   });
+
   state.embeddedDesignerEnabled =
     result.data.authenticatedUser.customer.allowEmbeddedDesigner;
+
   stateService.setState(state);
 };

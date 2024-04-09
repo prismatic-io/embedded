@@ -14,14 +14,14 @@ export const graphqlRequest = async ({
 }: GraphqlRequestProps) => {
   assertInit("authenticate");
 
-  const { jwt: accessToken, prismaticUrl } = stateService.getStateCopy();
+  const { jwt, prismaticUrl } = stateService.getStateCopy();
 
   const response = await fetch(urlJoin(prismaticUrl, "api"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${jwt}`,
     },
     body: JSON.stringify({ query, variables }),
   });
