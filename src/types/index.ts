@@ -65,6 +65,11 @@ export { SetConfigVarsProps } from "../lib/setConfigVars";
 
 export { GraphqlRequestProps } from "../lib/graphqlRequest";
 
-export { ConfigureInstanceProps } from "../lib/configureInstance";
+export {
+  ConfigureInstanceProps,
+  ConfigureInstanceWithInstanceId,
+  ConfigureInstanceWithIntegrationId,
+  ConfigureInstanceWithIntegrationName,
+} from "../lib/configureInstance";
 
 export { AuthenticateProps } from "../lib/authenticate";
