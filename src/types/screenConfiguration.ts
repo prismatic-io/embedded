@@ -5,6 +5,10 @@ export interface InstanceScreenConfiguration {
   hideTabs?: Array<"Test" | "Executions" | "Monitors" | "Logs">;
 }
 
+export interface ConfigureInstanceScreenConfiguration {
+  configuration?: "allow-details" | "always-show-details" | "disallow-details";
+}
+
 export interface MarketplaceConfiguration {
   configuration?: "allow-details" | "always-show-details" | "disallow-details";
   /**
@@ -55,6 +59,7 @@ export interface DashboardScreenConfiguration {
 
 export interface ScreenConfiguration {
   configurationWizard?: ConfigurationWizardConfiguration;
+  configureInstance?: ConfigureInstanceScreenConfiguration;
   dashboard?: DashboardScreenConfiguration;
   initializing?: InitializingConfiguration;
   instance?: InstanceScreenConfiguration;
