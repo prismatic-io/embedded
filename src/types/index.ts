@@ -29,6 +29,7 @@ export { FontConfiguration, GoogleFontFamilies } from "./fontConfiguration";
 
 export {
   ConfigurationWizardConfiguration,
+  ConfigureInstanceScreenConfiguration,
   DashboardScreenConfiguration,
   InitializingConfiguration,
   InstanceScreenConfiguration,
