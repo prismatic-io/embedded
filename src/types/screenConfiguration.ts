@@ -3,6 +3,7 @@ export type TriggerDetails = "default" | "default-open" | "hidden";
 export interface InstanceScreenConfiguration {
   hideBackToMarketplace?: boolean;
   hideTabs?: Array<"Test" | "Executions" | "Monitors" | "Logs">;
+  hidePauseButton?: boolean;
 }
 
 export interface ConfigureInstanceScreenConfiguration {
