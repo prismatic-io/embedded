@@ -82,6 +82,7 @@ interface ScheduleConfigVarInput {
 }
 
 export interface ConnectionConfigVarInput {
+  onPremiseResourceId?: string;
   inputs: Record<string, { value: string }>;
 }
 
