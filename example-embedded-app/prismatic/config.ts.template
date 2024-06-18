@@ -22,7 +22,8 @@ const config: PrismaticConfig = {
   customer: 'my-customer-external-id',
   name: 'John Doe',
   signingKey,
-  role: 'admin'
+  role: 'admin',
+  tokenValidSeconds: 60 * 5, // 5 minutes
 };
 
 export default config;

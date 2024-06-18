@@ -18,7 +18,7 @@ export default function handler(_req, res) {
       customer: config.customer,
       nbf: currentTime,
       iat: currentTime,
-      exp: currentTime + 60 * 60 * 4, // 4 hours from now
+      exp: currentTime + config.tokenValidSeconds,
       role: config.role,
     },
     config.signingKey, // Store this somewhere safe
