@@ -216,6 +216,7 @@ function CustomUiElements() {
                             screenConfiguration: {
                               configurationWizard: { isInModal: true },
                             },
+                            skipRedirectOnRemove: true,
                           })
                         }
                       >
