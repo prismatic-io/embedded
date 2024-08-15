@@ -19,6 +19,16 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".js"],
+    fallback: {
+      assert: false,
+      constants: false,
+      fs: false,
+      path: false,
+      process: false,
+      stream: false,
+      url: false,
+      util: false,
+    },
   },
   optimization: {
     usedExports: true,

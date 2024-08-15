@@ -209,8 +209,9 @@ function CustomUiElements() {
                             : "primary"
                         }
                         onClick={() =>
-                          prismatic.configureIntegration({
+                          prismatic.configureInstance({
                             integrationName: integration.name,
+                            skipRedirectOnRemove: true,
                             theme: "LIGHT",
                             usePopover: true,
                             screenConfiguration: {
