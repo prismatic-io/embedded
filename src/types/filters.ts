@@ -1,21 +1,8 @@
 import {
   ConditionalExpression,
   BooleanOperator,
-  BinaryOperator,
-} from "@prismatic-io/spectral";
-
-const {
-  dateTimeAfter,
-  dateTimeBefore,
-  dateTimeSame,
-  doesNotExactlyMatch,
-  exactlyMatches,
-  greaterThan,
-  greaterThanOrEqual,
-  lessThan,
-  lessThanOrEqual,
-  ...TermOperator
-} = BinaryOperator;
+  TermOperator,
+} from "./conditionalLogic";
 
 export { BooleanOperator, TermOperator, ConditionalExpression };
 
