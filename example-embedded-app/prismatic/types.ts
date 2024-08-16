@@ -31,4 +31,11 @@ export interface PrismaticConfig {
    * for documentation
    */
   prismaticRefreshToken?: string;
+
+  /**
+   * Duration the auth token is valid in seconds.
+   * usePrismaticAuth.ts will automatically refresh the auth token
+   * 30 seconds before it expires.
+   */
+  tokenValidSeconds: number;
 }

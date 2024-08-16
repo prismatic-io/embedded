@@ -3,6 +3,7 @@ import axios from "axios";
 import Router from "next/router";
 import prismatic from "@prismatic-io/embedded";
 import React, { useEffect, useMemo } from "react";
+import config from "../prismatic/config";
 
 interface UserInfoProps {
   authenticatedUser: {
@@ -46,6 +47,7 @@ const usePrismaticAuth = (): AuthConfig => {
   const { data, error } = useSWR<{ token: string }>(
     "/api/prismatic-auth",
     fetcher,
+    { refreshInterval: (config.tokenValidSeconds - 30) * 1000 }, // Refresh token 30 seconds before expiration
   );
 
   const token = useMemo(() => data?.token, [data?.token]);
