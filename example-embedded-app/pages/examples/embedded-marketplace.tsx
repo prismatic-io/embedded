@@ -27,6 +27,11 @@ function EmbeddedMarketplace() {
       prismatic.showMarketplace({
         selector: `#${embeddedDivId}`,
         theme: "LIGHT",
+        filters: {
+          marketplace: {
+            category: "CSV Stores",
+          },
+        },
       });
     }
   }, [authenticated]);
