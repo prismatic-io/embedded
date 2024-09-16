@@ -18,7 +18,7 @@
     "@mui/styles": "5.13.2",
     "@prismatic-io/embedded": "file:..",
     "apexcharts": "3.41.0",
-    "axios": "^1.6.2",
+    "axios": "^1.7.7",
     "clsx": "1.2.1",
     "context-api": "0.0.2",
     "date-fns": "2.30.0",
