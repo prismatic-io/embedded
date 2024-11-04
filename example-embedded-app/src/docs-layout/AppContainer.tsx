@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
 
 import AppBar from "./AppBar";
 import AppDrawer from "./AppDrawer";
 
-const AppContainer: React.FC = ({ children }) => {
+const AppContainer = ({ children }: PropsWithChildren<{}>) => {
   const router = useRouter();
   const [designerRoute, setDesignerRoute] = React.useState(false);
   const [open, setOpen] = React.useState(true);

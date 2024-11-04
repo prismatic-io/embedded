@@ -12,6 +12,7 @@ function ConfigureShopifyInstance() {
       prismatic.configureInstance({
         integrationName: "Shopify",
         usePopover: true,
+        skipRedirectOnRemove: true,
         screenConfiguration: {
           configurationWizard: {
             isInModal: true,

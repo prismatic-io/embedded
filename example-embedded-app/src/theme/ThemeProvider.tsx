@@ -1,11 +1,11 @@
-import { FC, useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, PropsWithChildren } from "react";
 import { ThemeProvider } from "@mui/material";
 import { themeCreator } from "./base";
 import { StylesProvider } from "@mui/styles";
 
 export const ThemeContext = createContext((_themeName: string): void => {});
 
-const ThemeProviderWrapper: FC = (props) => {
+const ThemeProviderWrapper = (props: PropsWithChildren<{}>) => {
   const [themeName, _setThemeName] = useState("PureLightTheme");
 
   useEffect(() => {

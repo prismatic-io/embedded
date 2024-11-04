@@ -10,7 +10,7 @@ import {
   Hidden,
   lighten,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
   Popover,
   Typography,
@@ -116,23 +116,23 @@ function HeaderUserbox() {
         </MenuUserBox>
         <Divider sx={{ mb: 0 }} />
         <List sx={{ p: 1 }} component="nav">
-          <NextLink href="#" passHref>
-            <ListItem button>
+          <NextLink href="#" passHref legacyBehavior>
+            <ListItemButton>
               <AccountBoxTwoToneIcon fontSize="small" />
               <ListItemText primary="My Profile" />
-            </ListItem>
+            </ListItemButton>
           </NextLink>
-          <NextLink href="#" passHref>
-            <ListItem button>
+          <NextLink href="#" passHref legacyBehavior>
+            <ListItemButton>
               <InboxTwoToneIcon fontSize="small" />
               <ListItemText primary="Messenger" />
-            </ListItem>
+            </ListItemButton>
           </NextLink>
-          <NextLink href="#" passHref>
-            <ListItem button>
+          <NextLink href="#" passHref legacyBehavior>
+            <ListItemButton>
               <AccountTreeTwoToneIcon fontSize="small" />
               <ListItemText primary="Account Settings" />
-            </ListItem>
+            </ListItemButton>
           </NextLink>
         </List>
         <Divider />
