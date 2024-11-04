@@ -213,6 +213,7 @@ function CustomUiElements() {
                             integrationName: integration.name,
                             theme: "LIGHT",
                             usePopover: true,
+                            skipRedirectOnRemove: true,
                             screenConfiguration: {
                               configurationWizard: { isInModal: true },
                             },

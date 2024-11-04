@@ -9,7 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { ListSubheader, ListItemButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import * as Icons from "@mui/icons-material/";
+import * as Icons from "@mui/icons-material";
 
 const drawerWidth = 240;
 const AppDrawer: React.FC<{

@@ -66,7 +66,9 @@ export default async function handler(
   const { hmac, ...rest } = req.query as unknown as ShopifyAuthRequest;
 
   // Verify the installation request
-  const searchParams = new URLSearchParams(rest).toString();
+  const searchParams = new URLSearchParams(
+    rest as unknown as Record<string, string>,
+  ).toString();
   const secret = await getShopifyClientSecret();
   const signature = crypto
     .createHmac("sha256", secret)

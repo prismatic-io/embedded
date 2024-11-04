@@ -200,7 +200,7 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/" passHref>
+                <NextLink href="/" passHref legacyBehavior>
                   <Button
                     className={currentRoute === "/" ? "active" : ""}
                     disableRipple
@@ -227,7 +227,7 @@ function SidebarMenu() {
             <List component="div">
               {embeddedSidebarMenuItems.map((item) => (
                 <ListItem key={item.path} component="div">
-                  <NextLink href={item.path} passHref>
+                  <NextLink href={item.path} passHref legacyBehavior>
                     <Button
                       className={currentRoute === item.path ? "active" : ""}
                       disableRipple

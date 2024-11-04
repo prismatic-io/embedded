@@ -58,6 +58,7 @@ function DyanamicallySetConfigVariable() {
                 integrationName: "Setting Config Variables Example",
                 usePopover: true,
                 theme: "LIGHT",
+                skipRedirectOnRemove: true,
               });
             }}
           >
