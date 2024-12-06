@@ -2,7 +2,7 @@
 
 This directory contains an example NextJS/React application that embeds the Prismatic SDK. It contains examples of how to embed the integration marketplace and integration designer, as well as additional examples for dynamically setting config variables, pulling additional data from Prismatic's GraphQL API, and more.
 
-For documentation on installing the Prismatic embedded SDK in your app, see the [Prismatic docs](https://prismatic.io/docs/installing-embedded/).
+For documentation on installing the Prismatic embedded SDK in your app, see the [Prismatic docs](https://prismatic.io/docs/embed/get-started/install-embedded-sdk/).
 
 ## Important files
 
@@ -21,7 +21,7 @@ To run this example embedded application yourself, ensure that you have a modern
 
 Next, make a copy of `prismatic/config.ts.template` called `prismatic/config.ts`. Populate `prismatic/config.ts` with the information you need to generate JWT tokens for customer user authentication:
 
-- Replace `signingKey` with a signing key that you generate [in Prismatic](https://prismatic.io/docs/installing-embedded/#jwt-signing-keys).
+- Replace `signingKey` with a signing key that you generate [in Prismatic](https://prismatic.io/docs/embed/authenticate-users/#jwt-signing-keys).
 - If your tenant is not in the US commercial region, replace `prismaticUrl` with your tenant's region.
 - Replace `sub` with a unique customer ID for your customer user.
 - Replace `organization` with your organization's ID, which you can find on the same page where you generated the signing key.

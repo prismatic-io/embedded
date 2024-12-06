@@ -1,6 +1,6 @@
 {
   "name": "@prismatic-io/embedded",
-  "description": "Embed your prismatic.io application within your existing application.",
+  "description": "Embed Prismatic's integration marketplace and workflow designer within your existing application.",
   "keywords": [
     "prismatic",
     "marketplace",
