@@ -30,6 +30,7 @@ export interface InitializingConfiguration {
 }
 
 export interface ConfigurationWizardConfiguration {
+  mode?: "streamlined" | "traditional";
   hideSidebar?: boolean;
   isInModal?: boolean;
   triggerDetailsConfiguration?: TriggerDetails;
