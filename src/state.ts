@@ -18,11 +18,7 @@ export interface State {
 }
 
 const defaultState: State = {
-  filters: {
-    category: undefined,
-    filterQuery: undefined,
-    label: undefined,
-  },
+  filters: {},
   initComplete: false,
   jwt: "",
   embeddedDesignerEnabled: false,
