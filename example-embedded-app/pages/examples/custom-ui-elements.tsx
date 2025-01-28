@@ -16,7 +16,7 @@ import {
   CardContent,
   CardHeader,
   Container,
-  Grid,
+  Grid2 as Grid,
   LinearProgress,
   Typography,
 } from "@mui/material";
@@ -29,28 +29,28 @@ import customUiElementsHelperText from "./custom-ui-elements.md";
 interface MarketplaceIntegration {
   id: string;
   name: string;
-  avatarUrl: string;
-  description: string;
-  overview: string;
+  allowMultipleMarketplaceInstances: boolean;
+  avatarUrl?: string;
   category: string;
-  marketplaceConfiguration: string;
+  description: string;
   isCustomerDeployable: boolean;
+  marketplaceConfiguration: string;
+  overview: string;
   versionNumber: number;
-  versionSequence: {
-    nodes: {
-      id: string;
-      versionNumber: number;
-    }[];
+  firstDeployedInstance?: {
+    id: string;
   };
-  instances: {
-    nodes: {
-      id: string;
-      enabled: boolean;
-      lastDeployedAt: string;
-      configState: string;
-    }[];
-  };
+  deployedInstances: "ZERO" | "ONE" | "MULTIPLE";
+  deploymentStatus?: "ACTIVATED" | "PAUSED" | "UNCONFIGURED";
 }
+
+type MarketplaceIntegrationsResponse = {
+  data: {
+    marketplaceIntegrations: {
+      nodes: MarketplaceIntegration[];
+    };
+  };
+};
 
 /**
  * This component is used to display the avatar for a marketplace integration.
@@ -102,38 +102,38 @@ function CustomUiElements() {
 
     if (authenticated && token) {
       const fetchMarketplaceData = async () => {
-        const query = `query getMarketplaceIntegrations {
-          marketplaceIntegrations(
-            sortBy: [{field: CATEGORY, direction: ASC}, {field: NAME, direction: ASC}]
-          ) {
-            nodes {
-              id
-              name
-              avatarUrl
-              description
-              overview
-              category
-              marketplaceConfiguration
-              isCustomerDeployable
-              versionNumber
-              versionSequence(first: 1, versionIsAvailable: true) {
-                nodes {
+        const query = `
+          query getMarketplaceIntegrations {
+            marketplaceIntegrations(
+              includeActiveIntegrations: true
+              sortBy: [
+                { field: CATEGORY, direction: ASC }
+                { field: NAME, direction: ASC }
+              ]
+            ) {
+              nodes {
+                id
+                name
+                allowMultipleMarketplaceInstances
+                avatarUrl
+                category
+                description
+                isCustomerDeployable
+                marketplaceConfiguration
+                overview
+                versionNumber
+                firstDeployedInstance {
                   id
-                  versionNumber
                 }
-              }
-              instances {
-                nodes {
-                  id
-                  enabled
-                  lastDeployedAt
-                  configState
-                }
+                deployedInstances
+                deploymentStatus
               }
             }
           }
-        }`;
-        const response = await prismatic.graphqlRequest({ query });
+        `;
+        const response = (await prismatic.graphqlRequest({
+          query,
+        })) as MarketplaceIntegrationsResponse;
 
         if (mounted) {
           setMarketplaceIntegrations(
@@ -168,14 +168,7 @@ function CustomUiElements() {
             {marketplaceIntegrations
               .filter((integration) => integration.isCustomerDeployable)
               .map((integration) => (
-                <Grid
-                  item
-                  xs={6}
-                  md={4}
-                  key={integration.id}
-                  display="stretch"
-                  flexDirection="column"
-                >
+                <Grid key={integration.id} size={4}>
                   <Card
                     elevation={3}
                     sx={{
@@ -204,9 +197,9 @@ function CustomUiElements() {
                         size="small"
                         variant="contained"
                         color={
-                          integration.instances.nodes.length
-                            ? "secondary"
-                            : "primary"
+                          integration.deployedInstances === "ZERO"
+                            ? "primary"
+                            : "secondary"
                         }
                         onClick={() =>
                           prismatic.configureIntegration({
@@ -220,7 +213,9 @@ function CustomUiElements() {
                           })
                         }
                       >
-                        {integration.instances.nodes.length ? "Edit" : "Add"}
+                        {integration.deployedInstances === "ZERO"
+                          ? "Add"
+                          : "Edit"}
                       </Button>
                     </CardActions>
                   </Card>
