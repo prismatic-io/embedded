@@ -2,7 +2,7 @@ export type TriggerDetails = "default" | "default-open" | "hidden";
 
 export interface InstanceScreenConfiguration {
   hideBackToMarketplace?: boolean;
-  hideTabs?: Array<"Test" | "Executions" | "Monitors" | "Logs">;
+  hideTabs?: Array<"Test" | "Executions" | "Logs">;
   hidePauseButton?: boolean;
 }
 
@@ -12,12 +12,6 @@ export interface ConfigureInstanceScreenConfiguration {
 
 export interface MarketplaceConfiguration {
   configuration?: "allow-details" | "always-show-details" | "disallow-details";
-  /**
-   * Include all active Integrations including those activated outside the Marketplace.
-   * @default true
-   * @deprecated Use marketplace filters instead, this will be removed in the next major version (v3.0.0)
-   */
-  includeActiveIntegrations?: boolean;
   hideSearch?: boolean;
   hideActiveIntegrationsFilter?: boolean;
 }
