@@ -67,7 +67,6 @@ export const setIframe = (
   const queryParams = new URLSearchParams({
     ...params,
     embed: "true",
-    jwt: state.jwt,
   });
 
   if (state.theme) {
