@@ -20,6 +20,7 @@ const config: PrismaticConfig = {
   organization:
     'T3JnYW5pemF0aW9uOjAwMDAwMDAwLTAwMDAwMDAwLTAwMDAwMDAwLTAwMDAwMDAw',
   customer: 'my-customer-external-id',
+  customerName: 'Hooli',
   name: 'John Doe',
   signingKey,
   role: 'admin'

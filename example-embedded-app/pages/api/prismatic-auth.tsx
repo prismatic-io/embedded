@@ -16,6 +16,7 @@ export default function handler(_req, res) {
       name: config.name,
       organization: config.organization,
       customer: config.customer,
+      customer_name: config.customerName,
       nbf: currentTime,
       iat: currentTime,
       exp: currentTime + config.tokenValidSeconds,
