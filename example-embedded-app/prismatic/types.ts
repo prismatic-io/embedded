@@ -11,6 +11,9 @@ export interface PrismaticConfig {
   /** The external ID of the customer */
   customer: string;
 
+  /** The name of the customer to create (if it does not exist) */
+  customerName?: string;
+
   /** The role of the user. "user" is only used for user-level config. Generally, you'll want to use "admin". Defaults to "admin" */
   role?: "admin" | "user";
 
