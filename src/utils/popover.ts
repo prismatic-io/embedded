@@ -10,8 +10,9 @@ import { PrismaticMessageEvent } from "../types/postMessage";
 export const getPopover = () =>
   document.querySelector(EMBEDDED_OVERLAY_SELECTOR);
 
-export const openPopover = () =>
+export const openPopover = () => {
   getPopover()?.classList.add(EMBEDDED_OVERLAY_VISIBLE_CLASS);
+};
 
 /**
  * Closes an open popover
@@ -30,6 +31,8 @@ export const closePopover = () => {
     { event: PrismaticMessageEvent.MARKETPLACE_CLOSED },
     "*"
   );
+
+  window.postMessage({ event: PrismaticMessageEvent.POPOVER_CLOSED }, "*");
 
   getPopover()?.classList.remove(EMBEDDED_OVERLAY_VISIBLE_CLASS);
 };
