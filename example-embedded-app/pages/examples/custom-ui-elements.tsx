@@ -202,7 +202,7 @@ function CustomUiElements() {
                             : "secondary"
                         }
                         onClick={() =>
-                          prismatic.configureIntegration({
+                          prismatic.configureInstance({
                             integrationName: integration.name,
                             theme: "LIGHT",
                             usePopover: true,
