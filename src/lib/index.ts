@@ -22,3 +22,5 @@ export { showDesigner } from "./showDesigner";
 export { showIntegrations } from "./showIntegrations";
 export { showLogs } from "./showLogs";
 export { showMarketplace } from "./showMarketplace";
+export { showWorkflow } from "./showWorkflow";
+export { showWorkflows } from "./showWorkflows";
