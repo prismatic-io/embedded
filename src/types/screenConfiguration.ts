@@ -22,6 +22,10 @@ export interface MarketplaceConfiguration {
   hideActiveIntegrationsFilter?: boolean;
 }
 
+export interface WorkflowsConfiguration {
+  includeIntegrations?: boolean;
+}
+
 export interface InitializingConfiguration {
   /** The background color of the loading screen */
   background: string;
@@ -66,5 +70,6 @@ export interface ScreenConfiguration {
   initializing?: InitializingConfiguration;
   instance?: InstanceScreenConfiguration;
   marketplace?: MarketplaceConfiguration;
+  workflows?: WorkflowsConfiguration;
   isInPopover?: boolean;
 }

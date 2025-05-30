@@ -160,6 +160,11 @@ const embeddedSidebarMenuItems: EmbeddedSidebarMenuProps[] = [
     icon: ConstructionTwoTone,
   },
   {
+    path: "/examples/embedded-workflow-builder",
+    title: "Embedded Workflow Builder",
+    icon: ConstructionTwoTone,
+  },
+  {
     path: "/examples/embedded-dashboard",
     title: "Embedded Dashboard",
     icon: DashboardTwoTone,
