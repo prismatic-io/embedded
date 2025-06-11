@@ -22,6 +22,7 @@ import {
   TranslateTwoTone,
   ViewComfyAltTwoTone,
   WebTwoTone,
+  HandymanTwoTone,
 } from "@mui/icons-material";
 
 const MenuWrapper = styled(Box)(({ theme }) => ({
@@ -158,6 +159,11 @@ const embeddedSidebarMenuItems: EmbeddedSidebarMenuProps[] = [
     path: "/examples/embedded-designer",
     title: "Embedded Designer",
     icon: ConstructionTwoTone,
+  },
+  {
+    path: "/examples/embedded-workflows",
+    title: "Embedded Workflow Builder",
+    icon: HandymanTwoTone,
   },
   {
     path: "/examples/embedded-dashboard",
