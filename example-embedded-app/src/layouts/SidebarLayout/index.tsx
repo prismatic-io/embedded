@@ -1,9 +1,8 @@
-import { FC, ReactNode } from "react";
 import { Box, alpha, useTheme } from "@mui/material";
-import PropTypes from "prop-types";
+import { FC, ReactNode } from "react";
 
-import Sidebar from "./Sidebar";
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 interface SidebarLayoutProps {
   children?: ReactNode;
@@ -58,10 +57,6 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({
       </Box>
     </>
   );
-};
-
-SidebarLayout.propTypes = {
-  children: PropTypes.node,
 };
 
 export default SidebarLayout;

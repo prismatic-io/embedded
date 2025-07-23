@@ -1,6 +1,5 @@
-import { FC, ReactNode } from "react";
-import PropTypes from "prop-types";
 import { Box, Container, styled } from "@mui/material";
+import { FC, ReactNode } from "react";
 
 const PageTitle = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -16,10 +15,6 @@ const PageTitleWrapper: FC<PageTitleWrapperProps> = ({ children }) => {
       <Container maxWidth="lg">{children}</Container>
     </PageTitle>
   );
-};
-
-PageTitleWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default PageTitleWrapper;
