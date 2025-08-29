@@ -6,6 +6,7 @@ import React from "react";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import { Container, styled } from "@mui/material";
 import usePrismaticAuth from "@/usePrismaticAuth";
+import { useParams } from "next/navigation";
 
 const WorkflowWrapper = styled(Container)(() => ({
 	height: "calc(100vh - 90px)",
@@ -14,17 +15,20 @@ const WorkflowWrapper = styled(Container)(() => ({
 
 const embeddedDivId = "embedded-workflow-div";
 
-function Workflows() {
+function Workflow() {
 	const { authenticated } = usePrismaticAuth();
+	const params = useParams();
+	const { workflowId } = params ?? {};
 
 	React.useEffect(() => {
-		if (authenticated) {
-			prismatic.showWorkflows({
+		if (authenticated && typeof workflowId === "string" && workflowId) {
+			prismatic.showWorkflow({
 				selector: `#${embeddedDivId}`,
 				theme: "LIGHT",
+				workflowId,
 			});
 		}
-	}, [authenticated]);
+	}, [authenticated, workflowId]);
 
 	return (
 		<>
@@ -36,6 +40,6 @@ function Workflows() {
 	);
 }
 
-Workflows.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
+Workflow.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
-export default Workflows;
+export default Workflow;
