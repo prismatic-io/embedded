@@ -33,7 +33,7 @@ export interface ConfigurationWizardConfiguration {
    * Defines how customer-activated connections will be configured in the configuration wizard.
    * `inline` is the legacy way where inputs are inline in the config page
    * `reusable` means the user can choose from their credentials for that customer-activated connection in a way that the connection can also be reused in other instances
-   * @default "inline"
+   * @default "reusable"
    */
   connectionConfiguration?: "inline" | "reusable";
   hideSidebar?: boolean;
