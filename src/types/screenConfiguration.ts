@@ -29,6 +29,13 @@ export interface InitializingConfiguration {
 
 export interface ConfigurationWizardConfiguration {
   mode?: "streamlined" | "traditional";
+  /**
+   * Defines how customer-activated connections will be configured in the configuration wizard.
+   * `inline` is the legacy way where inputs are inline in the config page
+   * `reusable` means the user can choose from their credentials for that customer-activated connection in a way that the connection can also be reused in other instances
+   * @default "inline"
+   */
+  connectionConfiguration?: "inline" | "reusable";
   hideSidebar?: boolean;
   isInModal?: boolean;
   triggerDetailsConfiguration?: TriggerDetails;
