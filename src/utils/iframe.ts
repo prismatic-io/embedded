@@ -103,6 +103,8 @@ export const setIframe = (
   const iframeElement = iframeContainerElement.querySelector("iframe");
 
   if (iframeElement) {
+    const abortController = new AbortController();
+    observeForIframeRemoval(abortController);
     window.addEventListener(
       "message",
       (event: MessageEvent<{ event: string }>) => {
@@ -158,17 +160,61 @@ export const setIframe = (
         ) {
           closePopover();
         }
+      },
+      {
+        signal: abortController.signal,
       }
     );
-  }
 
-  if (iframeElement && options?.autoFocusIframe !== false) {
-    iframeElement.addEventListener("mouseenter", () => {
-      iframeElement.focus();
-    });
+    if (options?.autoFocusIframe !== false) {
+      iframeElement.addEventListener(
+        "mouseenter",
+        () => {
+          iframeElement.focus();
+        },
+        {
+          signal: abortController.signal,
+        }
+      );
+    }
   }
 
   if (isPopover(options)) {
     openPopover();
   }
+};
+
+const observeForIframeRemoval = (signal: AbortController) => {
+  const config = { attributes: false, childList: true, subtree: true };
+
+  // Create an observer instance that will self-terminate once the iframe that we care about has been removed
+  const observer = new MutationObserver((mutationList, observer) => {
+    for (const mutation of mutationList) {
+      if (mutation.type === "childList") {
+        const removedNodes = Array.from(mutation.removedNodes);
+        for (const removedNode of removedNodes) {
+          if (removedNode.nodeType === Node.ELEMENT_NODE) {
+            if (
+              (removedNode as HTMLElement).tagName === "IFRAME" &&
+              (removedNode as HTMLIFrameElement).id === EMBEDDED_IFRAME_ID
+            ) {
+              signal.abort();
+              observer.disconnect();
+            } else {
+              const iframe = (removedNode as HTMLElement).querySelector(
+                `iframe#${EMBEDDED_IFRAME_ID}`
+              );
+              if (iframe !== null) {
+                signal.abort();
+                observer.disconnect();
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // Start observing the target node for configured mutations
+  observer.observe(document.body, config);
 };
