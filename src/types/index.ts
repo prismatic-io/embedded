@@ -39,6 +39,7 @@ export {
 } from "./screenConfiguration";
 
 export {
+  WorkflowConfigurationData,
   InstanceConfigurationData,
   InstanceConfigurationLoadedData,
   MessageData,
