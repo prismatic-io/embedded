@@ -1,5 +1,13 @@
 import { ConfigVar } from "./configVars";
 
+export interface WorkflowConfigurationData {
+  customerId: string;
+  customerName: string;
+  instanceId: string;
+  instanceName: string;
+  workflowVersionId: string | null;
+}
+
 export interface InstanceConfigurationData {
   customerId: string;
   customerName: string;
@@ -57,6 +65,8 @@ export enum PrismaticMessageEvent {
   USER_CONFIGURATION_LOADED = "USER_CONFIGURATION_LOADED",
   USER_CONFIGURATION_PAGE_LOADED = "USER_CONFIGURATION_PAGE_LOADED",
   USER_CONFIGURATION_OPENED = "USER_CONFIGURATION_OPENED",
+  WORKFLOW_ENABLED = "WORKFLOW_ENABLED",
+  WORKFLOW_DISABLED = "WORKFLOW_DISABLED",
 }
 
 export type MessageData =
@@ -115,4 +125,14 @@ export type MessageData =
   | {
       data: UserConfigurationData;
       event: PrismaticMessageEvent.USER_CONFIGURATION_OPENED;
+    }
+  | 
+    {
+      data: WorkflowConfigurationData;
+      event: PrismaticMessageEvent.WORKFLOW_ENABLED
+    } 
+  | 
+    {
+      data: WorkflowConfigurationData;
+      event: PrismaticMessageEvent.WORKFLOW_DISABLED
     };
