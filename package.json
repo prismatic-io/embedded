@@ -41,7 +41,7 @@
     "webpack-cli": "5.0.1"
   },
   "dependencies": {
-    "@prismatic-io/translations": "file:../translations/prismatic-io-translations-2.6.1.tgz",
+    "@prismatic-io/translations": "^2.7.0",
     "lodash.merge": "4.6.2",
     "url-join": "5.0.0"
   }
