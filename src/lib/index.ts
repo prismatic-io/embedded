@@ -17,6 +17,7 @@ export { init, EMBEDDED_DEFAULTS } from "./init";
 export { setConfigVars } from "./setConfigVars";
 export { showComponent } from "./showComponent";
 export { showComponents } from "./showComponents";
+export { showConnections } from "./showConnections";
 export { showDashboard } from "./showDashboard";
 export { showDesigner } from "./showDesigner";
 export { showIntegrations } from "./showIntegrations";
