@@ -14,6 +14,7 @@ import {
 import NextLink from "next/link";
 import { SidebarContext } from "src/contexts/SidebarContext";
 import {
+  CableTwoTone,
   ConstructionTwoTone,
   DashboardTwoTone,
   PictureInPictureTwoTone,
@@ -168,6 +169,11 @@ const embeddedSidebarMenuItems: EmbeddedSidebarMenuProps[] = [
     path: "/examples/embedded-dashboard",
     title: "Embedded Dashboard",
     icon: DashboardTwoTone,
+  },
+  {
+    path: "/examples/embedded-connections",
+    title: "Embedded Connections",
+    icon: CableTwoTone,
   },
   {
     path: "/examples/custom-ui-elements",
