@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { alpha } from "@mui/material/styles";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -177,18 +176,17 @@ const AppBar: React.FC<{
           open={isMenuOpen}
           onClose={closeMenu}
         >
-          <Link key={0} href={"/settings/user"} passHref>
-            <MenuItem
-              onClick={() => {
-                closeMenu();
-              }}
-            >
-              <ListItemIcon>
-                <Person fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Profile" data-cy="account-profile" />
-            </MenuItem>
-          </Link>
+          <MenuItem
+            onClick={() => {
+              closeMenu();
+              router.push("/settings/user");
+            }}
+          >
+            <ListItemIcon>
+              <Person fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Profile" data-cy="account-profile" />
+          </MenuItem>
           <Divider />
           <MenuItem
             onClick={() => {
