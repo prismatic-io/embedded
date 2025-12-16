@@ -4,6 +4,7 @@ export interface InstanceScreenConfiguration {
   hideBackToMarketplace?: boolean;
   hideTabs?: Array<"Test" | "Executions" | "Logs">;
   hidePauseButton?: boolean;
+  hideDeactivation?: boolean;
 }
 
 export interface ConfigureInstanceScreenConfiguration {
