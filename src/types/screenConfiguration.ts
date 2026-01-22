@@ -65,10 +65,16 @@ export interface DashboardScreenConfiguration {
   >;
 }
 
+export interface DesignerConfiguration {
+  hideInstances?: boolean;
+  hideMarketplace?: boolean;
+}
+
 export interface ScreenConfiguration {
   configurationWizard?: ConfigurationWizardConfiguration;
   configureInstance?: ConfigureInstanceScreenConfiguration;
   dashboard?: DashboardScreenConfiguration;
+  designer?: DesignerConfiguration;
   initializing?: InitializingConfiguration;
   instance?: InstanceScreenConfiguration;
   marketplace?: MarketplaceConfiguration;
