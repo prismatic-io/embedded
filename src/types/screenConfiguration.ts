@@ -68,6 +68,7 @@ export interface DashboardScreenConfiguration {
 export interface DesignerConfiguration {
   hideInstances?: boolean;
   hideMarketplace?: boolean;
+  hideRemoveIntegration?: boolean;
 }
 
 export interface ScreenConfiguration {
