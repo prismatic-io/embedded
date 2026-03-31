@@ -186,6 +186,11 @@ const embeddedSidebarMenuItems: EmbeddedSidebarMenuProps[] = [
     icon: TerminalTwoTone,
   },
   {
+    path: "/examples/edit-instance-configuration",
+    title: "Edit Instance Configuration",
+    icon: ConstructionTwoTone,
+  },
+  {
     path: "examples/i18n",
     title: "Internationalization (i18n)",
     icon: TranslateTwoTone,
