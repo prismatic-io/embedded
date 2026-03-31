@@ -47,17 +47,28 @@ export const editInstanceConfiguration = ({
     return;
   }
 
-  window.addEventListener("message", (event: MessageEvent<{ event: string }>) => {
-    switch (event.data?.event) {
-      case PrismaticMessageEvent.INSTANCE_DEPLOYED:
-        onSuccess?.();
-        break;
-      case PrismaticMessageEvent.INSTANCE_DELETED:
-        onDelete?.();
-        break;
-      case PrismaticMessageEvent.INSTANCE_CONFIGURATION_CANCELED:
-        onCancel?.();
-        break;
-    }
-  });
+  const abortController = new AbortController();
+
+  window.addEventListener(
+    "message",
+    (event: MessageEvent<{ event: string }>) => {
+      switch (event.data?.event) {
+        case PrismaticMessageEvent.INSTANCE_DEPLOYED:
+          onSuccess?.();
+          abortController.abort();
+          break;
+        case PrismaticMessageEvent.INSTANCE_DELETED:
+          onDelete?.();
+          abortController.abort();
+          break;
+        case PrismaticMessageEvent.INSTANCE_CONFIGURATION_CANCELED:
+          onCancel?.();
+          abortController.abort();
+          break;
+      }
+    },
+    { signal: abortController.signal },
+  );
+
+  return () => abortController.abort();
 };

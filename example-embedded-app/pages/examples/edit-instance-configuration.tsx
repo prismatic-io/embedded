@@ -46,7 +46,7 @@ function ConfigurationDialog({
   const embeddedDivId = "edit-instance-configuration-div";
 
   React.useEffect(() => {
-    prismatic.editInstanceConfiguration({
+    const cleanup = prismatic.editInstanceConfiguration({
       instanceId,
       selector: `#${embeddedDivId}`,
       theme: "LIGHT",
@@ -59,6 +59,7 @@ function ConfigurationDialog({
       onSuccess: onClose,
       onDelete: onClose,
     });
+    return () => cleanup?.();
   }, [instanceId, onClose]);
 
   return (
