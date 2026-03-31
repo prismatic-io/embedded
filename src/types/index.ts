@@ -75,3 +75,5 @@ export {
 } from "../lib/configureInstance";
 
 export { AuthenticateProps } from "../lib/authenticate";
+
+export { EditInstanceConfigurationProps } from "../lib/editInstanceConfiguration";

@@ -12,6 +12,7 @@ export {
   isConfigureInstanceWithIntegrationId,
   isConfigureInstanceWithIntegrationName,
 };
+export { editInstanceConfiguration } from "./editInstanceConfiguration";
 export { graphqlRequest } from "./graphqlRequest";
 export { init, EMBEDDED_DEFAULTS } from "./init";
 export { setConfigVars } from "./setConfigVars";

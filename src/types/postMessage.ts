@@ -43,6 +43,7 @@ export interface UserConfigurationPageData extends UserConfigurationData {
 }
 
 export enum PrismaticMessageEvent {
+  INSTANCE_CONFIGURATION_CANCELED = "INSTANCE_CONFIGURATION_CANCELED",
   INSTANCE_CONFIGURATION_CLOSED = "INSTANCE_CONFIGURATION_CLOSED",
   INSTANCE_CONFIGURATION_LOADED = "INSTANCE_CONFIGURATION_LOADED",
   INSTANCE_CONFIGURATION_PAGE_LOADED = "INSTANCE_CONFIGURATION_PAGE_LOADED",
@@ -70,6 +71,10 @@ export enum PrismaticMessageEvent {
 }
 
 export type MessageData =
+  | {
+      data: InstanceConfigurationData;
+      event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_CANCELED;
+    }
   | {
       data: InstanceConfigurationData;
       event: PrismaticMessageEvent.INSTANCE_CONFIGURATION_OPENED;
