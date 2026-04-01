@@ -3,15 +3,25 @@ import urlJoin from "url-join";
 import stateService from "../state";
 import { assertInit } from "../utils/assertInit";
 
-export interface GraphqlRequestProps {
+export interface GraphqlRequestProps<
+  TVariables = Record<string, unknown>
+> {
   query: string;
-  variables?: Record<string, unknown>;
+  variables?: TVariables;
 }
 
-export const graphqlRequest = async ({
+export interface GraphqlRequestResponse<TData = unknown> {
+  data: TData;
+  errors?: { message: string }[];
+}
+
+export const graphqlRequest = async <
+  TData = unknown,
+  TVariables = Record<string, unknown>
+>({
   query,
   variables,
-}: GraphqlRequestProps) => {
+}: GraphqlRequestProps<TVariables>): Promise<GraphqlRequestResponse<TData>> => {
   assertInit("authenticate");
 
   const { jwt, prismaticUrl } = stateService.getStateCopy();
