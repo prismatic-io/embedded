@@ -77,7 +77,11 @@ export const authenticate = async (options: AuthenticateProps) => {
 
   stateService.setState(state);
 
-  const result = await graphqlRequest({
+  const result = await graphqlRequest<{
+    authenticatedUser: {
+      customer: { allowEmbeddedDesigner: boolean };
+    };
+  }>({
     query: `{
       authenticatedUser {
         customer {
