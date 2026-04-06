@@ -98,8 +98,8 @@ const AppDrawer: React.FC<{
         }}
       >
         {/* <ListSubheader sx={{ fontSize: "1rem" }}>Dashboard</ListSubheader> */}
-        <Link href="/" passHref>
-          <ListItemButton component="a" selected={pathname === "/"}>
+        <Link href="/" passHref style={{ textDecoration: "none", color: "inherit" }}>
+          <ListItemButton selected={pathname === "/"}>
             <ListItemIcon sx={{ color: "inherit" }}>
               <Icons.Home />
             </ListItemIcon>
@@ -128,8 +128,8 @@ const AppDrawer: React.FC<{
           },
         ].map((entry, i) => {
           return (
-            <Link key={`records-${i}`} href={entry?.link || "/#"} passHref>
-              <ListItemButton component="a" selected={pathname === entry?.link}>
+            <Link key={`records-${i}`} href={entry?.link || "/#"} passHref style={{ textDecoration: "none", color: "inherit" }}>
+              <ListItemButton selected={pathname === entry?.link}>
                 <ListItemIcon sx={{ color: "inherit" }}>
                   {entry?.icon}
                 </ListItemIcon>
@@ -165,8 +165,8 @@ const AppDrawer: React.FC<{
           },
         ].map((entry, i) => {
           return (
-            <Link key={`integrations-${i}`} href={entry?.link || "/#"} passHref>
-              <ListItemButton component="a" selected={pathname === entry?.link}>
+            <Link key={`integrations-${i}`} href={entry?.link || "/#"} passHref style={{ textDecoration: "none", color: "inherit" }}>
+              <ListItemButton selected={pathname === entry?.link}>
                 <ListItemIcon sx={{ color: "inherit" }}>
                   {entry?.icon}
                 </ListItemIcon>
@@ -197,8 +197,8 @@ const AppDrawer: React.FC<{
           },
         ].map((entry, i) => {
           return (
-            <Link key={`settings-${i}`} href={entry?.link || "/#"} passHref>
-              <ListItemButton component="a" selected={pathname === entry?.link}>
+            <Link key={`settings-${i}`} href={entry?.link || "/#"} passHref style={{ textDecoration: "none", color: "inherit" }}>
+              <ListItemButton selected={pathname === entry?.link}>
                 <ListItemIcon sx={{ color: "inherit" }}>
                   {entry?.icon}
                 </ListItemIcon>
