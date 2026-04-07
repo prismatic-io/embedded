@@ -39,6 +39,8 @@ export interface QueryWorkflowsProps extends Record<string, unknown> {
   descriptionSearch?: string;
   categorySearch?: string;
   labelSearch?: string;
+  contextStableKey?: string;
+  externalId?: string;
   sortBy?: string[];
   first?: number;
   cursor?: string;
@@ -51,6 +53,8 @@ const query = `
     $descriptionSearch: String
     $categorySearch: String
     $labelSearch: String
+    $contextStableKey: String
+    $externalId: String
     $first: Int
     $sortBy: [IntegrationVariantOrder]
   ) {
@@ -60,6 +64,8 @@ const query = `
       description_Icontains: $descriptionSearch
       category: $categorySearch
       labels_Icontains: $labelSearch
+      contextStableKey: $contextStableKey
+      externalId: $externalId
       exclude: [INTEGRATION]
       first: $first
       sortBy: $sortBy
