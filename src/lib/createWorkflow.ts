@@ -4,6 +4,7 @@ import { graphqlRequest } from "./graphqlRequest";
 export interface WorkflowContexts {}
 
 interface CreateWorkflowArgs<TContextData = unknown> {
+  name: string;
   contextData: TContextData;
   externalId?: string;
 }
@@ -21,14 +22,16 @@ interface CreateWorkflowData {
 }
 
 interface CreateWorkflowVariables {
+  name: string;
   contextStableKey: string;
   contextData: string;
   externalId?: string;
 }
 
 const mutation = `
-  mutation createWorkflow($contextStableKey: String, $contextData: String, $externalId: String) {
+  mutation createWorkflow($name: String!, $contextStableKey: String, $contextData: String, $externalId: String) {
     importWorkflow(input: {
+      name: $name
       contextStableKey: $contextStableKey
       contextData: $contextData
       externalId: $externalId
@@ -59,6 +62,7 @@ export async function createWorkflow<
   return graphqlRequest<CreateWorkflowData, CreateWorkflowVariables>({
     query: mutation,
     variables: {
+      name: args.name,
       contextStableKey,
       contextData: JSON.stringify(args.contextData),
       externalId: args.externalId,
