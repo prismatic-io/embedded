@@ -6,6 +6,7 @@ import {
 } from "./configureInstance";
 
 export { authenticate } from "./authenticate";
+export { createWorkflow } from "./createWorkflow";
 export {
   configureInstance,
   isConfigureInstanceWithInstanceId,
@@ -24,5 +25,6 @@ export { showDesigner } from "./showDesigner";
 export { showIntegrations } from "./showIntegrations";
 export { showLogs } from "./showLogs";
 export { showMarketplace } from "./showMarketplace";
+export { queryWorkflows } from "./queryWorkflows";
 export { showWorkflow } from "./showWorkflow";
 export { showWorkflows } from "./showWorkflows";
