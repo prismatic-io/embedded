@@ -131,13 +131,11 @@ export type MessageData =
       data: UserConfigurationData;
       event: PrismaticMessageEvent.USER_CONFIGURATION_OPENED;
     }
-  | 
-    {
+  | {
       data: WorkflowConfigurationData;
-      event: PrismaticMessageEvent.WORKFLOW_ENABLED
-    } 
-  | 
-    {
+      event: PrismaticMessageEvent.WORKFLOW_ENABLED;
+    }
+  | {
       data: WorkflowConfigurationData;
-      event: PrismaticMessageEvent.WORKFLOW_DISABLED
+      event: PrismaticMessageEvent.WORKFLOW_DISABLED;
     };

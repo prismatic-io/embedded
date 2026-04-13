@@ -3,9 +3,7 @@ import urlJoin from "url-join";
 import stateService from "../state";
 import { assertInit } from "../utils/assertInit";
 
-export interface GraphqlRequestProps<
-  TVariables = Record<string, unknown>
-> {
+export interface GraphqlRequestProps<TVariables = Record<string, unknown>> {
   query: string;
   variables?: TVariables;
 }
