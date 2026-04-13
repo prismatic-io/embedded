@@ -19,6 +19,7 @@ node_modules
 jspm_packages
 ./packed
 dist
+.tsc-types-out
 /.pnp
 .pnp.js
 *.tgz

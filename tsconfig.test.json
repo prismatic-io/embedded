@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./.tsc-types-out",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  },
+  "include": ["src", "tests"]
+}
