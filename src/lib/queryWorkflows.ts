@@ -1,7 +1,7 @@
 import { assertInit } from "../utils/assertInit";
 import { graphqlRequest } from "./graphqlRequest";
 
-interface Workflow {
+export interface Workflow {
   id: string;
   name: string;
   versionNumber: number;
@@ -23,7 +23,7 @@ interface Workflow {
   } | null;
 }
 
-interface QueryWorkflowsData {
+export interface QueryWorkflowsData {
   workflows: {
     nodes: Workflow[];
     pageInfo: {

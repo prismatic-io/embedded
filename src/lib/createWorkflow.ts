@@ -3,13 +3,13 @@ import { graphqlRequest } from "./graphqlRequest";
 
 export interface WorkflowContexts {}
 
-interface CreateWorkflowArgs<TContextData = unknown> {
+export interface CreateWorkflowArgs<TContextData = unknown> {
   name: string;
   contextData: TContextData;
   externalId?: string;
 }
 
-interface CreateWorkflowData {
+export interface CreateWorkflowData {
   importWorkflow: {
     workflow: {
       id: string;
