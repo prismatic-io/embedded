@@ -15,8 +15,27 @@ export const openPopover = () => {
 };
 
 /**
- * Closes an open popover
- * @returns void
+ * Programmatically closes the currently open Prismatic popover. This notifies
+ * the embedded iframe that the marketplace was closed and dispatches a
+ * `POPOVER_CLOSED` event on the window.
+ *
+ * The popover also closes automatically when the user clicks the close button,
+ * clicks the overlay backdrop, or presses the Escape key.
+ *
+ * @example
+ * // Close the popover from your own UI
+ * document.getElementById("my-close-btn")
+ *   .addEventListener("click", () => prismatic.closePopover());
+ *
+ * @example
+ * // Listen for the popover closed event
+ * window.addEventListener("message", (event) => {
+ *   if (event.data.event === "POPOVER_CLOSED") {
+ *     console.log("Popover was closed");
+ *   }
+ * });
+ *
+ * @see {@link https://prismatic.io/docs/embed/marketplace/ | Embedding the Marketplace}
  */
 export const closePopover = () => {
   const iframeElement = getIframeContainerElement(

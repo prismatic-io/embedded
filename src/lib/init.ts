@@ -40,6 +40,43 @@ export const EMBEDDED_DEFAULTS = {
   translation: {},
 };
 
+/**
+ * Initializes the Prismatic embedded SDK. This must be called once before any other
+ * SDK methods. It sets up the popover overlay, preloads Prismatic assets into the
+ * browser cache, and applies global configuration (theme, filters, translations, etc.).
+ *
+ * Calling `init` again resets the SDK to a fresh state with the new options.
+ *
+ * @param optionsBase - Optional global configuration for the embedded SDK.
+ * @param optionsBase.theme - The color theme to use (`"LIGHT"` or `"DARK"`). Defaults to `"LIGHT"`.
+ * @param optionsBase.fontConfiguration - Google Font families to load for the embedded UI.
+ * @param optionsBase.screenConfiguration - Per-screen display options (marketplace, config wizard, dashboard, etc.).
+ * @param optionsBase.filters - Default filters for the marketplace, integrations, and components screens.
+ * @param optionsBase.translation - Custom phrase overrides and debug mode for i18n.
+ * @param optionsBase.prismaticUrl - Override the Prismatic app URL. Defaults to `"https://app.prismatic.io"`.
+ * @param optionsBase.skipPreload - Skip preloading Prismatic assets. Defaults to `false`.
+ *
+ * @example
+ * // Basic initialization with defaults
+ * prismatic.init();
+ *
+ * @example
+ * // Initialize with dark theme and custom screen configuration
+ * prismatic.init({
+ *   theme: "DARK",
+ *   screenConfiguration: {
+ *     marketplace: { configuration: "allow-details" },
+ *     configurationWizard: { mode: "streamlined" },
+ *   },
+ *   filters: {
+ *     marketplace: { category: "ERP" },
+ *   },
+ * });
+ *
+ * @see {@link https://prismatic.io/docs/embed/get-started/install-embedded-sdk/ | Installing the Embedded SDK}
+ * @see {@link https://prismatic.io/docs/embed/theming/ | Theming}
+ * @see {@link https://prismatic.io/docs/embed/translations-and-internationalization/ | Translations & i18n}
+ */
 export const init = (optionsBase?: InitProps) => {
   const options: InitProps = merge({}, EMBEDDED_DEFAULTS, optionsBase);
 
