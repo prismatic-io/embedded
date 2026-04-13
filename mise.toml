@@ -1,0 +1,37 @@
+[tools]
+"github-cli" = "2.42.1"
+node = "24"
+
+[tasks.build]
+description = "Build the project"
+run = "npm run build"
+
+[tasks."format:check"]
+description = "Check source file formatting"
+run = "npm run check-format"
+
+[tasks.validate]
+description = "Run all validation checks"
+depends = ["format:check", "build"]
+
+[tasks.version-bump]
+description = "Bump package.json version (set BUMP_TYPE=patch|minor|major|preview)"
+run = """
+if [ "$BUMP_TYPE" = "preview" ]; then
+  npm version prerelease --preid=preview --no-git-tag-version
+else
+  npm version $BUMP_TYPE --no-git-tag-version
+fi
+"""
+
+[tasks.release]
+description = "Trigger a release (usage: mise run release -- patch|minor|major|preview)"
+run = """
+BUMP="{{arg(i=0, name='bump', required=true)}}"
+if [ "$BUMP" != "patch" ] && [ "$BUMP" != "minor" ] && [ "$BUMP" != "major" ] && [ "$BUMP" != "preview" ]; then
+  echo "ERROR: Invalid bump type '$BUMP'. Must be patch, minor, major, or preview."
+  exit 1
+fi
+gh workflow run release.yml -f bump="$BUMP"
+echo "Release workflow triggered with bump=$BUMP"
+"""
