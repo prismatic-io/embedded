@@ -29,7 +29,7 @@ export type TermExpression = [TermOperator, unknown, unknown?];
 
 export type BooleanExpression = [
   BooleanOperator.and | BooleanOperator.or,
-  ...ConditionalExpression[]
+  ...ConditionalExpression[],
 ];
 
 export type ConditionalExpression = TermExpression | BooleanExpression;

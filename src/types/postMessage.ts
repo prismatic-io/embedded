@@ -1,4 +1,4 @@
-import { ConfigVar } from "./configVars";
+import type { ConfigVar } from "./configVars";
 
 export interface WorkflowConfigurationData {
   customerId: string;
@@ -104,7 +104,7 @@ export type MessageData =
       event: PrismaticMessageEvent.INSTANCE_DEPLOYED;
     }
   | {
-      data: {};
+      data: Record<string, never>;
       event: PrismaticMessageEvent.POPOVER_CLOSE_REQUESTED;
     }
   | {

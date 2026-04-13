@@ -1,4 +1,4 @@
-import { Phrases } from "@prismatic-io/translations";
+import type { Phrases } from "@prismatic-io/translations";
 
 export interface Translation {
   debugMode?: boolean;

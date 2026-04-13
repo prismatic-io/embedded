@@ -5,7 +5,7 @@ export const assertEmbeddedDesigner = (functionName: string) => {
 
   if (!embeddedDesignerEnabled) {
     throw new Error(
-      `Embedded designer must be enabled for this customer in order to call ${functionName}`
+      `Embedded designer must be enabled for this customer in order to call ${functionName}`,
     );
   }
 };

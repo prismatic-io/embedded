@@ -1,12 +1,11 @@
 import merge from "lodash.merge";
-
+import urlJoin from "url-join";
+import stateService, { ValidKeys } from "../state";
+import { isPopover, type Options } from "../types/options";
 import { PrismaticMessageEvent } from "../types/postMessage";
-import { isPopover, Options } from "../types/options";
+import type { ScreenConfiguration } from "../types/screenConfiguration";
 import { closePopover, openPopover } from "./popover";
 import { postMessage } from "./postMessage";
-import stateService, { ValidKeys } from "../state";
-import urlJoin from "url-join";
-import { ScreenConfiguration } from "../types/screenConfiguration";
 
 export const EMBEDDED_ID = "pio__embedded";
 export const EMBEDDED_IFRAME_ID = "pio__iframe";
@@ -24,25 +23,25 @@ export const getIframeContainerElement = (selector: string) =>
 
 export const getIframeElement = (selector: string | undefined) =>
   document.querySelector(
-    `${selector || EMBEDDED_IFRAME_CONTAINER_SELECTOR} > iframe`
+    `${selector || EMBEDDED_IFRAME_CONTAINER_SELECTOR} > iframe`,
   );
 
 export const isIframe = (
-  element?: Element | null
+  element?: Element | null,
 ): element is HTMLIFrameElement =>
   Boolean(element && element.tagName === "IFRAME");
 
 export const setIframe = (
   route: string,
   options: Options,
-  params?: Record<string, string>
+  params?: Record<string, string>,
 ) => {
   if (!isPopover(options) && !options.selector) {
     console.error("Could not find display selector.");
   }
 
   const iframeContainerElement = getIframeContainerElement(
-    isPopover(options) ? EMBEDDED_IFRAME_CONTAINER_SELECTOR : options.selector
+    isPopover(options) ? EMBEDDED_IFRAME_CONTAINER_SELECTOR : options.selector,
   );
 
   if (!iframeContainerElement) {
@@ -76,14 +75,14 @@ export const setIframe = (
   if (state.screenConfiguration?.initializing) {
     queryParams.set(
       "initializing",
-      JSON.stringify(state.screenConfiguration.initializing)
+      JSON.stringify(state.screenConfiguration.initializing),
     );
   }
 
   if (state.fontConfiguration) {
     queryParams.set(
       "fontConfiguration",
-      JSON.stringify(state.fontConfiguration)
+      JSON.stringify(state.fontConfiguration),
     );
   }
 
@@ -163,7 +162,7 @@ export const setIframe = (
       },
       {
         signal: abortController.signal,
-      }
+      },
     );
 
     if (options?.autoFocusIframe !== false) {
@@ -174,7 +173,7 @@ export const setIframe = (
         },
         {
           signal: abortController.signal,
-        }
+        },
       );
     }
   }
@@ -202,7 +201,7 @@ const observeForIframeRemoval = (signal: AbortController) => {
               observer.disconnect();
             } else {
               const iframe = (removedNode as HTMLElement).querySelector(
-                `iframe#${EMBEDDED_IFRAME_ID}`
+                `iframe#${EMBEDDED_IFRAME_ID}`,
               );
               if (iframe !== null) {
                 signal.abort();

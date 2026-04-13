@@ -40,7 +40,7 @@ export const editInstanceConfiguration = ({
         },
       },
     },
-    { reconfigure: "true" }
+    { reconfigure: "true" },
   );
 
   if (!onCancel && !onSuccess && !onDelete) {
@@ -67,7 +67,7 @@ export const editInstanceConfiguration = ({
           break;
       }
     },
-    { signal: abortController.signal }
+    { signal: abortController.signal },
   );
 
   return () => abortController.abort();

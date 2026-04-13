@@ -1,8 +1,8 @@
-import { Filters } from "./types/filters";
-import { FontConfiguration } from "./types/fontConfiguration";
-import { ScreenConfiguration } from "./types/screenConfiguration";
-import { Theme } from "./types/theme";
-import { Translation } from "./types/translation";
+import type { Filters } from "./types/filters";
+import type { FontConfiguration } from "./types/fontConfiguration";
+import type { ScreenConfiguration } from "./types/screenConfiguration";
+import type { Theme } from "./types/theme";
+import type { Translation } from "./types/translation";
 
 export interface State {
   filters: Filters;
@@ -30,7 +30,7 @@ const defaultState: State = {
 };
 
 export const ValidKeys: Set<string> = new Set<string>(
-  Object.keys(defaultState)
+  Object.keys(defaultState),
 );
 
 class StateService {

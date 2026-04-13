@@ -1,4 +1,4 @@
-import { Options } from "../types/options";
+import type { Options } from "../types/options";
 import { assertInit } from "../utils/assertInit";
 import { setIframe } from "../utils/iframe";
 
@@ -55,19 +55,19 @@ export const configureInstance = ({ ...props }: ConfigureInstanceProps) => {
 };
 
 export const isConfigureInstanceWithInstanceId = (
-  props: ConfigureInstanceProps
+  props: ConfigureInstanceProps,
 ): props is ConfigureInstanceWithInstanceId => {
   return Boolean("instanceId" in props && props.instanceId);
 };
 
 export const isConfigureInstanceWithIntegrationId = (
-  props: ConfigureInstanceProps
+  props: ConfigureInstanceProps,
 ): props is ConfigureInstanceWithIntegrationId => {
   return Boolean("integrationId" in props && props.integrationId);
 };
 
 export const isConfigureInstanceWithIntegrationName = (
-  props: ConfigureInstanceProps
+  props: ConfigureInstanceProps,
 ): props is ConfigureInstanceWithIntegrationName => {
   return Boolean("integrationName" in props && props.integrationName);
 };

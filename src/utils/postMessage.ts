@@ -16,11 +16,11 @@ type PostMessageProps = SelectorPostMessage | ElementPostMessage;
 
 export const getMessageIframe = (event: MessageEvent) =>
   Array.from(document.getElementsByTagName("iframe")).find(
-    (iframe) => iframe.contentWindow === event.source
+    (iframe) => iframe.contentWindow === event.source,
   );
 
 const isIframePostMessage = (
-  props: PostMessageProps
+  props: PostMessageProps,
 ): props is ElementPostMessage => "iframe" in props;
 
 export const postMessage = (props: PostMessageProps) => {

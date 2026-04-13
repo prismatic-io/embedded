@@ -1,6 +1,7 @@
 import { assertInit } from "../utils/assertInit";
 import { graphqlRequest } from "./graphqlRequest";
 
+// biome-ignore lint/suspicious/noEmptyInterface: Empty interface is intentional - consumers augment it via declaration merging.
 export interface WorkflowContexts {}
 
 export interface CreateWorkflowArgs<TContextData = unknown> {
@@ -48,14 +49,14 @@ const mutation = `
 `;
 
 export async function createWorkflow<
-  TKey extends keyof WorkflowContexts | (string & {})
+  TKey extends keyof WorkflowContexts | (string & {}),
 >(
   contextStableKey: TKey,
   args: CreateWorkflowArgs<
     TKey extends keyof WorkflowContexts
       ? WorkflowContexts[TKey]
       : Record<string, unknown>
-  >
+  >,
 ) {
   assertInit("createWorkflow");
 
