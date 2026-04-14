@@ -15,6 +15,38 @@ export interface AuthenticateProps {
   token: string;
 }
 
+/**
+ * Authenticates an embedded user with a signed JWT token. This must be called after
+ * {@link init} and before rendering any embedded screens. The token should be a
+ * short-lived RS256-signed JWT generated on your backend.
+ *
+ * After the initial call, call `authenticate` again before the token expires
+ * (typically ~60 seconds before expiry) to keep the session alive. All active
+ * iframes update automatically when a new token is provided.
+ *
+ * @param options - Authentication options.
+ * @param options.token - A signed JWT containing `sub`, `organization`, `customer`, `iat`, and `exp` claims.
+ * @param options.prismaticUrl - Override the Prismatic app URL for this authentication request.
+ * @throws {Error} If the token is missing or the server rejects it.
+ *
+ * @example
+ * // Authenticate with a token fetched from your backend
+ * const response = await fetch("/api/prismatic-token");
+ * const { token } = await response.json();
+ * await prismatic.authenticate({ token });
+ *
+ * @example
+ * // Re-authenticate before token expiry
+ * const TOKEN_LIFETIME_MS = 10 * 60 * 1000; // 10 minutes
+ * const refreshToken = async () => {
+ *   const { token } = await fetchToken();
+ *   await prismatic.authenticate({ token });
+ *   setTimeout(refreshToken, TOKEN_LIFETIME_MS - 60_000);
+ * };
+ * refreshToken();
+ *
+ * @see {@link https://prismatic.io/docs/embed/authenticate-users/ | Authenticating Embedded Users}
+ */
 export const authenticate = async (options: AuthenticateProps) => {
   assertInit("authenticate");
 
