@@ -15,7 +15,8 @@ description = "Lint source files"
 run = "npm run lint"
 
 [tasks.test]
-description = "Run tests (includes type-level tests)"
+description = "Run tests"
+depends = ["build"]
 run = "npm test"
 
 [tasks.validate]
