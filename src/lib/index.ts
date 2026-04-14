@@ -7,15 +7,10 @@ import {
 
 export { authenticate } from "./authenticate";
 export { createWorkflow } from "./createWorkflow";
-export {
-  configureInstance,
-  isConfigureInstanceWithInstanceId,
-  isConfigureInstanceWithIntegrationId,
-  isConfigureInstanceWithIntegrationName,
-};
 export { editInstanceConfiguration } from "./editInstanceConfiguration";
 export { graphqlRequest } from "./graphqlRequest";
-export { init, EMBEDDED_DEFAULTS } from "./init";
+export { EMBEDDED_DEFAULTS, init } from "./init";
+export { queryWorkflows } from "./queryWorkflows";
 export { setConfigVars } from "./setConfigVars";
 export { showComponent } from "./showComponent";
 export { showComponents } from "./showComponents";
@@ -25,6 +20,11 @@ export { showDesigner } from "./showDesigner";
 export { showIntegrations } from "./showIntegrations";
 export { showLogs } from "./showLogs";
 export { showMarketplace } from "./showMarketplace";
-export { queryWorkflows } from "./queryWorkflows";
 export { showWorkflow } from "./showWorkflow";
 export { showWorkflows } from "./showWorkflows";
+export {
+  configureInstance,
+  isConfigureInstanceWithInstanceId,
+  isConfigureInstanceWithIntegrationId,
+  isConfigureInstanceWithIntegrationName,
+};

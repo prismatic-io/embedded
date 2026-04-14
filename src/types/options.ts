@@ -1,7 +1,7 @@
-import { Filters } from "./filters";
-import { ScreenConfiguration } from "./screenConfiguration";
-import { Theme } from "./theme";
-import { Translation } from "./translation";
+import type { Filters } from "./filters";
+import type { ScreenConfiguration } from "./screenConfiguration";
+import type { Theme } from "./theme";
+import type { Translation } from "./translation";
 
 interface OptionsBase {
   autoFocusIframe?: boolean;

@@ -1,4 +1,4 @@
-import { Options } from "../types/options";
+import type { Options } from "../types/options";
 import { assertEmbeddedDesigner } from "../utils/assertEmbeddedDesigner";
 import { assertInit } from "../utils/assertInit";
 import { setIframe } from "../utils/iframe";

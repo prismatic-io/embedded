@@ -1,8 +1,6 @@
 import merge from "lodash.merge";
-
+import stateService, { type State, ValidKeys } from "../state";
 import { styles } from "../styles";
-import { closePopover } from "../utils/popover";
-import stateService, { State, ValidKeys } from "../state";
 import {
   EMBEDDED_ID,
   EMBEDDED_IFRAME_CONTAINER_CLASS,
@@ -13,6 +11,7 @@ import {
   EMBEDDED_POPOVER_CLASS,
   EMBEDDED_POPOVER_CLOSE_CLASS,
 } from "../utils/iframe";
+import { closePopover } from "../utils/popover";
 
 export interface InitProps
   extends Pick<
@@ -71,7 +70,7 @@ export const init = (optionsBase?: InitProps) => {
    * calls, use existing connections and cached assets.
    */
   const existingIframePreload = document.getElementById(
-    EMBEDDED_IFRAME_PRELOAD_ID
+    EMBEDDED_IFRAME_PRELOAD_ID,
   );
 
   if (!existingIframePreload && !options.skipPreload) {
@@ -83,7 +82,7 @@ export const init = (optionsBase?: InitProps) => {
         style="visibility: hidden; display: none;"
         height="0"
         width="0"
-      />`
+      />`,
     );
   }
 
@@ -105,7 +104,7 @@ export const init = (optionsBase?: InitProps) => {
   document.body.appendChild(embeddedElement);
 
   const closeButtonElement = document.querySelector(
-    `#${EMBEDDED_ID} .${EMBEDDED_POPOVER_CLOSE_CLASS}`
+    `#${EMBEDDED_ID} .${EMBEDDED_POPOVER_CLOSE_CLASS}`,
   );
 
   const overlayElement = document.querySelector(EMBEDDED_OVERLAY_SELECTOR);

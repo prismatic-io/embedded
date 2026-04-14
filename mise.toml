@@ -3,16 +3,24 @@
 node = "24"
 
 [tasks.build]
-description = "Build the project"
+description = "Build the library"
 run = "npm run build"
 
 [tasks."format:check"]
 description = "Check source file formatting"
-run = "npm run check-format"
+run = "npm run format:check"
+
+[tasks.lint]
+description = "Lint source files"
+run = "npm run lint"
+
+[tasks.test]
+description = "Run tests (includes type-level tests)"
+run = "npm test"
 
 [tasks.validate]
 description = "Run all validation checks"
-depends = ["format:check", "build"]
+depends = ["format:check", "lint", "build", "test"]
 
 [tasks.version-bump]
 description = "Bump package.json version (set BUMP_TYPE=patch|minor|major|preview)"

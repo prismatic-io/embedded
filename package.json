@@ -27,14 +27,19 @@
   "scripts": {
     "build": "rm -rf dist/ && webpack",
     "prepack": "npm run build",
-    "check-format": "prettier --check './src/**/*.{js,jsx,ts,tsx,css,html,json,scss}'",
-    "format": "prettier --loglevel error --write './src/**/*.{js,jsx,ts,tsx,css,html,json,scss}'",
-    "lint": "echo \"Warning: no lint specified\"",
-    "test": "echo \"Warning: no test specified\""
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "check": "biome check --write .",
+    "check:ci": "biome check .",
+    "test": "npm run test:types",
+    "test:types": "rm -rf .tsc-types-out && tsc -p tsconfig.test.json && rm -rf .tsc-types-out"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.11",
     "@types/node": "18.11.18",
-    "prettier": "2.8.3",
+    "expect-type": "^1.3.0",
     "ts-loader": "9.4.2",
     "typescript": "4.9.5",
     "webpack": "^5.96.1",

@@ -1,4 +1,4 @@
-import { ConfigVars } from "../types/configVars";
+import type { ConfigVars } from "../types/configVars";
 import { PrismaticMessageEvent } from "../types/postMessage";
 import { postMessage } from "../utils/postMessage";
 

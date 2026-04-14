@@ -1,10 +1,9 @@
 import urlJoin from "url-join";
-
-import { PrismaticMessageEvent } from "../types/postMessage";
-import { EMBEDDED_IFRAME_ID } from "../utils/iframe";
-import { assertInit } from "../utils/assertInit";
-import { postMessage } from "../utils/postMessage";
 import stateService from "../state";
+import { PrismaticMessageEvent } from "../types/postMessage";
+import { assertInit } from "../utils/assertInit";
+import { EMBEDDED_IFRAME_ID } from "../utils/iframe";
+import { postMessage } from "../utils/postMessage";
 import { graphqlRequest } from "./graphqlRequest";
 
 const ERROR_MESSAGE =
@@ -32,7 +31,7 @@ export const authenticate = async (options: AuthenticateProps) => {
   const { token } = options;
 
   const iframeElement = document.getElementById(
-    EMBEDDED_IFRAME_ID
+    EMBEDDED_IFRAME_ID,
   ) as HTMLIFrameElement;
 
   const state = stateService.getStateCopy();
@@ -56,7 +55,7 @@ export const authenticate = async (options: AuthenticateProps) => {
         Authorization: `Bearer ${token}`,
       },
       method: "post",
-    }
+    },
   );
 
   if (!authResponse.ok) {
@@ -64,11 +63,11 @@ export const authenticate = async (options: AuthenticateProps) => {
 
     if (responseText) {
       throw new Error(
-        `Authentication failed. Server sent back: ${responseText}`
+        `Authentication failed. Server sent back: ${responseText}`,
       );
     } else {
       throw new Error(
-        `Authentication failed. Please check that your customer and organization information are correct, and that the token you provided is not expired.`
+        `Authentication failed. Please check that your customer and organization information are correct, and that the token you provided is not expired.`,
       );
     }
   }

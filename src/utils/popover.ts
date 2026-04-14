@@ -1,3 +1,4 @@
+import { PrismaticMessageEvent } from "../types/postMessage";
 import {
   EMBEDDED_IFRAME_CONTAINER_SELECTOR,
   EMBEDDED_OVERLAY_SELECTOR,
@@ -5,7 +6,6 @@ import {
   getIframeContainerElement,
   isIframe,
 } from "./iframe";
-import { PrismaticMessageEvent } from "../types/postMessage";
 
 export const getPopover = () =>
   document.querySelector(EMBEDDED_OVERLAY_SELECTOR);
@@ -20,7 +20,7 @@ export const openPopover = () => {
  */
 export const closePopover = () => {
   const iframeElement = getIframeContainerElement(
-    `${EMBEDDED_IFRAME_CONTAINER_SELECTOR} > iframe`
+    `${EMBEDDED_IFRAME_CONTAINER_SELECTOR} > iframe`,
   );
 
   if (!isIframe(iframeElement)) {
@@ -29,7 +29,7 @@ export const closePopover = () => {
 
   iframeElement.contentWindow?.postMessage(
     { event: PrismaticMessageEvent.MARKETPLACE_CLOSED },
-    "*"
+    "*",
   );
 
   window.postMessage({ event: PrismaticMessageEvent.POPOVER_CLOSED }, "*");

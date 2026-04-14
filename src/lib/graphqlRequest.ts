@@ -15,7 +15,7 @@ export interface GraphqlRequestResponse<TData = unknown> {
 
 export const graphqlRequest = async <
   TData = unknown,
-  TVariables = Record<string, unknown>
+  TVariables = Record<string, unknown>,
 >({
   query,
   variables,

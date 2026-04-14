@@ -1,6 +1,6 @@
-const path = require("path");
+const path = require("node:path");
 const webpack = require("webpack");
-const package = require("./package.json");
+const pkg = require("./package.json");
 
 module.exports = {
   mode: "production",
@@ -33,7 +33,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      EMBEDDED_VERSION: JSON.stringify(package.version),
+      EMBEDDED_VERSION: JSON.stringify(pkg.version),
     }),
   ],
 };
