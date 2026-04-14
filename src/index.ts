@@ -1,11 +1,4 @@
-import * as methods from "./lib";
+import * as prismatic from "./exports";
 
-export * from "./lib";
-
-export * from "./types";
-export { closePopover } from "./utils/popover";
-export { getMessageIframe } from "./utils/postMessage";
-
-export default {
-  ...methods,
-};
+export * from "./exports";
+export default prismatic;
