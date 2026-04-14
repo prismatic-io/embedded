@@ -1,5 +1,5 @@
 import { expectTypeOf } from "expect-type";
 import defaultExport from "../../src";
-import * as methods from "../../src/lib";
+import * as allExports from "../../src/exports";
 
-expectTypeOf(defaultExport).toEqualTypeOf<typeof methods>();
+expectTypeOf(defaultExport).toEqualTypeOf<typeof allExports>();
