@@ -1,22 +1,17 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
+import { parseArgs } from "node:util";
 import { fetchWorkflowContexts } from "./fetchWorkflowContexts";
 import { generateTypes } from "./generateTypes";
 
-const parseArgs = (args: string[]): { output: string } => {
-  let output = "prismatic.d.ts";
-
-  for (let i = 0; i < args.length; i++) {
-    if (args[i] === "--output" || args[i] === "-o") {
-      output = args[++i];
-    }
-  }
-
-  return { output };
-};
-
 const main = async () => {
-  const { output } = parseArgs(process.argv.slice(2));
+  const { values } = parseArgs({
+    args: process.argv.slice(2),
+    options: {
+      output: { type: "string", short: "o", default: "prismatic.d.ts" },
+    },
+  });
+  const output = values.output!;
   const outputPath = path.resolve(process.cwd(), output);
 
   console.log("Fetching workflow contexts...");
