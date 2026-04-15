@@ -16,5 +16,5 @@
     "target": "es6"
   },
   "include": ["src"],
-  "exclude": ["**/*.test.ts"]
+  "exclude": ["**/*.test.ts", "src/generators"]
 }

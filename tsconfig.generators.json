@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "lib": ["es2020", "DOM"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist/generators",
+    "rootDir": "./src/generators",
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "target": "es2020"
+  },
+  "include": ["src/generators"]
+}
