@@ -21,11 +21,15 @@
   "version": "4.8.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "generate-types": "bin/generate-types.js"
+  },
   "files": [
-    "dist/"
+    "dist/",
+    "bin/"
   ],
   "scripts": {
-    "build": "rm -rf dist/ && webpack",
+    "build": "rm -rf dist/ && webpack && tsc --project tsconfig.generators.json",
     "prepack": "npm run build",
     "format": "biome format --write .",
     "format:check": "biome format .",
@@ -48,6 +52,7 @@
   },
   "dependencies": {
     "@prismatic-io/translations": "^2.9.0",
+    "json-schema-to-typescript": "^15.0.0",
     "lodash.merge": "4.6.2",
     "url-join": "5.0.0"
   }
