@@ -4,9 +4,13 @@ import { resolve } from "node:path";
 import { JSDOM } from "jsdom";
 import { describe, expect, it } from "vitest";
 
-import prismatic, { init as namedInit } from "../dist/index.js";
+// ESM entry point verified against dist/index.mjs. tsconfig.test.json uses
+// moduleResolution=bundler so the `.mjs` extension resolves to `.d.mts`
+// at type-check time while vitest reads the runtime file directly.
+import prismatic, { init as namedInit } from "../dist/index.mjs";
 
-const distPath = resolve(__dirname, "../dist/index.js");
+const cjsPath = resolve(__dirname, "../dist/index.cjs");
+const umdPath = resolve(__dirname, "../dist/index.umd.js");
 
 describe("@prismatic-io/embedded public API", () => {
   it("supports ESM default + named imports", () => {
@@ -16,7 +20,7 @@ describe("@prismatic-io/embedded public API", () => {
 
   it("supports CommonJS require", () => {
     const require = createRequire(import.meta.url);
-    const mod = require(distPath) as {
+    const mod = require(cjsPath) as {
       init: unknown;
       default: { init: unknown };
     };
@@ -26,7 +30,7 @@ describe("@prismatic-io/embedded public API", () => {
 
   it("supports UMD <script> tag (attaches window.prismatic)", async () => {
     const dom = new JSDOM("", { runScripts: "dangerously" });
-    dom.window.eval(await readFile(distPath, "utf8"));
+    dom.window.eval(await readFile(umdPath, "utf8"));
     const windowPrismatic = (
       dom.window as unknown as {
         prismatic: { init: unknown };

@@ -29,9 +29,25 @@ const defaultState: State = {
   translation: undefined,
 };
 
-export const ValidKeys: Set<string> = new Set<string>(
-  Object.keys(defaultState),
+export const ValidKeys: ReadonlySet<keyof State> = new Set(
+  Object.keys(defaultState) as Array<keyof State>,
 );
+
+export const isStateKey = (key: string): key is keyof State =>
+  (ValidKeys as ReadonlySet<string>).has(key);
+
+// Assigning `state[key] = value` where `key: keyof State` trips TS's
+// correlated-types limitation — the index evaluates to an intersection
+// (`never`) instead of the union. Wrapping the assignment in a generic
+// function bound to a single `K` lets TS treat `State[K]` as a single
+// concrete type, which matches the `value` parameter cleanly.
+export const setStateKey = <K extends keyof State>(
+  state: State,
+  key: K,
+  value: State[K],
+): void => {
+  state[key] = value;
+};
 
 class StateService {
   private defaultState: State;

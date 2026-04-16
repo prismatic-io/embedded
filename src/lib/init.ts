@@ -1,5 +1,5 @@
 import merge from "lodash.merge";
-import stateService, { type State, ValidKeys } from "../state";
+import stateService, { isStateKey, type State, setStateKey } from "../state";
 import { styles } from "../styles";
 import {
   EMBEDDED_ID,
@@ -85,8 +85,8 @@ export const init = (optionsBase?: InitProps) => {
 
   if (options) {
     Object.entries(options).forEach(([key, value]) => {
-      if (ValidKeys.has(key)) {
-        state[key] = value;
+      if (isStateKey(key)) {
+        setStateKey(state, key, value as State[typeof key]);
       }
     });
   }

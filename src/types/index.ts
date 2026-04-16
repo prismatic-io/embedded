@@ -1,24 +1,24 @@
-export { Phrases } from "@prismatic-io/translations";
-export { AuthenticateProps } from "../lib/authenticate";
-export {
+export type { Phrases } from "@prismatic-io/translations";
+export type { AuthenticateProps } from "../lib/authenticate";
+export type {
   ConfigureInstanceProps,
   ConfigureInstanceWithInstanceId,
   ConfigureInstanceWithIntegrationId,
   ConfigureInstanceWithIntegrationName,
 } from "../lib/configureInstance";
-export { EditInstanceConfigurationProps } from "../lib/editInstanceConfiguration";
-export { GraphqlRequestProps } from "../lib/graphqlRequest";
-export { InitProps } from "../lib/init";
-export { SetConfigVarsProps } from "../lib/setConfigVars";
-export { ShowComponentProps } from "../lib/showComponent";
-export { ShowComponentsProps } from "../lib/showComponents";
-export { ShowDashboardProps } from "../lib/showDashboard";
-export { ShowDesignerProps } from "../lib/showDesigner";
-export { ShowIntegrationsProps } from "../lib/showIntegrations";
+export type { EditInstanceConfigurationProps } from "../lib/editInstanceConfiguration";
+export type { GraphqlRequestProps } from "../lib/graphqlRequest";
+export type { InitProps } from "../lib/init";
+export type { SetConfigVarsProps } from "../lib/setConfigVars";
+export type { ShowComponentProps } from "../lib/showComponent";
+export type { ShowComponentsProps } from "../lib/showComponents";
+export type { ShowDashboardProps } from "../lib/showDashboard";
+export type { ShowDesignerProps } from "../lib/showDesigner";
+export type { ShowIntegrationsProps } from "../lib/showIntegrations";
 
-export { ShowLogsProps } from "../lib/showLogs";
-export { ShowMarketplaceProps } from "../lib/showMarketplace";
-export {
+export type { ShowLogsProps } from "../lib/showLogs";
+export type { ShowMarketplaceProps } from "../lib/showMarketplace";
+export type {
   ConfigVar,
   ConfigVars,
   ConnectionConfigVar,
@@ -26,26 +26,31 @@ export {
   DefaultConfigVar,
   DefaultConfigVarInput,
 } from "./configVars";
+// BooleanOperator and TermOperator are runtime enums; the rest are pure types.
 export {
   BooleanOperator,
-  ComponentsFilters,
-  ConditionalExpression,
-  Filters,
-  IntegrationsFilters,
-  MarketplaceFilters,
+  type ComponentsFilters,
+  type ConditionalExpression,
+  type Filters,
+  type IntegrationsFilters,
+  type MarketplaceFilters,
   TermOperator,
 } from "./filters";
-export { FontConfiguration, GoogleFontFamilies } from "./fontConfiguration";
-export { Options, PopoverOptions, SelectorOptions } from "./options";
+export type {
+  FontConfiguration,
+  GoogleFontFamilies,
+} from "./fontConfiguration";
+export type { Options, PopoverOptions, SelectorOptions } from "./options";
+// PrismaticMessageEvent is a runtime enum; the rest are pure types.
 export {
-  InstanceConfigurationData,
-  InstanceConfigurationLoadedData,
-  MessageData,
+  type InstanceConfigurationData,
+  type InstanceConfigurationLoadedData,
+  type MessageData,
   PrismaticMessageEvent,
-  UserConfigurationData,
-  WorkflowConfigurationData,
+  type UserConfigurationData,
+  type WorkflowConfigurationData,
 } from "./postMessage";
-export {
+export type {
   ConfigurationWizardConfiguration,
   ConfigureInstanceScreenConfiguration,
   DashboardScreenConfiguration,
@@ -55,5 +60,5 @@ export {
   ScreenConfiguration,
   TriggerDetails,
 } from "./screenConfiguration";
-export { Theme } from "./theme";
-export { Translation } from "./translation";
+export type { Theme } from "./theme";
+export type { Translation } from "./translation";

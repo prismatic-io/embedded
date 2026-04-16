@@ -42,9 +42,14 @@ run = """
 npm run build
 """
 
+[tasks."test:browser"]
+description = "Run Playwright browser smoke tests against the built bundles"
+depends = ["build"]
+run = "node_modules/.bin/playwright test"
+
 [tasks.validate]
 description = "Run all validation checks"
-depends = ["format:check", "lint", "build", "test", "example:typecheck", "example:build"]
+depends = ["format:check", "lint", "build", "test", "example:typecheck", "example:build", "test:browser"]
 
 [tasks.version-bump]
 description = "Bump package.json version (set BUMP_TYPE=patch|minor|major|preview)"

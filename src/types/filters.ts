@@ -1,10 +1,10 @@
 import {
   BooleanOperator,
-  ConditionalExpression,
+  type ConditionalExpression,
   TermOperator,
 } from "./conditionalLogic";
 
-export { BooleanOperator, ConditionalExpression, TermOperator };
+export { BooleanOperator, type ConditionalExpression, TermOperator };
 
 export interface MarketplaceFilters {
   category?: string;
