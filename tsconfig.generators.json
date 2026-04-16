@@ -2,6 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "esModuleInterop": true,
+    "ignoreDeprecations": "6.0",
     "lib": ["es2020", "DOM"],
     "module": "commonjs",
     "moduleResolution": "node",
@@ -9,7 +10,8 @@
     "rootDir": "./src/generators",
     "skipLibCheck": true,
     "strictNullChecks": true,
-    "target": "es2020"
+    "target": "es2020",
+    "types": ["node"]
   },
   "include": ["src/generators"]
 }

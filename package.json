@@ -19,8 +19,24 @@
   },
   "license": "MIT",
   "version": "4.9.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/index.umd.js",
+  "jsdelivr": "./dist/index.umd.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "bin": {
     "generate-types": "bin/generate-types.js"
   },
@@ -29,7 +45,7 @@
     "bin/"
   ],
   "scripts": {
-    "build": "rm -rf dist/ && webpack && tsc --project tsconfig.generators.json",
+    "build": "rm -rf dist/ && tsdown && node_modules/typescript/bin/tsc --project tsconfig.generators.json && cp dist/index.d.cts dist/index.d.ts",
     "prepack": "npm run build",
     "format": "biome format --write .",
     "format:check": "biome format .",
@@ -37,18 +53,30 @@
     "lint:fix": "biome lint --write .",
     "check": "biome check --write .",
     "check:ci": "biome check .",
-    "test": "tsc -p tsconfig.test.json && vitest run"
+    "test": "node_modules/typescript/bin/tsc -p tsconfig.test.json && vitest run",
+    "test:browser": "npm run build && playwright test",
+    "typecheck:compat": "node_modules/typescript-49/bin/tsc -p tsconfig.compat.json && node_modules/typescript-50/bin/tsc -p tsconfig.compat.json && node_modules/typescript-52/bin/tsc -p tsconfig.compat.json && node_modules/typescript-55/bin/tsc -p tsconfig.compat.json && node_modules/typescript-58/bin/tsc -p tsconfig.compat.json && node_modules/typescript/bin/tsc -p tsconfig.compat.latest.json"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.11",
+    "@mswjs/http-middleware": "^0.10.3",
+    "@playwright/test": "^1.59.1",
+    "@types/express": "^5.0.6",
+    "@types/jsdom": "^28.0.1",
+    "@types/lodash.merge": "^4.6.9",
     "@types/node": "^20.19.39",
+    "esbuild": "^0.28.0",
     "expect-type": "^1.3.0",
     "jsdom": "^29.0.2",
-    "ts-loader": "9.4.2",
-    "typescript": "4.9.5",
-    "vitest": "^4.1.4",
-    "webpack": "^5.96.1",
-    "webpack-cli": "5.0.1"
+    "msw": "^2.13.4",
+    "tsdown": "^0.21.8",
+    "typescript": "~6.0.2",
+    "typescript-49": "npm:typescript@~4.9",
+    "typescript-50": "npm:typescript@~5.0",
+    "typescript-52": "npm:typescript@~5.2",
+    "typescript-55": "npm:typescript@~5.5",
+    "typescript-58": "npm:typescript@~5.8",
+    "vitest": "^4.1.4"
   },
   "dependencies": {
     "@prismatic-io/translations": "^2.9.0",

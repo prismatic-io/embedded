@@ -1,6 +1,6 @@
 import merge from "lodash.merge";
 import urlJoin from "url-join";
-import stateService, { ValidKeys } from "../state";
+import stateService, { isStateKey, type State, setStateKey } from "../state";
 import { isPopover, type Options } from "../types/options";
 import { PrismaticMessageEvent } from "../types/postMessage";
 import type { ScreenConfiguration } from "../types/screenConfiguration";
@@ -53,12 +53,11 @@ export const setIframe = (
 
   if (options) {
     Object.entries(options).forEach(([key, value]) => {
-      if (ValidKeys.has(key)) {
-        if (state[key] instanceof Object) {
-          state[key] = merge(state[key], value);
-        } else {
-          state[key] = value;
-        }
+      if (isStateKey(key)) {
+        const existing = state[key];
+        const next =
+          existing instanceof Object ? merge(existing, value) : value;
+        setStateKey(state, key, next as State[typeof key]);
       }
     });
   }

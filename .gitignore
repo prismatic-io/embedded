@@ -55,5 +55,6 @@ build/Release
 # PowerPoint tmp files
 ~$*.pptx
 
-# Test results
-test-results/
+# Playwright / test results
+/playwright-report/
+/test-results/

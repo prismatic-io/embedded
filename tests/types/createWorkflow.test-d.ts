@@ -9,8 +9,8 @@
  * output of `generate-types`.
  */
 import { expectTypeOf } from "expect-type";
-import { createWorkflow } from "../../src/lib/createWorkflow";
 import type { WorkflowContexts } from "../../src/lib/createWorkflow";
+import { createWorkflow } from "../../src/lib/createWorkflow";
 
 // ---------------------------------------------------------------------------
 // WorkflowContexts is augmented with the fixture's keys

@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.compat.json",
+  "compilerOptions": {
+    // TS 6.0 deprecates `moduleResolution: "node"` in favor of `"node10"`.
+    // We keep "node" in the shared compat config because earlier TS versions
+    // don't know about "node10" (or `ignoreDeprecations: "6.0"` as a value).
+    // This override silences the deprecation when running the latest TS.
+    "ignoreDeprecations": "6.0"
+  }
+}
