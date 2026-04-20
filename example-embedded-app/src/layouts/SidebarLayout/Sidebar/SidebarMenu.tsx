@@ -85,7 +85,7 @@ const SubMenuWrapper = styled(Box)(({ theme }) => ({
           fontSize: theme.typography.pxToRem(20),
         },
         "&.active,&:hover": {
-          backgroundC: alpha(theme.colors.alpha.trueWhite[100], 0.06),
+          backgroundColor: alpha(theme.colors.alpha.trueWhite[100], 0.06),
           color: theme.colors.alpha.trueWhite[100],
           ".MuiButton-startIcon,.MuiButton-endIcon": {
             color: theme.colors.alpha.trueWhite[100],
@@ -190,7 +190,7 @@ const embeddedSidebarMenuItems: EmbeddedSidebarMenuProps[] = [
     icon: ConstructionTwoTone,
   },
   {
-    path: "examples/i18n",
+    path: "/examples/i18n",
     title: "Internationalization (i18n)",
     icon: TranslateTwoTone,
   },
@@ -214,17 +214,16 @@ function SidebarMenu() {
         <SubMenuWrapper>
           <List component="div">
             <ListItem component="div">
-              <NextLink href="/" passHref legacyBehavior>
-                <Button
-                  className={currentRoute === "/" ? "active" : ""}
-                  disableRipple
-                  component="a"
-                  onClick={closeSidebar}
-                  startIcon={<RocketLaunchTwoTone />}
-                >
-                  Rocket Launches
-                </Button>
-              </NextLink>
+              <Button
+                className={currentRoute === "/" ? "active" : ""}
+                disableRipple
+                component={NextLink}
+                href="/"
+                onClick={closeSidebar}
+                startIcon={<RocketLaunchTwoTone />}
+              >
+                Rocket Launches
+              </Button>
             </ListItem>
           </List>
         </SubMenuWrapper>
@@ -241,17 +240,16 @@ function SidebarMenu() {
           <List component="div">
             {embeddedSidebarMenuItems.map((item) => (
               <ListItem key={item.path} component="div">
-                <NextLink href={item.path} passHref legacyBehavior>
-                  <Button
-                    className={currentRoute === item.path ? "active" : ""}
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<item.icon />}
-                  >
-                    {item.title}
-                  </Button>
-                </NextLink>
+                <Button
+                  className={currentRoute === item.path ? "active" : ""}
+                  disableRipple
+                  component={NextLink}
+                  href={item.path}
+                  onClick={closeSidebar}
+                  startIcon={<item.icon />}
+                >
+                  {item.title}
+                </Button>
               </ListItem>
             ))}
           </List>
