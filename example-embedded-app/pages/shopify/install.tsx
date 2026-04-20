@@ -1,8 +1,7 @@
-import React from "react";
-import Head from "next/head";
 import prismatic from "@prismatic-io/embedded";
-
+import Head from "next/head";
 import { useRouter } from "next/router";
+import React from "react";
 import usePrismaticAuth from "@/usePrismaticAuth";
 
 const steps = {
@@ -27,7 +26,14 @@ function InstallShopify() {
      */
     const redirectToShopifyAuth = async () => {
       setStep("queryForInstances");
-      const getIntegrationResult = await prismatic.graphqlRequest({
+      const getIntegrationResult = await prismatic.graphqlRequest<{
+        marketplaceIntegrations: {
+          nodes: {
+            id: string;
+            instances: { nodes: { id: string }[] };
+          }[];
+        };
+      }>({
         query: `query getShopifyInstances {
           marketplaceIntegrations(
             name: "Shopify"
@@ -51,7 +57,9 @@ function InstallShopify() {
       if (instances.length === 0) {
         setStep("creatingInstance");
         // We need to create a new Shopify instance
-        const createInstanceResult = await prismatic.graphqlRequest({
+        const createInstanceResult = await prismatic.graphqlRequest<{
+          createInstance: { instance: { id: string } };
+        }>({
           query: `mutation createShopifyInstance(
               $integrationId: ID!
               $customerId: ID!
@@ -84,7 +92,20 @@ function InstallShopify() {
 
       // Configure the instance
       setStep("updatingInstance");
-      const updateInstanceResult = await prismatic.graphqlRequest({
+      const updateInstanceResult = await prismatic.graphqlRequest<{
+        updateInstanceConfigVariables: {
+          instance: {
+            id: string;
+            configVariables: {
+              nodes: {
+                requiredConfigVariable: { key: string };
+                authorizeUrl: string;
+              }[];
+            };
+          };
+          errors: { field: string; messages: string[] }[];
+        };
+      }>({
         query: `mutation ($instanceId: ID!, $configVariables: [InputInstanceConfigVariable]) {
           updateInstanceConfigVariables(
             input: { id: $instanceId, configVariables: $configVariables }
@@ -138,7 +159,7 @@ function InstallShopify() {
       setStep("redirectingToShopify");
 
       // Redirect to the instance's Shopify Connection authorize URL
-      window.location = configVariables.find(
+      window.location.href = configVariables.find(
         (configVariable) =>
           configVariable.requiredConfigVariable.key === "Shopify Connection",
       ).authorizeUrl;
@@ -147,7 +168,13 @@ function InstallShopify() {
     if (authenticated && token && userinfo && shop) {
       redirectToShopifyAuth();
     }
-  }, [authenticated, token, userinfo?.authenticatedUser.customer.id, shop]);
+  }, [
+    authenticated,
+    token,
+    userinfo?.authenticatedUser.customer.id,
+    shop,
+    userinfo,
+  ]);
 
   return (
     <>

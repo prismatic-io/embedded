@@ -1,11 +1,17 @@
-module.exports = {
-  webpack: (config, options) => {
-    config.module.rules.push({
-      test: /\.md/,
-      use: "raw-loader",
-    });
+const path = require("node:path");
 
-    return config;
+const repoRoot = path.join(__dirname, "..");
+
+module.exports = {
+  turbopack: {
+    root: repoRoot,
+    rules: {
+      "*.md": {
+        loaders: ["raw-loader"],
+        as: "*.js",
+      },
+    },
   },
-  outputFileTracingRoot: __dirname,
+  transpilePackages: ["@prismatic-io/embedded"],
+  outputFileTracingRoot: repoRoot,
 };

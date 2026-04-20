@@ -1,43 +1,42 @@
-import Head from "next/head";
+import { Container, styled } from "@mui/material";
 
 import prismatic from "@prismatic-io/embedded";
-
+import Head from "next/head";
+import { useParams } from "next/navigation";
 import React from "react";
 import SidebarLayout from "@/layouts/SidebarLayout";
-import { Container, styled } from "@mui/material";
 import usePrismaticAuth from "@/usePrismaticAuth";
-import { useParams } from "next/navigation";
 
 const WorkflowWrapper = styled(Container)(() => ({
-	height: "calc(100vh - 90px)",
-	width: "100%",
+  height: "calc(100vh - 90px)",
+  width: "100%",
 }));
 
 const embeddedDivId = "embedded-workflow-div";
 
 function Workflow() {
-	const { authenticated } = usePrismaticAuth();
-	const params = useParams();
-	const { workflowId } = params ?? {};
+  const { authenticated } = usePrismaticAuth();
+  const params = useParams();
+  const { workflowId } = params ?? {};
 
-	React.useEffect(() => {
-		if (authenticated && typeof workflowId === "string" && workflowId) {
-			prismatic.showWorkflow({
-				selector: `#${embeddedDivId}`,
-				theme: "LIGHT",
-				workflowId,
-			});
-		}
-	}, [authenticated, workflowId]);
+  React.useEffect(() => {
+    if (authenticated && typeof workflowId === "string" && workflowId) {
+      prismatic.showWorkflow({
+        selector: `#${embeddedDivId}`,
+        theme: "LIGHT",
+        workflowId,
+      });
+    }
+  }, [authenticated, workflowId]);
 
-	return (
-		<>
-			<Head>
-				<title>Embedded Workflow</title>
-			</Head>
-			<WorkflowWrapper id={embeddedDivId} maxWidth={false} disableGutters />
-		</>
-	);
+  return (
+    <>
+      <Head>
+        <title>Embedded Workflow</title>
+      </Head>
+      <WorkflowWrapper id={embeddedDivId} maxWidth={false} disableGutters />
+    </>
+  );
 }
 
 Workflow.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;

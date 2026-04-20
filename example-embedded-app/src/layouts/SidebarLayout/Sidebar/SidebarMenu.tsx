@@ -1,18 +1,3 @@
-import { useContext } from "react";
-import { useRouter } from "next/router";
-
-import {
-  ListSubheader,
-  alpha,
-  Box,
-  List,
-  styled,
-  Button,
-  ListItem,
-  SvgIcon,
-} from "@mui/material";
-import NextLink from "next/link";
-import { SidebarContext } from "src/contexts/SidebarContext";
 import {
   CableTwoTone,
   ConstructionTwoTone,
@@ -24,6 +9,20 @@ import {
   ViewComfyAltTwoTone,
   WebTwoTone,
 } from "@mui/icons-material";
+import {
+  alpha,
+  Box,
+  Button,
+  List,
+  ListItem,
+  ListSubheader,
+  type SvgIcon,
+  styled,
+} from "@mui/material";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { useContext } from "react";
+import { SidebarContext } from "src/contexts/SidebarContext";
 
 const MenuWrapper = styled(Box)(({ theme }) => ({
   ".MuiList-root": {
@@ -203,64 +202,62 @@ function SidebarMenu() {
   const currentRoute = router.pathname;
 
   return (
-    <>
-      <MenuWrapper>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Dashboards
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              <ListItem component="div">
-                <NextLink href="/" passHref legacyBehavior>
+    <MenuWrapper>
+      <List
+        component="div"
+        subheader={
+          <ListSubheader component="div" disableSticky>
+            Dashboards
+          </ListSubheader>
+        }
+      >
+        <SubMenuWrapper>
+          <List component="div">
+            <ListItem component="div">
+              <NextLink href="/" passHref legacyBehavior>
+                <Button
+                  className={currentRoute === "/" ? "active" : ""}
+                  disableRipple
+                  component="a"
+                  onClick={closeSidebar}
+                  startIcon={<RocketLaunchTwoTone />}
+                >
+                  Rocket Launches
+                </Button>
+              </NextLink>
+            </ListItem>
+          </List>
+        </SubMenuWrapper>
+      </List>
+      <List
+        component="div"
+        subheader={
+          <ListSubheader component="div" disableSticky>
+            Embedded Examples
+          </ListSubheader>
+        }
+      >
+        <SubMenuWrapper>
+          <List component="div">
+            {embeddedSidebarMenuItems.map((item) => (
+              <ListItem key={item.path} component="div">
+                <NextLink href={item.path} passHref legacyBehavior>
                   <Button
-                    className={currentRoute === "/" ? "active" : ""}
+                    className={currentRoute === item.path ? "active" : ""}
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<RocketLaunchTwoTone />}
+                    startIcon={<item.icon />}
                   >
-                    Rocket Launches
+                    {item.title}
                   </Button>
                 </NextLink>
               </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Embedded Examples
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              {embeddedSidebarMenuItems.map((item) => (
-                <ListItem key={item.path} component="div">
-                  <NextLink href={item.path} passHref legacyBehavior>
-                    <Button
-                      className={currentRoute === item.path ? "active" : ""}
-                      disableRipple
-                      component="a"
-                      onClick={closeSidebar}
-                      startIcon={<item.icon />}
-                    >
-                      {item.title}
-                    </Button>
-                  </NextLink>
-                </ListItem>
-              ))}
-            </List>
-          </SubMenuWrapper>
-        </List>
-      </MenuWrapper>
-    </>
+            ))}
+          </List>
+        </SubMenuWrapper>
+      </List>
+    </MenuWrapper>
   );
 }
 

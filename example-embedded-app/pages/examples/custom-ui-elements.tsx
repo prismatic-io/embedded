@@ -1,13 +1,4 @@
-import Head from "next/head";
-
-import prismatic from "@prismatic-io/embedded";
-
-import React, { useEffect } from "react";
-import SidebarLayout from "@/layouts/SidebarLayout";
-import ExampleHeader from "@/components/ExampleHeader";
-import PageTitleWrapper from "@/components/PageTitleWrapper";
-import Footer from "@/components/Footer";
-import usePrismaticAuth from "@/usePrismaticAuth";
+import { CableTwoTone } from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -20,9 +11,15 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-
+import prismatic from "@prismatic-io/embedded";
+import Head from "next/head";
 import config from "prismatic/config";
-import { CableTwoTone } from "@mui/icons-material";
+import React, { useEffect } from "react";
+import ExampleHeader from "@/components/ExampleHeader";
+import Footer from "@/components/Footer";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
+import SidebarLayout from "@/layouts/SidebarLayout";
+import usePrismaticAuth from "@/usePrismaticAuth";
 
 import customUiElementsHelperText from "./custom-ui-elements.md";
 
@@ -77,7 +74,7 @@ function PrismaticAvatar({ avatarUrl, token }) {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [token, avatarUrl]);
 
   if (!avatarUrl) {
     return (

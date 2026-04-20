@@ -1,4 +1,4 @@
-import { alpha, createTheme, lighten, darken } from "@mui/material";
+import { alpha, createTheme, darken, lighten } from "@mui/material";
 
 // import i18n from 'src/i18n/i18n';
 
@@ -608,7 +608,7 @@ export const PureLightTheme = createTheme({
         containedSecondary: {
           backgroundColor: colors.secondary.main,
           color: colors.alpha.white[100],
-          border: "1px solid " + colors.alpha.black[30],
+          border: `1px solid ${colors.alpha.black[30]}`,
         },
         outlinedSecondary: {
           backgroundColor: colors.alpha.white[100],
@@ -827,8 +827,8 @@ export const PureLightTheme = createTheme({
           height: 38,
           minHeight: 38,
           borderRadius: 6,
-          border: "1px solid " + colors.primary.dark,
-          boxShadow: "0px 2px 10px " + colors.primary.light,
+          border: `1px solid ${colors.primary.dark}`,
+          boxShadow: `0px 2px 10px ${colors.primary.light}`,
         },
         scrollableX: {
           overflow: "visible !important",
@@ -1045,7 +1045,7 @@ export const PureLightTheme = createTheme({
           },
         },
         thumb: {
-          border: "1px solid " + colors.alpha.black[30],
+          border: `1px solid ${colors.alpha.black[30]}`,
           boxShadow:
             "0px 9px 14px " +
             colors.alpha.black[10] +
@@ -1054,8 +1054,8 @@ export const PureLightTheme = createTheme({
         },
         track: {
           backgroundColor: colors.alpha.black[5],
-          border: "1px solid " + colors.alpha.black[10],
-          boxShadow: "inset 0px 1px 1px " + colors.alpha.black[10],
+          border: `1px solid ${colors.alpha.black[10]}`,
+          boxShadow: `inset 0px 1px 1px ${colors.alpha.black[10]}`,
           opacity: 1,
         },
         colorPrimary: {

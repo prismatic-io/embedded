@@ -1,18 +1,16 @@
-import Head from "next/head";
-
+import { ReportProblemTwoTone } from "@mui/icons-material";
+import { Container, Link, Stack, styled, Typography } from "@mui/material";
 import prismatic, {
   BooleanOperator,
   TermOperator,
 } from "@prismatic-io/embedded";
-
+import Head from "next/head";
 import React from "react";
-import SidebarLayout from "@/layouts/SidebarLayout";
 import ExampleHeader from "@/components/ExampleHeader";
-import PageTitleWrapper from "@/components/PageTitleWrapper";
-import { Container, Link, Stack, Typography, styled } from "@mui/material";
 import Footer from "@/components/Footer";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
+import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
-import { ReportProblemTwoTone } from "@mui/icons-material";
 
 import embeddedDesignerHelperText from "./embedded-designer.md";
 

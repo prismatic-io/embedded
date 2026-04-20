@@ -23,7 +23,8 @@ const config: PrismaticConfig = {
   customerName: 'Hooli',
   name: 'John Doe',
   signingKey,
-  role: 'admin'
+  role: 'admin',
+  tokenValidSeconds: 3600
 };
 
 export default config;

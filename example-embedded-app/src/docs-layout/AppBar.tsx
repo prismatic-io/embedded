@@ -1,24 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from "react";
-import { alpha } from "@mui/material/styles";
-import { useRouter } from "next/router";
-import MuiAppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
+
+import { ExitToApp, Person } from "@mui/icons-material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import SearchIcon from "@mui/icons-material/Search";
+import { Avatar, Menu, MenuItem } from "@mui/material";
+import MuiAppBar from "@mui/material/AppBar";
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Menu, MenuItem, Avatar } from "@mui/material";
-import { Person, ExitToApp } from "@mui/icons-material";
-import { useTheme } from "@mui/material/styles";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { alpha, useTheme } from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { useRouter } from "next/router";
+import type React from "react";
+import { useState } from "react";
 
 const AppBar: React.FC<{
   icon: string;

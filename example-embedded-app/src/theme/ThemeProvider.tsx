@@ -1,7 +1,12 @@
-import { useState, createContext, useEffect, PropsWithChildren } from "react";
 import { ThemeProvider } from "@mui/material";
-import { themeCreator } from "./base";
 import { StylesProvider } from "@mui/styles";
+import {
+  createContext,
+  type PropsWithChildren,
+  useEffect,
+  useState,
+} from "react";
+import { themeCreator } from "./base";
 
 export const ThemeContext = createContext((_themeName: string): void => {});
 

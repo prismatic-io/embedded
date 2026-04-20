@@ -1,5 +1,5 @@
+import crypto from "node:crypto";
 import type { NextApiRequest, NextApiResponse } from "next";
-import crypto from "crypto";
 import config from "../../../prismatic/config";
 
 // https://shopify.dev/docs/apps/auth/get-access-tokens/authorization-code-grant/getting-started#step-3-validate-authorization-code

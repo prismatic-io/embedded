@@ -1,5 +1,5 @@
-import config from "../../prismatic/config";
 import jsonwebtoken from "jsonwebtoken";
+import config from "../../prismatic/config";
 
 /**
  * This is a simple API route that generates a JWT token for the user.

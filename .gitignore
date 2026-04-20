@@ -54,3 +54,6 @@ build/Release
 
 # PowerPoint tmp files
 ~$*.pptx
+
+# Test results
+test-results/

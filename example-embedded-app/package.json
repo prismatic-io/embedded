@@ -32,25 +32,19 @@
     "swr": "^2.1.5"
   },
   "scripts": {
-    "dev": "next dev --port 3001 --webpack",
+    "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "lint": "next lint",
-    "lint-fix": "next lint --fix",
-    "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\" --config ./.prettierrc"
+    "typecheck": "tsc --noEmit",
+    "format": "biome format --write ."
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.11",
     "@types/node": "17.0.39",
     "@types/nprogress": "0.2.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "eslint": "9.37.0",
-    "eslint-config-next": "^15.5.6",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-prettier": "5.5.4",
-    "next-transpile-modules": "10.0.1",
-    "prettier": "3.6.2",
     "raw-loader": "^4.0.2",
     "typescript": "5.7.3"
   }
