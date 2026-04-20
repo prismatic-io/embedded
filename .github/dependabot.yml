@@ -1,0 +1,35 @@
+version: 2
+updates:
+  # Roll all non-security version bumps into a single weekly PR. Security
+  # updates are not affected by version-update groups and continue to open
+  # individually so CVEs stay visible.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+    ignore:
+      # Biome bumps require updating the $schema URL in biome.json files,
+      # which dependabot doesn't do. Bump manually.
+      - dependency-name: "@biomejs/biome"
+
+  - package-ecosystem: "npm"
+    directory: "/example-embedded-app"
+    schedule:
+      interval: "weekly"
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      all-actions:
+        patterns:
+          - "*"
