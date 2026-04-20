@@ -1,9 +1,9 @@
 import {
-  Tooltip,
   Badge,
-  TooltipProps,
-  tooltipClasses,
   styled,
+  Tooltip,
+  type TooltipProps,
+  tooltipClasses,
   useTheme,
 } from "@mui/material";
 import Link from "src/components/Link";
@@ -52,7 +52,7 @@ function Logo() {
           color="success"
           badgeContent="1.0"
         >
-          <img src="/icon-256x256.png" width="64px" />
+          <img src="/icon-256x256.png" width="64px" alt="Logo" />
         </Badge>
       </LogoWrapper>
     </TooltipWrapper>

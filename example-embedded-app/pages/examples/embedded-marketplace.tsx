@@ -1,13 +1,12 @@
-import Head from "next/head";
+import { Container, styled } from "@mui/material";
 
 import prismatic from "@prismatic-io/embedded";
-
+import Head from "next/head";
 import React from "react";
-import SidebarLayout from "@/layouts/SidebarLayout";
 import ExampleHeader from "@/components/ExampleHeader";
-import PageTitleWrapper from "@/components/PageTitleWrapper";
-import { Container, styled } from "@mui/material";
 import Footer from "@/components/Footer";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
+import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
 
 import embeddedMarketplaceHelperText from "./embedded-marketplace.md";

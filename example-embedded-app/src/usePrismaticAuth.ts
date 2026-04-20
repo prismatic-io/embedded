@@ -1,8 +1,8 @@
-import useSWR from "swr";
+import prismatic from "@prismatic-io/embedded";
 import axios from "axios";
 import Router from "next/router";
-import prismatic from "@prismatic-io/embedded";
 import React, { useEffect, useMemo } from "react";
+import useSWR from "swr";
 import config from "../prismatic/config";
 
 interface UserInfoProps {
@@ -33,7 +33,7 @@ const getUserInfo = async (): Promise<UserInfoProps> => {
       }
     }
   }`;
-  const result = await prismatic.graphqlRequest({ query });
+  const result = await prismatic.graphqlRequest<UserInfoProps>({ query });
   return result.data;
 };
 
@@ -75,7 +75,7 @@ const usePrismaticAuth = (): AuthConfig => {
           if (mounted) {
             setUserinfo(userinfo);
           }
-        } catch (err) {
+        } catch (_err) {
           Router.push({
             pathname: "/auth-error",
             query: {

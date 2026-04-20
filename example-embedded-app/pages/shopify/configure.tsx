@@ -1,6 +1,6 @@
-import React from "react";
-import Head from "next/head";
 import prismatic from "@prismatic-io/embedded";
+import Head from "next/head";
+import React from "react";
 
 import usePrismaticAuth from "@/usePrismaticAuth";
 
@@ -21,14 +21,12 @@ function ConfigureShopifyInstance() {
         },
       });
     }
-  }, [authenticated]);
+  }, [authenticated, token]);
 
   return (
-    <>
-      <Head>
-        <title>Configure Shopify</title>
-      </Head>
-    </>
+    <Head>
+      <title>Configure Shopify</title>
+    </Head>
   );
 }
 

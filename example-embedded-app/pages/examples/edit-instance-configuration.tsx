@@ -1,10 +1,3 @@
-import Head from "next/head";
-
-import prismatic from "@prismatic-io/embedded";
-
-import React from "react";
-import SidebarLayout from "@/layouts/SidebarLayout";
-import usePrismaticAuth from "@/usePrismaticAuth";
 import {
   Button,
   Card,
@@ -18,6 +11,12 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
+
+import prismatic from "@prismatic-io/embedded";
+import Head from "next/head";
+import React from "react";
+import SidebarLayout from "@/layouts/SidebarLayout";
+import usePrismaticAuth from "@/usePrismaticAuth";
 
 interface Instance {
   id: string;

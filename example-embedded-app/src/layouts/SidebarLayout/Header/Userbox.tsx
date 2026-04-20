@@ -1,27 +1,25 @@
-import { useRef, useState } from "react";
+import AccountBoxTwoToneIcon from "@mui/icons-material/AccountBoxTwoTone";
+import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone";
+import ExpandMoreTwoToneIcon from "@mui/icons-material/ExpandMoreTwoTone";
 
-import NextLink from "next/link";
-
+import InboxTwoToneIcon from "@mui/icons-material/InboxTwoTone";
+import LockOpenTwoToneIcon from "@mui/icons-material/LockOpenTwoTone";
 import {
   Avatar,
   Box,
   Button,
   Divider,
   Hidden,
-  lighten,
   List,
   ListItemButton,
   ListItemText,
+  lighten,
   Popover,
   Typography,
 } from "@mui/material";
-
-import InboxTwoToneIcon from "@mui/icons-material/InboxTwoTone";
 import { styled } from "@mui/material/styles";
-import ExpandMoreTwoToneIcon from "@mui/icons-material/ExpandMoreTwoTone";
-import AccountBoxTwoToneIcon from "@mui/icons-material/AccountBoxTwoTone";
-import LockOpenTwoToneIcon from "@mui/icons-material/LockOpenTwoTone";
-import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone";
+import NextLink from "next/link";
+import { useRef, useState } from "react";
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `

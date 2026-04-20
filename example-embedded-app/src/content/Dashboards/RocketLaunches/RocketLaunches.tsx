@@ -1,25 +1,25 @@
-import {
-  Button,
-  Card,
-  Box,
-  Grid,
-  Typography,
-  useTheme,
-  styled,
-  Divider,
-  alpha,
-  ListItem,
-  ListItemText,
-  List,
-  ListItemAvatar,
-} from "@mui/material";
-import Text from "src/components/Text";
-import { Chart } from "src/components/Chart";
-import type { ApexOptions } from "apexcharts";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FireTruckIcon from "@mui/icons-material/FireTruck";
 import RocketIcon from "@mui/icons-material/Rocket";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import {
+  alpha,
+  Box,
+  Button,
+  Card,
+  Divider,
+  Grid,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  styled,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import type { ApexOptions } from "apexcharts";
+import { Chart } from "src/components/Chart";
+import Text from "src/components/Text";
 
 const ListItemAvatarWrapper = styled(ListItemAvatar)(
   ({ theme }) => `
@@ -61,9 +61,7 @@ function RocketLaunches() {
     colors: ["#ff9900", "#1c81c2", "#333", "#5c6ac0"],
     dataLabels: {
       enabled: true,
-      formatter: function (val) {
-        return val + "%";
-      },
+      formatter: (val) => `${val}%`,
       style: {
         colors: [theme.colors.alpha.trueWhite[100]],
       },

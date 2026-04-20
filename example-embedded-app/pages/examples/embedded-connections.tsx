@@ -1,11 +1,10 @@
-import Head from "next/head";
+import { Container, styled } from "@mui/material";
 
 import prismatic from "@prismatic-io/embedded";
-
+import Head from "next/head";
 import React from "react";
-import SidebarLayout from "@/layouts/SidebarLayout";
-import { Container, styled } from "@mui/material";
 import Footer from "@/components/Footer";
+import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
 
 const ConnectionsWrapper = styled(Container)(() => ({

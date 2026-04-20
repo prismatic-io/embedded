@@ -6,6 +6,10 @@ node = "24"
 description = "Build the library"
 run = "npm run build"
 
+[tasks.format]
+description = "Format source files"
+run = "npm run format"
+
 [tasks."format:check"]
 description = "Check source file formatting"
 run = "npm run format:check"
@@ -19,9 +23,28 @@ description = "Run tests"
 depends = ["build"]
 run = "npm test"
 
+[tasks."example:typecheck"]
+description = "Typecheck the example embedded app against the built SDK"
+depends = ["build"]
+dir = "example-embedded-app"
+# config.ts is gitignored; stub from the template so imports resolve.
+run = """
+[ -f prismatic/config.ts ] || cp prismatic/config.ts.template prismatic/config.ts
+npm run typecheck
+"""
+
+[tasks."example:build"]
+description = "Build the example embedded app against the built SDK"
+depends = ["build"]
+dir = "example-embedded-app"
+run = """
+[ -f prismatic/config.ts ] || cp prismatic/config.ts.template prismatic/config.ts
+npm run build
+"""
+
 [tasks.validate]
 description = "Run all validation checks"
-depends = ["format:check", "lint", "build", "test"]
+depends = ["format:check", "lint", "build", "test", "example:typecheck", "example:build"]
 
 [tasks.version-bump]
 description = "Bump package.json version (set BUMP_TYPE=patch|minor|major|preview)"

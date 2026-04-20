@@ -1,15 +1,14 @@
-import Head from "next/head";
+import { Button, Container } from "@mui/material";
 
 import prismatic, {
-  PrismaticMessageEvent,
   getMessageIframe,
+  PrismaticMessageEvent,
 } from "@prismatic-io/embedded";
-
-import React, { useEffect } from "react";
-import SidebarLayout from "@/layouts/SidebarLayout";
+import Head from "next/head";
+import { useEffect } from "react";
 import ExampleHeader from "@/components/ExampleHeader";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
-import { Button, Container } from "@mui/material";
+import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
 
 import dynamicallySetConfigVariableHelperText from "./dynamically-set-config-variables.md";

@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
-import { alpha } from "@mui/material/styles";
-import { useRouter } from "next/router";
-import Link from "next/link";
+
+import * as Icons from "@mui/icons-material";
+import { ListItemButton, ListSubheader } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { ListSubheader, ListItemButton } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import * as Icons from "@mui/icons-material";
+import { alpha, useTheme } from "@mui/material/styles";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import type React from "react";
 
 const drawerWidth = 240;
 const AppDrawer: React.FC<{
@@ -41,7 +41,7 @@ const AppDrawer: React.FC<{
         }),
         backgroundColor: "#546e7a",
         color: "white",
-        [`& .MuiDrawer-paper`]: {
+        "& .MuiDrawer-paper": {
           ...(!open && {
             transition: theme.transitions.create("margin", {
               easing: theme.transitions.easing.easeOut,
@@ -54,7 +54,7 @@ const AppDrawer: React.FC<{
           backgroundColor: "inherit",
           color: "inherit",
         },
-        [`& ul > li`]: {
+        "& ul > li": {
           backgroundColor: "inherit",
           color: "inherit",
         },
@@ -98,7 +98,11 @@ const AppDrawer: React.FC<{
         }}
       >
         {/* <ListSubheader sx={{ fontSize: "1rem" }}>Dashboard</ListSubheader> */}
-        <Link href="/" passHref style={{ textDecoration: "none", color: "inherit" }}>
+        <Link
+          href="/"
+          passHref
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <ListItemButton selected={pathname === "/"}>
             <ListItemIcon sx={{ color: "inherit" }}>
               <Icons.Home />
@@ -128,7 +132,12 @@ const AppDrawer: React.FC<{
           },
         ].map((entry, i) => {
           return (
-            <Link key={`records-${i}`} href={entry?.link || "/#"} passHref style={{ textDecoration: "none", color: "inherit" }}>
+            <Link
+              key={`records-${i}`}
+              href={entry?.link || "/#"}
+              passHref
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               <ListItemButton selected={pathname === entry?.link}>
                 <ListItemIcon sx={{ color: "inherit" }}>
                   {entry?.icon}
@@ -165,7 +174,12 @@ const AppDrawer: React.FC<{
           },
         ].map((entry, i) => {
           return (
-            <Link key={`integrations-${i}`} href={entry?.link || "/#"} passHref style={{ textDecoration: "none", color: "inherit" }}>
+            <Link
+              key={`integrations-${i}`}
+              href={entry?.link || "/#"}
+              passHref
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               <ListItemButton selected={pathname === entry?.link}>
                 <ListItemIcon sx={{ color: "inherit" }}>
                   {entry?.icon}
@@ -197,7 +211,12 @@ const AppDrawer: React.FC<{
           },
         ].map((entry, i) => {
           return (
-            <Link key={`settings-${i}`} href={entry?.link || "/#"} passHref style={{ textDecoration: "none", color: "inherit" }}>
+            <Link
+              key={`settings-${i}`}
+              href={entry?.link || "/#"}
+              passHref
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               <ListItemButton selected={pathname === entry?.link}>
                 <ListItemIcon sx={{ color: "inherit" }}>
                   {entry?.icon}

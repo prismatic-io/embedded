@@ -16,6 +16,10 @@ yarn-error.log*
 
 # Next.js
 /.next
+next-env.d.ts
+
+# TypeScript incremental build info
+*.tsbuildinfo
 
 # Ignore prismatic config values
 prismatic/config*.ts

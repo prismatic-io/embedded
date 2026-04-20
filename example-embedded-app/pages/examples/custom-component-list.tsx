@@ -1,13 +1,3 @@
-import Head from "next/head";
-
-import prismatic from "@prismatic-io/embedded";
-
-import React, { useEffect } from "react";
-import SidebarLayout from "@/layouts/SidebarLayout";
-import ExampleHeader from "@/components/ExampleHeader";
-import PageTitleWrapper from "@/components/PageTitleWrapper";
-import Footer from "@/components/Footer";
-import usePrismaticAuth from "@/usePrismaticAuth";
 import {
   Avatar,
   Card,
@@ -19,7 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 
+import prismatic from "@prismatic-io/embedded";
+import Head from "next/head";
 import config from "prismatic/config";
+import React, { useEffect } from "react";
+import ExampleHeader from "@/components/ExampleHeader";
+import Footer from "@/components/Footer";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
+import SidebarLayout from "@/layouts/SidebarLayout";
+import usePrismaticAuth from "@/usePrismaticAuth";
 
 import customComponentListHelperText from "./custom-component-list.md";
 
@@ -57,7 +55,7 @@ function PrismaticAvatar({ avatarUrl, token }) {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [token, avatarUrl]);
 
   return src ? <Avatar variant="rounded" src={src} /> : null;
 }
@@ -94,7 +92,12 @@ function CustomComponentList() {
 
         /** The Prismatic API is paginated; loop over pages of 100 records of components until there are no more pages to fetch. */
         do {
-          const response = await prismatic.graphqlRequest({
+          const response = await prismatic.graphqlRequest<{
+            components: {
+              nodes: Component[];
+              pageInfo: { hasNextPage: boolean; endCursor: string };
+            };
+          }>({
             query,
             variables: { cursor },
           });

@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { PropsWithChildren, useEffect } from "react";
-import { useRouter } from "next/router";
+
 import Box from "@mui/material/Box";
+import { useRouter } from "next/router";
+import React, { type PropsWithChildren, useEffect } from "react";
 
 import AppBar from "./AppBar";
 import AppDrawer from "./AppDrawer";

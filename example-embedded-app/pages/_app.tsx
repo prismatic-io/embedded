@@ -1,18 +1,17 @@
-import { useEffect, type ReactElement, type ReactNode } from "react";
-
 import prismatic from "@prismatic-io/embedded";
-import config from "../prismatic/config";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import Router from "next/router";
 import nProgress from "nprogress";
+import { type ReactElement, type ReactNode, useEffect } from "react";
+import config from "../prismatic/config";
 import "nprogress/nprogress.css";
-import ThemeProvider from "src/theme/ThemeProvider";
+import { CacheProvider, type EmotionCache } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
-import { CacheProvider, EmotionCache } from "@emotion/react";
-import createEmotionCache from "src/createEmotionCache";
 import { SidebarProvider } from "src/contexts/SidebarContext";
+import createEmotionCache from "src/createEmotionCache";
+import ThemeProvider from "src/theme/ThemeProvider";
 
 const clientSideEmotionCache = createEmotionCache();
 

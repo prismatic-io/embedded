@@ -1,13 +1,11 @@
-import Head from "next/head";
+import { Button, Container } from "@mui/material";
 
 import prismatic from "@prismatic-io/embedded";
-
-import React from "react";
-import SidebarLayout from "@/layouts/SidebarLayout";
+import Head from "next/head";
 import ExampleHeader from "@/components/ExampleHeader";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
+import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
-import { Button, Container } from "@mui/material";
 
 import embeddedMarketplacePopoverHelperText from "./embedded-marketplace-popover.md";
 

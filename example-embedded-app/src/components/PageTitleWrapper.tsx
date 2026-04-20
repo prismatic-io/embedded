@@ -1,5 +1,5 @@
 import { Box, Container, styled } from "@mui/material";
-import { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 
 const PageTitle = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),

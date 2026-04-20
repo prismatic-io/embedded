@@ -1,6 +1,5 @@
-import React from "react";
-
-import { Theme } from "@mui/material";
+import type { Theme } from "@mui/material";
+import type React from "react";
 import { PureLightTheme } from "./schemes/PureLightTheme";
 
 export function themeCreator(theme: string): Theme {
