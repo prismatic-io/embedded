@@ -114,24 +114,18 @@ function HeaderUserbox() {
         </MenuUserBox>
         <Divider sx={{ mb: 0 }} />
         <List sx={{ p: 1 }} component="nav">
-          <NextLink href="#" passHref legacyBehavior>
-            <ListItemButton>
-              <AccountBoxTwoToneIcon fontSize="small" />
-              <ListItemText primary="My Profile" />
-            </ListItemButton>
-          </NextLink>
-          <NextLink href="#" passHref legacyBehavior>
-            <ListItemButton>
-              <InboxTwoToneIcon fontSize="small" />
-              <ListItemText primary="Messenger" />
-            </ListItemButton>
-          </NextLink>
-          <NextLink href="#" passHref legacyBehavior>
-            <ListItemButton>
-              <AccountTreeTwoToneIcon fontSize="small" />
-              <ListItemText primary="Account Settings" />
-            </ListItemButton>
-          </NextLink>
+          <ListItemButton component={NextLink} href="#">
+            <AccountBoxTwoToneIcon fontSize="small" />
+            <ListItemText primary="My Profile" />
+          </ListItemButton>
+          <ListItemButton component={NextLink} href="#">
+            <InboxTwoToneIcon fontSize="small" />
+            <ListItemText primary="Messenger" />
+          </ListItemButton>
+          <ListItemButton component={NextLink} href="#">
+            <AccountTreeTwoToneIcon fontSize="small" />
+            <ListItemText primary="Account Settings" />
+          </ListItemButton>
         </List>
         <Divider />
         <Box sx={{ m: 1 }}>

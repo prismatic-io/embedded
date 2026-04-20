@@ -14,4 +14,5 @@ module.exports = {
   },
   transpilePackages: ["@prismatic-io/embedded"],
   outputFileTracingRoot: repoRoot,
+  devIndicators: false,
 };

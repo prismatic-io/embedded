@@ -1,12 +1,8 @@
 import MuiLink, { type LinkProps as MuiLinkProps } from "@mui/material/Link";
-import { styled } from "@mui/material/styles";
 import clsx from "clsx";
 import NextLink, { type LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
-
-// Add support for the sx prop for consistency with the other branches.
-const Anchor = styled("a")({});
 
 interface NextLinkComposedProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">,
@@ -27,18 +23,16 @@ export const NextLinkComposed = React.forwardRef<
 
   return (
     <NextLink
+      ref={ref}
       href={to}
       prefetch={prefetch}
       as={linkAs}
       replace={replace}
       scroll={scroll}
       shallow={shallow}
-      passHref
       locale={locale}
-      legacyBehavior
-    >
-      <Anchor ref={ref} {...other} />
-    </NextLink>
+      {...other}
+    />
   );
 });
 
@@ -83,9 +77,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
     if (isExternal) {
       if (noLinkStyle) {
-        return (
-          <Anchor className={className} href={href} ref={ref} {...other} />
-        );
+        return <a className={className} href={href} ref={ref} {...other} />;
       }
 
       return <MuiLink className={className} href={href} ref={ref} {...other} />;
