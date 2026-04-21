@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
 import React, { type PropsWithChildren, useEffect } from "react";
@@ -7,7 +5,7 @@ import React, { type PropsWithChildren, useEffect } from "react";
 import AppBar from "./AppBar";
 import AppDrawer from "./AppDrawer";
 
-const AppContainer = ({ children }: PropsWithChildren<{}>) => {
+const AppContainer = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const [designerRoute, setDesignerRoute] = React.useState(false);
   const [open, setOpen] = React.useState(true);

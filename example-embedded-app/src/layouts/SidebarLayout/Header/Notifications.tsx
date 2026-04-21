@@ -40,7 +40,7 @@ const NotificationsBadge = styled(Badge)(
 );
 
 function HeaderNotifications() {
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleOpen = (): void => {

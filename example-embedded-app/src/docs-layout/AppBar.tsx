@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { ExitToApp, Person } from "@mui/icons-material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";

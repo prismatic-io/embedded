@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 import * as Icons from "@mui/icons-material";
 import { ListItemButton, ListSubheader } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
@@ -130,19 +128,19 @@ const AppDrawer: React.FC<{
             icon: <Icons.PermMedia />,
             label: "Media",
           },
-        ].map((entry, i) => {
+        ].map((entry) => {
           return (
             <Link
-              key={`records-${i}`}
-              href={entry?.link || "/#"}
+              key={entry.link}
+              href={entry.link}
               passHref
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <ListItemButton selected={pathname === entry?.link}>
+              <ListItemButton selected={pathname === entry.link}>
                 <ListItemIcon sx={{ color: "inherit" }}>
-                  {entry?.icon}
+                  {entry.icon}
                 </ListItemIcon>
-                <ListItemText primary={entry?.label} />
+                <ListItemText primary={entry.label} />
               </ListItemButton>
             </Link>
           );
@@ -172,19 +170,19 @@ const AppDrawer: React.FC<{
             icon: <Icons.AccountTree />,
             label: "Designer",
           },
-        ].map((entry, i) => {
+        ].map((entry) => {
           return (
             <Link
-              key={`integrations-${i}`}
-              href={entry?.link || "/#"}
+              key={entry.link}
+              href={entry.link}
               passHref
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <ListItemButton selected={pathname === entry?.link}>
+              <ListItemButton selected={pathname === entry.link}>
                 <ListItemIcon sx={{ color: "inherit" }}>
-                  {entry?.icon}
+                  {entry.icon}
                 </ListItemIcon>
-                <ListItemText primary={entry?.label} />
+                <ListItemText primary={entry.label} />
               </ListItemButton>
             </Link>
           );
@@ -209,19 +207,19 @@ const AppDrawer: React.FC<{
             icon: <Icons.Business />,
             label: "Company",
           },
-        ].map((entry, i) => {
+        ].map((entry) => {
           return (
             <Link
-              key={`settings-${i}`}
-              href={entry?.link || "/#"}
+              key={entry.link}
+              href={entry.link}
               passHref
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <ListItemButton selected={pathname === entry?.link}>
+              <ListItemButton selected={pathname === entry.link}>
                 <ListItemIcon sx={{ color: "inherit" }}>
-                  {entry?.icon}
+                  {entry.icon}
                 </ListItemIcon>
-                <ListItemText primary={entry?.label} />
+                <ListItemText primary={entry.label} />
               </ListItemButton>
             </Link>
           );
