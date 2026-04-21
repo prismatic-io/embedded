@@ -15,7 +15,7 @@ jobs:
       - run: mise exec -- npm ci
       - run: mise exec -- npm --prefix example-embedded-app ci
       - name: Cache Playwright browsers
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
