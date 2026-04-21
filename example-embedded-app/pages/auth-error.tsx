@@ -17,14 +17,29 @@ const AuthError = () => {
     >
       <Container maxWidth="md">
         <Grid container spacing={2}>
-          <Grid xs={8}>
-            <Typography variant="h2" mb={2}>
+          <Grid size={8}>
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 2,
+              }}
+            >
               An Authentication Error Occurred
             </Typography>
-            <Typography variant="body1" mb={1}>
+            <Typography
+              variant="body1"
+              sx={{
+                mb: 1,
+              }}
+            >
               <strong>Error Message</strong>: {message}
             </Typography>
-            <Typography variant="body1" mb={2}>
+            <Typography
+              variant="body1"
+              sx={{
+                mb: 2,
+              }}
+            >
               Please reference <strong>README.md</strong> for information on how
               to set up authentication.
             </Typography>

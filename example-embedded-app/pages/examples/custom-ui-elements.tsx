@@ -7,7 +7,7 @@ import {
   CardContent,
   CardHeader,
   Container,
-  Grid2 as Grid,
+  Grid,
   LinearProgress,
   Typography,
 } from "@mui/material";
@@ -185,7 +185,12 @@ function CustomUiElements() {
                       title={integration.name}
                     />
                     <CardContent>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "text.secondary",
+                        }}
+                      >
                         {integration.description}
                       </Typography>
                     </CardContent>

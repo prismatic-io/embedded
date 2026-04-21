@@ -1,10 +1,4 @@
-import type { Theme } from "@mui/material";
 import type React from "react";
-import { PureLightTheme } from "./schemes/PureLightTheme";
-
-export function themeCreator(theme: string): Theme {
-  return themeMap[theme];
-}
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -246,7 +240,3 @@ declare module "@mui/material/styles" {
     };
   }
 }
-
-const themeMap: { [key: string]: Theme } = {
-  PureLightTheme,
-};

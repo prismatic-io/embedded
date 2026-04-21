@@ -60,7 +60,13 @@ function EmbeddedDesigner() {
           />
         ) : (
           <Container>
-            <Stack direction="row" alignItems="center" gap={1}>
+            <Stack
+              direction="row"
+              sx={{
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
               <ReportProblemTwoTone sx={{ color: "orange" }} />
               <Typography variant="body1">
                 Embedded Designer is not enabled for the customer. Embedded

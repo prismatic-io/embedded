@@ -19,11 +19,13 @@ function RocketLaunchDashboard() {
         <Grid
           container
           direction="row"
-          justifyContent="center"
-          alignItems="stretch"
           spacing={4}
+          sx={{
+            justifyContent: "center",
+            alignItems: "stretch",
+          }}
         >
-          <Grid item xs={12}>
+          <Grid size={12}>
             <RocketLaunches />
           </Grid>
         </Grid>

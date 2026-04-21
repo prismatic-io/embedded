@@ -77,7 +77,14 @@ const AppBar: React.FC<{
             >
               <Avatar variant="rounded" src={icon}></Avatar>
             </IconButton>
-            <Typography alignSelf="center" variant="h3" color="white" noWrap>
+            <Typography
+              variant="h3"
+              color="white"
+              noWrap
+              sx={{
+                alignSelf: "center",
+              }}
+            >
               {name}
             </Typography>
           </Box>

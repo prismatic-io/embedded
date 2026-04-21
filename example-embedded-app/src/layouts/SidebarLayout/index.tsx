@@ -48,7 +48,13 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({
           },
         }}
       >
-        <Box display="block">{children}</Box>
+        <Box
+          sx={{
+            display: "block",
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );
