@@ -10,7 +10,7 @@ import { themeCreator } from "./base";
 
 export const ThemeContext = createContext((_themeName: string): void => {});
 
-const ThemeProviderWrapper = (props: PropsWithChildren<{}>) => {
+const ThemeProviderWrapper = (props: PropsWithChildren) => {
   const [themeName, _setThemeName] = useState("PureLightTheme");
 
   useEffect(() => {

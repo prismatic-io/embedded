@@ -6,6 +6,7 @@ import {
   tooltipClasses,
   useTheme,
 } from "@mui/material";
+import Image from "next/image";
 import Link from "src/components/Link";
 
 const LogoWrapper = styled(Link)(({ theme }) => ({
@@ -52,7 +53,7 @@ function Logo() {
           color="success"
           badgeContent="1.0"
         >
-          <img src="/icon-256x256.png" width="64px" alt="Logo" />
+          <Image src="/icon-256x256.png" width={64} height={64} alt="Logo" />
         </Badge>
       </LogoWrapper>
     </TooltipWrapper>

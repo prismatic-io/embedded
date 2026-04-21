@@ -1,4 +1,6 @@
+import type { EmotionCache } from "@emotion/react";
 import createEmotionServer from "@emotion/server/create-instance";
+import type { AppType } from "next/app";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import * as React from "react";
 import createEmotionCache from "src/createEmotionCache";
@@ -58,9 +60,13 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App: any) => (props) => (
-        <App emotionCache={cache} {...props} />
-      ),
+      enhanceApp:
+        (
+          App: React.ComponentType<
+            React.ComponentProps<AppType> & { emotionCache: EmotionCache }
+          >,
+        ) =>
+        (props) => <App emotionCache={cache} {...props} />,
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -71,7 +77,7 @@ MyDocument.getInitialProps = async (ctx) => {
     <style
       data-emotion={`${style.key} ${style.ids.join(" ")}`}
       key={style.key}
-      // eslint-disable-next-line react/no-danger
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: required for emotion SSR style injection
       dangerouslySetInnerHTML={{ __html: style.css }}
     />
   ));
