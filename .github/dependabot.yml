@@ -15,6 +15,10 @@ updates:
       # Biome bumps require updating the $schema URL in biome.json files,
       # which dependabot doesn't do. Bump manually.
       - dependency-name: "@biomejs/biome"
+      # Keep @types/node aligned with the Node runtime pinned in mise.toml.
+      # Bump the major manually when the Node version changes.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "npm"
     directory: "/example-embedded-app"
