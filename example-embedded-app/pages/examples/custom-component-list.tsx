@@ -135,12 +135,15 @@ function CustomComponentList() {
           <Grid container spacing={2}>
             {components.map((component) => (
               <Grid
-                item
-                xs={6}
-                md={4}
                 key={component.id}
-                display="stretch"
-                flexDirection="column"
+                sx={{
+                  display: "stretch",
+                  flexDirection: "column",
+                }}
+                size={{
+                  xs: 6,
+                  md: 4,
+                }}
               >
                 <Card
                   elevation={3}
@@ -161,7 +164,12 @@ function CustomComponentList() {
                     title={`${component.label} - v${component.versionNumber} `}
                   />
                   <CardContent>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                      }}
+                    >
                       {!component.public && <strong>Private: </strong>}
                       {component.description}
                     </Typography>

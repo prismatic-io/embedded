@@ -1,5 +1,4 @@
 import prismatic from "@prismatic-io/embedded";
-import axios from "axios";
 import Router from "next/router";
 import React, { useEffect, useMemo } from "react";
 import useSWR from "swr";
@@ -20,8 +19,13 @@ interface AuthConfig {
 }
 
 const fetcher = async (uri: string) => {
-  const response = await axios.get(uri, {});
-  return response.data;
+  const response = await fetch(uri);
+  if (!response.ok) {
+    throw new Error(
+      `Request failed: ${response.status} ${response.statusText}`,
+    );
+  }
+  return response.json();
 };
 
 const getUserInfo = async (): Promise<UserInfoProps> => {

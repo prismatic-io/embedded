@@ -58,10 +58,12 @@ const AppContainer = ({ children }: PropsWithChildren) => {
           <Box
             id="main-content"
             component="main"
-            height={"100%"}
-            width={"100%"}
-            maxHeight={"100%"}
-            overflow={"auto"}
+            sx={{
+              height: "100%",
+              width: "100%",
+              maxHeight: "100%",
+              overflow: "auto",
+            }}
           >
             {children}
           </Box>

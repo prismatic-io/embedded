@@ -445,11 +445,11 @@ export const PureLightTheme = createTheme({
     },
     MuiSelect: {
       styleOverrides: {
-        iconOutlined: {
-          color: colors.alpha.black[50],
-        },
         icon: {
           top: "calc(50% - 14px)",
+          "&.MuiSelect-iconOutlined": {
+            color: colors.alpha.black[50],
+          },
         },
       },
     },
@@ -574,15 +574,17 @@ export const PureLightTheme = createTheme({
           fontWeight: "bold",
           transition: "all .2s",
         },
-        textPrimary: {
-          "&.Mui-selected": {
-            boxShadow: colors.shadows.primary,
-          },
-          "&.MuiButtonBase-root:hover": {
-            background: colors.alpha.black[5],
-          },
-          "&.Mui-selected.MuiButtonBase-root:hover": {
-            background: colors.primary.main,
+        root: {
+          "&.MuiPaginationItem-textPrimary": {
+            "&.Mui-selected": {
+              boxShadow: colors.shadows.primary,
+            },
+            "&.MuiButtonBase-root:hover": {
+              background: colors.alpha.black[5],
+            },
+            "&.Mui-selected.MuiButtonBase-root:hover": {
+              background: colors.primary.main,
+            },
           },
         },
       },
@@ -601,41 +603,42 @@ export const PureLightTheme = createTheme({
           ".MuiSvgIcon-root": {
             transition: "all .2s",
           },
+
+          "&.MuiButton-containedSecondary": {
+            backgroundColor: colors.secondary.main,
+            color: colors.alpha.white[100],
+            border: `1px solid ${colors.alpha.black[30]}`,
+          },
+          "&.MuiButton-outlinedSecondary": {
+            backgroundColor: colors.alpha.white[100],
+
+            "&:hover, &.MuiSelected": {
+              backgroundColor: colors.alpha.black[5],
+              color: colors.alpha.black[100],
+            },
+          },
         },
         endIcon: {
           marginRight: -8,
         },
-        containedSecondary: {
-          backgroundColor: colors.secondary.main,
-          color: colors.alpha.white[100],
-          border: `1px solid ${colors.alpha.black[30]}`,
-        },
-        outlinedSecondary: {
-          backgroundColor: colors.alpha.white[100],
-
-          "&:hover, &.MuiSelected": {
-            backgroundColor: colors.alpha.black[5],
-            color: colors.alpha.black[100],
-          },
-        },
         sizeSmall: {
           padding: "6px 16px",
           lineHeight: 1.5,
+          "&.MuiButton-text": {
+            padding: "7px 12px",
+          },
         },
         sizeMedium: {
           padding: "8px 20px",
+          "&.MuiButton-text": {
+            padding: "9px 16px",
+          },
         },
         sizeLarge: {
           padding: "11px 24px",
-        },
-        textSizeSmall: {
-          padding: "7px 12px",
-        },
-        textSizeMedium: {
-          padding: "9px 16px",
-        },
-        textSizeLarge: {
-          padding: "12px 16px",
+          "&.MuiButton-text": {
+            padding: "12px 16px",
+          },
         },
       },
     },
@@ -1005,8 +1008,10 @@ export const PureLightTheme = createTheme({
           lineHeight: 1.5,
           fontSize: 14,
         },
-        standardInfo: {
-          color: colors.info.main,
+        standard: {
+          "&.MuiAlert-colorInfo": {
+            color: colors.info.main,
+          },
         },
         action: {
           color: colors.alpha.black[70],
@@ -1105,10 +1110,6 @@ export const PureLightTheme = createTheme({
       styleOverrides: {
         gutterBottom: {
           marginBottom: 4,
-        },
-        paragraph: {
-          fontSize: 17,
-          lineHeight: 1.7,
         },
       },
     },

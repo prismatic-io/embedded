@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import Logo from "src/components/LogoSign";
-import Scrollbar from "src/components/Scrollbar";
 import { SidebarContext } from "src/contexts/SidebarContext";
 import SidebarMenu from "./SidebarMenu";
 
@@ -51,9 +50,17 @@ function Sidebar() {
             theme.palette.mode === "dark" ? theme.sidebar.boxShadow : "none",
         }}
       >
-        <Scrollbar>
-          <Box mt={3}>
-            <Box mx={2}>
+        <Box sx={{ height: "100%", overflowY: "auto" }}>
+          <Box
+            sx={{
+              mt: 3,
+            }}
+          >
+            <Box
+              sx={{
+                mx: 2,
+              }}
+            >
               <Logo />
             </Box>
           </Box>
@@ -65,13 +72,17 @@ function Sidebar() {
             }}
           />
           <SidebarMenu />
-        </Scrollbar>
+        </Box>
         <Divider
           sx={{
             background: theme.colors.alpha.trueWhite[10],
           }}
         />
-        <Box p={2}>
+        <Box
+          sx={{
+            p: 2,
+          }}
+        >
           <Button
             href="https://prismatic.io/docs/installing-embedded/"
             target="_blank"
@@ -103,11 +114,15 @@ function Sidebar() {
                 : darken(theme.colors.alpha.black[100], 0.5),
           }}
         >
-          <Scrollbar>
-            <Box mt={3}>
+          <Box sx={{ height: "100%", overflowY: "auto" }}>
+            <Box
+              sx={{
+                mt: 3,
+              }}
+            >
               <Box
-                mx={2}
                 sx={{
+                  mx: 2,
                   width: 52,
                 }}
               >
@@ -122,7 +137,7 @@ function Sidebar() {
               }}
             />
             <SidebarMenu />
-          </Scrollbar>
+          </Box>
         </SidebarWrapper>
       </Drawer>
     </>

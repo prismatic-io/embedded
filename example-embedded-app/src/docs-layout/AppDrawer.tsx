@@ -57,10 +57,12 @@ const AppDrawer: React.FC<{
           color: "inherit",
         },
       }}
-      PaperProps={{
-        sx: { position: "relative !important" },
-      }}
       anchor="left"
+      slotProps={{
+        paper: {
+          sx: { position: "relative !important" },
+        },
+      }}
     >
       <List
         disablePadding

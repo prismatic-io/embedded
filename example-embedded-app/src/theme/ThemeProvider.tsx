@@ -1,37 +1,9 @@
 import { ThemeProvider } from "@mui/material";
-import { StylesProvider } from "@mui/styles";
-import {
-  createContext,
-  type PropsWithChildren,
-  useEffect,
-  useState,
-} from "react";
-import { themeCreator } from "./base";
+import type { PropsWithChildren } from "react";
+import { PureLightTheme } from "./schemes/PureLightTheme";
 
-export const ThemeContext = createContext((_themeName: string): void => {});
-
-const ThemeProviderWrapper = (props: PropsWithChildren) => {
-  const [themeName, _setThemeName] = useState("PureLightTheme");
-
-  useEffect(() => {
-    const curThemeName =
-      window.localStorage.getItem("appTheme") || "PureLightTheme";
-    _setThemeName(curThemeName);
-  }, []);
-
-  const theme = themeCreator(themeName);
-  const setThemeName = (themeName: string): void => {
-    window.localStorage.setItem("appTheme", themeName);
-    _setThemeName(themeName);
-  };
-
-  return (
-    <StylesProvider injectFirst>
-      <ThemeContext.Provider value={setThemeName}>
-        <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
-      </ThemeContext.Provider>
-    </StylesProvider>
-  );
-};
+const ThemeProviderWrapper = ({ children }: PropsWithChildren) => (
+  <ThemeProvider theme={PureLightTheme}>{children}</ThemeProvider>
+);
 
 export default ThemeProviderWrapper;

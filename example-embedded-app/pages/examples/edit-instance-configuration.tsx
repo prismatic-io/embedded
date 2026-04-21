@@ -7,7 +7,7 @@ import {
   Container,
   Dialog,
   DialogContent,
-  Grid2 as Grid,
+  Grid,
   LinearProgress,
   Typography,
 } from "@mui/material";
@@ -138,7 +138,12 @@ function EditInstanceConfiguration() {
                 >
                   <CardHeader title={instance.name} />
                   <CardContent>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                      }}
+                    >
                       {instance.integration.description}
                     </Typography>
                   </CardContent>

@@ -9,8 +9,13 @@ function PageHeader() {
   const theme = useTheme();
 
   return (
-    <Grid container alignItems="center">
-      <Grid item>
+    <Grid
+      container
+      sx={{
+        alignItems: "center",
+      }}
+    >
+      <Grid>
         <Avatar
           sx={{
             mr: 2,
@@ -22,7 +27,7 @@ function PageHeader() {
           src={user.avatar}
         />
       </Grid>
-      <Grid item>
+      <Grid>
         <Typography variant="h3" component="h3" gutterBottom>
           Welcome, {user.name}!
         </Typography>

@@ -1,5 +1,4 @@
 import MuiLink, { type LinkProps as MuiLinkProps } from "@mui/material/Link";
-import clsx from "clsx";
 import NextLink, { type LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -67,9 +66,11 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
     const router = useRouter();
     const pathname = typeof href === "string" ? href : href.pathname;
-    const className = clsx(classNameProps, {
-      [activeClassName]: router.pathname === pathname && activeClassName,
-    });
+    const isActive = router.pathname === pathname;
+    const className =
+      [classNameProps, isActive ? activeClassName : undefined]
+        .filter(Boolean)
+        .join(" ") || undefined;
 
     const isExternal =
       typeof href === "string" &&

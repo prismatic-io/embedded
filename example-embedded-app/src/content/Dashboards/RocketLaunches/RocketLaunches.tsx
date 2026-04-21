@@ -118,8 +118,17 @@ function RocketLaunches() {
   return (
     <Card>
       <Grid spacing={0} container>
-        <Grid item xs={12} md={12}>
-          <Box p={4}>
+        <Grid
+          size={{
+            xs: 12,
+            md: 12,
+          }}
+        >
+          <Box
+            sx={{
+              p: 4,
+            }}
+          >
             <Typography
               sx={{
                 pb: 3,
@@ -128,16 +137,29 @@ function RocketLaunches() {
             >
               Recent and Upcoming Rocket Launches
             </Typography>
-            <Box py={4} pr={4} flex={1}>
+            <Box
+              sx={{
+                py: 4,
+                pr: 4,
+                flex: 1,
+              }}
+            >
               <Grid container spacing={1}>
-                <Grid sm={1} item />
                 <Grid
-                  xs={12}
-                  sm={4}
-                  item
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
+                  size={{
+                    sm: 1,
+                  }}
+                />
+                <Grid
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  size={{
+                    xs: 12,
+                    sm: 4,
+                  }}
                 >
                   <Chart
                     height={250}
@@ -146,8 +168,21 @@ function RocketLaunches() {
                     type="donut"
                   />
                 </Grid>
-                <Grid sm={2} item />
-                <Grid xs={12} sm={5} item display="flex" alignItems="center">
+                <Grid
+                  size={{
+                    sm: 2,
+                  }}
+                />
+                <Grid
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  size={{
+                    xs: 12,
+                    sm: 5,
+                  }}
+                >
                   <List
                     disablePadding
                     sx={{
@@ -160,11 +195,14 @@ function RocketLaunches() {
                       </ListItemAvatarWrapper>
                       <ListItemText
                         primary="Grounded"
-                        primaryTypographyProps={{ variant: "h5", noWrap: true }}
                         secondary="Launches on hold"
-                        secondaryTypographyProps={{
-                          variant: "subtitle2",
-                          noWrap: true,
+                        slotProps={{
+                          primary: { variant: "h5", noWrap: true },
+
+                          secondary: {
+                            variant: "subtitle2",
+                            noWrap: true,
+                          },
                         }}
                       />
                       <Box>
@@ -179,11 +217,14 @@ function RocketLaunches() {
                       </ListItemAvatarWrapper>
                       <ListItemText
                         primary="Upcoming"
-                        primaryTypographyProps={{ variant: "h5", noWrap: true }}
                         secondary="Launches scheduled in the next month"
-                        secondaryTypographyProps={{
-                          variant: "subtitle2",
-                          noWrap: true,
+                        slotProps={{
+                          primary: { variant: "h5", noWrap: true },
+
+                          secondary: {
+                            variant: "subtitle2",
+                            noWrap: true,
+                          },
                         }}
                       />
                       <Box>
@@ -198,11 +239,14 @@ function RocketLaunches() {
                       </ListItemAvatarWrapper>
                       <ListItemText
                         primary="Successful"
-                        primaryTypographyProps={{ variant: "h5", noWrap: true }}
                         secondary="Successful launches last month"
-                        secondaryTypographyProps={{
-                          variant: "subtitle2",
-                          noWrap: true,
+                        slotProps={{
+                          primary: { variant: "h5", noWrap: true },
+
+                          secondary: {
+                            variant: "subtitle2",
+                            noWrap: true,
+                          },
                         }}
                       />
                       <Box>
@@ -218,11 +262,14 @@ function RocketLaunches() {
                       </ListItemAvatarWrapper>
                       <ListItemText
                         primary="Failure"
-                        primaryTypographyProps={{ variant: "h5", noWrap: true }}
                         secondary="Failed rocket launches last month"
-                        secondaryTypographyProps={{
-                          variant: "subtitle2",
-                          noWrap: true,
+                        slotProps={{
+                          primary: { variant: "h5", noWrap: true },
+
+                          secondary: {
+                            variant: "subtitle2",
+                            noWrap: true,
+                          },
                         }}
                       />
                       <Box>
@@ -237,12 +284,20 @@ function RocketLaunches() {
               </Grid>
             </Box>
             <Grid container spacing={3}>
-              <Grid sm item>
+              <Grid
+                size={{
+                  sm: "grow",
+                }}
+              >
                 <Button fullWidth variant="outlined">
                   New Launch Entry
                 </Button>
               </Grid>
-              <Grid sm item>
+              <Grid
+                size={{
+                  sm: "grow",
+                }}
+              >
                 <Button fullWidth variant="contained">
                   Generate Report
                 </Button>
@@ -252,13 +307,14 @@ function RocketLaunches() {
         </Grid>
         <Grid
           sx={{
+            display: "flex",
+            alignItems: "center",
             position: "relative",
           }}
-          display="flex"
-          alignItems="center"
-          item
-          xs={12}
-          md={6}
+          size={{
+            xs: 12,
+            md: 6,
+          }}
         >
           <Box
             component="span"

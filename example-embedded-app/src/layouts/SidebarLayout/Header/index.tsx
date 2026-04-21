@@ -5,16 +5,12 @@ import {
   Box,
   IconButton,
   lighten,
-  Stack,
   styled,
   Tooltip,
   useTheme,
 } from "@mui/material";
 import { useContext } from "react";
 import { SidebarContext } from "src/contexts/SidebarContext";
-
-import HeaderButtons from "./Buttons";
-import HeaderUserbox from "./Userbox";
 
 const HeaderWrapper = styled(Box)(
   ({ theme }) => `
@@ -26,7 +22,7 @@ const HeaderWrapper = styled(Box)(
         background-color: ${alpha(theme.header.background, 0.95)};
         backdrop-filter: blur(3px);
         position: fixed;
-        justify-content: space-between;
+        justify-content: flex-end;
         width: 100%;
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             left: ${theme.sidebar.width};
@@ -41,9 +37,9 @@ function Header() {
 
   return (
     <HeaderWrapper
-      display="flex"
-      alignItems="center"
       sx={{
+        display: "flex",
+        alignItems: "center",
         boxShadow:
           theme.palette.mode === "dark"
             ? `0 1px 0 ${alpha(
@@ -59,27 +55,16 @@ function Header() {
               )}`,
       }}
     >
-      <Stack />
-      <Box display="flex" alignItems="center">
-        <HeaderButtons />
-        <HeaderUserbox />
-        <Box
-          component="span"
-          sx={{
-            ml: 2,
-            display: { lg: "none", xs: "inline-block" },
-          }}
-        >
-          <Tooltip arrow title="Toggle Menu">
-            <IconButton color="primary" onClick={toggleSidebar}>
-              {!sidebarToggle ? (
-                <MenuTwoToneIcon fontSize="small" />
-              ) : (
-                <CloseTwoToneIcon fontSize="small" />
-              )}
-            </IconButton>
-          </Tooltip>
-        </Box>
+      <Box sx={{ display: { lg: "none", xs: "inline-block" } }}>
+        <Tooltip arrow title="Toggle Menu">
+          <IconButton color="primary" onClick={toggleSidebar}>
+            {!sidebarToggle ? (
+              <MenuTwoToneIcon fontSize="small" />
+            ) : (
+              <CloseTwoToneIcon fontSize="small" />
+            )}
+          </IconButton>
+        </Tooltip>
       </Box>
     </HeaderWrapper>
   );

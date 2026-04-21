@@ -7,8 +7,13 @@ interface ExampleHeaderProps {
 
 function ExampleHeader({ markdown }: ExampleHeaderProps) {
   return (
-    <Grid container alignItems="center">
-      <Grid item>
+    <Grid
+      container
+      sx={{
+        alignItems: "center",
+      }}
+    >
+      <Grid>
         <ReactMarkdown>{markdown}</ReactMarkdown>
       </Grid>
     </Grid>
