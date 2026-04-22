@@ -87,9 +87,15 @@ export const generateTypes = async (
 
   const typeNames = deduplicateTypeNames(contexts);
   const generated = await Promise.all(
-    contexts.map((ctx) =>
-      generateContextType(ctx, typeNames.get(ctx.stableKey)!),
-    ),
+    contexts.map((ctx) => {
+      const typeName = typeNames.get(ctx.stableKey);
+      if (!typeName) {
+        throw new Error(
+          `No type name generated for workflow context "${ctx.stableKey}"`,
+        );
+      }
+      return generateContextType(ctx, typeName);
+    }),
   );
 
   const interfaces = generated
