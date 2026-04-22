@@ -12,13 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: jdx/mise-action@v4
-      - run: mise exec -- npm ci
-      - run: mise exec -- npm --prefix example-embedded-app ci
+      - run: npm ci
+      - run: npm --prefix example-embedded-app ci
       - name: Cache Playwright browsers
         uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install Playwright Chromium
-        run: mise exec -- npx playwright install --with-deps chromium
+        run: node_modules/.bin/playwright install --with-deps chromium
       - run: mise run validate

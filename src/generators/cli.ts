@@ -11,7 +11,7 @@ const main = async () => {
       output: { type: "string", short: "o", default: "prismatic.d.ts" },
     },
   });
-  const output = values.output!;
+  const output = values.output;
   const outputPath = path.resolve(process.cwd(), output);
 
   console.log("Fetching workflow contexts...");
