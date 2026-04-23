@@ -6,6 +6,7 @@ export interface Workflow {
   name: string;
   versionNumber: number;
   description: string;
+  externalId: string | null;
   updatedAt: string;
   lastExecutedAt: string | null;
   createdAt: string;
@@ -76,6 +77,7 @@ const query = `
           name
           versionNumber
           description
+          externalId
           updatedAt
           lastExecutedAt
           createdAt
