@@ -15,7 +15,7 @@ function EmbeddedMarketplacePopover() {
   return (
     <>
       <Head>
-        <title>Embedded Marketplace</title>
+        <title>Marketplace Popover</title>
       </Head>
       <PageTitleWrapper>
         <ExampleHeader markdown={embeddedMarketplacePopoverHelperText} />

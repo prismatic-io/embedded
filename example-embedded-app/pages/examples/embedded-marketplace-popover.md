@@ -1,6 +1,5 @@
-## Embedded Marketplace with Popover
+## Marketplace Popover
 
-This page demonstrates how the Prismatic marketplace can open in a popover modal. This page uses the `showMarketplace()` function to display the marketplace with the `usePopover: true` display option.
-This is helpful if you would like the marketplace to appear after a user event, like a button click.
+Open the marketplace in a modal on demand — perfect for a "Browse integrations" button or any flow where the marketplace shouldn't live on the page full-time. Rendered with `showMarketplace()` and the `usePopover: true` display option.
 
-You can edit this page by modifying `pages/examples/embedded-marketplace-popover.tsx`.
+Full reference: [Popover method](https://prismatic.io/docs/embed/marketplace/#popover-method).

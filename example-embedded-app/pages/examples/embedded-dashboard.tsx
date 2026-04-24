@@ -1,20 +1,13 @@
-import { Container, styled } from "@mui/material";
-
 import prismatic from "@prismatic-io/embedded";
 import Head from "next/head";
 import React from "react";
+import EmbeddedFrame from "@/components/EmbeddedFrame";
 import ExampleHeader from "@/components/ExampleHeader";
-import Footer from "@/components/Footer";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
 
 import embeddedDashboardHelperText from "./embedded-dashboard.md";
-
-const EmbeddedDashboardWrapper = styled(Container)(() => ({
-  height: "70vh",
-  width: "100%",
-}));
 
 const embeddedDivId = "embedded-dashboard-div";
 
@@ -38,17 +31,12 @@ function EmbeddedDashboard() {
   return (
     <>
       <Head>
-        <title>Embedded Dashboard</title>
+        <title>Customer Dashboard</title>
       </Head>
       <PageTitleWrapper>
         <ExampleHeader markdown={embeddedDashboardHelperText} />
       </PageTitleWrapper>
-      <EmbeddedDashboardWrapper
-        id={embeddedDivId}
-        maxWidth={false}
-        disableGutters
-      />
-      <Footer />
+      <EmbeddedFrame id={embeddedDivId} />
     </>
   );
 }

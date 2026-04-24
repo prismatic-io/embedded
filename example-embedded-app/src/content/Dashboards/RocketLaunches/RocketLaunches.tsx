@@ -30,11 +30,7 @@ const ListItemAvatarWrapper = styled(ListItemAvatar)(
   margin-right: ${theme.spacing(2)};
   padding: ${theme.spacing(0.5)};
   border-radius: 60px;
-  background: ${
-    theme.palette.mode === "dark"
-      ? theme.colors.alpha.trueWhite[30]
-      : alpha(theme.colors.alpha.black[100], 0.07)
-  };
+  background: ${alpha(theme.colors.alpha.black[100], 0.07)};
   height: ${theme.spacing(4.5)};
   width: ${theme.spacing(4.5)};
 `,
@@ -109,7 +105,7 @@ function RocketLaunches() {
       width: 0,
     },
     theme: {
-      mode: theme.palette.mode,
+      mode: "light",
     },
   };
 

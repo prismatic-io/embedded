@@ -1,20 +1,13 @@
-import { Container, styled } from "@mui/material";
-
 import prismatic from "@prismatic-io/embedded";
 import Head from "next/head";
 import React from "react";
+import EmbeddedFrame from "@/components/EmbeddedFrame";
 import ExampleHeader from "@/components/ExampleHeader";
-import Footer from "@/components/Footer";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
 
 import i18nHelperText from "./i18n.md";
-
-const EmbeddedMarketplaceWrapper = styled(Container)(() => ({
-  height: "70vh",
-  width: "100%",
-}));
 
 const embeddedDivId = "embedded-marketplace-div";
 
@@ -66,12 +59,7 @@ function Internationalization() {
       <PageTitleWrapper>
         <ExampleHeader markdown={i18nHelperText} />
       </PageTitleWrapper>
-      <EmbeddedMarketplaceWrapper
-        id={embeddedDivId}
-        maxWidth={false}
-        disableGutters
-      />
-      <Footer />
+      <EmbeddedFrame id={embeddedDivId} />
     </>
   );
 }

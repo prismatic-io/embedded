@@ -1,7 +1,6 @@
 import { alpha, Box, useTheme } from "@mui/material";
 import type { FC, ReactNode } from "react";
 
-import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 interface SidebarLayoutProps {
@@ -18,8 +17,9 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({
   return (
     <Box
       sx={{
-        flex: 1,
-        height: "100%",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
 
         ".MuiPageTitle-wrapper": {
           background: theme.colors.alpha.white[50],
@@ -34,27 +34,21 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({
         },
       }}
     >
-      <Header />
       <Sidebar />
       <Box
         sx={{
           position: "relative",
           zIndex: 5,
-          display: "block",
+          display: "flex",
+          flexDirection: "column",
           flex: 1,
-          pt: `${theme.header.height}`,
+          minHeight: 0,
           [theme.breakpoints.up("lg")]: {
             ml: `${theme.sidebar.width}`,
           },
         }}
       >
-        <Box
-          sx={{
-            display: "block",
-          }}
-        >
-          {children}
-        </Box>
+        {children}
       </Box>
     </Box>
   );

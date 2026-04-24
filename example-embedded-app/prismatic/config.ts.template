@@ -1,6 +1,6 @@
 /**
  * Update the values below with your own Prismatic organization ID, customer external ID, user ID and signing secret.
- * See https://prismatic.io/docs/installing-embedded/ for information on how to get these values.
+ * See https://prismatic.io/docs/embed/get-started/install-embedded-sdk/ for information on how to get these values.
  */
 
 import { PrismaticConfig } from './types';

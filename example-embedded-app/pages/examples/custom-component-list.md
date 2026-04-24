@@ -1,11 +1,7 @@
 ## Custom Component List
 
-This page demonstrates how you can fetch a list of all available components from the [Prismatic GraphQL API](https://prismatic.io/docs/embedded-api-requests/) and render the components with custom UI elements.
+Render Prismatic data in your own UI. This page queries `components` through `prismatic.graphqlRequest()` and maps the results to custom elements — handy when you want to surface the components a customer can use inside the embedded designer without Prismatic's chrome.
 
-GraphQL queries and mutations are run using the `prismatic.graphqlRequest()` function.
-You can test out GraphQL queries from the Prismatic [GraphQL explorer](https://prismatic.io/docs/explorer/).
+Queries run client-side with the customer's access token, which scopes results to that customer automatically. Prototype them in the [GraphQL explorer](https://prismatic.io/docs/explorer/).
 
-This page runs a `components` query on behalf of your customer user, and maps the array of component objects that are returned to custom UI objects.
-This is handy if you would like to display a list of components that your customer has access to in the embedded designer.
-
-You can edit this page by modifying `pages/examples/custom-component-list.tsx`.
+API reference: [Embedded API Requests](https://prismatic.io/docs/embed/embedded-api-requests/). For a drop-in picker, see [Show Components](https://prismatic.io/docs/embed/additional-screens/show-components/).

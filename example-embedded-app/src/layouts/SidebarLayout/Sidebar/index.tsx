@@ -1,11 +1,9 @@
 import {
-  alpha,
   Box,
   Button,
   Divider,
   Drawer,
   darken,
-  lighten,
   styled,
   useTheme,
 } from "@mui/material";
@@ -42,12 +40,8 @@ function Sidebar() {
           position: "fixed",
           left: 0,
           top: 0,
-          background:
-            theme.palette.mode === "dark"
-              ? alpha(lighten(theme.header.background, 0.1), 0.5)
-              : darken(theme.colors.alpha.black[100], 0.5),
-          boxShadow:
-            theme.palette.mode === "dark" ? theme.sidebar.boxShadow : "none",
+          background: darken(theme.colors.alpha.black[100], 0.5),
+          boxShadow: "none",
         }}
       >
         <Box sx={{ height: "100%", overflowY: "auto" }}>
@@ -84,7 +78,7 @@ function Sidebar() {
           }}
         >
           <Button
-            href="https://prismatic.io/docs/installing-embedded/"
+            href="https://prismatic.io/docs/embed/get-started/install-embedded-sdk/"
             target="_blank"
             rel="noopener noreferrer"
             variant="contained"
@@ -108,10 +102,7 @@ function Sidebar() {
       >
         <SidebarWrapper
           sx={{
-            background:
-              theme.palette.mode === "dark"
-                ? theme.colors.alpha.white[100]
-                : darken(theme.colors.alpha.black[100], 0.5),
+            background: darken(theme.colors.alpha.black[100], 0.5),
           }}
         >
           <Box sx={{ height: "100%", overflowY: "auto" }}>

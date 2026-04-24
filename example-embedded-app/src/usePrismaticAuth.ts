@@ -8,7 +8,6 @@ interface UserInfoProps {
   authenticatedUser: {
     customer: {
       id: string;
-      allowEmbeddedDesigner: boolean;
     };
   };
 }
@@ -33,7 +32,6 @@ const getUserInfo = async (): Promise<UserInfoProps> => {
     authenticatedUser {
       customer {
         id
-        allowEmbeddedDesigner
       }
     }
   }`;
