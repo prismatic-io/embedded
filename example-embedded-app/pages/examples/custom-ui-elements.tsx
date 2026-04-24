@@ -16,7 +16,6 @@ import Head from "next/head";
 import config from "prismatic/config";
 import React, { useEffect } from "react";
 import ExampleHeader from "@/components/ExampleHeader";
-import Footer from "@/components/Footer";
 import PageTitleWrapper from "@/components/PageTitleWrapper";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
@@ -226,7 +225,6 @@ function CustomUiElements() {
           </Grid>
         </Container>
       )}
-      <Footer />
     </>
   );
 }

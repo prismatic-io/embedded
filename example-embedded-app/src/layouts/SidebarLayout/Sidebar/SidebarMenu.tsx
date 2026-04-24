@@ -143,56 +143,76 @@ interface EmbeddedSidebarMenuProps {
   icon: typeof SvgIcon;
 }
 
-const embeddedSidebarMenuItems: EmbeddedSidebarMenuProps[] = [
+interface EmbeddedSidebarSection {
+  heading: string;
+  items: EmbeddedSidebarMenuProps[];
+}
+
+const embeddedSidebarSections: EmbeddedSidebarSection[] = [
   {
-    path: "/examples/embedded-marketplace",
-    title: "Embedded Marketplace",
-    icon: WebTwoTone,
+    heading: "Workflow Builder",
+    items: [
+      {
+        path: "/examples/embedded-workflow-builder",
+        title: "Workflow Builder",
+        icon: ConstructionTwoTone,
+      },
+    ],
   },
   {
-    path: "/examples/embedded-marketplace-popover",
-    title: "Marketplace with Popover",
-    icon: PictureInPictureTwoTone,
+    heading: "Marketplace",
+    items: [
+      {
+        path: "/examples/embedded-marketplace",
+        title: "Marketplace",
+        icon: WebTwoTone,
+      },
+      {
+        path: "/examples/embedded-marketplace-popover",
+        title: "Marketplace Popover",
+        icon: PictureInPictureTwoTone,
+      },
+      {
+        path: "/examples/dynamically-set-config-variables",
+        title: "Set Config Variables",
+        icon: TerminalTwoTone,
+      },
+    ],
   },
   {
-    path: "/examples/embedded-designer",
-    title: "Embedded Designer",
-    icon: ConstructionTwoTone,
+    heading: "Manage",
+    items: [
+      {
+        path: "/examples/embedded-dashboard",
+        title: "Customer Dashboard",
+        icon: DashboardTwoTone,
+      },
+      {
+        path: "/examples/embedded-connections",
+        title: "Connections",
+        icon: CableTwoTone,
+      },
+      {
+        path: "/examples/edit-instance-configuration",
+        title: "Edit Instance Configuration",
+        icon: ConstructionTwoTone,
+      },
+    ],
   },
   {
-    path: "/examples/embedded-workflow-builder",
-    title: "Embedded Workflow Builder",
-    icon: ConstructionTwoTone,
-  },
-  {
-    path: "/examples/embedded-dashboard",
-    title: "Embedded Dashboard",
-    icon: DashboardTwoTone,
-  },
-  {
-    path: "/examples/embedded-connections",
-    title: "Embedded Connections",
-    icon: CableTwoTone,
-  },
-  {
-    path: "/examples/custom-ui-elements",
-    title: "Custom UI Elements",
-    icon: ViewComfyAltTwoTone,
-  },
-  {
-    path: "/examples/dynamically-set-config-variables",
-    title: "Set Config Variables",
-    icon: TerminalTwoTone,
-  },
-  {
-    path: "/examples/edit-instance-configuration",
-    title: "Edit Instance Configuration",
-    icon: ConstructionTwoTone,
-  },
-  {
-    path: "/examples/i18n",
-    title: "Internationalization (i18n)",
-    icon: TranslateTwoTone,
+    heading: "Customize",
+    items: [
+      {
+        path: "/examples/custom-ui-elements",
+        title: "Custom UI Elements",
+        icon: ViewComfyAltTwoTone,
+      },
+      {
+        path: "/examples/i18n",
+        title: "Internationalization (i18n)",
+        icon: TranslateTwoTone,
+      },
+    ],
   },
 ];
 
@@ -228,33 +248,36 @@ function SidebarMenu() {
           </List>
         </SubMenuWrapper>
       </List>
-      <List
-        component="div"
-        subheader={
-          <ListSubheader component="div" disableSticky>
-            Embedded Examples
-          </ListSubheader>
-        }
-      >
-        <SubMenuWrapper>
-          <List component="div">
-            {embeddedSidebarMenuItems.map((item) => (
-              <ListItem key={item.path} component="div">
-                <Button
-                  className={currentRoute === item.path ? "active" : ""}
-                  disableRipple
-                  component={NextLink}
-                  href={item.path}
-                  onClick={closeSidebar}
-                  startIcon={<item.icon />}
-                >
-                  {item.title}
-                </Button>
-              </ListItem>
-            ))}
-          </List>
-        </SubMenuWrapper>
-      </List>
+      {embeddedSidebarSections.map((section) => (
+        <List
+          key={section.heading}
+          component="div"
+          subheader={
+            <ListSubheader component="div" disableSticky>
+              {section.heading}
+            </ListSubheader>
+          }
+        >
+          <SubMenuWrapper>
+            <List component="div">
+              {section.items.map((item) => (
+                <ListItem key={item.path} component="div">
+                  <Button
+                    className={currentRoute === item.path ? "active" : ""}
+                    disableRipple
+                    component={NextLink}
+                    href={item.path}
+                    onClick={closeSidebar}
+                    startIcon={<item.icon />}
+                  >
+                    {item.title}
+                  </Button>
+                </ListItem>
+              ))}
+            </List>
+          </SubMenuWrapper>
+        </List>
+      ))}
     </MenuWrapper>
   );
 }

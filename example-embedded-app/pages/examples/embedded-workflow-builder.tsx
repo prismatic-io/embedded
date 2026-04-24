@@ -1,15 +1,13 @@
-import { Container, styled } from "@mui/material";
-
 import prismatic from "@prismatic-io/embedded";
 import Head from "next/head";
 import React from "react";
+import EmbeddedFrame from "@/components/EmbeddedFrame";
+import ExampleHeader from "@/components/ExampleHeader";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
 
-const WorkflowWrapper = styled(Container)(() => ({
-  height: "calc(100vh - 90px)",
-  width: "100%",
-}));
+import embeddedWorkflowBuilderHelperText from "./embedded-workflow-builder.md";
 
 const embeddedDivId = "embedded-workflow-div";
 
@@ -28,9 +26,12 @@ function Workflows() {
   return (
     <>
       <Head>
-        <title>Embedded Workflow</title>
+        <title>Workflow Builder</title>
       </Head>
-      <WorkflowWrapper id={embeddedDivId} maxWidth={false} disableGutters />
+      <PageTitleWrapper>
+        <ExampleHeader markdown={embeddedWorkflowBuilderHelperText} />
+      </PageTitleWrapper>
+      <EmbeddedFrame id={embeddedDivId} />
     </>
   );
 }

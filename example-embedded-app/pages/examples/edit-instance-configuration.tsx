@@ -15,8 +15,12 @@ import {
 import prismatic from "@prismatic-io/embedded";
 import Head from "next/head";
 import React from "react";
+import ExampleHeader from "@/components/ExampleHeader";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
+
+import editInstanceConfigurationHelperText from "./edit-instance-configuration.md";
 
 interface Instance {
   id: string;
@@ -118,12 +122,15 @@ function EditInstanceConfiguration() {
       <Head>
         <title>Edit Instance Configuration</title>
       </Head>
+      <PageTitleWrapper>
+        <ExampleHeader markdown={editInstanceConfigurationHelperText} />
+      </PageTitleWrapper>
       {loading ? (
         <Container>
           <LinearProgress />
         </Container>
       ) : (
-        <Container>
+        <Container sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             {instances.map((instance) => (
               <Grid key={instance.id} size={4}>

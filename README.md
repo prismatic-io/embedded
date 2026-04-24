@@ -3,7 +3,7 @@
   <h1>@prismatic-io/embedded</h1>
 </div>
 
-`@prismatic-io/embedded` allows you to to embed Prismatic's [integration marketplace](https://prismatic.io/docs/instances/integration-marketplace/) and [workflow designer](https://prismatic.io/docs/embed/workflow-designer/) within your web application, giving your customers the ability to manage integrations, instances, and connectors you've built in Prismatic.
+`@prismatic-io/embedded` allows you to to embed Prismatic's [integration marketplace](https://prismatic.io/docs/instances/integration-marketplace/) and [workflow builder](https://prismatic.io/docs/embed/workflow-builder/workflow-builder/) within your web application, giving your customers the ability to manage integrations, instances, and connectors you've built in Prismatic.
 
 ## What is Prismatic?
 

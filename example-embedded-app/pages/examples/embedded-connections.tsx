@@ -1,16 +1,13 @@
-import { Container, styled } from "@mui/material";
-
 import prismatic from "@prismatic-io/embedded";
 import Head from "next/head";
 import React from "react";
-import Footer from "@/components/Footer";
+import EmbeddedFrame from "@/components/EmbeddedFrame";
+import ExampleHeader from "@/components/ExampleHeader";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import usePrismaticAuth from "@/usePrismaticAuth";
 
-const ConnectionsWrapper = styled(Container)(() => ({
-  height: "70vh",
-  width: "100%",
-}));
+import embeddedConnectionsHelperText from "./embedded-connections.md";
 
 const embeddedDivId = "embedded-connections-div";
 
@@ -29,10 +26,12 @@ function Connections() {
   return (
     <>
       <Head>
-        <title>Embedded Connections</title>
+        <title>Connections</title>
       </Head>
-      <ConnectionsWrapper id={embeddedDivId} maxWidth={false} disableGutters />
-      <Footer />
+      <PageTitleWrapper>
+        <ExampleHeader markdown={embeddedConnectionsHelperText} />
+      </PageTitleWrapper>
+      <EmbeddedFrame id={embeddedDivId} />
     </>
   );
 }

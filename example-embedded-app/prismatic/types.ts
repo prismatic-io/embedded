@@ -30,7 +30,7 @@ export interface PrismaticConfig {
    * Optional Prismatic API refresh token. This can be used to query the Prismatic API from the backend
    * as an organization user. You can generate a refresh token with `prism me:token --type refresh`.
    *
-   * See https://prismatic.io/docs/api/api-overview/#querying-prismatics-api-programmatically
+   * See https://prismatic.io/docs/api/get-started/querying-with-http-client/
    * for documentation
    */
   prismaticRefreshToken?: string;
