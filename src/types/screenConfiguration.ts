@@ -21,6 +21,27 @@ export interface WorkflowsConfiguration {
   includeIntegrations?: boolean;
 }
 
+export type CopilotChatVisibility = "open" | "hide";
+
+export interface CopilotConfiguration {
+  /**
+   * Controls the initial state of the workflow builder copilot chat panel when
+   * the builder is presented.
+   * - `hide` (default): the copilot button is shown, the panel is collapsed
+   *   until the user opens it.
+   * - `open`: the copilot panel is expanded on load.
+   *
+   * Only takes effect when the copilot is enabled for the organization and customer.
+   *
+   * @default "hide"
+   */
+  initialChatVisibility?: CopilotChatVisibility;
+}
+
+export interface WorkflowBuilderConfiguration {
+  copilot?: CopilotConfiguration;
+}
+
 export interface InitializingConfiguration {
   /** The background color of the loading screen */
   background: string;
@@ -79,6 +100,7 @@ export interface ScreenConfiguration {
   initializing?: InitializingConfiguration;
   instance?: InstanceScreenConfiguration;
   marketplace?: MarketplaceConfiguration;
+  workflowBuilder?: WorkflowBuilderConfiguration;
   workflows?: WorkflowsConfiguration;
   isInPopover?: boolean;
 }

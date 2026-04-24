@@ -8,6 +8,7 @@ interface UserInfoProps {
   authenticatedUser: {
     customer: {
       id: string;
+      allowWorkflowCopilot: boolean;
     };
   };
 }
@@ -32,6 +33,7 @@ const getUserInfo = async (): Promise<UserInfoProps> => {
     authenticatedUser {
       customer {
         id
+        allowWorkflowCopilot
       }
     }
   }`;
