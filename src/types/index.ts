@@ -45,20 +45,25 @@ export type { Options, PopoverOptions, SelectorOptions } from "./options";
 export {
   type InstanceConfigurationData,
   type InstanceConfigurationLoadedData,
+  type InstanceConfigurationPageLoadedData,
   type MessageData,
   PrismaticMessageEvent,
   type UserConfigurationData,
+  type UserConfigurationPageData,
   type WorkflowConfigurationData,
 } from "./postMessage";
 export type {
   ConfigurationWizardConfiguration,
   ConfigureInstanceScreenConfiguration,
+  CopilotChatVisibility,
+  CopilotConfiguration,
   DashboardScreenConfiguration,
   InitializingConfiguration,
   InstanceScreenConfiguration,
   MarketplaceConfiguration,
   ScreenConfiguration,
   TriggerDetails,
+  WorkflowBuilderConfiguration,
 } from "./screenConfiguration";
 export type { Theme } from "./theme";
 export type { Translation } from "./translation";

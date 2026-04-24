@@ -1,4 +1,5 @@
 import {
+  AutoAwesomeTwoTone,
   CableTwoTone,
   ConstructionTwoTone,
   DashboardTwoTone,
@@ -156,6 +157,11 @@ const embeddedSidebarSections: EmbeddedSidebarSection[] = [
         path: "/examples/embedded-workflow-builder",
         title: "Workflow Builder",
         icon: ConstructionTwoTone,
+      },
+      {
+        path: "/examples/embedded-workflow-builder-copilot",
+        title: "Workflow Builder + Copilot",
+        icon: AutoAwesomeTwoTone,
       },
     ],
   },

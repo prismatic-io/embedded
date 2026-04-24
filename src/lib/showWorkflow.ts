@@ -27,6 +27,16 @@ export type ShowWorkflowBuilderProps = Options & {
  *   selector: "#workflow-container",
  * });
  *
+ * @example
+ * // Open the workflow builder with the copilot panel already expanded
+ * prismatic.showWorkflow({
+ *   workflowId: "V29ya2Zsb3c6YTFiMmMz...",
+ *   selector: "#workflow-container",
+ *   screenConfiguration: {
+ *     workflowBuilder: { copilot: { initialChatVisibility: "open" } },
+ *   },
+ * });
+ *
  * @see {@link https://prismatic.io/docs/embed/workflow-builder/workflow-builder/ | Embedding the Workflow Builder}
  */
 export const showWorkflow = ({
