@@ -1,0 +1,33 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/index.ts",
+    "src/generators/cli.ts",
+    "tests/types/**/*.test-d.ts",
+    "tests/types/fixtures/**/*.d.ts",
+    "tests/browser/**/*.spec.{ts,mts}",
+    "tests/browser/fixtures/**/*.{ts,cts,mts}",
+    "tests/browser/types/**/*.d.ts",
+    "__typetests__/**/*.test-d.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,mts,cts}",
+    "bin/**/*.js",
+    "tests/**/*.{ts,mts,cts,d.ts}",
+    "__typetests__/**/*.{ts,mts,cts}"
+  ],
+  "ignoreDependencies": [
+    "typescript-49",
+    "typescript-50",
+    "typescript-52",
+    "typescript-55",
+    "typescript-58"
+  ],
+  "ignoreBinaries": ["typescript/bin/tsc", "typescript-\\d+/bin/tsc", "mktemp"],
+  "rules": {
+    "exports": "warn",
+    "types": "warn",
+    "nsExports": "warn",
+    "nsTypes": "warn"
+  }
+}
