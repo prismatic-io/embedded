@@ -4,9 +4,10 @@ import {
   EMBEDDED_OVERLAY_VISIBLE_CLASS,
   EMBEDDED_POPOVER_CLASS,
   EMBEDDED_POPOVER_CLOSE_CLASS,
+  EMBEDDED_STYLE_ID,
 } from "./utils/iframe";
 
-export const styles = /* html */ `<style>
+export const styles = /* html */ `<style id="${EMBEDDED_STYLE_ID}">
   .${EMBEDDED_OVERLAY_CLASS} {
     backdrop-filter: blur(10px);
     background: rgb(119 119 119 / 29%);

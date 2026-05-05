@@ -7,6 +7,7 @@ import {
 
 export { authenticate } from "./authenticate";
 export { createWorkflow } from "./createWorkflow";
+export { dispose } from "./dispose";
 export { editInstanceConfiguration } from "./editInstanceConfiguration";
 export { graphqlRequest } from "./graphqlRequest";
 export { EMBEDDED_DEFAULTS, init } from "./init";
