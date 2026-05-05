@@ -47,9 +47,45 @@ description = "Run Playwright browser smoke tests against the built bundles"
 depends = ["build"]
 run = "node_modules/.bin/playwright test"
 
+[tasks.knip]
+description = "Find unused files, exports, and dependencies"
+run = "npm run knip"
+
+[tasks.publint]
+description = "Lint package.json publishing config"
+depends = ["build"]
+run = "npm run publint"
+
+[tasks.attw]
+description = "Verify published types resolve under every module mode"
+depends = ["build"]
+run = "npm run attw"
+
+[tasks.agadoo]
+description = "Verify the ESM bundle is tree-shakeable"
+depends = ["build"]
+run = "npm run agadoo"
+
+[tasks."size-limit"]
+description = "Enforce bundle size budgets"
+depends = ["build"]
+run = "npm run size-limit"
+
 [tasks.validate]
 description = "Run all validation checks"
-depends = ["format:check", "lint", "build", "test", "example:typecheck", "example:build", "test:browser"]
+depends = [
+  "format:check",
+  "lint",
+  "build",
+  "test",
+  "example:typecheck",
+  "example:build",
+  "test:browser",
+  "knip",
+  "publint",
+  "attw",
+  "size-limit",
+]
 
 [tasks.version-bump]
 description = "Bump package.json version (set BUMP_TYPE=patch|minor|major|preview)"
