@@ -13,6 +13,13 @@ import {
 } from "../utils/iframe";
 import { closePopover } from "../utils/popover";
 
+let listenerController: AbortController | undefined;
+
+export const releaseListeners = () => {
+  listenerController?.abort();
+  listenerController = undefined;
+};
+
 export interface InitProps
   extends Pick<
       State,
@@ -45,7 +52,9 @@ export const EMBEDDED_DEFAULTS = {
  * SDK methods. It sets up the popover overlay, preloads Prismatic assets into the
  * browser cache, and applies global configuration (theme, filters, translations, etc.).
  *
- * Calling `init` again resets the SDK to a fresh state with the new options.
+ * Calling `init` again resets the in-memory SDK state with the new options,
+ * but the popover DOM and document-level listeners are reused. Call
+ * {@link dispose} first if you need a fully fresh teardown.
  *
  * @param optionsBase - Optional global configuration for the embedded SDK.
  * @param optionsBase.theme - The color theme to use (`"LIGHT"` or `"DARK"`). Defaults to `"LIGHT"`.
@@ -146,22 +155,35 @@ export const init = (optionsBase?: InitProps) => {
 
   const overlayElement = document.querySelector(EMBEDDED_OVERLAY_SELECTOR);
 
-  overlayElement?.addEventListener("click", (event) => {
-    if (event.target !== event.currentTarget) {
-      return;
-    }
+  listenerController = new AbortController();
+  const { signal } = listenerController;
 
-    closePopover();
-  });
+  overlayElement?.addEventListener(
+    "click",
+    (event) => {
+      if (event.target !== event.currentTarget) {
+        return;
+      }
 
-  closeButtonElement?.addEventListener("click", () => closePopover());
-
-  document.addEventListener("keyup", (e) => {
-    if (
-      e.key === "Escape" &&
-      document.querySelector(`.${EMBEDDED_OVERLAY_VISIBLE_CLASS}`)
-    ) {
       closePopover();
-    }
+    },
+    { signal },
+  );
+
+  closeButtonElement?.addEventListener("click", () => closePopover(), {
+    signal,
   });
+
+  document.addEventListener(
+    "keyup",
+    (e) => {
+      if (
+        e.key === "Escape" &&
+        document.querySelector(`.${EMBEDDED_OVERLAY_VISIBLE_CLASS}`)
+      ) {
+        closePopover();
+      }
+    },
+    { signal },
+  );
 };
