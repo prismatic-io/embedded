@@ -15,11 +15,13 @@ function Workflow() {
 
   React.useEffect(() => {
     if (authenticated && typeof workflowId === "string" && workflowId) {
-      prismatic.showWorkflow({
+      const cleanup = prismatic.showWorkflow({
         selector: `#${embeddedDivId}`,
         theme: "LIGHT",
         workflowId,
+        onDelete: () => console.log(`Workflow deleted.`),
       });
+      return () => cleanup?.();
     }
   }, [authenticated, workflowId]);
 
