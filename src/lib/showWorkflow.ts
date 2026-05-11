@@ -1,9 +1,11 @@
 import type { Options } from "../types/options";
+import { PrismaticMessageEvent } from "../types/postMessage";
 import { assertInit } from "../utils/assertInit";
 import { setIframe } from "../utils/iframe";
 
 export type ShowWorkflowBuilderProps = Options & {
   workflowId: string;
+  onDelete?: () => void;
 };
 
 /**
@@ -12,13 +14,18 @@ export type ShowWorkflowBuilderProps = Options & {
  *
  * @param props - Display options including the workflow to open.
  * @param props.workflowId - The ID of the workflow to open in the builder.
+ * @param props.onDelete - Called when the workflow is deleted.
+ * @returns A cleanup function that removes the event listeners, or `undefined` if onDelete was not provided.
  *
  * @example
  * // Open a specific workflow in a popover
- * prismatic.showWorkflow({
+ * const cleanup = prismatic.showWorkflow({
  *   workflowId: "V29ya2Zsb3c6YTFiMmMz...",
+ *   onDelete: () => console.log(`Workflow deleted.`),
  *   usePopover: true,
  * });
+ * // Call cleanup() when you're done to remove event listeners
+ * cleanup?.();
  *
  * @example
  * // Open a specific workflow inline
@@ -41,9 +48,26 @@ export type ShowWorkflowBuilderProps = Options & {
  */
 export const showWorkflow = ({
   workflowId,
+  onDelete,
   ...options
 }: ShowWorkflowBuilderProps) => {
   assertInit("showWorkflowBuilder");
 
   setIframe(`/builder/${workflowId}/`, options, {});
+
+  if (onDelete) {
+    const abortController = new AbortController();
+
+    window.addEventListener(
+      "message",
+      (event: MessageEvent<{ event: string }>) => {
+        if (event.data?.event === PrismaticMessageEvent.WORKFLOW_DELETED) {
+          onDelete();
+        }
+      },
+      { signal: abortController.signal },
+    );
+
+    return () => abortController.abort();
+  }
 };

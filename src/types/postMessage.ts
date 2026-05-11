@@ -67,6 +67,7 @@ export enum PrismaticMessageEvent {
   USER_CONFIGURATION_PAGE_LOADED = "USER_CONFIGURATION_PAGE_LOADED",
   USER_CONFIGURATION_OPENED = "USER_CONFIGURATION_OPENED",
   WORKFLOW_ENABLED = "WORKFLOW_ENABLED",
+  WORKFLOW_DELETED = "WORKFLOW_DELETED",
   WORKFLOW_DISABLED = "WORKFLOW_DISABLED",
 }
 
@@ -134,6 +135,10 @@ export type MessageData =
   | {
       data: WorkflowConfigurationData;
       event: PrismaticMessageEvent.WORKFLOW_ENABLED;
+    }
+  | {
+      data: WorkflowConfigurationData;
+      event: PrismaticMessageEvent.WORKFLOW_DELETED;
     }
   | {
       data: WorkflowConfigurationData;
