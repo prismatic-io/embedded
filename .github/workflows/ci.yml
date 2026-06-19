@@ -10,8 +10,8 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.2
-      - uses: jdx/mise-action@v4.0.1
+      - uses: actions/checkout@v6.0.3
+      - uses: jdx/mise-action@v4.1.0
       - run: npm ci
       - run: npm --prefix example-embedded-app ci
       - name: Cache Playwright browsers
