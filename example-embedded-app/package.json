@@ -15,15 +15,15 @@
     "@mui/icons-material": "^9.1.1",
     "@mui/material": "^9.0.0",
     "@prismatic-io/embedded": "file:..",
-    "apexcharts": "5.15.0",
+    "apexcharts": "5.15.2",
     "jsonwebtoken": "^9.0.3",
     "next": "^16.2.6",
     "nprogress": "0.2.0",
     "react": "^19.2.7",
-    "react-apexcharts": "2.1.0",
+    "react-apexcharts": "2.1.1",
     "react-dom": "^19.2.7",
     "react-markdown": "^10.1.0",
-    "swr": "^2.4.1"
+    "swr": "^2.4.2"
   },
   "overrides": {
     "postcss": "^8.5.10"
