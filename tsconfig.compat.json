@@ -7,7 +7,8 @@
     "target": "es2017",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "lib": ["es2017", "DOM"]
+    "lib": ["es2017", "DOM"],
+    "types": []
   },
   "include": ["__typetests__/compat.test-d.ts"]
 }

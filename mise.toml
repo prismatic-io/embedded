@@ -23,6 +23,11 @@ description = "Run tests"
 depends = ["build"]
 run = "npm test"
 
+[tasks."typecheck:compat"]
+description = "Typecheck the published API across supported TypeScript versions"
+depends = ["build"]
+run = "npm run typecheck:compat"
+
 [tasks."example:typecheck"]
 description = "Typecheck the example embedded app against the built SDK"
 depends = ["build"]
@@ -78,6 +83,7 @@ depends = [
   "lint",
   "build",
   "test",
+  "typecheck:compat",
   "example:typecheck",
   "example:build",
   "test:browser",

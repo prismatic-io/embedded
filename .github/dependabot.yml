@@ -21,6 +21,9 @@ updates:
       # Bump the major manually when the Node version changes.
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
+      # TypeScript 7 does not yet expose the compiler API used by this project.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "npm"
     directory: "/example-embedded-app"

@@ -15,7 +15,7 @@
     "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.0.0",
     "@prismatic-io/embedded": "file:..",
-    "apexcharts": "5.15.2",
+    "apexcharts": "5.16.0",
     "jsonwebtoken": "^9.0.3",
     "next": "^16.2.10",
     "nprogress": "0.2.0",
