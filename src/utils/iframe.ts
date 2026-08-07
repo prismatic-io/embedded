@@ -154,6 +154,14 @@ export const setIframe = (
               data: state.filters,
             },
           });
+
+          postMessage({
+            iframe: iframeElement,
+            event: {
+              event: PrismaticMessageEvent.SET_AGENT_CONTEXT,
+              data: state.agent?.context,
+            },
+          });
         } else if (
           event.data?.event === PrismaticMessageEvent.POPOVER_CLOSE_REQUESTED
         ) {

@@ -25,7 +25,9 @@ export interface InitProps
       State,
       "screenConfiguration" | "theme" | "fontConfiguration" | "translation"
     >,
-    Partial<Pick<State, "filters" | "prismaticUrl" | "skipPreload">> {}
+    Partial<
+      Pick<State, "filters" | "prismaticUrl" | "skipPreload" | "agent">
+    > {}
 
 export const EMBEDDED_DEFAULTS = {
   filters: {
@@ -64,10 +66,23 @@ export const EMBEDDED_DEFAULTS = {
  * @param optionsBase.translation - Custom phrase overrides and debug mode for i18n.
  * @param optionsBase.prismaticUrl - Override the Prismatic app URL. Defaults to `"https://app.prismatic.io"`.
  * @param optionsBase.skipPreload - Skip preloading Prismatic assets. Defaults to `false`.
+ * @param optionsBase.agent - Configuration for the workflow copilot.
+ * @param optionsBase.agent.context - Additional context for the copilot, keyed by topic. The agent consults these entries to learn your application's domain language, the components you expect it to use, or details about the signed-in user.
  *
  * @example
  * // Basic initialization with defaults
  * prismatic.init();
+ *
+ * @example
+ * // Give the workflow copilot application-specific context
+ * prismatic.init({
+ *   agent: {
+ *     context: {
+ *       glossary: "A 'deal' is an opportunity record.",
+ *       components: "Prefer the acmeLeads component for lead creation.",
+ *     },
+ *   },
+ * });
  *
  * @example
  * // Initialize with dark theme and custom screen configuration

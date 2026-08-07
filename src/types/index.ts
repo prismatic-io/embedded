@@ -18,6 +18,7 @@ export type { ShowIntegrationsProps } from "../lib/showIntegrations";
 
 export type { ShowLogsProps } from "../lib/showLogs";
 export type { ShowMarketplaceProps } from "../lib/showMarketplace";
+export type { AgentConfiguration, AgentContext } from "./agent";
 export type {
   ConfigVar,
   ConfigVars,

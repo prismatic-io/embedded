@@ -21,6 +21,16 @@ function WorkflowBuilderCopilot() {
       prismatic.showWorkflows({
         selector: `#${embeddedDivId}`,
         theme: "LIGHT",
+        agent: {
+          context: {
+            glossary: [
+              "A 'deal' is an opportunity record in our CRM.",
+              "Deal fields arrive on the webhook trigger body as `body.deal`.",
+            ].join("\n"),
+            components:
+              "Prefer the Acme Leads component for anything that creates or updates a lead.",
+          },
+        },
         screenConfiguration: {
           workflowBuilder: {
             copilot: {

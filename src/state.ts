@@ -1,3 +1,4 @@
+import type { AgentConfiguration } from "./types/agent";
 import type { Filters } from "./types/filters";
 import type { FontConfiguration } from "./types/fontConfiguration";
 import type { ScreenConfiguration } from "./types/screenConfiguration";
@@ -5,6 +6,7 @@ import type { Theme } from "./types/theme";
 import type { Translation } from "./types/translation";
 
 export interface State {
+  agent?: AgentConfiguration;
   filters: Filters;
   initComplete: boolean;
   jwt: string;
@@ -18,6 +20,7 @@ export interface State {
 }
 
 const defaultState: State = {
+  agent: undefined,
   filters: {},
   initComplete: false,
   jwt: "",

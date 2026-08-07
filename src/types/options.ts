@@ -1,9 +1,11 @@
+import type { AgentConfiguration } from "./agent";
 import type { Filters } from "./filters";
 import type { ScreenConfiguration } from "./screenConfiguration";
 import type { Theme } from "./theme";
 import type { Translation } from "./translation";
 
 interface OptionsBase {
+  agent?: AgentConfiguration;
   autoFocusIframe?: boolean;
   filters?: Filters;
   screenConfiguration?: ScreenConfiguration;
