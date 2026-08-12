@@ -1,4 +1,11 @@
-type ScheduleTypeEnum = "none" | "custom" | "minute" | "hour" | "day" | "week";
+type ScheduleTypeEnum =
+  | "none"
+  | "once"
+  | "custom"
+  | "minute"
+  | "hour"
+  | "day"
+  | "week";
 
 type DefaultConfigVarDataTypeEnum =
   | "boolean"
