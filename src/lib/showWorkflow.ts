@@ -35,6 +35,16 @@ export type ShowWorkflowBuilderProps = Options & {
  * });
  *
  * @example
+ * // Open the workflow builder on the trigger selection screen
+ * prismatic.showWorkflow({
+ *   workflowId: "V29ya2Zsb3c6YTFiMmMz...",
+ *   selector: "#workflow-container",
+ *   screenConfiguration: {
+ *     workflowBuilder: { showTriggerSelectionOnLoad: true },
+ *   },
+ * });
+ *
+ * @example
  * // Open the workflow builder with the copilot panel already expanded
  * prismatic.showWorkflow({
  *   workflowId: "V29ya2Zsb3c6YTFiMmMz...",

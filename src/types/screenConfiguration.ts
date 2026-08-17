@@ -40,6 +40,14 @@ export interface CopilotConfiguration {
 
 export interface WorkflowBuilderConfiguration {
   copilot?: CopilotConfiguration;
+  /**
+   * When `true`, the builder opens with the trigger selection screen already
+   * displayed, letting your customer's users pick a trigger before working on
+   * the rest of the workflow.
+   *
+   * @default false
+   */
+  showTriggerSelectionOnLoad?: boolean;
 }
 
 export interface InitializingConfiguration {
