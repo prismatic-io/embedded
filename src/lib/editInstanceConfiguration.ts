@@ -7,6 +7,12 @@ import { setIframe } from "../utils/iframe";
 export type EditInstanceConfigurationProps = {
   instanceId: string;
   selector: string;
+  /**
+   * Open the signed-in person's own configuration rather than the instance's.
+   * Set this when the person is a customer user: they have no instance level
+   * pages to fill in, and without it they are shown the instance's.
+   */
+  userLevelConfigured?: boolean;
   theme?: Theme;
   screenConfiguration?: {
     configurationWizard?: Omit<ConfigurationWizardConfiguration, "isInModal">;
@@ -28,6 +34,7 @@ export type EditInstanceConfigurationProps = {
  * @param props - Configuration and display options.
  * @param props.instanceId - The ID of the instance to configure.
  * @param props.selector - A CSS selector for the DOM element to render into.
+ * @param props.userLevelConfigured - Open the person's own configuration rather than the instance's. Set this for a customer user.
  * @param props.theme - Optional theme override (`"LIGHT"` or `"DARK"`).
  * @param props.screenConfiguration - Optional screen configuration for the configuration wizard.
  * @param props.onSuccess - Called when the instance is successfully deployed.
@@ -53,6 +60,7 @@ export type EditInstanceConfigurationProps = {
 export const editInstanceConfiguration = ({
   instanceId,
   selector,
+  userLevelConfigured,
   theme,
   screenConfiguration,
   onCancel,
@@ -74,7 +82,10 @@ export const editInstanceConfiguration = ({
         },
       },
     },
-    { reconfigure: "true" },
+    {
+      reconfigure: "true",
+      ...(userLevelConfigured ? { userLevelConfigured: "true" } : {}),
+    },
   );
 
   if (!onCancel && !onSuccess && !onDelete) {
