@@ -87,7 +87,7 @@
     "@playwright/test": "^1.59.1",
     "@size-limit/preset-small-lib": "^13.0.3",
     "@types/express": "^5.0.6",
-    "@types/jsdom": "^28.0.1",
+    "@types/jsdom": "^30.0.0",
     "@types/lodash.merge": "^4.6.9",
     "@types/node": "^24.12.2",
     "agadoo": "^3.0.0",
