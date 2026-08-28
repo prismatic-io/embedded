@@ -17,21 +17,18 @@ export type EditUserLevelConfigurationProps = {
 };
 
 /**
- * Renders the signed-in person's own configuration for an instance directly
- * into a DOM element (no popover), so a customer user can supply their own
- * connections without being taken through the instance's configuration.
+ * Renders the configuration wizard for a customer user's own connections,
+ * inline within a DOM element you provide.
  *
- * Use this rather than {@link editInstanceConfiguration} for a customer user.
- * A customer user has no instance level pages to fill in, and passing an
- * `instanceId` to a marketplace screen otherwise leaves them choosing from a
- * list of instances rather than configuring the one already named.
+ * Customer users supply their own connections rather than the instance's, so
+ * this opens their pages and nothing else. Use {@link editInstanceConfiguration}
+ * for the instance's own configuration instead.
  *
- * The callbacks report the user level lifecycle, which is not the same as the
- * instance one: `onSuccess` fires when their configuration deploys, not when
- * the instance does.
+ * The callbacks report what happens to that person's configuration, not to the
+ * instance: `onSuccess` fires when their configuration deploys.
  *
  * @param props - Configuration and display options.
- * @param props.instanceId - The ID of the instance whose user level configuration to open.
+ * @param props.instanceId - The ID of the instance to configure.
  * @param props.selector - A CSS selector for the DOM element to render into.
  * @param props.theme - Optional theme override (`"LIGHT"` or `"DARK"`).
  * @param props.screenConfiguration - Optional screen configuration for the configuration wizard.
@@ -41,7 +38,7 @@ export type EditUserLevelConfigurationProps = {
  * @returns A cleanup function that removes the event listeners, or `undefined` if no callbacks were provided.
  *
  * @example
- * // Let a customer user connect their own account to an instance
+ * // Let a customer user connect their own account
  * const cleanup = prismatic.editUserLevelConfiguration({
  *   instanceId: "SW5zdGFuY2U6OGE2YjZi...",
  *   selector: "#config-panel",
@@ -79,8 +76,6 @@ export const editUserLevelConfiguration = ({
         },
       },
     },
-    // `reconfigure` names the instance so it is not asked for again;
-    // `userLevelConfigured` picks the person's pages over the instance's.
     { reconfigure: "true", userLevelConfigured: "true" },
   );
 

@@ -25,8 +25,8 @@ export type EditInstanceConfigurationProps = {
  * supports lifecycle callbacks (`onSuccess`, `onCancel`, `onDelete`), and returns a
  * cleanup function to remove event listeners.
  *
- * This opens the instance's own configuration. For a customer user, who has no
- * instance level pages to fill in, use {@link editUserLevelConfiguration}.
+ * This opens the instance's own configuration. Customer users supply their own
+ * connections instead, so use {@link editUserLevelConfiguration} for them.
  *
  * @param props - Configuration and display options.
  * @param props.instanceId - The ID of the instance to configure.
