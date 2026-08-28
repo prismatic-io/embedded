@@ -9,6 +9,7 @@ export { authenticate } from "./authenticate";
 export { createWorkflow } from "./createWorkflow";
 export { dispose } from "./dispose";
 export { editInstanceConfiguration } from "./editInstanceConfiguration";
+export { editUserLevelConfiguration } from "./editUserLevelConfiguration";
 export { graphqlRequest } from "./graphqlRequest";
 export { EMBEDDED_DEFAULTS, init } from "./init";
 export { queryWorkflows } from "./queryWorkflows";

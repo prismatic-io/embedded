@@ -4,7 +4,7 @@ import type { Theme } from "../types/theme";
 import { assertInit } from "../utils/assertInit";
 import { setIframe } from "../utils/iframe";
 
-export type EditInstanceConfigurationProps = {
+export type EditUserLevelConfigurationProps = {
   instanceId: string;
   selector: string;
   theme?: Theme;
@@ -17,35 +17,37 @@ export type EditInstanceConfigurationProps = {
 };
 
 /**
- * Renders the configuration wizard for an existing instance directly into a
- * DOM element (no popover). This is useful when you want to embed instance
- * configuration inline within your own application's UI.
+ * Renders the signed-in person's own configuration for an instance directly
+ * into a DOM element (no popover), so a customer user can supply their own
+ * connections without being taken through the instance's configuration.
  *
- * Unlike {@link configureInstance}, this function opens the config wizard directly,
- * supports lifecycle callbacks (`onSuccess`, `onCancel`, `onDelete`), and returns a
- * cleanup function to remove event listeners.
+ * Use this rather than {@link editInstanceConfiguration} for a customer user.
+ * A customer user has no instance level pages to fill in, and passing an
+ * `instanceId` to a marketplace screen otherwise leaves them choosing from a
+ * list of instances rather than configuring the one already named.
  *
- * This opens the instance's own configuration. For a customer user, who has no
- * instance level pages to fill in, use {@link editUserLevelConfiguration}.
+ * The callbacks report the user level lifecycle, which is not the same as the
+ * instance one: `onSuccess` fires when their configuration deploys, not when
+ * the instance does.
  *
  * @param props - Configuration and display options.
- * @param props.instanceId - The ID of the instance to configure.
+ * @param props.instanceId - The ID of the instance whose user level configuration to open.
  * @param props.selector - A CSS selector for the DOM element to render into.
  * @param props.theme - Optional theme override (`"LIGHT"` or `"DARK"`).
  * @param props.screenConfiguration - Optional screen configuration for the configuration wizard.
- * @param props.onSuccess - Called when the instance is successfully deployed.
- * @param props.onCancel - Called when the user cancels the configuration.
- * @param props.onDelete - Called when the user deletes the instance.
+ * @param props.onSuccess - Called when the person's configuration is successfully deployed.
+ * @param props.onCancel - Called when the person cancels the configuration.
+ * @param props.onDelete - Called when the person removes their configuration.
  * @returns A cleanup function that removes the event listeners, or `undefined` if no callbacks were provided.
  *
  * @example
- * // Edit an instance's configuration with lifecycle callbacks
- * const cleanup = prismatic.editInstanceConfiguration({
+ * // Let a customer user connect their own account to an instance
+ * const cleanup = prismatic.editUserLevelConfiguration({
  *   instanceId: "SW5zdGFuY2U6OGE2YjZi...",
  *   selector: "#config-panel",
- *   onSuccess: () => console.log("Configuration saved!"),
+ *   onSuccess: () => console.log("Their account is connected."),
  *   onCancel: () => console.log("Configuration canceled."),
- *   onDelete: () => console.log("Instance deleted."),
+ *   onDelete: () => console.log("Their configuration was removed."),
  * });
  *
  * // Call cleanup() when you're done to remove event listeners
@@ -53,7 +55,7 @@ export type EditInstanceConfigurationProps = {
  *
  * @see {@link https://prismatic.io/docs/embed/marketplace/ | Embedding the Marketplace}
  */
-export const editInstanceConfiguration = ({
+export const editUserLevelConfiguration = ({
   instanceId,
   selector,
   theme,
@@ -61,8 +63,8 @@ export const editInstanceConfiguration = ({
   onCancel,
   onSuccess,
   onDelete,
-}: EditInstanceConfigurationProps) => {
-  assertInit("editInstanceConfiguration");
+}: EditUserLevelConfigurationProps) => {
+  assertInit("editUserLevelConfiguration");
 
   setIframe(
     `/configure-instance/${instanceId}/`,
@@ -77,7 +79,9 @@ export const editInstanceConfiguration = ({
         },
       },
     },
-    { reconfigure: "true" },
+    // `reconfigure` names the instance so it is not asked for again;
+    // `userLevelConfigured` picks the person's pages over the instance's.
+    { reconfigure: "true", userLevelConfigured: "true" },
   );
 
   if (!onCancel && !onSuccess && !onDelete) {
@@ -90,14 +94,16 @@ export const editInstanceConfiguration = ({
     "message",
     (event: MessageEvent<{ event: string }>) => {
       switch (event.data?.event) {
-        case PrismaticMessageEvent.INSTANCE_DEPLOYED:
+        case PrismaticMessageEvent.USER_CONFIGURATION_DEPLOYED:
           onSuccess?.();
           abortController.abort();
           break;
-        case PrismaticMessageEvent.INSTANCE_DELETED:
+        case PrismaticMessageEvent.USER_CONFIGURATION_DELETED:
           onDelete?.();
           abortController.abort();
           break;
+        // There is no user level cancel event; cancelling the wizard reports
+        // itself under the instance level name.
         case PrismaticMessageEvent.INSTANCE_CONFIGURATION_CANCELED:
           onCancel?.();
           abortController.abort();

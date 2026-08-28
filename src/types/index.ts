@@ -7,6 +7,7 @@ export type {
   ConfigureInstanceWithIntegrationName,
 } from "../lib/configureInstance";
 export type { EditInstanceConfigurationProps } from "../lib/editInstanceConfiguration";
+export type { EditUserLevelConfigurationProps } from "../lib/editUserLevelConfiguration";
 export type { GraphqlRequestProps } from "../lib/graphqlRequest";
 export type { InitProps } from "../lib/init";
 export type { SetConfigVarsProps } from "../lib/setConfigVars";
