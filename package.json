@@ -1,0 +1,21 @@
+{
+  "name": "embedded-monorepo",
+  "private": true,
+  "packageManager": "bun@1.3.12",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "bun run --filter @prismatic-io/embedded build",
+    "test": "bun run --filter @prismatic-io/embedded test",
+    "test:browser": "bun run --filter @prismatic-io/embedded test:browser",
+    "format": "bun run --filter @prismatic-io/embedded format",
+    "format:check": "bun run --filter @prismatic-io/embedded format:check",
+    "lint": "bun run --filter @prismatic-io/embedded lint",
+    "check": "bun run --filter @prismatic-io/embedded check",
+    "typecheck:compat": "bun run --filter @prismatic-io/embedded typecheck:compat",
+    "knip": "bun run --filter @prismatic-io/embedded knip",
+    "publint": "bun run --filter @prismatic-io/embedded publint",
+    "attw": "bun run --filter @prismatic-io/embedded attw",
+    "agadoo": "bun run --filter @prismatic-io/embedded agadoo",
+    "size-limit": "bun run --filter @prismatic-io/embedded size-limit"
+  }
+}
