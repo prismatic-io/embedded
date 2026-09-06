@@ -12,15 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: jdx/mise-action@v4.2.4
-      - run: npm ci
-      - run: npm --prefix example-embedded-app ci
+      - run: mise run install
+      - run: npm --prefix examples/example-embedded-app ci
       - name: Cache Playwright browsers
         uses: actions/cache@v6.1.0
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: playwright-${{ runner.os }}-${{ hashFiles('bun.lock') }}
       - name: Install Playwright Chromium
-        run: node_modules/.bin/playwright install --with-deps chromium
+        run: bunx playwright install --with-deps chromium
       - run: mise run validate
       - continue-on-error: true
         run: mise run agadoo

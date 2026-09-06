@@ -1,8 +1,15 @@
 name: Release
+run-name: Release ${{ inputs.package }} (${{ inputs.bump }})
 
 on:
   workflow_dispatch:
     inputs:
+      package:
+        description: "Package to release"
+        required: true
+        type: choice
+        options:
+          - embedded
       bump:
         description: "Version bump type"
         required: true
@@ -14,7 +21,7 @@ on:
           - preview
 
 concurrency:
-  group: release
+  group: release-${{ inputs.package }}
   cancel-in-progress: false
 
 permissions:
@@ -42,27 +49,32 @@ jobs:
 
       - uses: jdx/mise-action@v4.2.4
 
-      - run: npm ci
+      - run: mise run install
 
       - name: Bump version
         id: bump
         run: |
           mise run version-bump
-          npm install --package-lock-only
-          VERSION=$(node -p "require('./package.json').version")
+          bun install
+          VERSION=$(node -p "require('./packages/${PACKAGE}/package.json').version")
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=${PACKAGE}-v$VERSION" >> "$GITHUB_OUTPUT"
         env:
+          PACKAGE: ${{ inputs.package }}
           BUMP_TYPE: ${{ inputs.bump }}
 
       - name: Commit and tag
         run: |
           git config user.name "${{ steps.app-token.outputs.app-slug }}[bot]"
           git config user.email "${{ secrets.RELEASE_APP_ID }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com"
-          git add package.json package-lock.json
-          git commit -m "Release v${{ steps.bump.outputs.version }}"
-          git tag "v${{ steps.bump.outputs.version }}"
-          git push origin HEAD "v${{ steps.bump.outputs.version }}"
+          git add "packages/${PACKAGE}/package.json" bun.lock
+          git commit -m "Release ${PACKAGE} v${VERSION}"
+          git tag "${TAG}"
+          git push origin HEAD "${TAG}"
+        env:
+          PACKAGE: ${{ inputs.package }}
+          VERSION: ${{ steps.bump.outputs.version }}
+          TAG: ${{ steps.bump.outputs.tag }}
 
   publish:
     needs: release
@@ -71,32 +83,33 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
         with:
-          ref: v${{ needs.release.outputs.version }}
+          ref: ${{ needs.release.outputs.tag }}
 
       - uses: jdx/mise-action@v4.2.4
 
-      - run: npm ci
-      - run: npm --prefix example-embedded-app ci
+      - run: mise run install
+      - run: npm --prefix examples/example-embedded-app ci
 
       - name: Cache Playwright browsers
         uses: actions/cache@v6.1.0
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: playwright-${{ runner.os }}-${{ hashFiles('bun.lock') }}
       - name: Install Playwright Chromium
-        run: node_modules/.bin/playwright install --with-deps chromium
+        run: bunx playwright install --with-deps chromium
 
       - run: mise run validate
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3.0.2
         with:
-          tag_name: v${{ needs.release.outputs.version }}
-          name: v${{ needs.release.outputs.version }}
+          tag_name: ${{ needs.release.outputs.tag }}
+          name: ${{ inputs.package }} v${{ needs.release.outputs.version }}
           generate_release_notes: true
           prerelease: ${{ contains(needs.release.outputs.version, 'preview') }}
 
       - name: Publish to npm
+        working-directory: packages/${{ inputs.package }}
         run: |
           if [[ "$VERSION" == *preview* ]]; then
             npm publish --tag preview
