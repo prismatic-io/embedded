@@ -1,6 +1,6 @@
 const path = require("node:path");
 
-const repoRoot = path.join(__dirname, "..");
+const repoRoot = path.join(__dirname, "..", "..");
 
 module.exports = {
   turbopack: {

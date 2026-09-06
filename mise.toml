@@ -36,7 +36,7 @@ run = "bun run typecheck:compat"
 [tasks."example:typecheck"]
 description = "Typecheck the example embedded app against the built SDK"
 depends = ["build"]
-dir = "example-embedded-app"
+dir = "examples/example-embedded-app"
 # config.ts is gitignored; stub from the template so imports resolve.
 run = """
 [ -f prismatic/config.ts ] || cp prismatic/config.ts.template prismatic/config.ts
@@ -46,7 +46,7 @@ npm run typecheck
 [tasks."example:build"]
 description = "Build the example embedded app against the built SDK"
 depends = ["build"]
-dir = "example-embedded-app"
+dir = "examples/example-embedded-app"
 run = """
 [ -f prismatic/config.ts ] || cp prismatic/config.ts.template prismatic/config.ts
 npm run build
