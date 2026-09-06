@@ -88,7 +88,7 @@ jobs:
       - uses: jdx/mise-action@v4.2.4
 
       - run: mise run install
-      - run: npm --prefix example-embedded-app ci
+      - run: npm --prefix examples/example-embedded-app ci
 
       - name: Cache Playwright browsers
         uses: actions/cache@v6.1.0

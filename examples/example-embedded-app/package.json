@@ -14,7 +14,7 @@
     "@emotion/styled": "11.14.1",
     "@mui/icons-material": "^9.3.1",
     "@mui/material": "^9.0.0",
-    "@prismatic-io/embedded": "file:../packages/embedded",
+    "@prismatic-io/embedded": "file:../../packages/embedded",
     "apexcharts": "6.7.0",
     "jsonwebtoken": "^9.0.3",
     "next": "^16.3.0",
