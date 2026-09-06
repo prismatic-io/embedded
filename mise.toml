@@ -110,13 +110,16 @@ fi
 """
 
 [tasks.release]
-description = "Trigger a release (usage: mise run release -- patch|minor|major|preview)"
+description = "Trigger a release (usage: mise run release -- embedded patch|minor|major|preview)"
+usage = '''
+arg "<package>" help="Package to release" {
+  choices "embedded"
+}
+arg "<bump>" help="Version bump type" {
+  choices "patch" "minor" "major" "preview"
+}
+'''
 run = """
-BUMP="{{arg(i=0, name='bump', required=true)}}"
-if [ "$BUMP" != "patch" ] && [ "$BUMP" != "minor" ] && [ "$BUMP" != "major" ] && [ "$BUMP" != "preview" ]; then
-  echo "ERROR: Invalid bump type '$BUMP'. Must be patch, minor, major, or preview."
-  exit 1
-fi
-gh workflow run release.yml -f bump="$BUMP"
-echo "Release workflow triggered with bump=$BUMP"
+gh workflow run release.yml -f package="$usage_package" -f bump="$usage_bump"
+echo "Release workflow triggered for $usage_package with bump=$usage_bump"
 """
