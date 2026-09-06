@@ -46,7 +46,7 @@
   ],
   "scripts": {
     "build": "rm -rf dist/ && tsdown && node_modules/typescript/bin/tsc --project tsconfig.generators.json && cp dist/index.d.cts dist/index.d.ts",
-    "prepack": "npm run build",
+    "prepack": "bun run build",
     "format": "biome format --write .",
     "format:check": "biome format .",
     "lint": "biome lint .",
@@ -54,14 +54,14 @@
     "check": "biome check --write .",
     "check:ci": "biome check .",
     "test": "node_modules/typescript/bin/tsc -p tsconfig.test.json && vitest run",
-    "test:browser": "npm run build && playwright test",
+    "test:browser": "playwright test",
     "typecheck:compat": "node_modules/typescript-49/bin/tsc -p tsconfig.compat.json && node_modules/typescript-50/bin/tsc -p tsconfig.compat.json && node_modules/typescript-52/bin/tsc -p tsconfig.compat.json && node_modules/typescript-55/bin/tsc -p tsconfig.compat.json && node_modules/typescript-58/bin/tsc -p tsconfig.compat.json && node_modules/typescript/bin/tsc -p tsconfig.compat.latest.json",
-    "knip": "node_modules/.bin/knip",
-    "publint": "DEST=$(mktemp -d) && TARBALL=$(npm pack --ignore-scripts --silent --pack-destination \"$DEST\") && node_modules/.bin/publint \"$DEST/$TARBALL\"; STATUS=$?; rm -rf \"$DEST\"; exit $STATUS",
-    "attw": "DEST=$(mktemp -d) && TARBALL=$(npm pack --ignore-scripts --silent --pack-destination \"$DEST\") && node_modules/.bin/attw \"$DEST/$TARBALL\"; STATUS=$?; rm -rf \"$DEST\"; exit $STATUS",
-    "agadoo": "node_modules/.bin/agadoo dist/index.mjs",
-    "size-limit": "node_modules/.bin/size-limit",
-    "lint:package": "npm run publint && npm run attw && npm run agadoo && npm run size-limit"
+    "knip": "knip",
+    "publint": "DEST=$(mktemp -d) && TARBALL=$(npm pack --ignore-scripts --silent --pack-destination \"$DEST\") && publint \"$DEST/$TARBALL\"; STATUS=$?; rm -rf \"$DEST\"; exit $STATUS",
+    "attw": "DEST=$(mktemp -d) && TARBALL=$(npm pack --ignore-scripts --silent --pack-destination \"$DEST\") && attw \"$DEST/$TARBALL\"; STATUS=$?; rm -rf \"$DEST\"; exit $STATUS",
+    "agadoo": "agadoo dist/index.mjs",
+    "size-limit": "size-limit",
+    "lint:package": "bun run publint && bun run attw && bun run agadoo && bun run size-limit"
   },
   "size-limit": [
     {
