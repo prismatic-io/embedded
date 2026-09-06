@@ -82,7 +82,7 @@
   ],
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",
-    "@biomejs/biome": "^2.4.11",
+    "@biomejs/biome": "2.4.11",
     "@mswjs/http-middleware": "^0.10.3",
     "@playwright/test": "^1.59.1",
     "@size-limit/preset-small-lib": "^13.0.3",
