@@ -30,7 +30,7 @@ function RouteComponent() {
   return (
     <Page
       title="Basic Embedded Marketplace"
-      description="This page demonstrates how to embed the integration marketplace into your app as an iframe."
+      description="This page demonstrates how to embed the integration marketplace into your app as an iframe so you can easily offer productized integrations to your customers."
       actions={<HelperText id="basic-example-marketplace" />}
       fullHeight
     >

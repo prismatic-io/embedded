@@ -202,7 +202,7 @@ function RouteComponent() {
   return (
     <Page
       title="Translations and i18n"
-      description="This page demonstrates how to translate or reword the embedded screens. Pick any phrase Prismatic can show, give it new wording, and the marketplace reloads with it."
+      description="This translation playground demonstrates how to translate or reword the embedded screens. Pick any phrase Prismatic can show, give it new wording, and the marketplace reloads with it."
       actions={<HelperText id="translations" />}
       fullHeight
     >

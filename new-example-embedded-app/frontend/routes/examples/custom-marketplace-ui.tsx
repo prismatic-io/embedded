@@ -264,7 +264,7 @@ function PageWrapper({ children }: { children: React.ReactNode }) {
   return (
     <Page
       title="Custom Marketplace UI"
-      description="This page demonstrates how to embed the integration marketplace into your app with a custom UI."
+      description="This page demonstrates how to embed the integration marketplace into your app with a custom UI. You query the Prismatic API for integrations and render them in your own components that are native to your app."
       actions={<HelperText id="custom-marketplace-ui" />}
       fullHeight
     >

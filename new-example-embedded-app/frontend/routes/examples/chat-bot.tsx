@@ -21,7 +21,7 @@ function ChatBot() {
   return (
     <Page
       title="Chat Bot"
-      description="This page demonstrates how to give a chat bot access to your customer's deployed integrations with Prismatic's MCP server."
+      description="This page demonstrates how to give a chat bot access to your customer's deployed integrations using Prismatic's MCP server. You create flows that are 'agentic', and your bot will have access to invoke those agentic flows synchronously."
       actions={<HelperText id="chat-bot" />}
       fullHeight
     >
