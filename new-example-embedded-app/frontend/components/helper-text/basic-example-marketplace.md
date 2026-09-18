@@ -14,6 +14,6 @@ prismatic.showMarketplace({
 This is one of many options you have for embedding the integration marketplace in your app.
 [Explore Marketplace Options](https://prismatic.io/docs/get-started/embedded-marketplace/marketplace-options/).
 
-You can review the code for this page in `src/routes/examples/basic-embedded-marketplace.tsx`.
+You can review the code for this page in `frontend/routes/examples/basic-embedded-marketplace.tsx`.
 
 Read more about [Embedding Marketplace](https://prismatic.io/docs/embed/marketplace/).

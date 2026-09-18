@@ -38,7 +38,7 @@ The dashboard also opens in a popover:
 prismatic.showDashboard({ usePopover: true });
 ```
 
-You can review the code for this page in `src/routes/examples/dashboard.tsx`.
+You can review the code for this page in `frontend/routes/examples/dashboard.tsx`.
 
 Read more about
 [Embedding the Dashboard](https://prismatic.io/docs/embed/additional-screens/show-dashboard/).

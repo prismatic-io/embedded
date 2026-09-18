@@ -17,4 +17,4 @@ To add another primitive, run:
 npx shadcn@latest add <component>
 ```
 
-Prismatic examples are in `src/routes/` and `src/components/`.
+Prismatic examples are in `frontend/routes/examples`.

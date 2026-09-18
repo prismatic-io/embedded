@@ -2,7 +2,7 @@ import { ChevronRight, CircleAlert, Wrench } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Skeleton } from "#/components/ui/skeleton";
 import { cn } from "#/lib/utils";
-import type { PrismaticTool } from "#/plugins/prismatic-mcp";
+import type { PrismaticTool } from "#server/prismatic-mcp";
 
 /** Reads the tools the MCP server offers for the signed-in customer. */
 function useMcpTools() {

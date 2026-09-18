@@ -1,7 +1,7 @@
 import { getRouteApi } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 
-import { loadPrismaticConfig } from "@/plugins/prismatic-config.ts";
+import { loadPrismaticConfig } from "#server/prismatic-config.ts";
 
 export interface Session {
   userName: string;

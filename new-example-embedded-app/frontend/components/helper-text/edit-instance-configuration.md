@@ -66,7 +66,7 @@ instances and no one else's. Prototype a query of your own in the
 [GraphQL explorer](https://prismatic.io/docs/explorer/).
 
 You can review the code for this page in
-`src/routes/examples/edit-instance-configuration.tsx`.
+`frontend/routes/examples/edit-instance-configuration.tsx`.
 
 References: [Configuration Wizard Customization](https://prismatic.io/docs/embed/marketplace/)
 and [Embedded API Requests](https://prismatic.io/docs/embed/embedded-api-requests/).

@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "imports": {
-    "#/*": "./src/*"
+    "#/*": "./frontend/*",
+    "#server/*": "./server/*"
   },
   "scripts": {
     "dev": "vite dev --port 3000",
