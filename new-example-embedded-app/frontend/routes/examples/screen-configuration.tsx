@@ -197,7 +197,7 @@ function RouteComponent() {
   return (
     <Page
       title="Screen Configuration"
-      description="This page demonstrates every screenConfiguration option for the integration marketplace. Change an option and the marketplace reloads with it."
+      description="This playground demonstrates every screenConfiguration option for the integration marketplace. Change an option and the marketplace reloads with it."
       actions={<HelperText id="screen-configuration" />}
       fullHeight
     >
