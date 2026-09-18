@@ -100,18 +100,18 @@
     "publint": "^0.3.18",
     "rolldown": "^1.0.0-rc.18",
     "size-limit": "^13.0.3",
-    "tsdown": "^0.22.1",
+    "tsdown": "^0.23.0",
     "typescript": "~6.0.3",
     "typescript-49": "npm:typescript@~4.9",
     "typescript-50": "npm:typescript@~5.0",
     "typescript-52": "npm:typescript@~5.2",
     "typescript-55": "npm:typescript@~5.5",
     "typescript-58": "npm:typescript@~5.8",
-    "vitest": "^4.1.5"
+    "vitest": "^5.0.0"
   },
   "dependencies": {
     "@prismatic-io/translations": "^2.10.0",
-    "json-schema-to-typescript": "^15.0.0",
+    "json-schema-to-typescript": "^16.0.0",
     "lodash.merge": "4.6.2",
     "url-join": "5.0.0"
   }
