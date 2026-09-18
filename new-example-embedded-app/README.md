@@ -9,29 +9,29 @@ They give the Prismatic examples a realistic home.
 
 ## The two things to read
 
-**The examples are in [`src/routes/examples/`](src/routes/examples).**
+**The examples are in [`frontend/routes/examples/`](frontend/routes/examples).**
 Each file is one page, and each page shows one way to use the SDK.
 Open a page in the browser, then read the file that makes it.
 Each page also has a **Read about this example** button.
-That text comes from [`src/components/helper-text/`](src/components/helper-text).
+That text comes from [`frontend/components/helper-text/`](frontend/components/helper-text).
 
-| Example                                                                                | What it shows                                      |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| [`basic-embedded-marketplace.tsx`](src/routes/examples/basic-embedded-marketplace.tsx) | `showMarketplace` in an iframe inside the page.    |
-| [`basic-marketplace-popover.tsx`](src/routes/examples/basic-marketplace-popover.tsx)   | `showMarketplace` in a popover above the page.     |
-| [`custom-marketplace-ui.tsx`](src/routes/examples/custom-marketplace-ui.tsx)           | `graphqlRequest` to build your own marketplace UI. |
-| [`screen-configuration.tsx`](src/routes/examples/screen-configuration.tsx)             | `screenConfiguration` options, with live controls. |
-| [`translations.tsx`](src/routes/examples/translations.tsx)                             | Phrase overrides and other languages.              |
-| [`connections.tsx`](src/routes/examples/connections.tsx)                               | `showConnections` for reusable connections.        |
-| [`dashboard.tsx`](src/routes/examples/dashboard.tsx)                                   | `showDashboard`, and how to hide tabs.             |
-| [`chat-bot.tsx`](src/routes/examples/chat-bot.tsx)                                     | A chat bot that calls the Prismatic MCP server.    |
+| Example                                                                                     | What it shows                                      |
+| ------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| [`basic-embedded-marketplace.tsx`](frontend/routes/examples/basic-embedded-marketplace.tsx) | `showMarketplace` in an iframe inside the page.    |
+| [`basic-marketplace-popover.tsx`](frontend/routes/examples/basic-marketplace-popover.tsx)   | `showMarketplace` in a popover above the page.     |
+| [`custom-marketplace-ui.tsx`](frontend/routes/examples/custom-marketplace-ui.tsx)           | `graphqlRequest` to build your own marketplace UI. |
+| [`screen-configuration.tsx`](frontend/routes/examples/screen-configuration.tsx)             | `screenConfiguration` options, with live controls. |
+| [`translations.tsx`](frontend/routes/examples/translations.tsx)                             | Phrase overrides and other languages.              |
+| [`connections.tsx`](frontend/routes/examples/connections.tsx)                               | `showConnections` for reusable connections.        |
+| [`dashboard.tsx`](frontend/routes/examples/dashboard.tsx)                                   | `showDashboard`, and how to hide tabs.             |
+| [`chat-bot.tsx`](frontend/routes/examples/chat-bot.tsx)                                     | A chat bot that calls the Prismatic MCP server.    |
 
-**The authentication backend is in [`src/plugins/prismatic-auth.ts`](src/plugins/prismatic-auth.ts).**
+**The authentication backend is in [`server/prismatic-auth.ts`](server/prismatic-auth.ts).**
 Every embedded screen needs a signed JWT. Your server signs that JWT, because the signing key must never reach the browser.
 Here a Vite dev-server plugin does the work and serves `/api/prismatic-auth`.
 In your own app, this is a real route on your backend.
 
-The browser side is in [`src/hooks/use-prismatic-auth.tsx`](src/hooks/use-prismatic-auth.tsx).
+The browser side is in [`frontend/hooks/use-prismatic-auth.tsx`](frontend/hooks/use-prismatic-auth.tsx).
 It asks the endpoint for a token, calls `prismatic.init` and `prismatic.authenticate`, reads the user with `prismatic.graphqlRequest`, and then refreshes the token before it expires.
 
 ## Configure the app
@@ -76,7 +76,7 @@ Both files are git-ignored.
 
 Every value is required.
 There are no defaults.
-[`src/plugins/prismatic-config.ts`](src/plugins/prismatic-config.ts) checks them with a zod schema.
+[`server/prismatic-config.ts`](server/prismatic-config.ts) checks them with a zod schema.
 If a value is missing or has the wrong shape, the dev server prints every problem at start-up, and `/api/prismatic-auth` returns the same message.
 
 Four things to know:
@@ -96,28 +96,38 @@ Four things to know:
 
 ## Where everything else is
 
-| Path                               | What it holds                                     |
-| ---------------------------------- | ------------------------------------------------- |
-| `src/routes/examples/`             | One route per example. Read these first.          |
-| `src/plugins/prismatic-auth.ts`    | Dev-only backend. It signs the embedded JWT.      |
-| `src/plugins/prismatic-config.ts`  | zod schema for `.env.local`.                      |
-| `src/plugins/acme-chat-bot.ts`     | Dev-only backend for the chat bot example.        |
-| `src/plugins/prismatic-mcp.ts`     | MCP client for the chat bot example.              |
-| `src/hooks/use-prismatic-auth.tsx` | The React binding for the token.                  |
-| `src/lib/navigation.ts`            | The sidebar links. Add each new example here.     |
-| `src/lib/session.ts`               | The signed-in user, read on the server.           |
-| `src/routes/placeholder/`          | Static CRM pages. No Prismatic code.              |
-| `src/components/`                  | Shell components: sidebar, header, theme toggle.  |
-| `src/components/ui/`               | Unmodified shadcn/ui parts. **Skip this folder.** |
+The app is split in two at the top level:
+
+```
+frontend/   The React app. Everything the browser renders.
+server/     The backend. It signs the JWT and backs the chat bot.
+```
+
+`server/` is where your own backend code would go. Here those files are Vite
+dev-server plugins, so they run under `npm run dev` only.
+
+| Path                                    | What it holds                                     |
+| --------------------------------------- | ------------------------------------------------- |
+| `frontend/routes/examples/`             | One route per example. Read these first.          |
+| `server/prismatic-auth.ts`              | Dev-only backend. It signs the embedded JWT.      |
+| `server/prismatic-config.ts`            | zod schema for `.env.local`.                      |
+| `server/acme-chat-bot.ts`               | Dev-only backend for the chat bot example.        |
+| `server/prismatic-mcp.ts`               | MCP client for the chat bot example.              |
+| `frontend/hooks/use-prismatic-auth.tsx` | The React binding for the token.                  |
+| `frontend/lib/navigation.ts`            | The sidebar links. Add each new example here.     |
+| `frontend/lib/session.ts`               | The signed-in user, read on the server.           |
+| `frontend/routes/placeholder/`          | Static CRM pages. No Prismatic code.              |
+| `frontend/components/`                  | Shell components: sidebar, header, theme toggle.  |
+| `frontend/components/ui/`               | Unmodified shadcn/ui parts. **Skip this folder.** |
 
 ## Commands
 
-| Command                   | Result                             |
-| ------------------------- | ---------------------------------- |
-| `npm run dev`             | Start the development server.      |
-| `npm run build`           | Build for production.              |
-| `npm run generate-routes` | Regenerate `src/routeTree.gen.ts`. |
-| `npm run check`           | Lint and format with Biome.        |
+| Command                   | Result                                  |
+| ------------------------- | --------------------------------------- |
+| `npm run dev`             | Start the development server.           |
+| `npm run build`           | Build for production.                   |
+| `npm run generate-routes` | Regenerate `frontend/routeTree.gen.ts`. |
+| `npm run check`           | Lint and format with Biome.             |
 
 ## Stack
 

@@ -29,7 +29,7 @@ Reusable connections appear in the configuration wizard when
 `"reusable"`, which is the default. Try that option on the
 [Screen Configuration](/examples/screen-configuration) page.
 
-You can review the code for this page in `src/routes/examples/connections.tsx`.
+You can review the code for this page in `frontend/routes/examples/connections.tsx`.
 
 Read more about
 [Embedding Connections](https://prismatic.io/docs/embed/additional-screens/show-connections/).

@@ -147,8 +147,8 @@ single call, as this page does, to apply it to that screen only. A call-level
 option merges over the one from `init`.
 
 You can review the code for this page in
-`src/routes/examples/translations.tsx`. The phrase catalog it reads is built in
-`src/lib/phrases.ts`.
+`frontend/routes/examples/translations.tsx`. The phrase catalog it reads is built in
+`frontend/lib/phrases.ts`.
 
 Read more about
 [Translations and Internationalization](https://prismatic.io/docs/embed/translations-and-internationalization/).

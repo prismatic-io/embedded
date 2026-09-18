@@ -82,7 +82,7 @@ it on a single call, as this page does, to apply it to that screen only. A
 call-level option merges over the one from `init`.
 
 You can review the code for this page in
-`src/routes/examples/screen-configuration.tsx`.
+`frontend/routes/examples/screen-configuration.tsx`.
 
 References:
 [Marketplace Options](https://prismatic.io/docs/get-started/embedded-marketplace/marketplace-options/)

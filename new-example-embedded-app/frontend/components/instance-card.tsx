@@ -33,7 +33,7 @@ const lastRun = (value: string | null) =>
 
 /**
  * There is no Prismatic code in this file. The example that uses it is
- * `src/routes/examples/edit-instance-configuration.tsx`.
+ * `frontend/routes/examples/edit-instance-configuration.tsx`.
  */
 export function InstanceCard({
   instance,

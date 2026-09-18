@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
  * screen, with the generated SDK options below it.
  *
  * There is no Prismatic code in this file. The examples that use it are in
- * `src/routes/examples/`.
+ * `frontend/routes/examples/`.
  */
 export function Playground({
   controls,

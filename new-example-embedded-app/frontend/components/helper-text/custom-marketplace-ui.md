@@ -4,6 +4,6 @@ Fully control how your customers browse integrations. This page runs a `marketpl
 
 Queries run client-side with the customer's access token, which scopes results to that customer. Prototype them in the [GraphQL explorer](https://prismatic.io/docs/explorer/).
 
-You can review the code for this page in `src/routes/examples/custom-marketplace-ui.tsx`.
+You can review the code for this page in `frontend/routes/examples/custom-marketplace-ui.tsx`.
 
 References: [Custom Marketplace UI](https://prismatic.io/docs/embed/custom-marketplace-ui/) and [Embedded API Requests](https://prismatic.io/docs/embed/embedded-api-requests/).

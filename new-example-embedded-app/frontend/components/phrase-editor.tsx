@@ -291,7 +291,7 @@ function PhraseRow({
  * it new wording.
  *
  * There is no Prismatic code in this file. The example that uses it is
- * `src/routes/examples/translations.tsx`.
+ * `frontend/routes/examples/translations.tsx`.
  */
 export function PhraseEditor({
   overrides,
@@ -333,7 +333,7 @@ export function PhraseEditor({
  * gives the text to show instead.
  *
  * There is no Prismatic code in this file. The example that uses it is
- * `src/routes/examples/translations.tsx`.
+ * `frontend/routes/examples/translations.tsx`.
  */
 export function DynamicPhraseEditor({
   phrases,

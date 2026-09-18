@@ -39,7 +39,7 @@ interface TokenResponse {
  *
  * The signing key must stay on the server, so the browser never signs a JWT.
  * Here the endpoint is the dev-server middleware in
- * `src/plugins/prismatic-auth.ts`. In your app it is a real route.
+ * `server/prismatic-auth.ts`. In your app it is a real route.
  */
 async function fetchToken(): Promise<TokenResponse> {
   const response = await fetch(LOCAL_PRISMATIC_AUTH_ENDPOINT);
