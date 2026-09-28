@@ -34,6 +34,7 @@ type MarkdownFileId =
   | "edit-instance-configuration"
   | "screen-configuration"
   | "translations"
+  | "workflow-builder"
   | "workflow-contexts";
 
 export function HelperText({ id }: { id: MarkdownFileId }) {

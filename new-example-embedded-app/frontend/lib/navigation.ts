@@ -14,6 +14,7 @@ import {
   Store,
   UserSearch,
   Users,
+  Waypoints,
   Workflow,
 } from "lucide-react";
 
@@ -73,6 +74,11 @@ export const prismaticNav: NavItem[] = [
     title: "Customer Dashboard",
     to: "/examples/dashboard",
     icon: Gauge,
+  },
+  {
+    title: "Embedded Workflow Builder",
+    to: "/examples/workflow-builder",
+    icon: Waypoints,
   },
   {
     title: "Workflow Contexts",

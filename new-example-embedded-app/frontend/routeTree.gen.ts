@@ -19,6 +19,7 @@ import { Route as ExamplesDashboardRouteImport } from './routes/examples/dashboa
 import { Route as ExamplesEditInstanceConfigurationRouteImport } from './routes/examples/edit-instance-configuration'
 import { Route as ExamplesScreenConfigurationRouteImport } from './routes/examples/screen-configuration'
 import { Route as ExamplesTranslationsRouteImport } from './routes/examples/translations'
+import { Route as ExamplesWorkflowBuilderRouteImport } from './routes/examples/workflow-builder'
 import { Route as ExamplesWorkflowContextsRouteImport } from './routes/examples/workflow-contexts'
 import { Route as PlaceholderAccountsRouteImport } from './routes/placeholder/accounts'
 import { Route as PlaceholderContactsRouteImport } from './routes/placeholder/contacts'
@@ -79,6 +80,11 @@ const ExamplesTranslationsRoute = ExamplesTranslationsRouteImport.update({
   path: '/examples/translations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExamplesWorkflowBuilderRoute = ExamplesWorkflowBuilderRouteImport.update({
+  id: '/examples/workflow-builder',
+  path: '/examples/workflow-builder',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExamplesWorkflowContextsRoute =
   ExamplesWorkflowContextsRouteImport.update({
     id: '/examples/workflow-contexts',
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
   '/examples/screen-configuration': typeof ExamplesScreenConfigurationRoute
   '/examples/translations': typeof ExamplesTranslationsRoute
+  '/examples/workflow-builder': typeof ExamplesWorkflowBuilderRoute
   '/examples/workflow-contexts': typeof ExamplesWorkflowContextsRoute
   '/placeholder/accounts': typeof PlaceholderAccountsRoute
   '/placeholder/contacts': typeof PlaceholderContactsRoute
@@ -128,6 +135,7 @@ export interface FileRoutesByTo {
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
   '/examples/screen-configuration': typeof ExamplesScreenConfigurationRoute
   '/examples/translations': typeof ExamplesTranslationsRoute
+  '/examples/workflow-builder': typeof ExamplesWorkflowBuilderRoute
   '/examples/workflow-contexts': typeof ExamplesWorkflowContextsRoute
   '/placeholder/accounts': typeof PlaceholderAccountsRoute
   '/placeholder/contacts': typeof PlaceholderContactsRoute
@@ -145,6 +153,7 @@ export interface FileRoutesById {
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
   '/examples/screen-configuration': typeof ExamplesScreenConfigurationRoute
   '/examples/translations': typeof ExamplesTranslationsRoute
+  '/examples/workflow-builder': typeof ExamplesWorkflowBuilderRoute
   '/examples/workflow-contexts': typeof ExamplesWorkflowContextsRoute
   '/placeholder/accounts': typeof PlaceholderAccountsRoute
   '/placeholder/contacts': typeof PlaceholderContactsRoute
@@ -163,6 +172,7 @@ export interface FileRouteTypes {
     | '/examples/edit-instance-configuration'
     | '/examples/screen-configuration'
     | '/examples/translations'
+    | '/examples/workflow-builder'
     | '/examples/workflow-contexts'
     | '/placeholder/accounts'
     | '/placeholder/contacts'
@@ -179,6 +189,7 @@ export interface FileRouteTypes {
     | '/examples/edit-instance-configuration'
     | '/examples/screen-configuration'
     | '/examples/translations'
+    | '/examples/workflow-builder'
     | '/examples/workflow-contexts'
     | '/placeholder/accounts'
     | '/placeholder/contacts'
@@ -195,6 +206,7 @@ export interface FileRouteTypes {
     | '/examples/edit-instance-configuration'
     | '/examples/screen-configuration'
     | '/examples/translations'
+    | '/examples/workflow-builder'
     | '/examples/workflow-contexts'
     | '/placeholder/accounts'
     | '/placeholder/contacts'
@@ -212,6 +224,7 @@ export interface RootRouteChildren {
   ExamplesEditInstanceConfigurationRoute: typeof ExamplesEditInstanceConfigurationRoute
   ExamplesScreenConfigurationRoute: typeof ExamplesScreenConfigurationRoute
   ExamplesTranslationsRoute: typeof ExamplesTranslationsRoute
+  ExamplesWorkflowBuilderRoute: typeof ExamplesWorkflowBuilderRoute
   ExamplesWorkflowContextsRoute: typeof ExamplesWorkflowContextsRoute
   PlaceholderAccountsRoute: typeof PlaceholderAccountsRoute
   PlaceholderContactsRoute: typeof PlaceholderContactsRoute
@@ -290,6 +303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExamplesTranslationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/examples/workflow-builder': {
+      id: '/examples/workflow-builder'
+      path: '/examples/workflow-builder'
+      fullPath: '/examples/workflow-builder'
+      preLoaderRoute: typeof ExamplesWorkflowBuilderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/examples/workflow-contexts': {
       id: '/examples/workflow-contexts'
       path: '/examples/workflow-contexts'
@@ -333,6 +353,7 @@ const rootRouteChildren: RootRouteChildren = {
     ExamplesEditInstanceConfigurationRoute,
   ExamplesScreenConfigurationRoute: ExamplesScreenConfigurationRoute,
   ExamplesTranslationsRoute: ExamplesTranslationsRoute,
+  ExamplesWorkflowBuilderRoute: ExamplesWorkflowBuilderRoute,
   ExamplesWorkflowContextsRoute: ExamplesWorkflowContextsRoute,
   PlaceholderAccountsRoute: PlaceholderAccountsRoute,
   PlaceholderContactsRoute: PlaceholderContactsRoute,

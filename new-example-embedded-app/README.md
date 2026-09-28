@@ -24,6 +24,7 @@ That text comes from [`frontend/components/helper-text/`](frontend/components/he
 | [`translations.tsx`](frontend/routes/examples/translations.tsx)                             | Phrase overrides and other languages.                                      |
 | [`connections.tsx`](frontend/routes/examples/connections.tsx)                               | `showConnections` for reusable connections.                                |
 | [`dashboard.tsx`](frontend/routes/examples/dashboard.tsx)                                   | `showDashboard`, and how to hide tabs.                                     |
+| [`workflow-builder.tsx`](frontend/routes/examples/workflow-builder.tsx)                     | `showWorkflows` for customer-built workflows.                              |
 | [`workflow-contexts.tsx`](frontend/routes/examples/workflow-contexts.tsx)                   | `createWorkflow` from a context blueprint. Needs setup in Prismatic first. |
 | [`chat-bot.tsx`](frontend/routes/examples/chat-bot.tsx)                                     | A chat bot that calls the Prismatic MCP server.                            |
 
