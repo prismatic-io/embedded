@@ -15,16 +15,17 @@ Open a page in the browser, then read the file that makes it.
 Each page also has a **Read about this example** button.
 That text comes from [`frontend/components/helper-text/`](frontend/components/helper-text).
 
-| Example                                                                                     | What it shows                                      |
-| ------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| [`basic-embedded-marketplace.tsx`](frontend/routes/examples/basic-embedded-marketplace.tsx) | `showMarketplace` in an iframe inside the page.    |
-| [`basic-marketplace-popover.tsx`](frontend/routes/examples/basic-marketplace-popover.tsx)   | `showMarketplace` in a popover above the page.     |
-| [`custom-marketplace-ui.tsx`](frontend/routes/examples/custom-marketplace-ui.tsx)           | `graphqlRequest` to build your own marketplace UI. |
-| [`screen-configuration.tsx`](frontend/routes/examples/screen-configuration.tsx)             | `screenConfiguration` options, with live controls. |
-| [`translations.tsx`](frontend/routes/examples/translations.tsx)                             | Phrase overrides and other languages.              |
-| [`connections.tsx`](frontend/routes/examples/connections.tsx)                               | `showConnections` for reusable connections.        |
-| [`dashboard.tsx`](frontend/routes/examples/dashboard.tsx)                                   | `showDashboard`, and how to hide tabs.             |
-| [`chat-bot.tsx`](frontend/routes/examples/chat-bot.tsx)                                     | A chat bot that calls the Prismatic MCP server.    |
+| Example                                                                                     | What it shows                                                              |
+| ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [`basic-embedded-marketplace.tsx`](frontend/routes/examples/basic-embedded-marketplace.tsx) | `showMarketplace` in an iframe inside the page.                            |
+| [`basic-marketplace-popover.tsx`](frontend/routes/examples/basic-marketplace-popover.tsx)   | `showMarketplace` in a popover above the page.                             |
+| [`custom-marketplace-ui.tsx`](frontend/routes/examples/custom-marketplace-ui.tsx)           | `graphqlRequest` to build your own marketplace UI.                         |
+| [`screen-configuration.tsx`](frontend/routes/examples/screen-configuration.tsx)             | `screenConfiguration` options, with live controls.                         |
+| [`translations.tsx`](frontend/routes/examples/translations.tsx)                             | Phrase overrides and other languages.                                      |
+| [`connections.tsx`](frontend/routes/examples/connections.tsx)                               | `showConnections` for reusable connections.                                |
+| [`dashboard.tsx`](frontend/routes/examples/dashboard.tsx)                                   | `showDashboard`, and how to hide tabs.                                     |
+| [`workflow-contexts.tsx`](frontend/routes/examples/workflow-contexts.tsx)                   | `createWorkflow` from a context blueprint. Needs setup in Prismatic first. |
+| [`chat-bot.tsx`](frontend/routes/examples/chat-bot.tsx)                                     | A chat bot that calls the Prismatic MCP server.                            |
 
 **The authentication backend is in [`server/prismatic-auth.ts`](server/prismatic-auth.ts).**
 Every embedded screen needs a signed JWT. Your server signs that JWT, because the signing key must never reach the browser.
@@ -106,19 +107,20 @@ server/     The backend. It signs the JWT and backs the chat bot.
 `server/` is where your own backend code would go. Here those files are Vite
 dev-server plugins, so they run under `npm run dev` only.
 
-| Path                                    | What it holds                                     |
-| --------------------------------------- | ------------------------------------------------- |
-| `frontend/routes/examples/`             | One route per example. Read these first.          |
-| `server/prismatic-auth.ts`              | Dev-only backend. It signs the embedded JWT.      |
-| `server/prismatic-config.ts`            | zod schema for `.env.local`.                      |
-| `server/acme-chat-bot.ts`               | Dev-only backend for the chat bot example.        |
-| `server/prismatic-mcp.ts`               | MCP client for the chat bot example.              |
-| `frontend/hooks/use-prismatic-auth.tsx` | The React binding for the token.                  |
-| `frontend/lib/navigation.ts`            | The sidebar links. Add each new example here.     |
-| `frontend/lib/session.ts`               | The signed-in user, read on the server.           |
-| `frontend/routes/placeholder/`          | Static CRM pages. No Prismatic code.              |
-| `frontend/components/`                  | Shell components: sidebar, header, theme toggle.  |
-| `frontend/components/ui/`               | Unmodified shadcn/ui parts. **Skip this folder.** |
+| Path                                                     | What it holds                                         |
+| -------------------------------------------------------- | ----------------------------------------------------- |
+| `frontend/routes/examples/`                              | One route per example. Read these first.              |
+| `server/prismatic-auth.ts`                               | Dev-only backend. It signs the embedded JWT.          |
+| `server/prismatic-config.ts`                             | zod schema for `.env.local`.                          |
+| `server/acme-chat-bot.ts`                                | Dev-only backend for the chat bot example.            |
+| `server/prismatic-mcp.ts`                                | MCP client for the chat bot example.                  |
+| `frontend/components/workflow-context-prerequisites.tsx` | In-app setup steps for the workflow contexts example. |
+| `frontend/hooks/use-prismatic-auth.tsx`                  | The React binding for the token.                      |
+| `frontend/lib/navigation.ts`                             | The sidebar links. Add each new example here.         |
+| `frontend/lib/session.ts`                                | The signed-in user, read on the server.               |
+| `frontend/routes/placeholder/`                           | Static CRM pages. No Prismatic code.                  |
+| `frontend/components/`                                   | Shell components: sidebar, header, theme toggle.      |
+| `frontend/components/ui/`                                | Unmodified shadcn/ui parts. **Skip this folder.**     |
 
 ## Commands
 

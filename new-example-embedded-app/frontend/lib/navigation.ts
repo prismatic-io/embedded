@@ -14,6 +14,7 @@ import {
   Store,
   UserSearch,
   Users,
+  Workflow,
 } from "lucide-react";
 
 export interface NavItem {
@@ -72,6 +73,11 @@ export const prismaticNav: NavItem[] = [
     title: "Customer Dashboard",
     to: "/examples/dashboard",
     icon: Gauge,
+  },
+  {
+    title: "Workflow Contexts",
+    to: "/examples/workflow-contexts",
+    icon: Workflow,
   },
   {
     title: "Chat Bot",

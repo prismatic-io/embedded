@@ -33,7 +33,8 @@ type MarkdownFileId =
   | "dashboard"
   | "edit-instance-configuration"
   | "screen-configuration"
-  | "translations";
+  | "translations"
+  | "workflow-contexts";
 
 export function HelperText({ id }: { id: MarkdownFileId }) {
   const markdown = helperText[`./${id}.md`] as string;

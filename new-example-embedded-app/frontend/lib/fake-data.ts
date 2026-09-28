@@ -16,6 +16,13 @@ export interface Contact {
   lastTouch: string;
 }
 
+export interface Project {
+  id: string;
+  name: string;
+  account: string;
+  openTasks: number;
+}
+
 export interface Account {
   id: string;
   name: string;
@@ -159,6 +166,28 @@ export const accounts: Account[] = [
     owner: "Rick Sato",
     arr: 27500,
     health: "Churn risk",
+  },
+];
+
+export const projects: Project[] = [
+  {
+    id: "P-8801",
+    name: "Initech onboarding",
+    account: "Initech",
+    openTasks: 12,
+  },
+  { id: "P-8802", name: "Globex Q3 rollout", account: "Globex", openTasks: 5 },
+  {
+    id: "P-8803",
+    name: "Vandelay migration",
+    account: "Vandelay",
+    openTasks: 23,
+  },
+  {
+    id: "P-8804",
+    name: "Umbrella Co pilot",
+    account: "Umbrella Co",
+    openTasks: 3,
   },
 ];
 
