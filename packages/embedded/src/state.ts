@@ -2,7 +2,7 @@ import type { AgentConfiguration } from "./types/agent";
 import type { Filters } from "./types/filters";
 import type { FontConfiguration } from "./types/fontConfiguration";
 import type { ScreenConfiguration } from "./types/screenConfiguration";
-import type { Theme } from "./types/theme";
+import type { ThemeOption } from "./types/theme";
 import type { Translation } from "./types/translation";
 
 export interface State {
@@ -14,7 +14,7 @@ export interface State {
   prismaticUrl: string;
   screenConfiguration?: ScreenConfiguration;
   skipPreload?: boolean;
-  theme?: Theme;
+  theme?: ThemeOption;
   fontConfiguration?: FontConfiguration;
   translation?: Translation;
 }

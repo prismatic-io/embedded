@@ -1,7 +1,7 @@
 import type { AgentConfiguration } from "./agent";
 import type { Filters } from "./filters";
 import type { ScreenConfiguration } from "./screenConfiguration";
-import type { Theme } from "./theme";
+import type { ThemeOption } from "./theme";
 import type { Translation } from "./translation";
 
 interface OptionsBase {
@@ -9,7 +9,7 @@ interface OptionsBase {
   autoFocusIframe?: boolean;
   filters?: Filters;
   screenConfiguration?: ScreenConfiguration;
-  theme?: Theme;
+  theme?: ThemeOption;
   translation?: Translation;
 }
 

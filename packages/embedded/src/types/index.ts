@@ -67,5 +67,5 @@ export type {
   TriggerDetails,
   WorkflowBuilderConfiguration,
 } from "./screenConfiguration";
-export type { Theme } from "./theme";
+export type { Theme, ThemeOption } from "./theme";
 export type { Translation } from "./translation";

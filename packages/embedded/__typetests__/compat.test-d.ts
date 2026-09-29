@@ -71,6 +71,7 @@ import prismatic, {
   type showWorkflows,
   TermOperator,
   type Theme,
+  type ThemeOption,
   type TriggerDetails,
 } from "../dist";
 
@@ -239,6 +240,7 @@ expectTypeOf<"WORKFLOW_ENABLED">().toMatchTypeOf<`${PrismaticMessageEvent}`>();
 // ---------------------------------------------------------------------------
 
 expectTypeOf<Theme>().toEqualTypeOf<"DARK" | "LIGHT">();
+expectTypeOf<ThemeOption>().toEqualTypeOf<"AUTO" | "DARK" | "LIGHT">();
 expectTypeOf<TriggerDetails>().toEqualTypeOf<
   "default" | "default-open" | "hidden"
 >();
@@ -260,7 +262,7 @@ if (anyOptions.usePopover === true) {
 expectTypeOf<InitProps>().toHaveProperty("theme");
 expectTypeOf<InitProps>().toHaveProperty("screenConfiguration");
 expectTypeOf<InitProps>().toHaveProperty("translation");
-expectTypeOf<InitProps["theme"]>().toEqualTypeOf<Theme | undefined>();
+expectTypeOf<InitProps["theme"]>().toEqualTypeOf<ThemeOption | undefined>();
 expectTypeOf<InitProps["prismaticUrl"]>().toEqualTypeOf<string | undefined>();
 expectTypeOf<InitProps["skipPreload"]>().toEqualTypeOf<boolean | undefined>();
 

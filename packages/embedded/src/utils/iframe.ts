@@ -68,7 +68,8 @@ export const setIframe = (
     embed: "true",
   });
 
-  if (state.theme) {
+  // Without a theme parameter, the embedded app applies the user's appearance setting.
+  if (state.theme && state.theme !== "AUTO") {
     queryParams.set("theme", state.theme);
   }
 

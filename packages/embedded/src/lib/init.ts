@@ -59,7 +59,7 @@ export const EMBEDDED_DEFAULTS = {
  * {@link dispose} first if you need a fully fresh teardown.
  *
  * @param optionsBase - Optional global configuration for the embedded SDK.
- * @param optionsBase.theme - The color theme to use (`"LIGHT"` or `"DARK"`). Defaults to `"LIGHT"`.
+ * @param optionsBase.theme - The color theme to use (`"LIGHT"` or `"DARK"`), or `"AUTO"` to use each embedded user's appearance setting, which follows their operating system by default. Defaults to `"LIGHT"`.
  * @param optionsBase.fontConfiguration - Google Font families to load for the embedded UI.
  * @param optionsBase.screenConfiguration - Per-screen display options (marketplace, config wizard, dashboard, etc.).
  * @param optionsBase.filters - Default filters for the marketplace, integrations, and components screens.

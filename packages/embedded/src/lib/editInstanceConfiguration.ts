@@ -1,13 +1,13 @@
 import { PrismaticMessageEvent } from "../types/postMessage";
 import type { ConfigurationWizardConfiguration } from "../types/screenConfiguration";
-import type { Theme } from "../types/theme";
+import type { ThemeOption } from "../types/theme";
 import { assertInit } from "../utils/assertInit";
 import { setIframe } from "../utils/iframe";
 
 export type EditInstanceConfigurationProps = {
   instanceId: string;
   selector: string;
-  theme?: Theme;
+  theme?: ThemeOption;
   screenConfiguration?: {
     configurationWizard?: Omit<ConfigurationWizardConfiguration, "isInModal">;
   };
@@ -31,7 +31,7 @@ export type EditInstanceConfigurationProps = {
  * @param props - Configuration and display options.
  * @param props.instanceId - The ID of the instance to configure.
  * @param props.selector - A CSS selector for the DOM element to render into.
- * @param props.theme - Optional theme override (`"LIGHT"` or `"DARK"`).
+ * @param props.theme - Optional theme override (`"LIGHT"`, `"DARK"`, or `"AUTO"`).
  * @param props.screenConfiguration - Optional screen configuration for the configuration wizard.
  * @param props.onSuccess - Called when the instance is successfully deployed.
  * @param props.onCancel - Called when the user cancels the configuration.
