@@ -99,9 +99,9 @@ depends = [
 ]
 
 [tasks.version-bump]
-description = "Bump package.json version (set BUMP_TYPE=patch|minor|major|preview)"
-dir = "packages/embedded"
+description = "Bump a package's version (set PACKAGE=<package> BUMP_TYPE=patch|minor|major|preview)"
 run = """
+cd "packages/${PACKAGE:?set PACKAGE}"
 if [ "$BUMP_TYPE" = "preview" ]; then
   bun pm version prerelease --preid=preview --no-git-tag-version
 else
@@ -110,10 +110,10 @@ fi
 """
 
 [tasks.release]
-description = "Trigger a release (usage: mise run release -- embedded patch|minor|major|preview)"
+description = "Trigger a release (usage: mise run release -- embedded|solis-core|solis-react patch|minor|major|preview)"
 usage = '''
 arg "<package>" help="Package to release" {
-  choices "embedded"
+  choices "embedded" "solis-core" "solis-react"
 }
 arg "<bump>" help="Version bump type" {
   choices "patch" "minor" "major" "preview"
