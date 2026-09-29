@@ -8,7 +8,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!**/package-lock.json"]
+    "includes": ["**", "!**/dist", "!**/node_modules"]
   },
   "formatter": {
     "indentStyle": "space"
@@ -16,21 +16,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "style": {
-        "noNonNullAssertion": "error"
-      }
+      "recommended": true
     }
-  },
-  "overrides": [
-    {
-      "includes": ["tests/**/*.test-d.ts"],
-      "linter": {
-        "rules": {
-          "style": {
-            "useImportType": "off"
-          }
-        }
-      }
-    }
-  ]
+  }
 }

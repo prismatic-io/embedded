@@ -1,37 +1,42 @@
 [tools]
 "github-cli" = "2.42.1"
+bun = "1.3.12"
 node = "24"
+
+[tasks.install]
+description = "Install dependencies with a frozen lockfile"
+run = "bun install --frozen-lockfile"
 
 [tasks.build]
 description = "Build the library"
-run = "npm run build"
+run = "bun run build"
 
 [tasks.format]
 description = "Format source files"
-run = "npm run format"
+run = "bun run format"
 
 [tasks."format:check"]
 description = "Check source file formatting"
-run = "npm run format:check"
+run = "bun run format:check"
 
 [tasks.lint]
 description = "Lint source files"
-run = "npm run lint"
+run = "bun run lint"
 
 [tasks.test]
 description = "Run tests"
 depends = ["build"]
-run = "npm test"
+run = "bun run test"
 
 [tasks."typecheck:compat"]
 description = "Typecheck the published API across supported TypeScript versions"
 depends = ["build"]
-run = "npm run typecheck:compat"
+run = "bun run typecheck:compat"
 
 [tasks."example:typecheck"]
 description = "Typecheck the example embedded app against the built SDK"
 depends = ["build"]
-dir = "example-embedded-app"
+dir = "examples/example-embedded-app"
 # config.ts is gitignored; stub from the template so imports resolve.
 run = """
 [ -f prismatic/config.ts ] || cp prismatic/config.ts.template prismatic/config.ts
@@ -41,7 +46,7 @@ npm run typecheck
 [tasks."example:build"]
 description = "Build the example embedded app against the built SDK"
 depends = ["build"]
-dir = "example-embedded-app"
+dir = "examples/example-embedded-app"
 run = """
 [ -f prismatic/config.ts ] || cp prismatic/config.ts.template prismatic/config.ts
 npm run build
@@ -50,31 +55,31 @@ npm run build
 [tasks."test:browser"]
 description = "Run Playwright browser smoke tests against the built bundles"
 depends = ["build"]
-run = "node_modules/.bin/playwright test"
+run = "bun run test:browser"
 
 [tasks.knip]
 description = "Find unused files, exports, and dependencies"
-run = "npm run knip"
+run = "bun run knip"
 
 [tasks.publint]
 description = "Lint package.json publishing config"
 depends = ["build"]
-run = "npm run publint"
+run = "bun run publint"
 
 [tasks.attw]
 description = "Verify published types resolve under every module mode"
 depends = ["build"]
-run = "npm run attw"
+run = "bun run attw"
 
 [tasks.agadoo]
 description = "Verify the ESM bundle is tree-shakeable"
 depends = ["build"]
-run = "npm run agadoo"
+run = "bun run agadoo"
 
 [tasks."size-limit"]
 description = "Enforce bundle size budgets"
 depends = ["build"]
-run = "npm run size-limit"
+run = "bun run size-limit"
 
 [tasks.validate]
 description = "Run all validation checks"
@@ -95,22 +100,26 @@ depends = [
 
 [tasks.version-bump]
 description = "Bump package.json version (set BUMP_TYPE=patch|minor|major|preview)"
+dir = "packages/embedded"
 run = """
 if [ "$BUMP_TYPE" = "preview" ]; then
-  npm version prerelease --preid=preview --no-git-tag-version
+  bun pm version prerelease --preid=preview --no-git-tag-version
 else
-  npm version $BUMP_TYPE --no-git-tag-version
+  bun pm version "$BUMP_TYPE" --no-git-tag-version
 fi
 """
 
 [tasks.release]
-description = "Trigger a release (usage: mise run release -- patch|minor|major|preview)"
+description = "Trigger a release (usage: mise run release -- embedded patch|minor|major|preview)"
+usage = '''
+arg "<package>" help="Package to release" {
+  choices "embedded"
+}
+arg "<bump>" help="Version bump type" {
+  choices "patch" "minor" "major" "preview"
+}
+'''
 run = """
-BUMP="{{arg(i=0, name='bump', required=true)}}"
-if [ "$BUMP" != "patch" ] && [ "$BUMP" != "minor" ] && [ "$BUMP" != "major" ] && [ "$BUMP" != "preview" ]; then
-  echo "ERROR: Invalid bump type '$BUMP'. Must be patch, minor, major, or preview."
-  exit 1
-fi
-gh workflow run release.yml -f bump="$BUMP"
-echo "Release workflow triggered with bump=$BUMP"
+gh workflow run release.yml -f package="$usage_package" -f bump="$usage_bump"
+echo "Release workflow triggered for $usage_package with bump=$usage_bump"
 """
