@@ -33,24 +33,18 @@ description = "Typecheck the published API across supported TypeScript versions"
 depends = ["build"]
 run = "bun run typecheck:compat"
 
-[tasks."example:typecheck"]
+[tasks."example:check"]
 description = "Typecheck the example embedded app against the built SDK"
 depends = ["build"]
 dir = "examples/example-embedded-app"
 # config.ts is gitignored; stub from the template so imports resolve.
-run = """
-[ -f prismatic/config.ts ] || cp prismatic/config.ts.template prismatic/config.ts
-npm run typecheck
-"""
+run = "bun run check"
 
 [tasks."example:build"]
 description = "Build the example embedded app against the built SDK"
 depends = ["build"]
 dir = "examples/example-embedded-app"
-run = """
-[ -f prismatic/config.ts ] || cp prismatic/config.ts.template prismatic/config.ts
-npm run build
-"""
+run = "npm run build"
 
 [tasks."test:browser"]
 description = "Run Playwright browser smoke tests against the built bundles"
@@ -89,7 +83,7 @@ depends = [
   "build",
   "test",
   "typecheck:compat",
-  "example:typecheck",
+  "example:check",
   "example:build",
   "test:browser",
   "knip",

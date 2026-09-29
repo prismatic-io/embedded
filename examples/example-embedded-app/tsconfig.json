@@ -1,34 +1,29 @@
 {
+  "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@/public/*": ["./public/*"]
-    },
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
+    "target": "ES2022",
     "jsx": "react-jsx",
-    "lib": ["dom", "es2017"],
-    "module": "esnext",
+    "module": "ESNext",
+    "paths": {
+      "#/*": ["./frontend/*"],
+      "#server/*": ["./server/*"],
+      "@/*": ["./frontend/*"]
+    },
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"],
+
+    /* Bundler mode */
     "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
     "noEmit": true,
+
+    /* Linting */
+    "skipLibCheck": true,
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "preserveConstEnums": true,
-    "removeComments": false,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": false,
-    "strictPropertyInitialization": false,
-    "strictNullChecks": false,
-    "target": "esnext",
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "noFallthroughCasesInSwitch": true,
-    "incremental": true
-  },
-  "exclude": ["node_modules"],
-  "include": ["src", "next-env.d.ts", "**/*.ts", "**/*.tsx"]
+    "noUncheckedSideEffectImports": true
+  }
 }
