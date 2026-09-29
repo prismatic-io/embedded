@@ -44,7 +44,7 @@ run = "bun run check"
 description = "Build the example embedded app against the built SDK"
 depends = ["build"]
 dir = "examples/example-embedded-app"
-run = "npm run build"
+run = "bun run build"
 
 [tasks."test:browser"]
 description = "Run Playwright browser smoke tests against the built bundles"

@@ -51,11 +51,11 @@ Both files are git-ignored.
    Upload the public key to Prismatic. Alternatively, Prismatic can generate the key pair for you.
    For the steps, see [Signing key setup](https://prismatic.io/docs/get-started/embedded-marketplace/authenticate-embedded-users/).
 
-3. Install and start the app:
+3. Install and start the app with [Bun](https://bun.sh):
 
    ```bash
-   npm install
-   npm run dev
+   bun install
+   bun run dev
    ```
 
    The app runs at <http://localhost:3000>.
@@ -106,7 +106,7 @@ server/     The backend. It signs the JWT and backs the chat bot.
 ```
 
 `server/` is where your own backend code would go. Here those files are Vite
-dev-server plugins, so they run under `npm run dev` only.
+dev-server plugins, so they run under `bun run dev` only.
 
 | Path                                                     | What it holds                                         |
 | -------------------------------------------------------- | ----------------------------------------------------- |
@@ -127,13 +127,14 @@ dev-server plugins, so they run under `npm run dev` only.
 
 | Command                   | Result                                  |
 | ------------------------- | --------------------------------------- |
-| `npm run dev`             | Start the development server.           |
-| `npm run build`           | Build for production.                   |
-| `npm run generate-routes` | Regenerate `frontend/routeTree.gen.ts`. |
-| `npm run check`           | Lint and format with Biome.             |
+| `bun run dev`             | Start the development server.           |
+| `bun run build`           | Build for production.                   |
+| `bun run generate-routes` | Regenerate `frontend/routeTree.gen.ts`. |
+| `bun run check`           | Lint and format with Biome.             |
 
 ## Stack
 
+- [Bun](https://bun.sh) for package management and scripts
 - [Vite](https://vite.dev) and [TanStack Start](https://tanstack.com/start)
 - [TanStack Router](https://tanstack.com/router) with file-based routes
 - [Tailwind CSS](https://tailwindcss.com) v4 and [shadcn/ui](https://ui.shadcn.com)
