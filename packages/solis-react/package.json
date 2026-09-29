@@ -1,0 +1,32 @@
+{
+  "name": "@prismatic-io/solis-react",
+  "description": "React bindings for @prismatic-io/solis-core — hooks for building headless Prismatic UIs.",
+  "keywords": [
+    "prismatic",
+    "headless",
+    "embedded",
+    "marketplace",
+    "iPaaS",
+    "integration",
+    "react"
+  ],
+  "homepage": "https://prismatic.io",
+  "bugs": {
+    "url": "https://github.com/prismatic-io/embedded"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prismatic-io/embedded.git",
+    "directory": "packages/solis-react"
+  },
+  "license": "MIT",
+  "version": "0.0.1",
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "LICENSE"
+  ]
+}

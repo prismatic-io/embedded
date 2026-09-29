@@ -47,6 +47,14 @@
         "vitest": "^4.1.5",
       },
     },
+    "packages/solis-core": {
+      "name": "@prismatic-io/solis-core",
+      "version": "0.0.1",
+    },
+    "packages/solis-react": {
+      "name": "@prismatic-io/solis-react",
+      "version": "0.0.1",
+    },
   },
   "packages": {
     "@andrewbranch/untar.js": ["@andrewbranch/untar.js@1.0.4", "", {}, "sha512-pVXSwPsLuw8IGLo2Di0EaOfsk+ntVvpkk942J/sHYIkwvtKUakEcPh7HBgZ6tuimgzKSEHgCvO4XgQ05DEbwDw=="],
@@ -266,6 +274,10 @@
     "@playwright/test": ["@playwright/test@1.63.0", "", { "dependencies": { "playwright": "1.63.0" }, "bin": { "playwright": "cli.js" } }, "sha512-oxMK4vllB9RK5NQ2l1pq1IfOf2AvnEuj/vYGDj0H2nMtmtZpKtCwt/l00GEO6xjGfpBNAvjovvYdCm50dRQkpQ=="],
 
     "@prismatic-io/embedded": ["@prismatic-io/embedded@workspace:packages/embedded"],
+
+    "@prismatic-io/solis-core": ["@prismatic-io/solis-core@workspace:packages/solis-core"],
+
+    "@prismatic-io/solis-react": ["@prismatic-io/solis-react@workspace:packages/solis-react"],
 
     "@prismatic-io/translations": ["@prismatic-io/translations@2.14.1", "", {}, "sha512-ZPklV2DCFtcgoCP60H7bmjH7dL8I9v9tjs81IhTlHXJCPc+I772hDL41MDVXebcyn1jo16AGlxpgHXMsLovV1A=="],
 

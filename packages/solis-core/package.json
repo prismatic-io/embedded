@@ -1,0 +1,31 @@
+{
+  "name": "@prismatic-io/solis-core",
+  "description": "Headless client for Prismatic — build your own marketplace, connection, and configuration UIs against live server-side objects.",
+  "keywords": [
+    "prismatic",
+    "headless",
+    "embedded",
+    "marketplace",
+    "iPaaS",
+    "integration"
+  ],
+  "homepage": "https://prismatic.io",
+  "bugs": {
+    "url": "https://github.com/prismatic-io/embedded"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prismatic-io/embedded.git",
+    "directory": "packages/solis-core"
+  },
+  "license": "MIT",
+  "version": "0.0.1",
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "LICENSE"
+  ]
+}
