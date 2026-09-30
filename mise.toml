@@ -28,6 +28,10 @@ description = "Run tests"
 depends = ["build"]
 run = "bun run test"
 
+[tasks.typecheck]
+description = "Typecheck the workspace packages"
+run = "bun run typecheck"
+
 [tasks."typecheck:compat"]
 description = "Typecheck the published API across supported TypeScript versions"
 depends = ["build"]
@@ -76,6 +80,11 @@ description = "Verify the ESM bundle is tree-shakeable"
 depends = ["build"]
 run = "bun run agadoo"
 
+[tasks."agadoo:solis"]
+description = "Verify the solis ESM bundles are tree-shakeable"
+depends = ["build"]
+run = "bun run agadoo:solis"
+
 [tasks."size-limit"]
 description = "Enforce bundle size budgets"
 depends = ["build"]
@@ -88,6 +97,7 @@ depends = [
   "lint",
   "build",
   "test",
+  "typecheck",
   "typecheck:compat",
   "example:typecheck",
   "example:build",
@@ -95,6 +105,7 @@ depends = [
   "knip",
   "publint",
   "attw",
+  "agadoo:solis",
   "size-limit",
 ]
 
