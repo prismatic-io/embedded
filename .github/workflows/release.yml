@@ -10,6 +10,8 @@ on:
         type: choice
         options:
           - embedded
+          - solis-core
+          - solis-react
       bump:
         description: "Version bump type"
         required: true
