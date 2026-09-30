@@ -112,11 +112,16 @@ jobs:
 
       - name: Publish to npm
         working-directory: packages/${{ inputs.package }}
+        # bun pm pack rewrites workspace: ranges to real versions; npm pack
+        # would ship them verbatim. npm still does the upload for trusted
+        # publishing.
         run: |
+          TARBALL="$RUNNER_TEMP/${{ inputs.package }}.tgz"
+          bun pm pack --filename "$TARBALL"
           if [[ "$VERSION" == *preview* ]]; then
-            npm publish --tag preview
+            npm publish "$TARBALL" --tag preview
           else
-            npm publish
+            npm publish "$TARBALL"
           fi
         env:
           VERSION: ${{ needs.release.outputs.version }}
