@@ -4,5 +4,22 @@
   "extends": ["../../biome.jsonc"],
   "files": {
     "includes": ["!**/dist", "!**/node_modules"]
-  }
+  },
+  "linter": {
+    "rules": {
+      "correctness": {
+        // Hooks key their memos on derived values on purpose (see the inline biome-ignore notes).
+        "useExhaustiveDependencies": {
+          "level": "error",
+          "options": { "reportUnnecessaryDependencies": false }
+        }
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.spec.tsx"],
+      "linter": { "rules": { "a11y": { "useButtonType": "off" } } }
+    }
+  ]
 }
