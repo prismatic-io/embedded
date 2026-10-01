@@ -28,6 +28,10 @@ description = "Run tests"
 depends = ["build"]
 run = "bun run test"
 
+[tasks."test:solis"]
+description = "Run the solis package tests"
+run = "bun run test:solis"
+
 [tasks.typecheck]
 description = "Typecheck the workspace packages"
 run = "bun run typecheck"
@@ -97,6 +101,7 @@ depends = [
   "lint",
   "build",
   "test",
+  "test:solis",
   "typecheck",
   "typecheck:compat",
   "example:typecheck",

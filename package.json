@@ -7,6 +7,7 @@
     "build": "bun run --filter './packages/*' build",
     "test": "bun run --filter @prismatic-io/embedded test",
     "test:browser": "bun run --filter @prismatic-io/embedded test:browser",
+    "test:solis": "bun run --filter './packages/solis-*' test",
     "format": "bun run --filter './packages/*' format",
     "format:check": "bun run --filter './packages/*' format:check",
     "lint": "bun run --filter './packages/*' lint",

@@ -3,11 +3,13 @@
     "target": "es2022",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "lib": ["es2022", "DOM", "DOM.Iterable"],
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "types": ["node"],
     "strict": true,
     "isolatedModules": true,
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.spec.tsx"]
 }
