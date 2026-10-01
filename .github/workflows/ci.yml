@@ -38,18 +38,6 @@ jobs:
       - uses: jdx/mise-action@v4.2.5
       - run: mise run install
       - run: npm --prefix examples/example-embedded-app ci
-      - run: mise run validate:static
-      - continue-on-error: true
-        run: mise run agadoo
-
-  browser:
-    needs: changes
-    if: needs.changes.outputs.embedded == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7.0.1
-      - uses: jdx/mise-action@v4.2.5
-      - run: mise run install
       - name: Cache Playwright browsers
         uses: actions/cache@v6.1.0
         with:
@@ -57,4 +45,6 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('bun.lock') }}
       - name: Install Playwright Chromium
         run: bunx playwright install --with-deps chromium
-      - run: mise run test:browser
+      - run: mise run validate
+      - continue-on-error: true
+        run: mise run agadoo
