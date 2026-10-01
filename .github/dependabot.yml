@@ -3,7 +3,8 @@ updates:
   # Roll all non-security version bumps into a single weekly PR. Security
   # updates are not affected by version-update groups and continue to open
   # individually so CVEs stay visible.
-  - package-ecosystem: "npm"
+  # Bun manages the packages/* workspaces through the root bun.lock.
+  - package-ecosystem: "bun"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -25,6 +26,7 @@ updates:
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
 
+  # The example app remains a separate npm project with its own lockfile.
   - package-ecosystem: "npm"
     directory: "/examples/example-embedded-app"
     schedule:
