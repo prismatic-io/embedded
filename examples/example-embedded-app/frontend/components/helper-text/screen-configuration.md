@@ -23,9 +23,13 @@ to change.
 
 The list of integrations your customer browses.
 
-- `configuration` — whether a card opens a detail page. `allow-details` lets the
-  user open one, `always-show-details` opens one before the wizard, and
-  `disallow-details` sends the user straight to the wizard.
+- `configuration` — where the customer lands after the configuration wizard,
+  and whether they can reach an integration's details screen, which holds the
+  Test, Executions, and Logs tabs. `allow-details` returns them to the
+  marketplace list and keeps a details option in each card's menu.
+  `always-show-details` opens the details screen after the wizard, and when they
+  pick an activated integration. `disallow-details` returns them to the list and
+  removes the details option, so they cannot reach that screen.
 - `hideSearch` — remove the search box.
 - `hideActiveIntegrationsFilter` — remove the **All** and **Activated** filter
   buttons.
@@ -34,8 +38,9 @@ The list of integrations your customer browses.
 
 The screens a customer steps through to activate an integration.
 
-- `mode` — `streamlined` puts the whole wizard on one page. `traditional` splits
-  it into steps.
+- `mode` — `traditional` opens the wizard on an overview page, where the
+  customer names the instance and sees details such as flow webhook URLs.
+  `streamlined` skips that page, and is the default.
 - `connectionConfiguration` — `reusable` lets the user pick a credential they
   already authorized, and share it with other integrations. `inline` asks for
   the credential on the page each time.
@@ -43,7 +48,9 @@ The screens a customer steps through to activate an integration.
   details. `default` collapses them, `default-open` expands them, and `hidden`
   removes them.
 - `logsDisabled` and `stepResultsDisabled` — `never` keeps the data, `always`
-  turns it off, and `optional` lets the customer decide.
+  turns it off, and `optional` lets the customer decide. Both take effect only
+  if your organization has a custom retention policy, which Prismatic support
+  sets up.
 - `hideSidebar` — remove the wizard's sidebar.
 - `isInModal` — draw the wizard as a modal over your page.
 

@@ -1,3 +1,4 @@
+import { Info } from "lucide-react";
 import { useId } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +10,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 /**
@@ -75,20 +81,45 @@ export function PlaygroundSection({
   );
 }
 
+/** An info icon that explains a control in plain words when hovered. */
+function InfoTip({ label, text }: { label: string; text: string }) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          aria-label={`About ${label}`}
+          className="text-muted-foreground hover:text-foreground"
+        >
+          <Info className="size-3.5" />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent side="right" className="max-w-64">
+        {text}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
 function ControlLabel({
   htmlFor,
   label,
   hint,
+  description,
 }: {
-  htmlFor: string;
+  htmlFor?: string;
   label: string;
   hint?: string;
+  description?: string;
 }) {
   return (
     <div className="grid gap-0.5">
-      <Label htmlFor={htmlFor} className="text-xs font-medium">
-        {label}
-      </Label>
+      <div className="flex items-center gap-1">
+        <Label htmlFor={htmlFor} className="text-xs font-medium">
+          {label}
+        </Label>
+        {description ? <InfoTip label={label} text={description} /> : null}
+      </div>
       {hint ? (
         <span className="text-[11px] leading-tight text-muted-foreground">
           {hint}
@@ -101,18 +132,26 @@ function ControlLabel({
 export function PlaygroundSwitch({
   label,
   hint,
+  description,
   checked,
   onChange,
 }: {
   label: string;
   hint?: string;
+  /** A plain-language explanation, shown when the info icon is hovered. */
+  description?: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
 }) {
   const id = useId();
   return (
     <div className="flex items-start justify-between gap-3">
-      <ControlLabel htmlFor={id} label={label} hint={hint} />
+      <ControlLabel
+        htmlFor={id}
+        label={label}
+        hint={hint}
+        description={description}
+      />
       <Switch
         id={id}
         checked={checked}
@@ -126,25 +165,38 @@ export function PlaygroundSwitch({
 export interface PlaygroundOption<T extends string> {
   value: T;
   label: string;
+  /** The value as the SDK spells it, shown beside the label. */
+  code?: string;
+  /** What choosing this option does, shown under the select once chosen. */
+  description?: string;
 }
 
 export function PlaygroundSelect<T extends string>({
   label,
   hint,
+  description,
   value,
   options,
   onChange,
 }: {
   label: string;
   hint?: string;
+  /** A plain-language explanation, shown when the info icon is hovered. */
+  description?: string;
   value: T;
   options: ReadonlyArray<PlaygroundOption<T>>;
   onChange: (value: T) => void;
 }) {
   const id = useId();
+  const selected = options.find((option) => option.value === value);
   return (
     <div className="grid gap-1.5">
-      <ControlLabel htmlFor={id} label={label} hint={hint} />
+      <ControlLabel
+        htmlFor={id}
+        label={label}
+        hint={hint}
+        description={description}
+      />
       <Select value={value} onValueChange={(next) => onChange(next as T)}>
         <SelectTrigger id={id} size="sm" className="w-full">
           <SelectValue />
@@ -153,10 +205,20 @@ export function PlaygroundSelect<T extends string>({
           {options.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}
+              {option.code ? (
+                <span className="font-mono text-[10px] text-muted-foreground">
+                  {option.code}
+                </span>
+              ) : null}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
+      {selected?.description ? (
+        <p className="text-[11px] leading-tight text-muted-foreground">
+          {selected.description}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -164,12 +226,15 @@ export function PlaygroundSelect<T extends string>({
 export function PlaygroundText({
   label,
   hint,
+  description,
   value,
   placeholder,
   onChange,
 }: {
   label: string;
   hint?: string;
+  /** A plain-language explanation, shown when the info icon is hovered. */
+  description?: string;
   value: string;
   placeholder?: string;
   onChange: (value: string) => void;
@@ -177,7 +242,12 @@ export function PlaygroundText({
   const id = useId();
   return (
     <div className="grid gap-1.5">
-      <ControlLabel htmlFor={id} label={label} hint={hint} />
+      <ControlLabel
+        htmlFor={id}
+        label={label}
+        hint={hint}
+        description={description}
+      />
       <Input
         id={id}
         value={value}
@@ -192,18 +262,26 @@ export function PlaygroundText({
 export function PlaygroundColor({
   label,
   hint,
+  description,
   value,
   onChange,
 }: {
   label: string;
   hint?: string;
+  /** A plain-language explanation, shown when the info icon is hovered. */
+  description?: string;
   value: string;
   onChange: (value: string) => void;
 }) {
   const id = useId();
   return (
     <div className="flex items-center justify-between gap-3">
-      <ControlLabel htmlFor={id} label={label} hint={hint} />
+      <ControlLabel
+        htmlFor={id}
+        label={label}
+        hint={hint}
+        description={description}
+      />
       <input
         id={id}
         type="color"
@@ -217,41 +295,54 @@ export function PlaygroundColor({
 
 /** A set of checkboxes rendered as toggle chips. */
 export function PlaygroundChips<T extends string>({
+  label,
+  hint,
+  description,
   values,
   options,
   onChange,
 }: {
+  /** Leave it out when the section title already names the chips. */
+  label?: string;
+  hint?: string;
+  /** A plain-language explanation, shown when the info icon is hovered. */
+  description?: string;
   values: readonly T[];
   options: readonly T[];
   onChange: (values: T[]) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-1.5">
-      {options.map((option) => {
-        const selected = values.includes(option);
-        return (
-          <button
-            key={option}
-            type="button"
-            aria-pressed={selected}
-            onClick={() =>
-              onChange(
+    <div className="grid gap-1.5">
+      {label ? (
+        <ControlLabel label={label} hint={hint} description={description} />
+      ) : null}
+      <div className="flex flex-wrap gap-1.5">
+        {options.map((option) => {
+          const selected = values.includes(option);
+          return (
+            <button
+              key={option}
+              type="button"
+              aria-pressed={selected}
+              onClick={() =>
+                onChange(
+                  selected
+                    ? values.filter((value) => value !== option)
+                    : [...values, option],
+                )
+              }
+              className={cn(
+                "rounded-full border px-2.5 py-1 text-xs transition-colors",
                 selected
-                  ? values.filter((value) => value !== option)
-                  : [...values, option],
-              )
-            }
-            className={cn(
-              "rounded-full border px-2.5 py-1 text-xs transition-colors",
-              selected
-                ? "border-transparent bg-primary text-primary-foreground"
-                : "border-border text-muted-foreground hover:bg-accent",
-            )}
-          >
-            {option}
-          </button>
-        );
-      })}
+                  ? "border-transparent bg-primary text-primary-foreground"
+                  : "border-border text-muted-foreground hover:bg-accent",
+              )}
+            >
+              {option}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

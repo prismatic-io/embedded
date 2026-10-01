@@ -8,6 +8,7 @@ import {
   Playground,
   PlaygroundChips,
   PlaygroundColor,
+  type PlaygroundOption,
   PlaygroundOptions,
   PlaygroundSection,
   PlaygroundSelect,
@@ -31,7 +32,11 @@ const UNSET = "unset";
 
 type Unsettable<T extends string> = T | typeof UNSET;
 
-const unsetOption = { value: UNSET, label: "Not set (default)" } as const;
+const unsetOption = {
+  value: UNSET,
+  label: "Not set",
+  description: "Left out of the options, so Prismatic's default applies.",
+} as const;
 
 const value = <T extends string>(setting: Unsettable<T>) =>
   setting === UNSET ? undefined : setting;
@@ -42,13 +47,33 @@ type DetailsSetting = NonNullable<
 
 const DETAILS_OPTIONS = [
   unsetOption,
-  { value: "allow-details", label: "allow-details" },
-  { value: "always-show-details", label: "always-show-details" },
-  { value: "disallow-details", label: "disallow-details" },
-] as const satisfies ReadonlyArray<{
-  value: Unsettable<DetailsSetting>;
-  label: string;
-}>;
+  {
+    value: "allow-details",
+    label: "Back to the marketplace",
+    code: "allow-details",
+    description:
+      "After the wizard, the customer returns to the marketplace list. A card's menu still offers the details screen.",
+  },
+  {
+    value: "always-show-details",
+    label: "Open the details screen",
+    code: "always-show-details",
+    description:
+      "After the wizard, or on picking an activated integration, the customer lands on its details screen.",
+  },
+  {
+    value: "disallow-details",
+    label: "No details screen",
+    code: "disallow-details",
+    description:
+      "Like Back to the marketplace, but a card's menu has no details option, so the customer cannot reach the details screen.",
+  },
+] as const satisfies ReadonlyArray<
+  PlaygroundOption<Unsettable<DetailsSetting>>
+>;
+
+const DETAILS_DESCRIPTION =
+  "Where a customer lands after the configuration wizard, and whether they can reach an integration's details screen. That screen holds the Test, Executions, and Logs tabs.";
 
 type WizardConfiguration = NonNullable<
   ScreenConfiguration["configurationWizard"]
@@ -56,45 +81,109 @@ type WizardConfiguration = NonNullable<
 
 const MODE_OPTIONS = [
   unsetOption,
-  { value: "streamlined", label: "streamlined" },
-  { value: "traditional", label: "traditional" },
-] as const satisfies ReadonlyArray<{
-  value: Unsettable<NonNullable<WizardConfiguration["mode"]>>;
-  label: string;
-}>;
+  {
+    value: "streamlined",
+    label: "Skip the overview page",
+    code: "streamlined",
+    description:
+      "The wizard opens on its first configuration page. This is the default.",
+  },
+  {
+    value: "traditional",
+    label: "Start with an overview page",
+    code: "traditional",
+    description:
+      "The wizard opens on a page where the customer names the instance and sees details such as flow webhook URLs.",
+  },
+] as const satisfies ReadonlyArray<
+  PlaygroundOption<Unsettable<NonNullable<WizardConfiguration["mode"]>>>
+>;
 
 const CONNECTION_OPTIONS = [
   unsetOption,
-  { value: "reusable", label: "reusable" },
-  { value: "inline", label: "inline" },
-] as const satisfies ReadonlyArray<{
-  value: Unsettable<
-    NonNullable<WizardConfiguration["connectionConfiguration"]>
-  >;
-  label: string;
-}>;
+  {
+    value: "reusable",
+    label: "Reuse saved connections",
+    code: "reusable",
+    description:
+      "The customer picks from credentials they already saved, and one connection can serve several integrations. This is the default.",
+  },
+  {
+    value: "inline",
+    label: "Enter credentials each time",
+    code: "inline",
+    description:
+      "The connection's fields sit on the configuration page, and nothing is shared with other integrations. This is the older behavior.",
+  },
+] as const satisfies ReadonlyArray<
+  PlaygroundOption<
+    Unsettable<NonNullable<WizardConfiguration["connectionConfiguration"]>>
+  >
+>;
 
 const TRIGGER_OPTIONS = [
   unsetOption,
-  { value: "default", label: "default" },
-  { value: "default-open", label: "default-open" },
-  { value: "hidden", label: "hidden" },
-] as const satisfies ReadonlyArray<{
-  value: Unsettable<
-    NonNullable<WizardConfiguration["triggerDetailsConfiguration"]>
-  >;
-  label: string;
-}>;
+  {
+    value: "default",
+    label: "Collapsed",
+    code: "default",
+    description: "Shown, but closed until the customer expands it.",
+  },
+  {
+    value: "default-open",
+    label: "Expanded",
+    code: "default-open",
+    description: "Shown and already open.",
+  },
+  {
+    value: "hidden",
+    label: "Hidden",
+    code: "hidden",
+    description: "Not shown at all.",
+  },
+] as const satisfies ReadonlyArray<
+  PlaygroundOption<
+    Unsettable<NonNullable<WizardConfiguration["triggerDetailsConfiguration"]>>
+  >
+>;
 
-const DISABLED_OPTIONS = [
-  unsetOption,
-  { value: "never", label: "never" },
-  { value: "optional", label: "optional" },
-  { value: "always", label: "always" },
-] as const satisfies ReadonlyArray<{
-  value: Unsettable<NonNullable<WizardConfiguration["logsDisabled"]>>;
-  label: string;
-}>;
+/**
+ * Shared by logs and step results. `data` names what is stored, for the
+ * descriptions.
+ */
+const disabledOptions = (data: string) =>
+  [
+    unsetOption,
+    {
+      value: "never",
+      label: "Keep",
+      code: "never",
+      description: `Prismatic stores ${data}. This is the default.`,
+    },
+    {
+      value: "always",
+      label: "Turn off",
+      code: "always",
+      description: `Prismatic does not store ${data}.`,
+    },
+    {
+      value: "optional",
+      label: "Customer chooses",
+      code: "optional",
+      description: `The wizard shows a toggle so the customer decides whether to store ${data}.`,
+    },
+  ] as const satisfies ReadonlyArray<
+    PlaygroundOption<
+      Unsettable<NonNullable<WizardConfiguration["logsDisabled"]>>
+    >
+  >;
+
+const LOGS_OPTIONS = disabledOptions("logs");
+const STEP_RESULTS_OPTIONS = disabledOptions("step results");
+
+/** Both settings take effect only under a custom retention policy. */
+const RETENTION_NOTE =
+  "Takes effect only if your organization has a custom retention policy, which Prismatic support sets up.";
 
 type InstanceTab = NonNullable<
   NonNullable<ScreenConfiguration["instance"]>["hideTabs"]
@@ -209,8 +298,9 @@ function RouteComponent() {
               description="The list of integrations your customer browses."
             >
               <PlaygroundSelect
-                label="Detail pages"
+                label="Details screen"
                 hint="marketplace.configuration"
+                description={DETAILS_DESCRIPTION}
                 value={marketplaceDetails}
                 options={DETAILS_OPTIONS}
                 onChange={setMarketplaceDetails}
@@ -218,12 +308,14 @@ function RouteComponent() {
               <PlaygroundSwitch
                 label="Hide the search box"
                 hint="marketplace.hideSearch"
+                description="Removes the search bar above the list of integrations."
                 checked={hideSearch}
                 onChange={setHideSearch}
               />
               <PlaygroundSwitch
                 label="Hide the activated filter"
                 hint="marketplace.hideActiveIntegrationsFilter"
+                description="Removes the All and Activated buttons at the top right, which let a customer list only the integrations they turned on."
                 checked={hideActiveFilter}
                 onChange={setHideActiveFilter}
               />
@@ -236,6 +328,7 @@ function RouteComponent() {
               <PlaygroundSelect
                 label="Wizard mode"
                 hint="configurationWizard.mode"
+                description="Whether the wizard begins with an overview page before the configuration pages."
                 value={mode}
                 options={MODE_OPTIONS}
                 onChange={setMode}
@@ -243,6 +336,7 @@ function RouteComponent() {
               <PlaygroundSelect
                 label="Connections"
                 hint="configurationWizard.connectionConfiguration"
+                description="How the wizard asks for credentials to the other apps an integration connects to, such as a customer's Salesforce account."
                 value={connectionConfiguration}
                 options={CONNECTION_OPTIONS}
                 onChange={setConnectionConfiguration}
@@ -250,33 +344,38 @@ function RouteComponent() {
               <PlaygroundSelect
                 label="Trigger details"
                 hint="configurationWizard.triggerDetailsConfiguration"
+                description="The panel that shows how each flow starts, such as its webhook URL or schedule."
                 value={triggerDetails}
                 options={TRIGGER_OPTIONS}
                 onChange={setTriggerDetails}
               />
               <PlaygroundSelect
-                label="Disable logs"
+                label="Logs"
                 hint="configurationWizard.logsDisabled"
+                description={`Whether Prismatic stores the log lines an integration writes as it runs. ${RETENTION_NOTE}`}
                 value={logsDisabled}
-                options={DISABLED_OPTIONS}
+                options={LOGS_OPTIONS}
                 onChange={setLogsDisabled}
               />
               <PlaygroundSelect
-                label="Disable step results"
+                label="Step results"
                 hint="configurationWizard.stepResultsDisabled"
+                description={`Whether Prismatic stores the data each step of a flow returns as it runs. ${RETENTION_NOTE}`}
                 value={stepResultsDisabled}
-                options={DISABLED_OPTIONS}
+                options={STEP_RESULTS_OPTIONS}
                 onChange={setStepResultsDisabled}
               />
               <PlaygroundSwitch
                 label="Hide the sidebar"
                 hint="configurationWizard.hideSidebar"
+                description="Removes the sidebar on the left of the wizard."
                 checked={hideSidebar}
                 onChange={setHideSidebar}
               />
               <PlaygroundSwitch
                 label="Open in a modal"
                 hint="configurationWizard.isInModal"
+                description="Shows the wizard as a dialog over your page, rather than in the space the marketplace fills."
                 checked={isInModal}
                 onChange={setIsInModal}
               />
@@ -287,8 +386,9 @@ function RouteComponent() {
               description="Applies when you open the wizard with configureInstance()."
             >
               <PlaygroundSelect
-                label="Detail pages"
+                label="Details screen"
                 hint="configureInstance.configuration"
+                description="The same choice as the marketplace's Details screen, for when your app opens the wizard itself with prismatic.configureInstance()."
                 value={instanceDetails}
                 options={DETAILS_OPTIONS}
                 onChange={setInstanceDetails}
@@ -297,37 +397,37 @@ function RouteComponent() {
 
             <PlaygroundSection
               title="Instance"
-              description="The page for an integration the customer activated."
+              description="The details screen for an integration the customer activated."
             >
               <PlaygroundSwitch
                 label="Hide back to marketplace"
                 hint="instance.hideBackToMarketplace"
+                description="Removes the Back to Marketplace link. Useful when your own app handles navigation."
                 checked={hideBackToMarketplace}
                 onChange={setHideBackToMarketplace}
               />
               <PlaygroundSwitch
                 label="Hide the pause button"
                 hint="instance.hidePauseButton"
+                description="Stops the customer from pausing or unpausing the integration."
                 checked={hidePauseButton}
                 onChange={setHidePauseButton}
               />
               <PlaygroundSwitch
                 label="Hide deactivation"
                 hint="instance.hideDeactivation"
+                description="Removes the button that deactivates the integration, so the customer cannot turn it off."
                 checked={hideDeactivation}
                 onChange={setHideDeactivation}
               />
-              <div className="grid gap-1.5">
-                <span className="text-xs font-medium">Hidden tabs</span>
-                <span className="text-[11px] leading-tight text-muted-foreground">
-                  instance.hideTabs
-                </span>
-                <PlaygroundChips
-                  values={hideTabs}
-                  options={INSTANCE_TABS}
-                  onChange={setHideTabs}
-                />
-              </div>
+              <PlaygroundChips
+                label="Hidden tabs"
+                hint="instance.hideTabs"
+                description="Tabs to remove. Test runs the integration on demand, Executions lists past runs, and Logs shows what the runs wrote."
+                values={hideTabs}
+                options={INSTANCE_TABS}
+                onChange={setHideTabs}
+              />
             </PlaygroundSection>
 
             <PlaygroundSection
@@ -337,6 +437,7 @@ function RouteComponent() {
               <PlaygroundSwitch
                 label="Use custom colors"
                 hint="initializing"
+                description="Colors for the loading screen Prismatic shows while an embedded screen starts. Send both colors or neither."
                 checked={customLoading}
                 onChange={setCustomLoading}
               />
@@ -345,12 +446,14 @@ function RouteComponent() {
                   <PlaygroundColor
                     label="Background"
                     hint="initializing.background"
+                    description="The background color of the loading screen."
                     value={background}
                     onChange={setBackground}
                   />
                   <PlaygroundColor
                     label="Text and spinner"
                     hint="initializing.color"
+                    description="The color of the loading text and spinner."
                     value={color}
                     onChange={setColor}
                   />
