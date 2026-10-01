@@ -1,5 +1,5 @@
 import { BookOpen } from "lucide-react";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { type ExtraProps } from "react-markdown";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -22,6 +22,37 @@ function LinkNewWindow(
       {props.children}
     </a>
   );
+}
+
+/** Where this app lives on GitHub. Source paths in the helper text link here. */
+const SOURCE_URL =
+  "https://github.com/prismatic-io/embedded/blob/main/examples/example-embedded-app";
+
+/** A path to a file in this app, such as `frontend/lib/phrases.ts`. */
+const SOURCE_PATH = /^(frontend|server)\/[\w./-]+$/;
+
+/**
+ * Inline code that names a file in this app links to that file on GitHub.
+ * Any other code renders as usual.
+ */
+function CodeOrSourceLink({
+  node: _node,
+  children,
+  ...rest
+}: React.ComponentProps<"code"> & ExtraProps) {
+  if (typeof children === "string" && SOURCE_PATH.test(children)) {
+    return (
+      <a
+        href={`${SOURCE_URL}/${children}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="View this file on GitHub"
+      >
+        <code>{children}</code>
+      </a>
+    );
+  }
+  return <code {...rest}>{children}</code>;
 }
 
 type MarkdownFileId =
@@ -59,6 +90,7 @@ export function HelperText({ id }: { id: MarkdownFileId }) {
             components={{
               h1: "h2",
               a: LinkNewWindow,
+              code: CodeOrSourceLink,
             }}
           >
             {markdown}
