@@ -1,17 +1,10 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "entry": [
-    "src/index.ts",
-    "src/protocol/index.ts",
-    "src/testing/index.ts",
     "src/internal.ts",
+    "src/testing/scenarios/index.ts",
     "src/**/*.typecheck.ts"
   ],
   "project": ["src/**/*.{ts,tsx}"],
-  "rules": {
-    "exports": "warn",
-    "types": "warn",
-    "nsExports": "warn",
-    "nsTypes": "warn"
-  }
+  "ignoreExportsUsedInFile": true
 }
