@@ -18,7 +18,6 @@ import {
   type World,
 } from "./world.js";
 
-export type { Outcome } from "./adapters/types.js";
 export type { Browser } from "./browser.js";
 export type { Backend, World } from "./world.js";
 

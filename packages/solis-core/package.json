@@ -86,32 +86,32 @@
     {
       "name": "index (ESM)",
       "path": "dist/index.mjs",
-      "limit": "10 KB"
+      "limit": "4.4 KB"
     },
     {
       "name": "index (CJS)",
       "path": "dist/index.cjs",
-      "limit": "10 KB"
+      "limit": "4.7 KB"
     },
     {
       "name": "protocol (ESM)",
       "path": "dist/protocol.mjs",
-      "limit": "10 KB"
+      "limit": "345 B"
     },
     {
       "name": "protocol (CJS)",
       "path": "dist/protocol.cjs",
-      "limit": "10 KB"
+      "limit": "600 B"
     },
     {
       "name": "testing (ESM)",
       "path": "dist/testing.mjs",
-      "limit": "10 KB"
+      "limit": "10.1 KB"
     },
     {
       "name": "testing (CJS)",
       "path": "dist/testing.cjs",
-      "limit": "10 KB"
+      "limit": "10.5 KB"
     }
   ],
   "peerDependencies": {
