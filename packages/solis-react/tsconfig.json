@@ -3,12 +3,24 @@
     "target": "es2022",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "lib": ["es2022", "DOM", "DOM.Iterable"],
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "types": ["node"],
     "strict": true,
     "isolatedModules": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "@prismatic-io/solis-core": ["../solis-core/src/index.ts"],
+      "@prismatic-io/solis-core/protocol": [
+        "../solis-core/src/protocol/index.ts"
+      ],
+      "@prismatic-io/solis-core/testing": [
+        "../solis-core/src/testing/index.ts"
+      ],
+      "@prismatic-io/solis-core/internal": ["../solis-core/src/internal.ts"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.spec.tsx", "src/behavior"]
 }

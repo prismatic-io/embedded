@@ -55,7 +55,8 @@
     "lint:fix": "biome lint --write .",
     "check": "biome check --write .",
     "check:ci": "biome check .",
-    "typecheck": "tsc",
+    "typecheck": "tsc && tsc -p tsconfig.behavior.json",
+    "test": "vitest run",
     "knip": "knip",
     "publint": "publint",
     "attw": "attw --pack . --profile node16",
@@ -66,23 +67,46 @@
     {
       "name": "index (ESM)",
       "path": "dist/index.mjs",
-      "limit": "10 KB"
+      "limit": "17 KB",
+      "ignore": [
+        "@prismatic-io/solis-core"
+      ]
     },
     {
       "name": "index (CJS)",
       "path": "dist/index.cjs",
-      "limit": "10 KB"
+      "limit": "17 KB",
+      "ignore": [
+        "@prismatic-io/solis-core"
+      ]
     }
   ],
+  "dependencies": {
+    "@prismatic-io/solis-core": "workspace:^"
+  },
+  "peerDependencies": {
+    "capnweb": ">=0.12.0 <1.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",
     "@biomejs/biome": "2.4.11",
     "@size-limit/preset-small-lib": "^13.0.3",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^25.5.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "agadoo": "^3.0.0",
+    "capnweb": "0.12.0",
+    "jsdom": "^30.0.1",
     "knip": "^6.11.0",
     "publint": "^0.3.18",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "size-limit": "^13.0.3",
     "tsdown": "^0.22.1",
-    "typescript": "~6.0.3"
+    "typescript": "~6.0.3",
+    "vitest": "4.1.10"
   }
 }
