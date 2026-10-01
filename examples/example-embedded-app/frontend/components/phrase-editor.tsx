@@ -8,7 +8,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { findPhrase, PHRASE_CATALOG, type PhraseVariable } from "@/lib/phrases";
+import {
+  COMMON_PHRASES,
+  findPhrase,
+  PHRASE_CATALOG,
+  type PhraseEntry,
+  type PhraseVariable,
+} from "@/lib/phrases";
 import { cn } from "@/lib/utils";
 
 /** One row of the editor: a phrase key and the wording to use for it. */
@@ -57,6 +63,45 @@ export const newDynamicPhrase = (): DynamicPhrase => ({
 /** Long lists are slow to draw and hard to read, so show a page at a time. */
 const MAX_RESULTS = 60;
 
+function PhraseOption({
+  entry,
+  selected,
+  onSelect,
+}: {
+  entry: PhraseEntry;
+  selected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={cn(
+        "flex w-full items-start gap-2 rounded-sm px-2 py-1.5 text-left hover:bg-accent",
+        selected && "bg-accent",
+      )}
+    >
+      <Check
+        className={cn(
+          "mt-0.5 size-3.5 shrink-0",
+          selected ? "opacity-100" : "opacity-0",
+        )}
+      />
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-xs">{entry.preview}</span>
+        <span className="block truncate font-mono text-[10px] text-muted-foreground">
+          {entry.key}
+        </span>
+      </span>
+    </button>
+  );
+}
+
+/**
+ * Picks a phrase key. With nothing typed it offers a short list of common
+ * phrases, so a newcomer is not faced with the whole catalog. Searching always
+ * covers every phrase.
+ */
 function PhrasePicker({
   value,
   onChange,
@@ -66,18 +111,30 @@ function PhrasePicker({
 }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [showAll, setShowAll] = useState(false);
+  const selected = findPhrase(value);
+
+  const needle = query.trim().toLowerCase();
+  const browsingCommon = !needle && !showAll;
 
   const { shown, total } = useMemo(() => {
-    const needle = query.trim().toLowerCase();
     const found = needle
       ? PHRASE_CATALOG.filter(
           (entry) =>
             entry.key.toLowerCase().includes(needle) ||
+            entry.preview.toLowerCase().includes(needle) ||
             entry.english.toLowerCase().includes(needle),
         )
       : PHRASE_CATALOG;
     return { shown: found.slice(0, MAX_RESULTS), total: found.length };
-  }, [query]);
+  }, [needle]);
+
+  const select = (key: string) => {
+    onChange(key);
+    setOpen(false);
+    setQuery("");
+    setShowAll(false);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -85,9 +142,18 @@ function PhrasePicker({
         <Button
           variant="outline"
           size="sm"
-          className="w-full justify-between font-mono text-[11px]"
+          className="h-auto min-h-8 w-full justify-between py-1.5"
         >
-          <span className="truncate">{value || "Select a phrase"}</span>
+          {selected ? (
+            <span className="min-w-0 flex-1 text-left">
+              <span className="block truncate text-xs">{selected.preview}</span>
+              <span className="block truncate font-mono text-[10px] font-normal text-muted-foreground">
+                {selected.key}
+              </span>
+            </span>
+          ) : (
+            <span className="truncate text-xs">Select a phrase</span>
+          )}
           <ChevronsUpDown className="size-3.5 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -97,52 +163,66 @@ function PhrasePicker({
             autoFocus
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search by key or by English text"
+            placeholder={`Search all ${PHRASE_CATALOG.length} phrases by text or key`}
             className="h-8 text-xs"
           />
         </div>
         <div className="max-h-72 overflow-y-auto p-1">
-          {shown.length === 0 ? (
+          {browsingCommon ? (
+            COMMON_PHRASES.map((group) => (
+              <div key={group.title} className="pb-1">
+                <p className="px-2 pt-2 pb-1 text-[11px] font-medium text-muted-foreground">
+                  {group.title}
+                </p>
+                {group.keys.map((key) => {
+                  const entry = findPhrase(key);
+                  return entry ? (
+                    <PhraseOption
+                      key={key}
+                      entry={entry}
+                      selected={key === value}
+                      onSelect={() => select(key)}
+                    />
+                  ) : null;
+                })}
+              </div>
+            ))
+          ) : shown.length === 0 ? (
             <p className="p-3 text-xs text-muted-foreground">
-              No phrase matches "{query}".
+              No phrase matches "{query}". To find the key behind some text on
+              the screen, turn on <strong>Debug mode</strong>.
             </p>
           ) : (
             shown.map((entry) => (
-              <button
+              <PhraseOption
                 key={entry.key}
-                type="button"
-                onClick={() => {
-                  onChange(entry.key);
-                  setOpen(false);
-                  setQuery("");
-                }}
-                className={cn(
-                  "flex w-full items-start gap-2 rounded-sm px-2 py-1.5 text-left hover:bg-accent",
-                  entry.key === value && "bg-accent",
-                )}
-              >
-                <Check
-                  className={cn(
-                    "mt-0.5 size-3.5 shrink-0",
-                    entry.key === value ? "opacity-100" : "opacity-0",
-                  )}
-                />
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate font-mono text-[11px]">
-                    {entry.key}
-                  </span>
-                  <span className="block truncate text-[11px] text-muted-foreground">
-                    {entry.english}
-                  </span>
-                </span>
-              </button>
+                entry={entry}
+                selected={entry.key === value}
+                onSelect={() => select(entry.key)}
+              />
             ))
           )}
         </div>
-        <div className="border-t border-border px-3 py-1.5 text-[11px] text-muted-foreground">
-          {total > shown.length
-            ? `Showing ${shown.length} of ${total} phrases. Keep typing to narrow the list.`
-            : `${total} of ${PHRASE_CATALOG.length} phrases`}
+        <div className="flex items-center justify-between gap-2 border-t border-border px-3 py-1.5 text-[11px] text-muted-foreground">
+          <span>
+            {browsingCommon
+              ? "Common phrases. Search to find any other."
+              : total > shown.length
+                ? `Showing ${shown.length} of ${total}. Keep typing to narrow the list.`
+                : `${total} of ${PHRASE_CATALOG.length} phrases`}
+          </span>
+          {needle ? null : (
+            <Button
+              variant="link"
+              size="sm"
+              className="h-auto p-0 text-[11px]"
+              onClick={() => setShowAll(!showAll)}
+            >
+              {showAll
+                ? "Show common phrases"
+                : `Show all ${PHRASE_CATALOG.length}`}
+            </Button>
+          )}
         </div>
       </PopoverContent>
     </Popover>

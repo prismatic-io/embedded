@@ -38,9 +38,10 @@ sends `phrases` with nothing left in it.
 
 ## The editor on this page
 
-The panel on the left lists every phrase Prismatic can show. Add a row, pick a
-key from the dropdown, and type the wording you want. Search the dropdown by
-key or by the English text.
+The panel on the left lets you reword any phrase Prismatic can show. Add a row,
+pick a phrase from the dropdown, and type the wording you want. The dropdown
+opens on the phrases most people change first. Search it by English text or by
+key to reach any of the others, or choose **Show all** to browse the full list.
 
 The list comes from the `@prismatic-io/translations` package, which the SDK
 depends on. This page reads it at run time:
