@@ -83,6 +83,10 @@ run = "bun run size-limit"
 
 [tasks.validate]
 description = "Run all validation checks"
+depends = ["validate:static", "test:browser"]
+
+[tasks."validate:static"]
+description = "Run validation checks without browser tests"
 depends = [
   "format:check",
   "lint",
@@ -91,7 +95,6 @@ depends = [
   "typecheck:compat",
   "example:typecheck",
   "example:build",
-  "test:browser",
   "knip",
   "publint",
   "attw",

@@ -7,14 +7,16 @@ on:
     branches: [main]
 
 jobs:
-  validate:
+  changes:
     runs-on: ubuntu-latest
+    outputs:
+      embedded: ${{ steps.embedded.outputs.changed }}
     steps:
       - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
-      - name: Detect browser test changes
-        id: browser
+      - name: Detect Embedded changes
+        id: embedded
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -32,27 +34,40 @@ jobs:
           changed=false
           while IFS= read -r path; do
             case "$path" in
-              packages/embedded/*|bun.lock|package.json|mise.toml|biome.json|.github/workflows/ci.yml)
+              packages/embedded/*|examples/example-embedded-app/*|bun.lock|package.json|mise.toml|biome.json|.github/workflows/ci.yml)
                 changed=true
                 break
                 ;;
             esac
           done <<< "$changed_files"
           echo "changed=$changed" >> "$GITHUB_OUTPUT"
+
+  validate:
+    needs: changes
+    if: needs.changes.outputs.embedded == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
       - uses: jdx/mise-action@v4.2.5
       - run: mise run install
       - run: npm --prefix examples/example-embedded-app ci
+      - run: mise run validate:static
+      - continue-on-error: true
+        run: mise run agadoo
+
+  browser:
+    needs: changes
+    if: needs.changes.outputs.embedded == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v4.2.5
+      - run: mise run install
       - name: Cache Playwright browsers
-        if: steps.browser.outputs.changed == 'true'
         uses: actions/cache@v6.1.0
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('bun.lock') }}
       - name: Install Playwright Chromium
-        if: steps.browser.outputs.changed == 'true'
         run: bunx playwright install --with-deps chromium
-      - run: mise run validate
-        env:
-          MISE_TASK_SKIP: ${{ steps.browser.outputs.changed != 'true' && 'test:browser' || '' }}
-      - continue-on-error: true
-        run: mise run agadoo
+      - run: mise run test:browser
