@@ -22,11 +22,67 @@
   "license": "MIT",
   "version": "0.0.1",
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
-    "LICENSE"
-  ]
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "prepack": "bun run build",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "check": "biome check --write .",
+    "check:ci": "biome check .",
+    "typecheck": "tsc",
+    "knip": "knip",
+    "publint": "publint",
+    "attw": "attw --pack . --profile node16",
+    "agadoo": "agadoo dist/index.mjs",
+    "size-limit": "size-limit"
+  },
+  "size-limit": [
+    {
+      "name": "index (ESM)",
+      "path": "dist/index.mjs",
+      "limit": "10 KB"
+    },
+    {
+      "name": "index (CJS)",
+      "path": "dist/index.cjs",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@biomejs/biome": "2.4.11",
+    "@size-limit/preset-small-lib": "^13.0.3",
+    "agadoo": "^3.0.0",
+    "knip": "^6.11.0",
+    "publint": "^0.3.18",
+    "size-limit": "^13.0.3",
+    "tsdown": "^0.22.1",
+    "typescript": "~6.0.3"
+  }
 }

@@ -50,10 +50,32 @@
     "packages/solis-core": {
       "name": "@prismatic-io/solis-core",
       "version": "0.0.1",
+      "devDependencies": {
+        "@arethetypeswrong/cli": "^0.18.2",
+        "@biomejs/biome": "2.4.11",
+        "@size-limit/preset-small-lib": "^13.0.3",
+        "agadoo": "^3.0.0",
+        "knip": "^6.11.0",
+        "publint": "^0.3.18",
+        "size-limit": "^13.0.3",
+        "tsdown": "^0.22.1",
+        "typescript": "~6.0.3",
+      },
     },
     "packages/solis-react": {
       "name": "@prismatic-io/solis-react",
       "version": "0.0.1",
+      "devDependencies": {
+        "@arethetypeswrong/cli": "^0.18.2",
+        "@biomejs/biome": "2.4.11",
+        "@size-limit/preset-small-lib": "^13.0.3",
+        "agadoo": "^3.0.0",
+        "knip": "^6.11.0",
+        "publint": "^0.3.18",
+        "size-limit": "^13.0.3",
+        "tsdown": "^0.22.1",
+        "typescript": "~6.0.3",
+      },
     },
   },
   "packages": {
