@@ -49,7 +49,7 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
 
-      - uses: jdx/mise-action@v4.2.5
+      - uses: jdx/mise-action@v4.3.0
 
       - run: mise run install
 
@@ -87,7 +87,7 @@ jobs:
         with:
           ref: ${{ needs.release.outputs.tag }}
 
-      - uses: jdx/mise-action@v4.2.5
+      - uses: jdx/mise-action@v4.3.0
 
       - run: mise run install
       - run: npm --prefix examples/example-embedded-app ci
@@ -103,7 +103,7 @@ jobs:
       - run: mise run validate
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v3.0.2
+        uses: softprops/action-gh-release@v3.0.3
         with:
           tag_name: ${{ needs.release.outputs.tag }}
           name: ${{ inputs.package }} v${{ needs.release.outputs.version }}
