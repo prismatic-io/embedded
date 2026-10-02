@@ -1,6 +1,6 @@
 [tools]
 "github-cli" = "2.42.1"
-bun = "1.3.12"
+bun = "1.4.2"
 node = "24"
 
 [tasks.install]
