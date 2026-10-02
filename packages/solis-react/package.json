@@ -77,12 +77,12 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",
     "@biomejs/biome": "2.4.11",
-    "@size-limit/preset-small-lib": "^13.0.3",
+    "@size-limit/preset-small-lib": "^14.0.0",
     "agadoo": "^3.0.0",
-    "knip": "^6.11.0",
+    "knip": "^6.37.0",
     "publint": "^0.3.18",
-    "size-limit": "^13.0.3",
-    "tsdown": "^0.22.1",
+    "size-limit": "^14.0.0",
+    "tsdown": "^0.23.0",
     "typescript": "~6.0.3"
   }
 }
