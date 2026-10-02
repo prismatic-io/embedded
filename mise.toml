@@ -121,7 +121,7 @@ fi
 """
 
 [tasks.release]
-description = "Trigger a release (usage: mise run release -- embedded|solis-core|solis-react patch|minor|major|preview)"
+description = "Trigger a release (usage: mise run release -- embedded|solis-core|solis-react patch|minor|major|preview [branch])"
 usage = '''
 arg "<package>" help="Package to release" {
   choices "embedded" "solis-core" "solis-react"
@@ -129,8 +129,15 @@ arg "<package>" help="Package to release" {
 arg "<bump>" help="Version bump type" {
   choices "patch" "minor" "major" "preview"
 }
+arg "[branch]" help="Branch to release from: preview/* for preview, main otherwise" default="main"
 '''
 run = """
-gh workflow run release.yml -f package="$usage_package" -f bump="$usage_bump"
-echo "Release workflow triggered for $usage_package with bump=$usage_bump"
+case "$usage_bump:$usage_branch" in
+  preview:preview/*) ;;
+  preview:*) echo "ERROR: preview releases must run from a preview/* branch (got '$usage_branch')." >&2; exit 1 ;;
+  *:main) ;;
+  *) echo "ERROR: $usage_bump releases must run from main (got '$usage_branch')." >&2; exit 1 ;;
+esac
+gh workflow run release.yml --ref "$usage_branch" -f package="$usage_package" -f bump="$usage_bump"
+echo "Release workflow triggered for $usage_package with bump=$usage_bump on $usage_branch"
 """
