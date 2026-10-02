@@ -72,7 +72,7 @@
     },
     "packages/solis-react": {
       "name": "@prismatic-io/solis-react",
-      "version": "0.0.2-preview.0",
+      "version": "0.0.2-preview.1",
       "dependencies": {
         "@prismatic-io/solis-core": "workspace:^",
       },
