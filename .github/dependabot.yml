@@ -26,8 +26,9 @@ updates:
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
 
-  # The example app remains a separate npm project with its own lockfile.
-  - package-ecosystem: "npm"
+  # The example app is a separate Bun project with its own bun.lock, outside
+  # the root workspaces.
+  - package-ecosystem: "bun"
     directory: "/examples/example-embedded-app"
     schedule:
       interval: "weekly"
@@ -37,6 +38,9 @@ updates:
       all-dependencies:
         patterns:
           - "*"
+    ignore:
+      # See the root entry: the biome.json $schema URL must be bumped manually.
+      - dependency-name: "@biomejs/biome"
 
   - package-ecosystem: "github-actions"
     directory: "/"
