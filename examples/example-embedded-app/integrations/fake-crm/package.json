@@ -1,0 +1,23 @@
+{
+  "name": "fake-crm",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "tsdown",
+    "import": "tsdown && mkdir -p .spectral && prism integrations:import",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check": "biome check ."
+  },
+  "dependencies": {
+    "@prismatic-io/spectral": "10.34.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.1",
+    "@types/node": "^24.19.1",
+    "tsdown": "0.22.3",
+    "typescript": "6.0.3",
+    "vitest": "4.1.9"
+  }
+}

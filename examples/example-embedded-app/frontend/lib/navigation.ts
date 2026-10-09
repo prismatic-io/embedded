@@ -7,6 +7,7 @@ import {
   Languages,
   LayoutDashboard,
   LayoutGrid,
+  ListChecks,
   PictureInPicture2,
   Plug,
   Settings2,
@@ -49,6 +50,11 @@ export const prismaticNav: NavItem[] = [
     title: "Custom Marketplace UI",
     to: "/examples/custom-marketplace-ui",
     icon: LayoutGrid,
+  },
+  {
+    title: "Headless Configuration",
+    to: "/examples/headless-configuration",
+    icon: ListChecks,
   },
   {
     title: "Edit Instance Configuration",

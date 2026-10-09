@@ -17,6 +17,7 @@ import { Route as ExamplesConnectionsRouteImport } from './routes/examples/conne
 import { Route as ExamplesCustomMarketplaceUiRouteImport } from './routes/examples/custom-marketplace-ui'
 import { Route as ExamplesDashboardRouteImport } from './routes/examples/dashboard'
 import { Route as ExamplesEditInstanceConfigurationRouteImport } from './routes/examples/edit-instance-configuration'
+import { Route as ExamplesHeadlessConfigurationRouteImport } from './routes/examples/headless-configuration'
 import { Route as ExamplesScreenConfigurationRouteImport } from './routes/examples/screen-configuration'
 import { Route as ExamplesTranslationsRouteImport } from './routes/examples/translations'
 import { Route as ExamplesWorkflowBuilderRouteImport } from './routes/examples/workflow-builder'
@@ -69,6 +70,12 @@ const ExamplesEditInstanceConfigurationRoute =
     path: '/examples/edit-instance-configuration',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ExamplesHeadlessConfigurationRoute =
+  ExamplesHeadlessConfigurationRouteImport.update({
+    id: '/examples/headless-configuration',
+    path: '/examples/headless-configuration',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ExamplesScreenConfigurationRoute =
   ExamplesScreenConfigurationRouteImport.update({
     id: '/examples/screen-configuration',
@@ -116,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/examples/custom-marketplace-ui': typeof ExamplesCustomMarketplaceUiRoute
   '/examples/dashboard': typeof ExamplesDashboardRoute
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
+  '/examples/headless-configuration': typeof ExamplesHeadlessConfigurationRoute
   '/examples/screen-configuration': typeof ExamplesScreenConfigurationRoute
   '/examples/translations': typeof ExamplesTranslationsRoute
   '/examples/workflow-builder': typeof ExamplesWorkflowBuilderRoute
@@ -133,6 +141,7 @@ export interface FileRoutesByTo {
   '/examples/custom-marketplace-ui': typeof ExamplesCustomMarketplaceUiRoute
   '/examples/dashboard': typeof ExamplesDashboardRoute
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
+  '/examples/headless-configuration': typeof ExamplesHeadlessConfigurationRoute
   '/examples/screen-configuration': typeof ExamplesScreenConfigurationRoute
   '/examples/translations': typeof ExamplesTranslationsRoute
   '/examples/workflow-builder': typeof ExamplesWorkflowBuilderRoute
@@ -151,6 +160,7 @@ export interface FileRoutesById {
   '/examples/custom-marketplace-ui': typeof ExamplesCustomMarketplaceUiRoute
   '/examples/dashboard': typeof ExamplesDashboardRoute
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
+  '/examples/headless-configuration': typeof ExamplesHeadlessConfigurationRoute
   '/examples/screen-configuration': typeof ExamplesScreenConfigurationRoute
   '/examples/translations': typeof ExamplesTranslationsRoute
   '/examples/workflow-builder': typeof ExamplesWorkflowBuilderRoute
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/examples/custom-marketplace-ui'
     | '/examples/dashboard'
     | '/examples/edit-instance-configuration'
+    | '/examples/headless-configuration'
     | '/examples/screen-configuration'
     | '/examples/translations'
     | '/examples/workflow-builder'
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/examples/custom-marketplace-ui'
     | '/examples/dashboard'
     | '/examples/edit-instance-configuration'
+    | '/examples/headless-configuration'
     | '/examples/screen-configuration'
     | '/examples/translations'
     | '/examples/workflow-builder'
@@ -204,6 +216,7 @@ export interface FileRouteTypes {
     | '/examples/custom-marketplace-ui'
     | '/examples/dashboard'
     | '/examples/edit-instance-configuration'
+    | '/examples/headless-configuration'
     | '/examples/screen-configuration'
     | '/examples/translations'
     | '/examples/workflow-builder'
@@ -222,6 +235,7 @@ export interface RootRouteChildren {
   ExamplesCustomMarketplaceUiRoute: typeof ExamplesCustomMarketplaceUiRoute
   ExamplesDashboardRoute: typeof ExamplesDashboardRoute
   ExamplesEditInstanceConfigurationRoute: typeof ExamplesEditInstanceConfigurationRoute
+  ExamplesHeadlessConfigurationRoute: typeof ExamplesHeadlessConfigurationRoute
   ExamplesScreenConfigurationRoute: typeof ExamplesScreenConfigurationRoute
   ExamplesTranslationsRoute: typeof ExamplesTranslationsRoute
   ExamplesWorkflowBuilderRoute: typeof ExamplesWorkflowBuilderRoute
@@ -289,6 +303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExamplesEditInstanceConfigurationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/examples/headless-configuration': {
+      id: '/examples/headless-configuration'
+      path: '/examples/headless-configuration'
+      fullPath: '/examples/headless-configuration'
+      preLoaderRoute: typeof ExamplesHeadlessConfigurationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/examples/screen-configuration': {
       id: '/examples/screen-configuration'
       path: '/examples/screen-configuration'
@@ -351,6 +372,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExamplesDashboardRoute: ExamplesDashboardRoute,
   ExamplesEditInstanceConfigurationRoute:
     ExamplesEditInstanceConfigurationRoute,
+  ExamplesHeadlessConfigurationRoute: ExamplesHeadlessConfigurationRoute,
   ExamplesScreenConfigurationRoute: ExamplesScreenConfigurationRoute,
   ExamplesTranslationsRoute: ExamplesTranslationsRoute,
   ExamplesWorkflowBuilderRoute: ExamplesWorkflowBuilderRoute,

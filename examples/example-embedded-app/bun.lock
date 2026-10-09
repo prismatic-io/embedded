@@ -10,6 +10,7 @@
         "@ai-sdk/react": "^4.0.105",
         "@fontsource-variable/geist": "^5.3.0",
         "@prismatic-io/embedded": "^4.14.0",
+        "@prismatic-io/solis-react": "0.0.2-preview.1",
         "@prismatic-io/translations": "^2.14.1",
         "@tailwindcss/vite": "^4.1.18",
         "@tanstack/react-devtools": "latest",
@@ -17,6 +18,7 @@
         "@tanstack/react-router-devtools": "latest",
         "@tanstack/react-start": "latest",
         "ai": "^7.0.102",
+        "capnweb": "^0.12.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "lucide-react": "^1.35.0",
@@ -236,6 +238,10 @@
     "@oxc-project/types": ["@oxc-project/types@0.151.0", "", {}, "sha512-J1yXrIlNDZVzE3ada310xeAw7nH8yCAyLPuUIsjKatFPmfn5bS1oW+cM+QsGOtVWd5nhSpbwZWx/rue+r5Z+PA=="],
 
     "@prismatic-io/embedded": ["@prismatic-io/embedded@4.14.0", "", { "dependencies": { "@prismatic-io/translations": "^2.10.0", "json-schema-to-typescript": "^15.0.0", "lodash.merge": "4.6.2", "url-join": "5.0.0" }, "bin": { "generate-types": "bin/generate-types.js" } }, "sha512-Hra/hPcdyYtheETv+r7dJat2mA+u0NcG2EIN86sCwdeDSnIcNnnY0h+TWI4hgX8LCW4IJO/eMDrSb/XnVwv/pA=="],
+
+    "@prismatic-io/solis-core": ["@prismatic-io/solis-core@0.0.2-preview.0", "", { "peerDependencies": { "capnweb": ">=0.12.0 <1.0.0" } }, "sha512-PMgPHiEUFAjCsghblEilFjz+yveNscb1nKg3Sgb3UZwI/Oh9NO5Ib8XgT3mv0PcrGOw7Q+NU2RPOlU8d0CeAhA=="],
+
+    "@prismatic-io/solis-react": ["@prismatic-io/solis-react@0.0.2-preview.1", "", { "dependencies": { "@prismatic-io/solis-core": "^0.0.2-preview.0" }, "peerDependencies": { "capnweb": ">=0.12.0 <1.0.0", "react": "^18.0.0 || ^19.0.0" } }, "sha512-QOBG40XCabkkdYD+zViAEpQUcwqc6NCEeHH3uQl5lpIvK2FoAuipaohrM+3E2Ph/pNhipZ9o8ELFKPoxAv5HHw=="],
 
     "@prismatic-io/translations": ["@prismatic-io/translations@2.14.3", "", {}, "sha512-k6StEekOPtAgi/tjOGEiqz7sUk8SSzYL4Gv9R8kpCIw63krbJ+P4UooMraxuLhrF3lJ9G9k+ZMJ4dS2mOJl1kQ=="],
 
@@ -632,6 +638,8 @@
     "callsites": ["callsites@3.1.0", "", {}, "sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ=="],
 
     "caniuse-lite": ["caniuse-lite@1.0.30001813", "", {}, "sha512-zfjJo4rM0+fUomGDBW/xcDjhIwz/210DGvip2MAMDZ8KHcRPnOHmEgHPZP0UHlZoxr8fYKVJOqcORhYQcG4FKQ=="],
+
+    "capnweb": ["capnweb@0.12.0", "", {}, "sha512-jgZ/LMtMVTi+RVlooIslH78Gg23XbDTdvcLghWx3oz17D6u5GuJARt+uhZk/wcTo+f81eeabfnow4d3zLBj+JQ=="],
 
     "ccount": ["ccount@2.0.1", "", {}, "sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg=="],
 
