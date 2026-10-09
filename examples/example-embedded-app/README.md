@@ -20,6 +20,7 @@ That text comes from [`frontend/components/helper-text/`](frontend/components/he
 | [`basic-embedded-marketplace.tsx`](frontend/routes/examples/basic-embedded-marketplace.tsx) | `showMarketplace` in an iframe inside the page.                            |
 | [`basic-marketplace-popover.tsx`](frontend/routes/examples/basic-marketplace-popover.tsx)   | `showMarketplace` in a popover above the page.                             |
 | [`custom-marketplace-ui.tsx`](frontend/routes/examples/custom-marketplace-ui.tsx)           | `graphqlRequest` to build your own marketplace UI.                         |
+| [`headless-configuration.tsx`](frontend/routes/examples/headless-configuration.tsx)         | Headless configuration with `@prismatic-io/solis-react`. Needs setup below. |
 | [`screen-configuration.tsx`](frontend/routes/examples/screen-configuration.tsx)             | `screenConfiguration` options, with live controls.                         |
 | [`translations.tsx`](frontend/routes/examples/translations.tsx)                             | Phrase overrides and other languages.                                      |
 | [`connections.tsx`](frontend/routes/examples/connections.tsx)                               | `showConnections` for reusable connections.                                |
@@ -96,6 +97,33 @@ Four things to know:
 - **The app shell shows the same user as the JWT.**
   Without a valid `.env.local`, the shell shows "Guest".
 
+## Set up the headless configuration example
+
+The **Headless Configuration** page configures an integration with this app's own UI instead of Prismatic's configuration wizard.
+It needs the **Fake CRM** integration in your organization's marketplace.
+That integration's source is in [`integrations/fake-crm/`](integrations/fake-crm).
+It needs no connections: Fake CRM's records are static sample data.
+
+You need the [Prism CLI](https://prismatic.io/docs/cli/) 10.5.0 or later, logged in to your organization.
+
+```bash
+cd integrations/fake-crm
+bun install
+bun run import    # builds the integration and imports it into Prismatic
+```
+
+Then, in Prismatic, publish the integration and make that version available and deployable in your marketplace.
+Or use Prism, with the integration ID that `bun run import` printed:
+
+```bash
+prism integrations:publish <integration-id>
+prism integrations:marketplace <version-id> --available --deployable
+```
+
+The integration's configuration is in [`integrations/fake-crm/src/configuration.ts`](integrations/fake-crm/src/configuration.ts).
+It defines the schema, an `init` function that suggests values, and three server functions.
+The app's form is in [`frontend/components/headless/fake-crm-configuration-form.tsx`](frontend/components/headless/fake-crm-configuration-form.tsx).
+
 ## Where everything else is
 
 The app is split in two at the top level:
@@ -120,6 +148,7 @@ dev-server plugins, so they run under `bun run dev` only.
 | `frontend/lib/navigation.ts`                             | The sidebar links. Add each new example here.         |
 | `frontend/lib/session.ts`                                | The signed-in user, read on the server.               |
 | `frontend/routes/placeholder/`                           | Static CRM pages. No Prismatic code.                  |
+| `integrations/fake-crm/`                                 | The code-native integration the headless example configures. |
 | `frontend/components/`                                   | Shell components: sidebar, header, theme toggle.      |
 | `frontend/components/ui/`                                | Unmodified shadcn/ui parts. **Skip this folder.**     |
 

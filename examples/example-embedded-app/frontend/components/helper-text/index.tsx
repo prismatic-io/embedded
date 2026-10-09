@@ -29,7 +29,7 @@ const SOURCE_URL =
   "https://github.com/prismatic-io/embedded/blob/main/examples/example-embedded-app";
 
 /** A path to a file in this app, such as `frontend/lib/phrases.ts`. */
-const SOURCE_PATH = /^(frontend|server)\/[\w./-]+$/;
+const SOURCE_PATH = /^(frontend|server|integrations)\/[\w./-]+$/;
 
 /**
  * Inline code that names a file in this app links to that file on GitHub.
@@ -63,6 +63,7 @@ type MarkdownFileId =
   | "custom-marketplace-ui"
   | "dashboard"
   | "edit-instance-configuration"
+  | "headless-configuration"
   | "screen-configuration"
   | "translations"
   | "workflow-builder"
