@@ -40,6 +40,8 @@ test("flow reads share state, selected keys replace and clear, rename streams, a
             id: "flow",
             name: "Receive order",
             stableId: null,
+            scheduleFromDeployer: false,
+            schedule: null,
             webhookUrl: "https://example.com/webhook",
             apiKeys: ["old"],
             endpointSecurityType: "API_KEY",

@@ -200,6 +200,8 @@ export const toFakeStores = (world: World): FakeStores => {
           id: flow.id,
           name: flow.name,
           stableId: null,
+          scheduleFromDeployer: false,
+          schedule: null,
           webhookUrl: flow.webhookUrl,
           apiKeys: [...flow.apiKeys],
           endpointSecurityType: flow.endpointSecurityType,

@@ -7,8 +7,10 @@
 
 export type {
   ConfigurationExperience,
+  ConfigurationFlow,
   ConnectionKind,
   ConnectionStatus,
+  FlowSchedule,
   HostApi,
   InstanceFlow,
   InstanceLifecycle,

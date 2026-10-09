@@ -1,6 +1,10 @@
 /** The marketplace: integrations a customer can browse and deploy. */
 
-import type { CreateInstanceInput, Instance } from "./configuration.js";
+import type {
+  ConfigurationFlow,
+  CreateInstanceInput,
+  Instance,
+} from "./configuration.js";
 import type { ConditionalExpression } from "./filters.js";
 import type { Permission } from "./permissions.js";
 
@@ -56,6 +60,8 @@ export interface MarketplaceIntegrationState {
    * instance exists. Route an open configuration by the version actually being configured.
    */
   configurationExperience: ConfigurationExperience;
+  /** Flows of the offered marketplace version, not necessarily the instance's version. */
+  flows: readonly ConfigurationFlow[];
   /** When `false`, `createInstance()` rejects once one instance exists. */
   allowMultipleInstances: boolean;
   isCustomerDeployable: boolean;
