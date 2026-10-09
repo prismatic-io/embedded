@@ -114,8 +114,8 @@
       "limit": "10.5 KB"
     }
   ],
-  "peerDependencies": {
-    "capnweb": ">=0.12.0 <1.0.0"
+  "dependencies": {
+    "capnweb": "0.12.0"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",
@@ -123,7 +123,6 @@
     "@size-limit/preset-small-lib": "^13.0.3",
     "@types/node": "^25.5.2",
     "agadoo": "^3.0.0",
-    "capnweb": "0.12.0",
     "jsdom": "^30.0.1",
     "knip": "^6.11.0",
     "publint": "^0.3.18",
