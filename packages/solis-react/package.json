@@ -85,7 +85,6 @@
     "@prismatic-io/solis-core": "workspace:^"
   },
   "peerDependencies": {
-    "capnweb": ">=0.12.0 <1.0.0",
     "react": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
