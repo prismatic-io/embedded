@@ -50,13 +50,15 @@
     "packages/solis-core": {
       "name": "@prismatic-io/solis-core",
       "version": "0.0.2-preview.0",
+      "dependencies": {
+        "capnweb": "0.12.0",
+      },
       "devDependencies": {
         "@arethetypeswrong/cli": "^0.18.2",
         "@biomejs/biome": "2.4.11",
         "@size-limit/preset-small-lib": "^13.0.3",
         "@types/node": "^25.5.2",
         "agadoo": "^3.0.0",
-        "capnweb": "0.12.0",
         "jsdom": "^30.0.1",
         "knip": "^6.11.0",
         "publint": "^0.3.18",
@@ -65,9 +67,6 @@
         "typescript": "~6.0.3",
         "vitest": "4.1.10",
         "zod": "^3.25.76",
-      },
-      "peerDependencies": {
-        "capnweb": ">=0.12.0 <1.0.0",
       },
     },
     "packages/solis-react": {
@@ -98,7 +97,6 @@
         "vitest": "4.1.10",
       },
       "peerDependencies": {
-        "capnweb": ">=0.12.0 <1.0.0",
         "react": "^18.0.0 || ^19.0.0",
       },
     },
