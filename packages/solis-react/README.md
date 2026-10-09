@@ -243,6 +243,10 @@ missing them. A list item shares the entry, so a row shows keys once a detail vi
 has loaded them, and listing again keeps them. If reading the keys fails, the instance
 is still ready and those flows stay without `apiKeys`; `refresh` reads them again.
 
+Flows also expose `scheduleFromDeployer` and their saved `schedule`:
+`{ expression, timezone }`, or `null` if no schedule is configured. An expression
+is a cron string, `"once"`, or `"none"` to disable scheduled executions.
+
 `updateDetails.execute({ name?, flows? })` renames the instance or replaces a flow's
 API keys, as `{ flowId, apiKeys }`. Omitted fields stay as they are, and an empty
 `apiKeys` clears that flow's keys.
@@ -267,6 +271,33 @@ Actions are `init`, `save` and `refresh`. `init` returns the integration author'
 suggested values; mapping them to form values is up to you. `save({ value })` stores
 values. On a newer version it also moves the instance to that version. Deploying
 stays on the instance.
+
+### Flow schedules
+
+`configuration.data.flows` describes the version being configured, including each
+flow's `id`, `name`, `stableId`, and `scheduleFromDeployer`. Marketplace
+`data.flows` describes the offered version; instance `data.flows` describes the
+saved version and includes saved schedules. Use target-version IDs when saving
+an upgrade; stable IDs can associate saved flows with their target counterparts.
+
+```tsx
+await configuration.actions.save.execute({
+  value: formValues,
+  flows: [
+    {
+      flowId: selectedFlow.id,
+      schedule: { expression: "0 9 * * *", timezone: "America/Phoenix" },
+    },
+  ],
+});
+```
+
+Omit `flows`, or individual flows, to retain existing schedules. A newly required
+deployer schedule must be supplied before configuration can be completed. Use
+`{ expression: "none" }` to disable scheduled executions, not a null schedule.
+Omitted or null timezones use UTC. The platform validates schedules and retains
+them across version changes for flows with the same stable identity.
+Saving schedules and values is one operation; deployment remains separate.
 
 ```tsx
 const Configure = ({ instanceId, integrationVersionId }: Props) => {

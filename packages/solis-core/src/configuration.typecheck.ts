@@ -15,6 +15,15 @@ const configurationContract = (resource: ConfigurationResource) => {
     resource.actions.save.execute({ value: {} });
   resource.actions.save.execute({
     value: {},
+    flows: [{ flowId: "flow-id", schedule: { expression: "once" } }],
+  });
+  resource.actions.save.execute({
+    value: {},
+    // @ts-expect-error Schedules need an expression, not the obsolete cron input.
+    flows: [{ flowId: "flow-id", schedule: { cron: "0 9 * * *" } }],
+  });
+  resource.actions.save.execute({
+    value: {},
     // @ts-expect-error The version is the configuration's scope, not a save input.
     targetIntegrationVersionId: "version-id",
   });

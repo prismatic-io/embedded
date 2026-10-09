@@ -1,4 +1,7 @@
-import type { ConfigurationResource } from "@prismatic-io/solis-core";
+import type {
+  ConfigurationResource,
+  SaveConfigurationInput,
+} from "@prismatic-io/solis-core";
 import {
   type FakeConfigurationSeed,
   type FakeFrame,
@@ -80,6 +83,77 @@ const loaded = async () => {
   await waitFor(() => expect(hook.result.current.status).toBe("success"));
   return hook;
 };
+
+test("target-version schedule requirements and schedule saves cross the React RPC boundary", async () => {
+  const flows = [
+    {
+      id: "target-flow",
+      name: "Daily sync",
+      stableId: "stable-flow",
+      scheduleFromDeployer: true,
+    },
+  ];
+  const saves: SaveConfigurationInput[] = [];
+  seed(
+    {},
+    {
+      "int-2": {
+        schema: {},
+        flows,
+        beforeSave: (input) => {
+          saves.push(input);
+        },
+      },
+    },
+  );
+  const hook = renderHook(
+    () => ({
+      configuration: useConfiguration({
+        instanceId: "inst-1",
+        integrationVersionId: "int-2",
+      }),
+      instance: useInstance("inst-1"),
+    }),
+    { wrapper: Wrapper },
+  );
+  await waitFor(() => {
+    expect(hook.result.current.configuration.status).toBe("success");
+    expect(hook.result.current.instance.status).toBe("success");
+  });
+  expect(success(hook.result.current.configuration).data.flows).toEqual(flows);
+  const input: SaveConfigurationInput = {
+    value: { region: "us" },
+    flows: [{ flowId: flows[0].id, schedule: { expression: "none" } }],
+  };
+  await act(async () => {
+    expect(
+      await hook.result.current.configuration.actions.save.execute(input),
+    ).toEqual({
+      status: "success",
+      data: undefined,
+    });
+  });
+  expect(saves).toEqual([input]);
+  await waitFor(() => {
+    const instance = hook.result.current.instance;
+    expect(instance.status).toBe("success");
+    if (instance.status === "success")
+      expect(instance.data.flows[0]).toMatchObject({
+        id: flows[0].id,
+        schedule: input.flows?.[0].schedule,
+      });
+  });
+  await act(async () => {
+    await hook.result.current.configuration.actions.save.execute({
+      value: input.value,
+    });
+  });
+  const instance = hook.result.current.instance;
+  expect(instance.status).toBe("success");
+  if (instance.status === "success")
+    expect(instance.data.flows[0].schedule).toEqual(input.flows?.[0].schedule);
+});
+
 /** A configuration and server functions of it, each its own action. */
 const withFunctions = async (
   keys: readonly string[],

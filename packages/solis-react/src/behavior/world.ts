@@ -477,6 +477,8 @@ export const installBackend = async (
     id: flow.id,
     name: flow.name,
     stableId: null,
+    scheduleFromDeployer: false,
+    schedule: null,
     webhookUrl: `https://hooks.example.test/${instanceId}/${flow.id}`,
     apiKeys: [...(flow.apiKeys ?? [])],
     endpointSecurityType: "CUSTOMER_OPTIONAL",

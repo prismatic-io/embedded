@@ -79,10 +79,22 @@ export interface InstancePermissions {
   remove: Permission<ConfigurationPermissionReason>;
 }
 
-export interface InstanceFlow {
+export interface FlowSchedule {
+  /** A cron expression, "once", or "none" to disable scheduled executions. */
+  expression: string;
+  /** Null or omitted uses UTC. */
+  timezone?: string | null;
+}
+
+export interface ConfigurationFlow {
   id: string;
   name: string;
   stableId: string | null;
+  scheduleFromDeployer: boolean;
+}
+
+export interface InstanceFlow extends ConfigurationFlow {
+  schedule: FlowSchedule | null;
   webhookUrl: string;
   /**
    * Absent until a detail read of this instance loads it: {@link Instance.refreshDetail}, or
@@ -150,6 +162,8 @@ export interface ConfigurationState {
   needsDeploy: boolean;
   schema: JsonSchema;
   uiSchema: JsonSchema | null;
+  /** Flows of this configuration's target version, including schedule requirements. */
+  flows: readonly ConfigurationFlow[];
   configurationVersion: string | null;
   deployedConfigurationVersion: string | null;
   serverFunctions: readonly ConfigurationServerFunction[];
@@ -194,6 +208,8 @@ export interface InitializeConfigurationInput {
 /** Saving a configuration for a newer version also moves the instance to it. */
 export interface SaveConfigurationInput {
   value: unknown;
+  /** Target-version flow IDs. Omitted flows retain their schedules across upgrades. */
+  flows?: readonly { flowId: string; schedule: FlowSchedule }[];
 }
 
 export interface SaveUserConfigurationInput {

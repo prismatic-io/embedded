@@ -364,6 +364,8 @@ test("flow API keys a detail read loaded stay with that session, even for the sa
             id: "flow-a",
             name: "A",
             stableId: null,
+            scheduleFromDeployer: false,
+            schedule: null,
             webhookUrl: "https://hooks.example.test/a",
             apiKeys: ["key-a"],
             endpointSecurityType: "CUSTOMER_OPTIONAL",

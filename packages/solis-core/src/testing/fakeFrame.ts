@@ -293,6 +293,7 @@ export interface FakeConnectionRequirements {
 
 export interface FakeConfigurationSeed {
   schema: JsonSchema;
+  flows?: ConfigurationState["flows"];
   uiSchema?: JsonSchema;
   configurationVersion?: string;
   /** The integration's name; defaults to the listing's, or the version id. */
@@ -761,6 +762,7 @@ export const fakeIntegrationState = (
   marketplaceConfiguration: "AVAILABLE_AND_DEPLOYABLE",
   marketplaceAvailableVersion: null,
   configurationExperience: "headless",
+  flows: [],
   allowMultipleInstances: false,
   isCustomerDeployable: true,
   userLevelConfigured: false,
@@ -1291,6 +1293,7 @@ class FakeConfiguration extends RpcTarget implements ConfigurationTarget {
         (record.deployed ? record.integrationVersionNumber : null),
       schema: seed.schema,
       uiSchema: seed.uiSchema ?? null,
+      flows: seed.flows ?? listing?.flows ?? [],
       configurationVersion: seed.configurationVersion ?? null,
       deployedConfigurationVersion: record.deployedConfigurationVersion ?? null,
       serverFunctions: (seed.serverFunctions ?? []).map(
@@ -1374,8 +1377,34 @@ class FakeConfiguration extends RpcTarget implements ConfigurationTarget {
         };
       const record = this.#record();
       const moving = integrationId !== record.integrationId;
+      const flows = (seed.flows ?? record.flows).map((definition) => {
+        const previous = record.flows.find(
+          (flow) =>
+            flow.id === definition.id ||
+            (definition.stableId !== null &&
+              flow.stableId === definition.stableId),
+        );
+        return {
+          webhookUrl: "",
+          endpointSecurityType: "CUSTOMER_OPTIONAL",
+          permissions: {
+            updateApiKeys: {
+              allowed: true as const,
+              reason: null,
+            },
+          },
+          ...previous,
+          ...definition,
+          schedule:
+            input.flows?.find(({ flowId }) => flowId === definition.id)
+              ?.schedule ??
+            previous?.schedule ??
+            null,
+        };
+      });
       this.stores.instances.commit({
         ...record,
+        flows,
         value: input.value,
         deployedVersion:
           record.deployedVersion ??

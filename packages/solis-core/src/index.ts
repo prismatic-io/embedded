@@ -4,12 +4,14 @@
 // what `serverInfo` and `hasFeature` hand back. Everything else comes from the protocol package.
 export type {
   ConfigurationConnectionSelection,
+  ConfigurationFlow,
   ConfigurationOperationError,
   ConfigurationPermissionReason,
   ConfigurationPermissions,
   ConfigurationScopeInput,
   ConfigurationServerFunction,
   FeatureName,
+  FlowSchedule,
   HostApi,
   InitializeConfigurationInput,
   InvokeConfigurationFunctionInput,
