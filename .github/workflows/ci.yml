@@ -44,7 +44,7 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('bun.lock') }}
       - name: Install Playwright Chromium
-        run: bunx playwright install --with-deps chromium
+        run: bun run --cwd packages/embedded playwright install --with-deps chromium
       - run: mise run validate
       - continue-on-error: true
         run: mise run agadoo
