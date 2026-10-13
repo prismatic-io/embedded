@@ -10,7 +10,7 @@
     "check": "biome check ."
   },
   "dependencies": {
-    "@prismatic-io/spectral": "10.34.1",
+    "@prismatic-io/spectral": "10.35.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {

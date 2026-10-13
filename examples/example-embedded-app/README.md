@@ -104,7 +104,17 @@ It needs the **Fake CRM** integration in your organization's marketplace.
 That integration's source is in [`integrations/fake-crm/`](integrations/fake-crm).
 It needs no connections: Fake CRM's records are static sample data.
 
-You need the [Prism CLI](https://prismatic.io/docs/cli/) 10.5.0 or later, logged in to your organization.
+Headless configuration is available for code-native integrations only. Your organization must have the `headlessConfiguration` feature enabled before importing or publishing one; contact Prismatic to enable it.
+
+Install the current [Prism CLI](https://prismatic.io/docs/cli/) and log in to your organization. The integration pins published Spectral `10.35.0`; the app pins Solis Core `0.0.2-preview.1` and Solis React `0.0.2-preview.2`. Solis is still a preview.
+
+For a new integration, select headless configuration explicitly (`hosted` is the default):
+
+```bash
+prism integrations:init my-integration --configuration-type headless
+```
+
+To use the provided Fake CRM integration:
 
 ```bash
 cd integrations/fake-crm
@@ -122,6 +132,9 @@ prism integrations:marketplace <version-id> --available --deployable
 
 The integration's configuration is in [`integrations/fake-crm/src/configuration.ts`](integrations/fake-crm/src/configuration.ts).
 It defines the schema, an `init` function that suggests values, and three server functions.
+The authored layout uses `ui: { type: "uiSchema", value: ... }`; the published Solis configuration resource exposes that layout as `data.uiSchema`.
+`init` returns `configuration` and, when user-level configuration is defined, `userConfiguration`. It can include extra app metadata. Its result is not runtime-validated against the configuration schema, and it saves nothing.
+The app explicitly saves the reviewed configuration (which validates and persists it), then deploys the instance to make those values live.
 The app's form is in [`frontend/components/headless/fake-crm-configuration-form.tsx`](frontend/components/headless/fake-crm-configuration-form.tsx).
 
 ## Where everything else is
@@ -158,6 +171,7 @@ dev-server plugins, so they run under `bun run dev` only.
 | ------------------------- | --------------------------------------- |
 | `bun run dev`             | Start the development server.           |
 | `bun run build`           | Build for production.                   |
+| `bun run typecheck`       | Check TypeScript without emitting files. |
 | `bun run generate-routes` | Regenerate `frontend/routeTree.gen.ts`. |
 | `bun run check`           | Lint and format with Biome.             |
 

@@ -461,9 +461,9 @@ function InstanceSetup({ instanceId }: { instanceId: string }) {
   );
 }
 
-/** What `init` returns for the Fake CRM integration. Its author chose this shape. */
+/** The configuration proposal and extra review metadata returned by Fake CRM's `init`. */
 interface InitProposal {
-  migratedValues: FakeCrmConfiguration;
+  configuration: FakeCrmConfiguration;
   unresolvedReasons?: string[];
 }
 
@@ -551,7 +551,7 @@ function Editor({
           ) : null}
           <FakeCrmConfigurationForm
             configuration={configuration}
-            initialValues={proposal.migratedValues}
+            initialValues={proposal.configuration}
             busy={busy}
             submitLabel={submitLabel}
             fieldErrors={fieldErrors}

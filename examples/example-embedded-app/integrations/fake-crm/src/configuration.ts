@@ -120,18 +120,21 @@ export const integrationConfiguration = configuration({
      * configuration; your app may read it. The example app reads the order of
      * the field mapping controls, since JSON Schema properties have no order.
      */
-    uiSchema: {
-      type: "VerticalLayout",
-      elements: [
-        { type: "Control", scope: "#/properties/recordType" },
-        {
-          type: "Group",
-          label: "Field mapping",
-          elements: ["email", "firstName", "lastName", "phone", "company", "jobTitle"].map(
-            (key) => ({ type: "Control", scope: `#/properties/fieldMapping/properties/${key}` }),
-          ),
-        },
-      ],
+    ui: {
+      type: "uiSchema",
+      value: {
+        type: "VerticalLayout",
+        elements: [
+          { type: "Control", scope: "#/properties/recordType" },
+          {
+            type: "Group",
+            label: "Field mapping",
+            elements: ["email", "firstName", "lastName", "phone", "company", "jobTitle"].map(
+              (key) => ({ type: "Control", scope: `#/properties/fieldMapping/properties/${key}` }),
+            ),
+          },
+        ],
+      },
     },
   },
   serverFunctions: {
@@ -142,7 +145,7 @@ export const integrationConfiguration = configuration({
   init: {
     /**
      * Suggests values for your app to show in its form. It saves nothing. The
-     * shape of what it returns is up to you; your app is what reads it.
+     * result includes configuration; extra metadata helps your app explain it.
      */
     perform: async (context) => {
       const defaults: Configuration = { recordType: "Lead", fieldMapping: DEFAULT_MAPPINGS.Lead };
@@ -152,7 +155,7 @@ export const integrationConfiguration = configuration({
         // so check whether anything valid has been saved before using it.
         const saved = configurationSchema.safeParse(context.configuration);
         return {
-          migratedValues: saved.success ? saved.data : defaults,
+          configuration: saved.success ? saved.data : defaults,
           unresolvedReasons: [],
         };
       }
@@ -160,7 +163,7 @@ export const integrationConfiguration = configuration({
       // `null` means the instance was configured with config pages, which this
       // integration never had. Any other version is one this code doesn't know.
       return {
-        migratedValues: defaults,
+        configuration: defaults,
         unresolvedReasons: [
           `Saved configuration version "${String(context.configurationVersion)}" is unknown. Review the suggested values.`,
         ],
@@ -170,14 +173,9 @@ export const integrationConfiguration = configuration({
 });
 
 /**
- * Turns on the configuration in flow contexts and types `context.configuration`
- * from the schema above.
+ * Types `context.configuration` in flow contexts from the schema above.
  */
 declare module "@prismatic-io/spectral" {
-  interface Experimental {
-    integrationConfiguration: true;
-  }
-
   interface IntegrationDefinitionConfiguration extends TIntegrationConfiguration {}
 }
 

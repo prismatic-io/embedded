@@ -6,14 +6,15 @@ The page uses `@prismatic-io/solis-react`. Its `PrismaticProvider` takes the sam
 
 - `useMarketplace` lists the integrations, and `useMarketplaceIntegration` activates one with `createInstance`.
 - `useConfiguration` returns the integration's configuration schema and its server functions.
-- `init` suggests starting values. `save` stores the customer's values, and the instance's `deploy` makes them live.
+- `init` returns proposed `configuration` (and `userConfiguration` when the integration defines user-level configuration). It may also return metadata for the app, such as reasons to review a proposal. It neither saves nor deploys, and its result is not runtime-validated against the configuration schema.
+- `save` explicitly stores the customer's values, and the instance's `deploy` makes them live.
 - `useServerFunction` calls functions the integration defines. Here they list Fake CRM record types and fields, and preview the Acme contact a mapping makes.
 
 An integration whose version uses a config wizard reports `configurationExperience: "hosted"`. For those, the page renders `<HostedConfiguration>`, Prismatic's wizard.
 
 ## Set it up
 
-The page needs the **Fake CRM** integration in your organization's marketplace. Its source is in `integrations/fake-crm/`. From that directory, run `bun install` and `bun run import`, then publish the integration and make it available in your marketplace.
+The page needs the **Fake CRM** code-native integration in your organization's marketplace, and your organization needs the `headlessConfiguration` feature enabled before import or publish. Its source is in `integrations/fake-crm/`. From that directory, run `bun install` and `bun run import`, then publish the integration and make it available in your marketplace. See the README for installation and marketplace commands.
 
 ## Read the code
 
