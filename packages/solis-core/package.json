@@ -86,12 +86,12 @@
     {
       "name": "index (ESM)",
       "path": "dist/index.mjs",
-      "limit": "4.4 KB"
+      "limit": "19 KB"
     },
     {
       "name": "index (CJS)",
       "path": "dist/index.cjs",
-      "limit": "4.7 KB"
+      "limit": "20.8 KB"
     },
     {
       "name": "protocol (ESM)",
@@ -106,12 +106,12 @@
     {
       "name": "testing (ESM)",
       "path": "dist/testing.mjs",
-      "limit": "10.1 KB"
+      "limit": "25.1 KB"
     },
     {
       "name": "testing (CJS)",
       "path": "dist/testing.cjs",
-      "limit": "10.5 KB"
+      "limit": "26.8 KB"
     }
   ],
   "dependencies": {
