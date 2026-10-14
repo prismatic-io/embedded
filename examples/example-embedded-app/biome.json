@@ -16,7 +16,8 @@
       "!frontend/routeTree.gen.ts",
       "!frontend/styles.css",
       "!frontend/components/ui",
-      "!dist"
+      "!dist",
+      "!integrations"
     ]
   },
   "formatter": {
