@@ -2,6 +2,7 @@ import {
   type ConfigurationResource,
   PrismaticProvider as HeadlessProvider,
   HostedConfiguration,
+  type InstanceResource,
   type ListItem,
   type MarketplaceIntegrationResource,
   type Result,
@@ -150,7 +151,7 @@ function IntegrationCard({
   }
   const integration = item.data;
   // Each listing carries the customer's instances as live instance resources.
-  const [instance] = integration.instances;
+  const instance = currentInstance(integration.instances);
   const lifecycle =
     instance?.status === "success"
       ? LIFECYCLE_LABELS[instance.data.lifecycle]
@@ -242,6 +243,23 @@ function IntegrationAvatar({
   );
 }
 
+/**
+ * The customer's instance of an integration, skipping any that were just
+ * removed. A removed instance's resource turns to `PRISMATIC_INSTANCE_REMOVED`
+ * right away, and can stay in the listing until the listing reloads.
+ */
+function currentInstance<T extends ListItem<InstanceResource>>(
+  instances: readonly T[],
+): T | undefined {
+  return instances.find(
+    (instance) =>
+      !(
+        instance.status === "error" &&
+        instance.error.code === "PRISMATIC_INSTANCE_REMOVED"
+      ),
+  );
+}
+
 /** One integration: activate it, or manage the instance the customer has. */
 function IntegrationSetup({
   integrationId,
@@ -296,7 +314,7 @@ function IntegrationSetup({
   const { name, overview, description, instances, permissions } =
     integration.data;
   const { createInstance } = integration.actions;
-  const [instance] = instances;
+  const instance = currentInstance(instances);
 
   return (
     <div className="flex h-full flex-col gap-6 overflow-y-auto pb-8">
@@ -454,16 +472,16 @@ function InstanceSetup({ instanceId }: { instanceId: string }) {
       instanceId={instanceId}
       acmeFields={acmeFieldsFromSchema(
         configuration.data.schema,
-        configuration.data.uiSchema,
+        configuration.data.ui,
       )}
       onEdit={() => setEditing(true)}
     />
   );
 }
 
-/** What `init` returns for the Fake CRM integration. Its author chose this shape. */
+/** The configuration proposal and extra review metadata returned by Fake CRM's `init`. */
 interface InitProposal {
-  migratedValues: FakeCrmConfiguration;
+  configuration: FakeCrmConfiguration;
   unresolvedReasons?: string[];
 }
 
@@ -551,7 +569,7 @@ function Editor({
           ) : null}
           <FakeCrmConfigurationForm
             configuration={configuration}
-            initialValues={proposal.migratedValues}
+            initialValues={proposal.configuration}
             busy={busy}
             submitLabel={submitLabel}
             fieldErrors={fieldErrors}

@@ -104,7 +104,23 @@ It needs the **Fake CRM** integration in your organization's marketplace.
 That integration's source is in [`integrations/fake-crm/`](integrations/fake-crm).
 It needs no connections: Fake CRM's records are static sample data.
 
-You need the [Prism CLI](https://prismatic.io/docs/cli/) 10.5.0 or later, logged in to your organization.
+Headless configuration is available for code-native integrations only.
+Your organization needs the `headlessConfiguration` feature enabled before you import or publish one.
+Contact Prismatic to enable it.
+
+The integration uses Spectral `10.35.0`, and the app uses Solis React `0.0.2-preview.4`.
+Solis is in preview, so its APIs may change.
+
+You need the [Prism CLI](https://prismatic.io/docs/cli/) 10.6.0 or later, logged in to your organization.
+Prism 11 requires Node.js 22.19.0 or later.
+
+To start a new headless integration of your own, pass `--configuration-type headless` (the default is `hosted`):
+
+```bash
+prism integrations:init my-integration --configuration-type headless
+```
+
+To use the provided Fake CRM integration:
 
 ```bash
 cd integrations/fake-crm
@@ -122,6 +138,11 @@ prism integrations:marketplace <version-id> --available --deployable
 
 The integration's configuration is in [`integrations/fake-crm/src/configuration.ts`](integrations/fake-crm/src/configuration.ts).
 It defines the schema, an `init` function that suggests values, and three server functions.
+Its layout is a JSON Forms `uiSchema`, declared as `ui: { type: "uiSchema", value }`.
+The app reads it from Solis as `configuration.data.ui`, and uses it to order the field mapper's fields.
+`init` returns the suggested `configuration`, plus `unresolvedReasons` for the customer to review.
+It saves nothing, and Prismatic doesn't validate its result.
+The app saves the reviewed values, which Prismatic validates against the schema, then deploys the instance to make them live.
 The app's form is in [`frontend/components/headless/fake-crm-configuration-form.tsx`](frontend/components/headless/fake-crm-configuration-form.tsx).
 
 ## Where everything else is
@@ -158,6 +179,7 @@ dev-server plugins, so they run under `bun run dev` only.
 | ------------------------- | --------------------------------------- |
 | `bun run dev`             | Start the development server.           |
 | `bun run build`           | Build for production.                   |
+| `bun run typecheck`       | Check TypeScript without emitting files. |
 | `bun run generate-routes` | Regenerate `frontend/routeTree.gen.ts`. |
 | `bun run check`           | Lint and format with Biome.             |
 

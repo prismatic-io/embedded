@@ -10,7 +10,7 @@
         "@ai-sdk/react": "^4.0.105",
         "@fontsource-variable/geist": "^5.3.0",
         "@prismatic-io/embedded": "^4.14.0",
-        "@prismatic-io/solis-react": "0.0.2-preview.1",
+        "@prismatic-io/solis-react": "0.0.2-preview.4",
         "@prismatic-io/translations": "^2.14.1",
         "@tailwindcss/vite": "^4.1.18",
         "@tanstack/react-devtools": "latest",
@@ -18,7 +18,6 @@
         "@tanstack/react-router-devtools": "latest",
         "@tanstack/react-start": "latest",
         "ai": "^7.0.102",
-        "capnweb": "^0.12.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "lucide-react": "^1.35.0",
@@ -239,9 +238,9 @@
 
     "@prismatic-io/embedded": ["@prismatic-io/embedded@4.14.0", "", { "dependencies": { "@prismatic-io/translations": "^2.10.0", "json-schema-to-typescript": "^15.0.0", "lodash.merge": "4.6.2", "url-join": "5.0.0" }, "bin": { "generate-types": "bin/generate-types.js" } }, "sha512-Hra/hPcdyYtheETv+r7dJat2mA+u0NcG2EIN86sCwdeDSnIcNnnY0h+TWI4hgX8LCW4IJO/eMDrSb/XnVwv/pA=="],
 
-    "@prismatic-io/solis-core": ["@prismatic-io/solis-core@0.0.2-preview.0", "", { "peerDependencies": { "capnweb": ">=0.12.0 <1.0.0" } }, "sha512-PMgPHiEUFAjCsghblEilFjz+yveNscb1nKg3Sgb3UZwI/Oh9NO5Ib8XgT3mv0PcrGOw7Q+NU2RPOlU8d0CeAhA=="],
+    "@prismatic-io/solis-core": ["@prismatic-io/solis-core@0.0.2-preview.3", "", { "dependencies": { "capnweb": "0.12.0" } }, "sha512-FqBiBzJDE11sJFCEnXuu+cIgnx6LpgR9/EMru1SuAqQVnQSXLZnU4ST2OB3F+BHAYaz415fJxM/vMGor88IYmQ=="],
 
-    "@prismatic-io/solis-react": ["@prismatic-io/solis-react@0.0.2-preview.1", "", { "dependencies": { "@prismatic-io/solis-core": "^0.0.2-preview.0" }, "peerDependencies": { "capnweb": ">=0.12.0 <1.0.0", "react": "^18.0.0 || ^19.0.0" } }, "sha512-QOBG40XCabkkdYD+zViAEpQUcwqc6NCEeHH3uQl5lpIvK2FoAuipaohrM+3E2Ph/pNhipZ9o8ELFKPoxAv5HHw=="],
+    "@prismatic-io/solis-react": ["@prismatic-io/solis-react@0.0.2-preview.4", "", { "dependencies": { "@prismatic-io/solis-core": "^0.0.2-preview.3" }, "peerDependencies": { "react": "^18.0.0 || ^19.0.0" } }, "sha512-og9fKW655VxKZXT9KseYx7VV2DbeZRoUxIePfcwEZ+sYEMdRqmhHgYcoF3lCCBIiofflxu0NEPvBNhohzBHlfQ=="],
 
     "@prismatic-io/translations": ["@prismatic-io/translations@2.14.3", "", {}, "sha512-k6StEekOPtAgi/tjOGEiqz7sUk8SSzYL4Gv9R8kpCIw63krbJ+P4UooMraxuLhrF3lJ9G9k+ZMJ4dS2mOJl1kQ=="],
 

@@ -1,6 +1,7 @@
 import type {
   ConfigurationResource,
   JsonSchema,
+  Ui,
 } from "@prismatic-io/solis-react";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { useState } from "react";
@@ -85,11 +86,11 @@ function scopesOf(uiSchema: unknown): string[] {
  * than hard-coding them, so a new field in the integration shows up here
  * without an app change. The integration sets each `title` with zod's
  * `.meta()`. JSON Schema properties have no order, so the order comes from the
- * integration's `uiSchema`.
+ * integration's `ui` layout, when it's a JSON Forms `uiSchema`.
  */
 export function acmeFieldsFromSchema(
   schema: JsonSchema,
-  uiSchema: JsonSchema | null,
+  ui: Ui | null | undefined,
 ): AcmeField[] {
   if (typeof schema !== "object") return [];
   const properties = schema.properties as
@@ -99,6 +100,8 @@ export function acmeFieldsFromSchema(
       >
     | undefined;
   const fieldMapping = properties?.fieldMapping;
+  // `ui` can also be a "custom" layout, which only its own app understands.
+  const uiSchema = ui?.type === "uiSchema" ? ui.value : null;
   const order = scopesOf(uiSchema)
     .filter((scope) => scope.startsWith(FIELD_MAPPING_SCOPE))
     .map((scope) => scope.slice(FIELD_MAPPING_SCOPE.length));
@@ -159,7 +162,7 @@ export function FakeCrmConfigurationForm({
   if (configuration.status !== "success") return null;
   const acmeFields = acmeFieldsFromSchema(
     configuration.data.schema,
-    configuration.data.uiSchema,
+    configuration.data.ui,
   );
   const missing = acmeFields.filter(
     (field) => field.required && !values.fieldMapping[field.key],
