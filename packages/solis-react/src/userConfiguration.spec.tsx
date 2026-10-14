@@ -1,4 +1,4 @@
-import type { UserConfigurationResource } from "@prismatic-io/solis-core";
+import type { Ui, UserConfigurationResource } from "@prismatic-io/solis-core";
 import { createClient } from "@prismatic-io/solis-core";
 import { STATE_RELEASE_GRACE_MS } from "@prismatic-io/solis-core/internal";
 import {
@@ -80,6 +80,26 @@ const loaded = async () => {
   await waitFor(() => expect(hook.result.current.status).toBe("success"));
   return hook;
 };
+
+test.each<{ ui: Ui | null | undefined }>([
+  { ui: { type: "uiSchema", value: { type: "VerticalLayout", elements: [] } } },
+  { ui: { type: "custom", value: { controls: [null, false, "host"] } } },
+  { ui: { type: "custom", value: ["host", 42] } },
+  { ui: { type: "custom", value: null } },
+  { ui: null },
+  { ui: undefined },
+])("propagates personal UI without unwrapping or legacy fields: $ui", async ({
+  ui,
+}) => {
+  seed({ ui });
+  const hook = await loaded();
+  const data = success(hook.result.current).data;
+  expect(data.ui).toEqual(ui);
+  expect(data).not.toHaveProperty("uiSchema");
+  if (ui === undefined) expect(data).not.toHaveProperty("ui");
+  hook.unmount();
+});
+
 /** The user's configuration and server functions of it, each its own action. */
 const withFunctions = async (keys: readonly string[]) => {
   const hook = renderHook(

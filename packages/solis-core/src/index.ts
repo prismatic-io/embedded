@@ -22,6 +22,7 @@ export type {
   SaveConfigurationInput,
   SaveUserConfigurationInput,
   ServerInfo,
+  Ui,
   UpdateInstanceDetailsInput,
 } from "./protocol/index.js";
 // Re-exported for hosts that boot a frame themselves or implement the frame side.
