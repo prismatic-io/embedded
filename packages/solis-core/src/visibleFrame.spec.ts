@@ -7,6 +7,7 @@ import {
   VISIBLE_PORT_READY_EVENT,
   VISIBLE_PORT_RECONCILE_ERROR,
   VISIBLE_PORT_RESOURCES_CHANGED,
+  VISIBLE_PORT_SET_CONFIG_VARS,
 } from "./visibleFrame.js";
 
 const origin = "https://app.example.com";
@@ -86,7 +87,20 @@ it("waits for the visible port to reach the hidden frame before resolving", asyn
   });
   const mount = await pending;
   expect(mount.iframe).toBe(visible);
+  const configVars = {
+    Region: { value: "west" },
+    Fields: { value: ["Name", "Email"] },
+    Connection: { inputs: { token: { value: "test-token" } } },
+  };
+  mount.setConfigVars({ configVars });
+  expect(hiddenPost).toHaveBeenLastCalledWith(
+    { type: VISIBLE_PORT_SET_CONFIG_VARS, id, configVars },
+    origin,
+  );
   mount.dispose();
+  const sent = hiddenPost.mock.calls.length;
+  expect(() => mount.setConfigVars({ configVars })).toThrow("disposed");
+  expect(hiddenPost).toHaveBeenCalledTimes(sent);
   expect(container.childElementCount).toBe(0);
 });
 
@@ -173,6 +187,35 @@ const mountFrames = () => {
   const post = vi.spyOn(hidden.contentWindow, "postMessage");
   return { hidden, container, post };
 };
+
+it("rejects sending when the client session is disposed or aborted", async () => {
+  const { hidden, container, post } = mountFrames();
+  let disposed = false;
+  const session = new AbortController();
+  const pending = openVisibleFrame(
+    { url: "/configure-instance/one/", container },
+    hidden,
+    origin,
+    () => disposed,
+    session.signal,
+  );
+  const visible = container.querySelector("iframe");
+  const id = post.mock.calls[0]?.[0].id as string;
+  emit({
+    source: visible?.contentWindow ?? null,
+    data: { event: "PRISMATIC_HOST_READY" },
+  });
+  emit({
+    source: hidden.contentWindow,
+    data: { type: VISIBLE_PORT_READY_EVENT, id },
+  });
+  const mount = await pending;
+  disposed = true;
+  expect(() => mount.setConfigVars({ configVars: {} })).toThrow("disposed");
+  disposed = false;
+  session.abort();
+  expect(() => mount.setConfigVars({ configVars: {} })).toThrow("disposed");
+});
 
 it("removes itself and reports the close when the frame closes an open mount", async () => {
   const { hidden, container, post } = mountFrames();

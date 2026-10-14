@@ -1,7 +1,29 @@
+export type HostedConfigVars = Record<
+  string,
+  | {
+      value: string | string[] | { key: string; value: string }[];
+      scheduleType?:
+        | "none"
+        | "once"
+        | "custom"
+        | "minute"
+        | "hour"
+        | "day"
+        | "week";
+      timeZone?: string;
+    }
+  | {
+      inputs: Record<string, { value: string }>;
+      onPremiseResourceId?: string;
+    }
+>;
+
 /** A visible embedded document with its event channel connected to the hidden frame. */
 export interface VisibleFrameMount {
   iframe: HTMLIFrameElement;
   dispose: () => void;
+  /** Updates the hosted wizard's draft. Call after INSTANCE_CONFIGURATION_LOADED. */
+  setConfigVars: (input: { configVars: HostedConfigVars }) => void;
 }
 
 export interface OpenVisibleFrameOptions {
@@ -29,6 +51,8 @@ export const VISIBLE_PORT_RESOURCES_CHANGED =
   "PRISMATIC_HEADLESS_RESOURCES_CHANGED";
 export const VISIBLE_PORT_RECONCILE_ERROR =
   "PRISMATIC_HEADLESS_RECONCILE_ERROR";
+export const VISIBLE_PORT_SET_CONFIG_VARS =
+  "PRISMATIC_HEADLESS_SET_CONFIG_VARS";
 
 export const openVisibleFrame = (
   {
@@ -70,6 +94,18 @@ export const openVisibleFrame = (
   let timer: ReturnType<typeof setTimeout>;
   let rejectPending: ((reason: Error) => void) | undefined;
   let resolvePending: ((mount: VisibleFrameMount) => void) | undefined;
+  const setConfigVars: VisibleFrameMount["setConfigVars"] = ({
+    configVars,
+  }) => {
+    if (disposed || isDisposed() || signal.aborted || callerSignal?.aborted)
+      throw new Error("Visible frame was disposed");
+    const host = headlessFrame.contentWindow;
+    if (!host) throw new Error("Headless frame is unavailable");
+    host.postMessage(
+      { type: VISIBLE_PORT_SET_CONFIG_VARS, id, configVars },
+      prismaticOrigin,
+    );
+  };
   const dispose = () => {
     if (disposed) return;
     disposed = true;
@@ -142,7 +178,7 @@ export const openVisibleFrame = (
       clearTimeout(timer);
       rejectPending = undefined;
       iframe.removeEventListener("error", onFrameError);
-      resolvePending?.({ iframe, dispose });
+      resolvePending?.({ iframe, dispose, setConfigVars });
     }
   };
   const ready = new Promise<VisibleFrameMount>((resolve, reject) => {
