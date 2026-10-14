@@ -17,6 +17,7 @@ export type {
   JsonSchema,
   MarketplaceFilterOptions,
   MarketplaceOrdering,
+  Ui,
 } from "@prismatic-io/solis-core/protocol";
 export type {
   Action,

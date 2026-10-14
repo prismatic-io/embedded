@@ -262,10 +262,18 @@ configuration for one integration version. Leave `integrationVersionId` out for 
 version the instance runs, or pass `instance.data.update?.integrationVersionId` to
 review an update. The same component handles a new instance, an edit and an update.
 
-Data includes `schema`, `uiSchema`, `configurationVersion`, `serverFunctions`,
+Data includes `schema`, optional/nullable `ui`, `configurationVersion`, `serverFunctions`,
 `integrationName`, `isUpgrade` and `configurationExperience` (`"headless"` or
 `"hosted"`). Route on `configurationExperience`: render your form for `headless`, and
 `<HostedConfiguration>` for `hosted`.
+
+Instance and personal configuration data expose the same `Ui` union: `{ type:
+"uiSchema", value: Record<string, unknown> }` for JSON Forms presentation metadata,
+or `{ type: "custom", value: unknown }` for a host-defined model. `ui` can be absent
+or `null`; custom payloads are not interpreted or validated by the SDK. JSON Forms
+consumers choose `data.ui?.type === "uiSchema" ? data.ui.value : undefined`, while
+custom renderers read the custom value. This replaces the unwrapped `data.uiSchema`
+field without a compatibility alias; use coordinated core, React and frame versions.
 
 Actions are `init`, `save` and `refresh`. `init` returns the integration author's
 suggested values; mapping them to form values is up to you. `save({ value })` stores
