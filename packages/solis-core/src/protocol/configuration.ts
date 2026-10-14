@@ -9,6 +9,11 @@ import type { Permission } from "./permissions.js";
 
 export type JsonSchema = boolean | Record<string, unknown>;
 
+/** Authored presentation metadata. Custom values belong to the host, not JSON Forms. */
+export type Ui =
+  | { type: "uiSchema"; value: Record<string, unknown> }
+  | { type: "custom"; value: unknown };
+
 export type InstanceConfigState =
   | "FULLY_CONFIGURED"
   | "NEEDS_INSTANCE_CONFIGURATION"
@@ -161,7 +166,7 @@ export interface ConfigurationState {
   deployedVersion: number | null;
   needsDeploy: boolean;
   schema: JsonSchema;
-  uiSchema: JsonSchema | null;
+  ui?: Ui | null;
   /** Flows of this configuration's target version, including schedule requirements. */
   flows: readonly ConfigurationFlow[];
   configurationVersion: string | null;
@@ -224,7 +229,7 @@ export interface UserConfigurationState {
   /** Whether the user has saved personal settings, as on the instance's `userConfiguration`. */
   configured: boolean;
   schema: JsonSchema | null;
-  uiSchema: JsonSchema | null;
+  ui?: Ui | null;
   configurationVersion: string | null;
   value: unknown;
   serverFunctions: readonly ConfigurationServerFunction[];
