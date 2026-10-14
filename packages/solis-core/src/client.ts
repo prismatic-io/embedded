@@ -313,6 +313,7 @@ export const createClient = async (
       closedByFrame = mount;
       return {
         iframe: mount.iframe,
+        setConfigVars: mount.setConfigVars,
         dispose: () => {
           mount.dispose();
           mounts.delete(mount);

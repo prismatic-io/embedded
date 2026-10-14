@@ -1,10 +1,18 @@
+import type { VisibleFrameMount } from "@prismatic-io/solis-core";
 import { useEffect, useRef } from "react";
 import { useSessionState } from "../PrismaticProvider.js";
 import { keys } from "../internal/keys.js";
 import { useRefreshFamily } from "../internal/useResource.js";
 
+export type HostedConfigurationControls = Pick<
+  VisibleFrameMount,
+  "setConfigVars"
+>;
+
 export interface HostedConfigurationProps {
   instanceId: string;
+  /** The mount's channel is ready; wait for INSTANCE_CONFIGURATION_LOADED to set draft values. */
+  onReady?: (controls: HostedConfigurationControls) => void;
   /** The wizard closed: the user finished or cancelled, or the session ended. */
   onClose?: () => void;
   /** Every message the wizard emits, uninterpreted. */
@@ -27,6 +35,7 @@ const affectedFamilies = [
  */
 export const HostedConfiguration = ({
   instanceId,
+  onReady,
   onClose,
   onEvent,
   onError,
@@ -37,9 +46,15 @@ export const HostedConfiguration = ({
   const container = useRef<HTMLDivElement>(null);
   // An identity change moves refreshFamily, and the frame closes the wizard then; reading it
   // through the ref keeps the component from reopening the wizard for the new user.
-  const callbacks = useRef({ onClose, onEvent, onError, refreshFamily });
+  const callbacks = useRef({
+    onReady,
+    onClose,
+    onEvent,
+    onError,
+    refreshFamily,
+  });
   useEffect(() => {
-    callbacks.current = { onClose, onEvent, onError, refreshFamily };
+    callbacks.current = { onReady, onClose, onEvent, onError, refreshFamily };
   });
   const client =
     session.status === "ready" && session.api ? session.client : null;
@@ -62,7 +77,20 @@ export const HostedConfiguration = ({
         onClose: () => callbacks.current.onClose?.(),
       })
       .then(
-        (mount) => abort.signal.addEventListener("abort", mount.dispose),
+        (mount) => {
+          if (abort.signal.aborted) {
+            mount.dispose();
+            return;
+          }
+          abort.signal.addEventListener("abort", mount.dispose, { once: true });
+          callbacks.current.onReady?.({
+            setConfigVars: (input) => {
+              if (abort.signal.aborted)
+                throw new Error("Hosted configuration was disposed");
+              mount.setConfigVars(input);
+            },
+          });
+        },
         (error: unknown) => {
           if (abort.signal.aborted) return;
           callbacks.current.onError?.(

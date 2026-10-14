@@ -432,6 +432,37 @@ wizard changes something, the component refreshes instances, the marketplace and
 configurations, so other hooks update with no code from you. `onEvent` gets every
 wizard message uninterpreted. `onError` gets failures to open or to reconcile.
 
+To prefill or update the hosted wizard's draft, retain its mount-scoped controls.
+`onReady` means the channel is ready; wait for `INSTANCE_CONFIGURATION_LOADED`
+before setting values. This sends a command, not a save or deployment, and does
+not acknowledge persistence. Controls throw after the wizard closes, unmounts,
+changes instance, or its session ends. Deploy the matching frontend transport
+before using this API.
+
+```tsx
+const controls = useRef<HostedConfigurationControls | null>(null);
+
+<HostedConfiguration
+  instanceId={instanceId}
+  onReady={(ready) => { controls.current = ready; }}
+  onEvent={(message) => {
+    if (message && typeof message === "object" && "event" in message &&
+        message.event === "INSTANCE_CONFIGURATION_LOADED") {
+      controls.current?.setConfigVars({
+        configVars: { Greeting: { value: "Hello from my app" } },
+      });
+    }
+  }}
+  onClose={() => { controls.current = null; }}
+/>
+```
+
+The payload uses hosted config-variable names and the embedded input shape:
+`{ value }` for ordinary variables (including lists), or `{ inputs }` for
+connections. It is not the JSON value accepted by headless `configuration.save`.
+Core callers use the same `setConfigVars({ configVars })` on the mount returned by
+`client.openVisibleFrame()`.
+
 ## Advanced
 
 These exist for hosts with unusual needs. Most apps don't need them.
