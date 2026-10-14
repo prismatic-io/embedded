@@ -67,6 +67,7 @@ import {
   type SaveUserConfigurationInput,
   SESSION_REVOKED_CODE,
   type ServerInfo,
+  type Ui,
   type UserConfigurationState,
   type UserConfigurationTarget,
 } from "../protocol/index.js";
@@ -250,7 +251,7 @@ export class FakeCollection<T extends { id: string }> {
 
 /**
  * An integration's authored configuration as the fake knows it. `init` is the author's
- * function and runs in the frame, so it never crosses the wire; `schema`, `uiSchema` and
+ * function and runs in the frame, so it never crosses the wire; `schema`, `ui` and
  * `configurationVersion` are the data {@link ConfigurationState} carries.
  */
 /** The newer version the marketplace offers an instance of this one. */
@@ -294,7 +295,7 @@ export interface FakeConnectionRequirements {
 export interface FakeConfigurationSeed {
   schema: JsonSchema;
   flows?: ConfigurationState["flows"];
-  uiSchema?: JsonSchema;
+  ui?: Ui | null;
   configurationVersion?: string;
   /** The integration's name; defaults to the listing's, or the version id. */
   name?: string;
@@ -366,7 +367,7 @@ export type FakeInstanceSeed = Omit<InstanceState, DerivedInstanceFields> & {
 
 export interface FakeUserConfigurationSeed {
   schema: JsonSchema | null;
-  uiSchema?: JsonSchema | null;
+  ui?: Ui | null;
   configurationVersion?: string | null;
   permissions?: Partial<UserConfigurationState["permissions"]>;
   serverFunctions?: FakeConfigurationSeed["serverFunctions"];
@@ -1292,7 +1293,7 @@ class FakeConfiguration extends RpcTarget implements ConfigurationTarget {
         record.deployedVersion ??
         (record.deployed ? record.integrationVersionNumber : null),
       schema: seed.schema,
-      uiSchema: seed.uiSchema ?? null,
+      ...(seed.ui === undefined ? {} : { ui: seed.ui }),
       flows: seed.flows ?? listing?.flows ?? [],
       configurationVersion: seed.configurationVersion ?? null,
       deployedConfigurationVersion: record.deployedConfigurationVersion ?? null,
@@ -1740,7 +1741,7 @@ class FakeUserConfiguration
       versionNumber: instance.integrationVersionNumber,
       configured: record.userLevelConfigId !== null,
       schema: seed.schema,
-      uiSchema: seed.uiSchema ?? null,
+      ...(seed.ui === undefined ? {} : { ui: seed.ui }),
       configurationVersion: seed.configurationVersion ?? null,
       value: record.configurationId === null ? null : record.value,
       serverFunctions: (seed.serverFunctions ?? []).map(

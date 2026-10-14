@@ -1,6 +1,7 @@
 import type {
   ConfigurationResource,
   SaveConfigurationInput,
+  Ui,
 } from "@prismatic-io/solis-core";
 import {
   type FakeConfigurationSeed,
@@ -152,6 +153,25 @@ test("target-version schedule requirements and schedule saves cross the React RP
   expect(instance.status).toBe("success");
   if (instance.status === "success")
     expect(instance.data.flows[0].schedule).toEqual(input.flows?.[0].schedule);
+});
+
+test.each<{ ui: Ui | null | undefined }>([
+  { ui: { type: "uiSchema", value: { type: "VerticalLayout", elements: [] } } },
+  { ui: { type: "custom", value: { controls: [null, false, "host"] } } },
+  { ui: { type: "custom", value: ["host", 42] } },
+  { ui: { type: "custom", value: null } },
+  { ui: null },
+  { ui: undefined },
+])("propagates configuration UI without unwrapping or legacy fields: $ui", async ({
+  ui,
+}) => {
+  seed({ ui });
+  const hook = await loaded();
+  const data = success(hook.result.current).data;
+  expect(data.ui).toEqual(ui);
+  expect(data).not.toHaveProperty("uiSchema");
+  if (ui === undefined) expect(data).not.toHaveProperty("ui");
+  hook.unmount();
 });
 
 /** A configuration and server functions of it, each its own action. */

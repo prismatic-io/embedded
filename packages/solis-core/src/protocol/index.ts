@@ -51,6 +51,7 @@ export type {
   Result,
   SaveConfigurationInput,
   SaveUserConfigurationInput,
+  Ui,
   UpdateInstanceDetailsInput,
   UserConfigurationState,
   UserConfigurationTarget,
