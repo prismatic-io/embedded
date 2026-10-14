@@ -25,6 +25,9 @@ updates:
       # TypeScript 7 does not yet expose the compiler API used by this project.
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
+      # @mswjs/http-middleware still uses handleRequest, removed in MSW 3.
+      - dependency-name: "msw"
+        update-types: ["version-update:semver-major"]
 
   # The example app is a separate Bun project with its own bun.lock, outside
   # the root workspaces.
