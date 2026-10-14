@@ -14,6 +14,7 @@ import type { ReactNode } from "react";
 import { afterEach, expect, test, vi } from "vitest";
 import {
   HostedConfiguration,
+  type HostedConfigurationControls,
   PrismaticProvider,
   useInstance,
   useMarketplace,
@@ -52,18 +53,21 @@ const boot = async () => {
 const interceptWizard = ({ opens = true }: { opens?: boolean } = {}) => {
   const launched: OpenVisibleFrameOptions[] = [];
   const dispose = vi.fn();
+  const setConfigVars = vi.fn();
   vi.spyOn(client, "openVisibleFrame").mockImplementation((options) => {
     launched.push(options);
     const iframe = document.createElement("iframe");
     options.container.append(iframe);
-    return opens ? Promise.resolve({ iframe, dispose }) : new Promise(() => {});
+    return opens
+      ? Promise.resolve({ iframe, dispose, setConfigVars })
+      : new Promise(() => {});
   });
   const latest = () => {
     const options = launched.at(-1);
     if (!options) throw new Error("The wizard was never opened");
     return options;
   };
-  return { launched, latest, dispose };
+  return { launched, latest, dispose, setConfigVars };
 };
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
@@ -169,6 +173,58 @@ test("reports a wizard that fails to open", async () => {
       }),
     ),
   );
+});
+
+test("exposes controls only after opening and invalidates old controls on instance changes", async () => {
+  await boot();
+  const wizard = interceptWizard();
+  const onReady = vi.fn<(controls: HostedConfigurationControls) => void>();
+  const { rerender, unmount } = render(
+    <HostedConfiguration instanceId={instanceId} onReady={onReady} />,
+    { wrapper: Wrapper },
+  );
+  await waitFor(() => expect(onReady).toHaveBeenCalledOnce());
+  const first = onReady.mock.calls[0][0];
+  const input = { configVars: { Region: { value: "west" } } };
+  first.setConfigVars(input);
+  expect(wizard.setConfigVars).toHaveBeenCalledExactlyOnceWith(input);
+  rerender(<HostedConfiguration instanceId="two" onReady={onReady} />);
+  await waitFor(() => expect(onReady).toHaveBeenCalledTimes(2));
+  expect(() => first.setConfigVars(input)).toThrow("disposed");
+  const second = onReady.mock.calls[1][0];
+  second.setConfigVars(input);
+  expect(wizard.setConfigVars).toHaveBeenCalledTimes(2);
+  unmount();
+  expect(() => second.setConfigVars(input)).toThrow("disposed");
+});
+
+test("does not expose controls while opening or after an abandoned mount resolves", async () => {
+  await boot();
+  let finish!: (mount: Awaited<ReturnType<Client["openVisibleFrame"]>>) => void;
+  const dispose = vi.fn();
+  vi.spyOn(client, "openVisibleFrame").mockImplementation(
+    () =>
+      new Promise((resolve) => {
+        finish = resolve;
+      }),
+  );
+  const onReady = vi.fn();
+  const { unmount } = render(
+    <HostedConfiguration instanceId={instanceId} onReady={onReady} />,
+    { wrapper: Wrapper },
+  );
+  await waitFor(() => expect(finish).toBeDefined());
+  expect(onReady).not.toHaveBeenCalled();
+  unmount();
+  await act(async () =>
+    finish({
+      iframe: document.createElement("iframe"),
+      dispose,
+      setConfigVars: vi.fn(),
+    }),
+  );
+  expect(onReady).not.toHaveBeenCalled();
+  expect(dispose).toHaveBeenCalledOnce();
 });
 
 const listingNames = (marketplace?: ReturnType<typeof useMarketplace>) =>

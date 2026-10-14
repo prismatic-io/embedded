@@ -46,6 +46,7 @@ export type {
   CreateInstanceInput,
   CreateInstancePermission,
   CreateInstancePermissionReason,
+  HostedConfigVars,
   InitializeConfigurationInput,
   Instance,
   InstanceActions,
@@ -78,7 +79,10 @@ export type {
   UserConfigurationActions,
   UserConfigurationResource,
 } from "@prismatic-io/solis-core";
-export type { HostedConfigurationProps } from "./domain/HostedConfiguration.js";
+export type {
+  HostedConfigurationControls,
+  HostedConfigurationProps,
+} from "./domain/HostedConfiguration.js";
 export { HostedConfiguration } from "./domain/HostedConfiguration.js";
 export { useAction } from "./domain/useAction.js";
 export type { AuthenticatedUserResource } from "./domain/useAuthenticatedUser.js";

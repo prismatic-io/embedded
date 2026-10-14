@@ -112,6 +112,7 @@ export type {
   Telemetry,
 } from "./telemetry.js";
 export type {
+  HostedConfigVars,
   OpenVisibleFrameOptions,
   VisibleFrameMount,
 } from "./visibleFrame.js";
