@@ -190,6 +190,50 @@ const gateStream = () => {
   };
 };
 
+test("deferred connection health stays in successful shared list and detail resources", async () => {
+  await boot();
+  const baseline = await settle();
+  frame.integrations.set({
+    ...listing,
+    connectionStatusLoading: true,
+  });
+  const view = render(<Host a b detail />);
+  await ready("a:x", "b:x", "detail");
+  for (const name of ["a:x", "b:x", "detail"])
+    expect(success(name).data).toMatchObject({
+      connectionStatus: null,
+      connectionStatusLoading: true,
+      connectionStatusError: null,
+    });
+
+  for (const health of [
+    { connectionStatus: "ERROR", connectionStatusError: null },
+    {
+      connectionStatus: null,
+      connectionStatusError: { message: "Health unavailable" },
+    },
+    { connectionStatus: null, connectionStatusError: null },
+  ] as const) {
+    await act(async () => {
+      frame.integrations.commit({
+        ...listing,
+        ...health,
+        connectionStatusLoading: false,
+      });
+    });
+    await waitFor(() => {
+      for (const name of ["a:x", "b:x", "detail"])
+        expect(success(name).data).toMatchObject({
+          ...health,
+          connectionStatusLoading: false,
+        });
+    });
+  }
+  view.unmount();
+  expect(await settle()).toEqual(baseline);
+  expect(cache.size).toBe(0);
+});
+
 test.each([
   "list-first",
   "detail-first",
