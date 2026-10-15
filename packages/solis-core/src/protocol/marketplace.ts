@@ -45,6 +45,14 @@ export interface MarketplaceIntegrationState {
   permissions: MarketplaceIntegrationPermissions;
   id: string;
   name: string;
+  /**
+   * Server-rolled-up connection health, loaded separately from the listing.
+   * `null` is also a valid server result; consult loading/error before interpreting it.
+   */
+  connectionStatus: "PENDING" | "ACTIVE" | "ERROR" | "FAILED" | null;
+  connectionStatusLoading: boolean;
+  /** A failed health read does not prevent the listing from loading. Retried on refresh. */
+  connectionStatusError: { message: string } | null;
   category: string | null;
   description: string | null;
   avatarUrl: string | null;
