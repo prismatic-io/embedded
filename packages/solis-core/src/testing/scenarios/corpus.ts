@@ -1625,6 +1625,7 @@ export const scenarios: readonly Scenario[] = [
       expect(await optionsOf("inst-2")).toEqual({
         init: [],
         serverFunctions: {},
+        instance: [],
       });
     },
   },

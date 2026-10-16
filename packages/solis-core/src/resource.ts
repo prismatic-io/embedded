@@ -153,6 +153,8 @@ export interface ConfigurationConnectionRequirement {
       ConnectionError
     >;
   };
+  /** For an instance requirement, the linked credential's id, or `null` when none is. */
+  selected?: string | null;
 }
 
 /** What init and each server function need, by caller. */
@@ -161,6 +163,12 @@ export interface ConfigurationConnections {
   serverFunctions: Readonly<
     Record<string, readonly ConfigurationConnectionRequirement[]>
   >;
+  /**
+   * The customer-activated connections the instance runs with, each with its linked
+   * credential as `selected`; link them through `save({ value, connections })`. Absent from
+   * frames without the `configuration.connections` feature.
+   */
+  instance?: readonly ConfigurationConnectionRequirement[];
 }
 
 /** Loads in the background once its configuration has loaded, never holding it up. */

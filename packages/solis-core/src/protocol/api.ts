@@ -37,6 +37,7 @@ export type FeatureName =
   | "instances.updateDetails"
   | "instances.upgrade"
   | "userConfiguration.remove"
+  | "configuration.connections"
   | "host.openExternalUrl";
 
 export interface ServerInfo {
