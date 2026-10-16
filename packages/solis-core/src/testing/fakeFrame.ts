@@ -92,6 +92,7 @@ const FAKE_FEATURES: FeatureName[] = [
   "userConfiguration.remove",
   "instances.updateDetails",
   "instances.upgrade",
+  "configuration.connections",
   "host.openExternalUrl",
 ];
 
@@ -290,6 +291,9 @@ export interface FakeConnectionRequirements {
   serverFunctions?: Readonly<
     Record<string, readonly FakeConnectionRequirement[]>
   >;
+  /** Customer-activated connections the instance runs with; a save links each, and deploy
+   * fails while any is unlinked, as the platform's does. */
+  instance?: readonly FakeConnectionRequirement[];
 }
 
 export interface FakeConfigurationSeed {
@@ -355,6 +359,8 @@ export type InstanceRecord = Omit<InstanceState, DerivedInstanceFields> & {
   deployedVersion?: number | null;
   deployedConfigurationVersion?: string | null;
   customerUpgradeable?: boolean;
+  /** Linked credential per instance connection key, as saves set them. */
+  connections?: Readonly<Record<string, string>>;
 };
 
 /** An initial instance; `value` seeds a saved configuration. */
@@ -1173,40 +1179,50 @@ class FakeConfigurationFunction
 /** Mirrors the frame: each option is the connection `connections.get` serves, published so
  * its stream emits at once, and an id the store doesn't hold is not offered. A requirement
  * with a template also offers every credential made from it. */
+/** The credential ids a requirement offers: its seeded options plus credentials made from
+ * its template, limited to ones the connection service serves the principal. */
+const offeredIds = (
+  stores: FakeStores,
+  principal: string,
+  { options, template }: FakeConnectionRequirement,
+): string[] => {
+  const made = template
+    ? stores.connections
+        .list()
+        .filter(
+          (c) =>
+            c.kind === "customerActivated" && c.definition.id === template.id,
+        )
+        .map(({ id }) => id)
+    : [];
+  return [...new Set([...options, ...made])].filter((id) =>
+    servedConnection(stores, principal, id),
+  );
+};
+
 const offeredConnections = (
   stores: FakeStores,
   principal: string,
   assertLive: AssertLive,
   requirements: FakeConnectionRequirements | undefined,
+  /** The instance's links; instance requirements are listed only when given. */
+  links?: Readonly<Record<string, string>>,
 ): ConfigurationConnectionOptions => {
   const role = roleOf(stores, principal);
   const canCreate =
     !role.isCustomerMarketplaceUser && role.isCustomerMarketplaceAdmin;
   const watch = watchOf(stores);
-  const toRequirement = ({
-    key,
-    label,
-    options,
-    template,
-  }: FakeConnectionRequirement): ConfigurationConnectionRequirement => {
-    const made = template
-      ? stores.connections
-          .list()
-          .filter(
-            (c) =>
-              c.kind === "customerActivated" && c.definition.id === template.id,
-          )
-          .map(({ id }) => id)
-      : [];
+  const toRequirement = (
+    requirement: FakeConnectionRequirement,
+  ): ConfigurationConnectionRequirement => {
+    const { key, label, template } = requirement;
     return {
       key,
       label: label ?? key,
-      options: [...new Set([...options, ...made])]
-        .filter((id) => servedConnection(stores, principal, id))
-        .map((id) => {
-          stores.connections.publish(id);
-          return new FakeConnection(id, stores, principal, watch, assertLive);
-        }),
+      options: offeredIds(stores, principal, requirement).map((id) => {
+        stores.connections.publish(id);
+        return new FakeConnection(id, stores, principal, watch, assertLive);
+      }),
       template: template ?? null,
       permissions: {
         createConnection: !template
@@ -1224,6 +1240,14 @@ const offeredConnections = (
         ([key, needed]) => [key, needed.map(toRequirement)],
       ),
     ),
+    ...(links
+      ? {
+          instance: (requirements?.instance ?? []).map((requirement) => ({
+            ...toRequirement(requirement),
+            selected: links[requirement.key] ?? null,
+          })),
+        }
+      : {}),
   };
 };
 
@@ -1338,6 +1362,7 @@ class FakeConfiguration extends RpcTarget implements ConfigurationTarget {
       this.principal,
       this.assertLive,
       requirements,
+      this.#record().connections ?? {},
     );
   }
 
@@ -1367,6 +1392,35 @@ class FakeConfiguration extends RpcTarget implements ConfigurationTarget {
       if (seed.saveError) return { status: "error", error: seed.saveError };
       await seed.beforeSave?.(input);
       this.assertLive();
+      // Mirrors the frame: only the version's instance connections are linkable, and only
+      // to a credential offered for them.
+      let links = this.#record().connections ?? {};
+      if (input.connections?.length) {
+        const declared = (await seed.connectionOptions?.())?.instance ?? [];
+        this.assertLive();
+        for (const { key, id } of input.connections) {
+          const requirement = declared.find((r) => r.key === key);
+          if (!requirement)
+            return {
+              status: "error",
+              error: configurationError(
+                "PRISMATIC_CONFIGURATION_INVALID",
+                `"${key}" is not a customer-activated connection of this configuration.`,
+              ),
+            };
+          if (
+            !offeredIds(this.stores, this.principal, requirement).includes(id)
+          )
+            return {
+              status: "error",
+              error: configurationError(
+                "PRISMATIC_CONFIGURATION_INVALID",
+                `Connection ${id} cannot be linked to "${key}".`,
+              ),
+            };
+          links = { ...links, [key]: id };
+        }
+      }
       const errors = seed.invalidate?.(input.value);
       if (errors?.length)
         return {
@@ -1410,6 +1464,7 @@ class FakeConfiguration extends RpcTarget implements ConfigurationTarget {
         ...record,
         flows,
         value: input.value,
+        connections: links,
         deployedVersion:
           record.deployedVersion ??
           (record.deployed ? record.integrationVersionNumber : null),
@@ -1654,10 +1709,25 @@ class FakeInstanceBase extends RpcTarget {
    * on its first deploy only. */
   protected async deployRecord(): Promise<void> {
     this.assertLive();
-    await this.stores.configurations[
-      this.record().integrationId
-    ]?.beforeDeploy?.();
+    const seed = this.stores.configurations[this.record().integrationId];
+    await seed?.beforeDeploy?.();
     this.assertLive();
+    // The platform refuses to deploy a customer-activated connection with no linked credential.
+    const declared = (await seed?.connectionOptions?.())?.instance ?? [];
+    this.assertLive();
+    const unlinked = declared
+      .map(({ key }) => key)
+      .filter((key) => !this.record().connections?.[key]);
+    if (unlinked.length)
+      throw Object.assign(
+        new Error(
+          `Link a credential to ${unlinked.join(", ")} before deploying.`,
+        ),
+        {
+          code: "PRISMATIC_CONNECTION_UNAVAILABLE" as const,
+          connectionKeys: unlinked,
+        },
+      );
     const record = this.record();
     const firstDeploy = !record.deployed && record.lastDeployedAt === null;
     this.stores.instances.commit({
@@ -2531,6 +2601,7 @@ export class FakePreAuthApi extends RpcTarget {
   #host: RpcStub<HostApi> | null = null;
   authCount = 0;
   protocol: ProtocolVersion = PROTOCOL_VERSION;
+  features: FeatureName[] = FAKE_FEATURES;
 
   constructor(stores: FakeStores = emptyStores()) {
     super();
@@ -2543,7 +2614,7 @@ export class FakePreAuthApi extends RpcTarget {
   }
 
   serverInfo(): ServerInfo {
-    return serverInfo(this.protocol);
+    return { ...serverInfo(this.protocol), features: this.features };
   }
 
   async authenticate(jwt: string): Promise<FakePrismaticApi> {
@@ -2562,6 +2633,8 @@ export class FakePreAuthApi extends RpcTarget {
 }
 
 export interface FakeFrameOptions {
+  /** Override capability discovery to model an older frame. */
+  features?: FeatureName[];
   /** Origin the fake frame claims to post from. Defaults to the app origin. */
   origin?: string;
   /** Skip the READY post entirely, to exercise the boot timeout path. */
@@ -2711,6 +2784,7 @@ export const installFakeFrame = (options: FakeFrameOptions = {}): FakeFrame => {
         ports += 1;
         const root = new FakePreAuthApi(stores);
         root.protocol = protocol;
+        if (options.features) root.features = options.features;
         roots.push(root);
         const host = newMessagePortRpcSession<HostApi>(
           data.port,

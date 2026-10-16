@@ -280,6 +280,30 @@ suggested values; mapping them to form values is up to you. `save({ value })` st
 values. On a newer version it also moves the instance to that version. Deploying
 stays on the instance.
 
+### Linking the customer's connections
+
+A version can declare connections the customer activates, such as their own Slack.
+The customer may hold several credentials for one of them, so the platform never
+picks one: deploy fails until the instance is linked to a credential. Org-activated
+connections are resolved by the platform and need nothing.
+
+`data.connections.data.instance` lists each such connection with the customer's
+credentials as `options` and the currently linked one as `selected` (`null` until
+linked). Link them on save, keyed as listed:
+
+```tsx
+await configuration.actions.save.execute({
+  value,
+  connections: [{ key: "instance.slack", id: chosenCredential.id }],
+});
+await instance.actions.deploy.execute();
+```
+
+Omitted keys keep their current link, so later saves need not repeat it. Linking
+needs the frame feature `configuration.connections`; against an older frame a save
+with `connections` fails with `PRISMATIC_CONFIGURATION_UNAVAILABLE` rather than
+saving without the links.
+
 ### Flow schedules
 
 `configuration.data.flows` describes the version being configured, including each

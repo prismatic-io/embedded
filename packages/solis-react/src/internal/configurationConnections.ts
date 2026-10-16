@@ -68,11 +68,13 @@ interface RequirementShape {
   ids: readonly string[];
   template: ConnectionTemplateRef | null;
   permission: Permission<CreateConnectionPermissionReason>;
+  selected?: string | null;
 }
 
 interface LoadedConnections {
   init: readonly RequirementShape[];
   serverFunctions: Readonly<Record<string, readonly RequirementShape[]>>;
+  instance?: readonly RequirementShape[];
   entries: readonly ConnectionEntry[];
 }
 
@@ -124,9 +126,11 @@ const loadConfigurationConnections = async ({
     const options =
       (await configuration.stub.readConnectionOptions()) as ConfigurationConnectionOptions;
     source = options;
+    // Option ids are read back in this order, so `shape` must visit requirements in it too.
     const requirements: WireRequirement[] = [
       ...options.init,
       ...Object.values(options.serverFunctions).flat(),
+      ...(options.instance ?? []),
     ];
     const arrivals = await Promise.allSettled(
       requirements
@@ -175,12 +179,14 @@ const loadConfigurationConnections = async ({
       options,
       template,
       permissions,
+      selected,
     }: WireRequirement): RequirementShape => ({
       key,
       label,
       ids: options.map(() => settled[next++]?.value.state.id ?? ""),
       template,
       permission: permissions.createConnection,
+      ...(selected === undefined ? {} : { selected }),
     });
     const init = options.init.map(shape);
     const serverFunctions = Object.fromEntries(
@@ -189,7 +195,16 @@ const loadConfigurationConnections = async ({
         needed.map(shape),
       ]),
     );
-    return { value: { init, serverFunctions, entries }, release };
+    const instance = options.instance?.map(shape);
+    return {
+      value: {
+        init,
+        serverFunctions,
+        ...(instance ? { instance } : {}),
+        entries,
+      },
+      release,
+    };
   } catch (error) {
     release();
     const failed = toConfigurationError(error);
@@ -272,6 +287,7 @@ export const useConfigurationConnections = ({
       [
         ...(loaded?.init ?? []),
         ...Object.values(loaded?.serverFunctions ?? {}).flat(),
+        ...(loaded?.instance ?? []),
       ].map((requirement) => [requirement.key, requirement]),
     );
     creators.source = {
@@ -323,9 +339,11 @@ export const useConfigurationConnections = ({
       label,
       ids,
       permission,
+      selected,
     }: RequirementShape): ConfigurationConnectionRequirement => ({
       key,
       label,
+      ...(selected === undefined ? {} : { selected }),
       options: ids.flatMap((id) => {
         const item = byId.get(id);
         return item ? [item] : [];
@@ -345,6 +363,7 @@ export const useConfigurationConnections = ({
           needed.map(resolve),
         ]),
       ),
+      ...(loaded.instance ? { instance: loaded.instance.map(resolve) } : {}),
     };
   }, [loaded, items, creators, creatorsVersion]);
 

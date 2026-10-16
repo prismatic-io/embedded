@@ -49,11 +49,14 @@ const asConfigurationError = (error: unknown) =>
 export const loadConfigurationResource = async ({
   api,
   guard,
+  requireConnections,
   instanceId,
   integrationVersionId,
 }: {
   api: AuthedHandle;
   guard: Guard;
+  /** Throws when the frame lacks `configuration.connections`; checked per save. */
+  requireConnections: Guard;
   instanceId: string;
   integrationVersionId: string | undefined;
 }): Promise<OwnedValue<LoadedConfiguration>> => {
@@ -116,7 +119,28 @@ export const loadConfigurationResource = async ({
       ),
       save: own(
         createAction({
-          execute: (input: SaveConfigurationInput) => target.save(input),
+          execute: async (input: SaveConfigurationInput) => {
+            // An older frame ignores `connections` and saves without the links, so the
+            // failure would only surface at deploy. Refuse here instead.
+            if (input.connections?.length) {
+              try {
+                requireConnections();
+              } catch (error) {
+                return {
+                  status: "error" as const,
+                  error: Object.assign(
+                    new Error(
+                      error instanceof Error
+                        ? error.message
+                        : "The embedded frame cannot link connections.",
+                    ),
+                    { code: "PRISMATIC_CONFIGURATION_UNAVAILABLE" as const },
+                  ),
+                };
+              }
+            }
+            return target.save(input);
+          },
         }),
       ),
       functions,
