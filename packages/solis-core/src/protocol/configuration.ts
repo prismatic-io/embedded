@@ -215,6 +215,15 @@ export interface SaveConfigurationInput {
   value: unknown;
   /** Target-version flow IDs. Omitted flows retain their schedules across upgrades. */
   flows?: readonly { flowId: string; schedule: FlowSchedule }[];
+  /**
+   * Which of the customer's credentials each customer-activated connection the version
+   * declares runs with, keyed as {@link ConfigurationConnectionOptions.instance} lists them.
+   * A customer may hold several credentials for one connection, so the platform never picks;
+   * deploy fails until each is linked. Omitted keys keep their current link. Org-activated
+   * connections are resolved by the platform and are not listed. Requires the frame feature
+   * `configuration.connections`.
+   */
+  connections?: readonly ConfigurationConnectionSelection[];
 }
 
 export interface SaveUserConfigurationInput {
@@ -278,6 +287,12 @@ export interface ConfigurationConnectionRequirement {
   permissions: {
     createConnection: Permission<CreateConnectionPermissionReason>;
   };
+  /**
+   * For an {@link ConfigurationConnectionOptions.instance} requirement, the id of the
+   * credential the instance is linked to, or `null` when none is. Absent elsewhere, and from
+   * frames without the `configuration.connections` feature.
+   */
+  selected?: string | null;
 }
 
 /** What init and each server function of the configuration's version need, by caller. */
@@ -286,6 +301,12 @@ export interface ConfigurationConnectionOptions {
   serverFunctions: Readonly<
     Record<string, readonly ConfigurationConnectionRequirement[]>
   >;
+  /**
+   * The customer-activated connections the instance itself runs with, which a save links
+   * through {@link SaveConfigurationInput.connections}. Absent from frames without the
+   * `configuration.connections` feature.
+   */
+  instance?: readonly ConfigurationConnectionRequirement[];
 }
 
 /** Owned by its configuration; each factory call has an independent lifetime. */

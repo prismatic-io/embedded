@@ -59,6 +59,7 @@ export const useConfiguration = ({
   const token = useSessionToken();
   const requireInstances = useFeature("instances");
   const requireConfiguration = useFeature("configuration");
+  const requireConnections = useFeature("configuration.connections");
   const guard = useCallback(() => {
     requireInstances();
     requireConfiguration();
@@ -71,10 +72,11 @@ export const useConfiguration = ({
       loadConfigurationResource({
         api,
         guard,
+        requireConnections,
         instanceId: instanceId ?? "",
         integrationVersionId,
       }),
-    [guard, instanceId, integrationVersionId],
+    [guard, requireConnections, instanceId, integrationVersionId],
   );
   const read = useRead<LoadedConfiguration>(
     useMemo(() => (key ? { key, load } : null), [key, load]),
