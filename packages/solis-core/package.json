@@ -19,7 +19,7 @@
     "directory": "packages/solis-core"
   },
   "license": "MIT",
-  "version": "0.0.2-preview.4",
+  "version": "0.0.2-preview.5",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
