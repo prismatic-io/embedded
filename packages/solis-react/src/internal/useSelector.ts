@@ -82,22 +82,10 @@ export const useSelector = <T, S = T>(
   // biome-ignore lint/correctness/useExhaustiveDependencies: caller-owned deps
   const observed = useMemo(() => target, deps);
   const cache = useRef<SnapshotCache<T, S> | undefined>(undefined);
-  /** Resolved in `subscribe` rather than during render, which must stay pure. */
-  const sharedRef = useRef<{
-    target: Stateful<T>;
-    state: SharedState<T>;
-  } | null>(null);
-
   const subscribe = useCallback(
     (listener: () => void) => {
       if (!observed) return noop;
-      const shared = observeState(observed);
-      sharedRef.current = { target: observed, state: shared };
-      const off = shared.subscribe(listener);
-      return () => {
-        off();
-        if (sharedRef.current?.state === shared) sharedRef.current = null;
-      };
+      return observeState(observed).subscribe(listener);
     },
     [observed],
   );
@@ -105,10 +93,10 @@ export const useSelector = <T, S = T>(
   /** Must return the identical object until an input changed, or React loops on
    * "getSnapshot should be cached". */
   const getSnapshot = (): SelectionState<S> => {
-    const shared =
-      sharedRef.current && sharedRef.current.target === observed
-        ? sharedRef.current.state
-        : null;
+    // Snapshot reads must work before subscribe() too: another reader may
+    // already have advanced this stream past the acquisition's initial state.
+    // observeState only reserves an inert store; subscribe opens the stream.
+    const shared = observed ? observeState(observed) : null;
     if (!shared) return LOADING;
     const { status, latest, error } = shared;
     const previous = cache.current;

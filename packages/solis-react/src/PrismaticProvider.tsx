@@ -323,7 +323,8 @@ const useCacheScope = (
     (expectedGeneration = liveGeneration.current) => {
       if (liveGeneration.current !== expectedGeneration) return;
       liveGeneration.current++;
-      cache.revoke();
+      // The provider's generation update publishes the replacement scope.
+      cache.revoke(false);
       setGeneration(liveGeneration.current);
     },
     [cache],
