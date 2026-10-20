@@ -145,6 +145,31 @@ export const watchConnect = async ({
   ] as const;
   for (const [signal, code, message] of cancellations)
     if (signal?.aborted) return fail(code, message);
+
+  if (reread && typeof window !== "undefined") {
+    // Consent can complete during navigation, before authorize() resumes or the
+    // first state arrives. Remember a return until there is an id to re-read.
+    let pendingReturn = false;
+    const rereadReturned = () => {
+      const id = shared.latest?.id;
+      if (pendingReturn && id) {
+        pendingReturn = false;
+        reread(id);
+      }
+    };
+    const onReturn = () => {
+      if (document.visibilityState !== "visible") return;
+      pendingReturn = true;
+      rereadReturned();
+    };
+    window.addEventListener("focus", onReturn);
+    document.addEventListener("visibilitychange", onReturn);
+    disposers.push(shared.subscribe(rereadReturned), () => {
+      window.removeEventListener("focus", onReturn);
+      document.removeEventListener("visibilitychange", onReturn);
+    });
+  }
+
   if (authorize) {
     let authorization: Result<ConnectionAuthorization, ConnectionError>;
     try {
@@ -211,19 +236,6 @@ export const watchConnect = async ({
       const onAbort = () => settleFailure(code, message);
       signal.addEventListener("abort", onAbort, { once: true });
       disposers.push(() => signal.removeEventListener("abort", onAbort));
-    }
-
-    if (reread && typeof window !== "undefined") {
-      const onReturn = () => {
-        const id = shared.latest?.id;
-        if (id && document.visibilityState === "visible") reread(id);
-      };
-      window.addEventListener("focus", onReturn);
-      document.addEventListener("visibilitychange", onReturn);
-      disposers.push(() => {
-        window.removeEventListener("focus", onReturn);
-        document.removeEventListener("visibilitychange", onReturn);
-      });
     }
 
     if (consent) {

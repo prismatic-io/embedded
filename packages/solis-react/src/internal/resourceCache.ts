@@ -62,6 +62,13 @@ interface Entry<T> {
 
 type AnyEntry = Entry<unknown>;
 
+const REVOKING: Snapshot<never> = {
+  status: "pending",
+  value: undefined,
+  error: undefined,
+  isRefetching: false,
+};
+
 /**
  * Keyed cache of loads, owning the stubs its loaders acquired.
  *
@@ -82,6 +89,7 @@ export class ResourceCache {
   /** Loaders outlive their entries so `refetch` can re-run one after a drop. */
   #loaders = new Map<string, Loader<unknown>>();
   #closed = false;
+  #revoking = false;
   #generation = 0;
   #acquisitions = new Set<((key: string) => boolean)[]>();
   #idleMs: number;
@@ -95,6 +103,7 @@ export class ResourceCache {
    * mutations, so a `useSyncExternalStore` reader neither loops nor misses a change.
    */
   snapshot<T>(key: string, load: Loader<T>): Snapshot<T> {
+    if (this.#revoking) return REVOKING;
     return this.#ensure(key, load).snapshot;
   }
 
@@ -144,7 +153,11 @@ export class ResourceCache {
     incoming?: OwnedValue<T>;
     acquisition?: ResourceAcquisition;
   }): ResourceLease<T> {
-    if (this.#closed || (acquisition && !acquisition.isCurrent(key))) {
+    if (
+      this.#closed ||
+      this.#revoking ||
+      (acquisition && !acquisition.isCurrent(key))
+    ) {
       incoming?.release?.();
       throw new Error("The resource acquisition was revoked.");
     }
@@ -343,14 +356,25 @@ export class ResourceCache {
     };
   }
 
-  /** Revokes acquisitions without disconnecting mounted readers from the store. */
-  revoke(): void {
+  /**
+   * Revokes acquisitions without disconnecting mounted readers from the store.
+   * A scope owner that publishes a replacement itself may suppress the old-scope
+   * notification; releases still cannot reenter and reserve a revoked value.
+   */
+  revoke(notify = true): void {
     this.#generation += 1;
     for (const invalidations of this.#acquisitions) invalidations.length = 0;
     this.#acquisitions.clear();
-    for (const key of [...this.#entries.keys()]) this.#drop(key);
-    this.#loaders.clear();
-    this.#notify();
+    // Releasing actions can synchronously render a legacy React root. It must
+    // not reserve a replacement in the scope that is still being revoked.
+    this.#revoking = true;
+    try {
+      for (const key of [...this.#entries.keys()]) this.#drop(key);
+      this.#loaders.clear();
+    } finally {
+      this.#revoking = false;
+    }
+    if (notify) this.#notify();
   }
 
   /** Releases everything and refuses to store a load still in flight. The next read
