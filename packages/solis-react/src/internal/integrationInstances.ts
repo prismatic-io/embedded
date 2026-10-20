@@ -103,6 +103,7 @@ export const ownIntegrationInstances = async ({
 }): Promise<OwnedValue<IntegrationInstances>> => {
   const held = new Map<string, Held>();
   const listeners = new Set<() => void>();
+  const subscriptions = new Set<() => void>();
   let order: readonly string[] = [];
   let wanted: readonly string[] = [];
   let released = false;
@@ -242,6 +243,8 @@ export const ownIntegrationInstances = async ({
   };
 
   const subscribe = (listener: () => void) => {
+    if (released) return () => {};
+    let active = true;
     const watched = new Map<string, { source: Source; off: () => void }>();
     const watch = (key: string, source: Source | undefined) => {
       const current = watched.get(key);
@@ -262,10 +265,12 @@ export const ownIntegrationInstances = async ({
       }
     };
     const onChange = () => {
+      if (!active || released) return;
       reconcile();
       listener();
     };
     const onMembership = () => {
+      if (!active || released) return;
       const ids = idsOf(shared.latest);
       if (ids) void sync(ids);
     };
@@ -274,19 +279,25 @@ export const ownIntegrationInstances = async ({
     const offListing = shared.subscribe(onMembership);
     reconcile();
     onMembership();
-    return () => {
+    const unsubscribe = () => {
+      if (!active) return;
+      active = false;
+      subscriptions.delete(unsubscribe);
       listeners.delete(onChange);
       offCache();
       offListing();
       for (const { off } of watched.values()) off();
       watched.clear();
     };
+    subscriptions.add(unsubscribe);
+    return unsubscribe;
   };
 
   return {
     value: { subscribe, getSnapshot },
     release: () => {
       released = true;
+      for (const unsubscribe of subscriptions) unsubscribe();
       for (const { leases } of held.values()) releaseAll(leases);
       held.clear();
       order = [];

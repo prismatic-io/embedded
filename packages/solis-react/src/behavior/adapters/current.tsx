@@ -1173,6 +1173,10 @@ export const createAdapter = async ({
         if (controller.published.size)
           throw new Error("screens are still mounted");
       }, WAIT);
+      // Zero-idle releases run in the next task. A synchronous legacy root can
+      // finish effect cleanup before that task, unlike the usual modern-root
+      // polling path; wait for route departure before immediately mounting again.
+      await sleep(0);
     },
     signInAs: async (next) => {
       controller.authenticated = false;

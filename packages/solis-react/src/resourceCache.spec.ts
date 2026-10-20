@@ -14,6 +14,41 @@ const deferred = <T>() => {
 afterEach(() => vi.useRealTimers());
 
 describe("ResourceCache leases and adoption", () => {
+  it("does not reacquire a revoked scope from a synchronous release callback", async () => {
+    const cache = new ResourceCache();
+    const staleLoad = vi.fn(async () => ({ value: "stale" }));
+    const incomingRelease = vi.fn();
+    const release = vi.fn(() => {
+      expect(cache.snapshot("old", staleLoad)).toMatchObject({
+        status: "pending",
+      });
+      expect(() =>
+        cache.retain({
+          key: "old",
+          load: staleLoad,
+          incoming: { value: "stale", release: incomingRelease },
+        }),
+      ).toThrow("revoked");
+    });
+    const load = async () => ({ value: "initial", release });
+    cache.snapshot("old", load);
+    await cache.refetch("old");
+    const notification = vi.fn();
+    const off = cache.subscribe(notification);
+    cache.revoke(false);
+    await Promise.resolve();
+    expect(release).toHaveBeenCalledOnce();
+    expect(incomingRelease).toHaveBeenCalledOnce();
+    expect(staleLoad).not.toHaveBeenCalled();
+    expect(notification).not.toHaveBeenCalled();
+    expect(cache.size).toBe(0);
+    cache.snapshot("new", staleLoad);
+    await cache.refetch("new");
+    expect(staleLoad).toHaveBeenCalledOnce();
+    off();
+    cache.close();
+  });
+
   it.each([
     "key",
     "prefix",
