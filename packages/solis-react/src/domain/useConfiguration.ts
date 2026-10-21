@@ -1,13 +1,13 @@
 import type {
-  ConfigurationState,
-  InitializeConfigurationInput,
-  SaveConfigurationInput,
-} from "@prismatic-io/solis-core/protocol";
-import type {
   AuthedHandle,
   ConfigurationResource,
 } from "@prismatic-io/solis-core";
 import { toConfigurationError } from "@prismatic-io/solis-core/internal";
+import type {
+  ConfigurationState,
+  InitializeConfigurationInput,
+  SaveConfigurationInput,
+} from "@prismatic-io/solis-core/protocol";
 import { useCallback, useMemo } from "react";
 import { useConfigurationConnections } from "../internal/configurationConnections.js";
 import {
@@ -75,8 +75,16 @@ export const useConfiguration = ({
         requireConnections,
         instanceId: instanceId ?? "",
         integrationVersionId,
+        onSaved: () => {
+          if (!instanceId) return;
+          // Links belong to the instance, so current and pinned configuration readers
+          // must reload their selected credentials. Keep this bound to the saved instance.
+          cache.refetchPrefix(
+            `${token}:${keys.configurationConnections(keys.configuration(instanceId))}`,
+          );
+        },
       }),
-    [guard, requireConnections, instanceId, integrationVersionId],
+    [guard, requireConnections, instanceId, integrationVersionId, cache, token],
   );
   const read = useRead<LoadedConfiguration>(
     useMemo(() => (key ? { key, load } : null), [key, load]),
