@@ -64,6 +64,8 @@ type MarkdownFileId =
   | "dashboard"
   | "edit-instance-configuration"
   | "headless-configuration"
+  | "headless-one-click-list"
+  | "headless-presentation-modes"
   | "screen-configuration"
   | "translations"
   | "workflow-builder"
