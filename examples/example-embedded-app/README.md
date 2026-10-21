@@ -20,7 +20,9 @@ That text comes from [`frontend/components/helper-text/`](frontend/components/he
 | [`basic-embedded-marketplace.tsx`](frontend/routes/examples/basic-embedded-marketplace.tsx) | `showMarketplace` in an iframe inside the page.                            |
 | [`basic-marketplace-popover.tsx`](frontend/routes/examples/basic-marketplace-popover.tsx)   | `showMarketplace` in a popover above the page.                             |
 | [`custom-marketplace-ui.tsx`](frontend/routes/examples/custom-marketplace-ui.tsx)           | `graphqlRequest` to build your own marketplace UI.                         |
-| [`headless-configuration.tsx`](frontend/routes/examples/headless-configuration.tsx)         | Headless configuration with `@prismatic-io/solis-react`. Needs setup below. |
+| [`headless-configuration.tsx`](frontend/routes/examples/headless-configuration.tsx)         | `@prismatic-io/solis-react`: your own forms for headless integrations, Prismatic's wizard for the rest. Needs setup below. |
+| [`headless-one-click-list.tsx`](frontend/routes/examples/headless-one-click-list.tsx)       | A list with one-click **Connect**: OAuth, configure, and deploy.           |
+| [`headless-presentation-modes.tsx`](frontend/routes/examples/headless-presentation-modes.tsx) | One configuration as a single page or as a multi-step wizard.             |
 | [`screen-configuration.tsx`](frontend/routes/examples/screen-configuration.tsx)             | `screenConfiguration` options, with live controls.                         |
 | [`translations.tsx`](frontend/routes/examples/translations.tsx)                             | Phrase overrides and other languages.                                      |
 | [`connections.tsx`](frontend/routes/examples/connections.tsx)                               | `showConnections` for reusable connections.                                |
@@ -108,7 +110,7 @@ Headless configuration is available for code-native integrations only.
 Your organization needs the `headlessConfiguration` feature enabled before you import or publish one.
 Contact Prismatic to enable it.
 
-The integration uses Spectral `10.35.0`, and the app uses Solis React `0.0.2-preview.4`.
+The integrations use Spectral `10.35.0`, and the app uses Solis React `0.0.2-preview.6`.
 Solis is in preview, so its APIs may change.
 
 You need the [Prism CLI](https://prismatic.io/docs/cli/) 10.6.0 or later, logged in to your organization.
@@ -145,6 +147,50 @@ It saves nothing, and Prismatic doesn't validate its result.
 The app saves the reviewed values, which Prismatic validates against the schema, then deploys the instance to make them live.
 The app's form is in [`frontend/components/headless/fake-crm-configuration-form.tsx`](frontend/components/headless/fake-crm-configuration-form.tsx).
 
+The **Presentation Modes** page uses Fake CRM too.
+
+## Set up the HubSpot and Slack integrations
+
+The **One-Click Connect** page lists your headless integrations, each with a **Connect** button.
+Two integrations show the two cases it handles:
+
+- **HubSpot Contacts**, in [`integrations/hubspot/`](integrations/hubspot), needs only a HubSpot connection.
+  Its configuration has no fields, so **Connect** deploys it as soon as the customer authorizes HubSpot.
+- **Slack Notifications**, in [`integrations/slack/`](integrations/slack), also needs a channel.
+  Its `init` leaves the required channel empty, so the app asks for a channel in a dialog.
+
+After **Connect** runs `init`, the app checks its suggested configuration against the integration's JSON Schema.
+If any required field is empty, the app asks for the rest in a dialog. Otherwise it saves and deploys right away.
+
+The **Headless Configuration** page sets them up too.
+
+Both integrations call their APIs directly with the customer's OAuth token, so they use no components.
+Each declares a customer-activated connection, which your organization defines once in Prismatic and each customer authorizes for themselves.
+Before you import the integrations, create these customer-activated connections in Prismatic:
+
+| Stable key      | Connection                     | OAuth scopes                                                       |
+| --------------- | ------------------------------ | ------------------------------------------------------------------ |
+| `hubspot-oauth` | HubSpot's OAuth 2.0 connection | `oauth`, `crm.objects.contacts.read`, `crm.objects.contacts.write` |
+| `slack-oauth`   | Slack's OAuth 2.0 connection   | Bot scopes `channels:read`, `groups:read`, `chat:write`, `chat:write.public` |
+
+Use your own HubSpot and Slack OAuth apps for the client ID and secret.
+For the steps, see [Customer-activated connections](https://prismatic.io/docs/integrations/connections/integration-agnostic-connections/customer-activated/).
+
+Then import, publish, and add each integration to your marketplace, as for Fake CRM:
+
+```bash
+cd integrations/hubspot   # then the same in integrations/slack
+bun install
+bun run import
+```
+
+Saving a headless configuration links the instance to the customer's credential, which the instance needs before it can deploy.
+That needs a Prismatic stack with the Solis `configuration.connections` feature.
+
+To try the flows, post to an instance's webhook URL.
+HubSpot takes an Acme contact, such as `{ "email": "ada@example.com", "firstName": "Ada" }`, or `{ "contacts": [...] }`.
+Slack takes `{ "text": "Hello from Acme" }`.
+
 ## Where everything else is
 
 The app is split in two at the top level:
@@ -170,6 +216,8 @@ dev-server plugins, so they run under `bun run dev` only.
 | `frontend/lib/session.ts`                                | The signed-in user, read on the server.               |
 | `frontend/routes/placeholder/`                           | Static CRM pages. No Prismatic code.                  |
 | `integrations/fake-crm/`                                 | The code-native integration the headless example configures. |
+| `integrations/hubspot/`, `integrations/slack/`           | Integrations for the one-click connect example.       |
+| `frontend/components/headless/`                          | Shared pieces of the headless examples: forms, editor, connection picker. |
 | `frontend/components/`                                   | Shell components: sidebar, header, theme toggle.      |
 | `frontend/components/ui/`                                | Unmodified shadcn/ui parts. **Skip this folder.**     |
 
