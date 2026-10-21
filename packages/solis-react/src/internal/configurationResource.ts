@@ -1,9 +1,4 @@
 import type {
-  ConfigurationState,
-  InitializeConfigurationInput,
-  SaveConfigurationInput,
-} from "@prismatic-io/solis-core/protocol";
-import type {
   AuthedHandle,
   ConfigurationStub,
   InstanceStub,
@@ -15,6 +10,11 @@ import {
   observeState,
   toConfigurationError,
 } from "@prismatic-io/solis-core/internal";
+import type {
+  ConfigurationState,
+  InitializeConfigurationInput,
+  SaveConfigurationInput,
+} from "@prismatic-io/solis-core/protocol";
 import type { Guard } from "./loaders.js";
 import type { OwnedValue } from "./resourceCache.js";
 import { createFunctionOwner, type FunctionOwner } from "./serverFunctions.js";
@@ -52,6 +52,7 @@ export const loadConfigurationResource = async ({
   requireConnections,
   instanceId,
   integrationVersionId,
+  onSaved,
 }: {
   api: AuthedHandle;
   guard: Guard;
@@ -59,6 +60,8 @@ export const loadConfigurationResource = async ({
   requireConnections: Guard;
   instanceId: string;
   integrationVersionId: string | undefined;
+  /** Refreshes dependent connection choices after a successful save. */
+  onSaved: () => void;
 }): Promise<OwnedValue<LoadedConfiguration>> => {
   guard();
   let instance: InstanceStub | undefined;
@@ -139,7 +142,9 @@ export const loadConfigurationResource = async ({
                 };
               }
             }
-            return target.save(input);
+            const result = await target.save(input);
+            if (result.status === "success") onSaved();
+            return result;
           },
         }),
       ),
