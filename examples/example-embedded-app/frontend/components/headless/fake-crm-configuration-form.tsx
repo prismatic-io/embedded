@@ -124,7 +124,7 @@ export function acmeFieldsFromSchema(
 export type FormLayout = "wizard" | "single-page";
 
 /**
- * The setup form for the Fake CRM integration, drawn entirely with this app's
+ * The setup form for the Fake CRM integration, built entirely with this app's
  * own components. Prismatic supplies the data: the JSON Schema of the
  * configuration, and three server functions that read the customer's CRM.
  */

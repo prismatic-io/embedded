@@ -62,7 +62,7 @@ function RouteComponent() {
   return (
     <Page
       title="Headless Configuration"
-      description="A marketplace drawn with this app's own components, built with @prismatic-io/solis-react. Integrations that support headless configuration are set up with this app's own forms. The rest open Prismatic's configuration wizard in an iframe."
+      description="A marketplace rendered with this app's own components, using @prismatic-io/solis-react. Integrations that support headless configuration are set up with this app's own forms. The rest open Prismatic's configuration wizard in an iframe."
       actions={<HelperText id="headless-configuration" />}
       fullHeight
     >
@@ -341,7 +341,7 @@ function IntegrationSetup({
 }
 
 /**
- * The version being configured decides who draws its
+ * The version being configured decides who renders its
  * configuration. A headless version gets this app's forms. A hosted one, which
  * uses config pages, gets Prismatic's configuration wizard in an iframe.
  */

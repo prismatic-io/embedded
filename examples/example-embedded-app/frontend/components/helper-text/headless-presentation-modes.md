@@ -16,5 +16,5 @@ The page needs the Fake CRM integration in your marketplace. Its source is in `i
 ## Read the code
 
 - `frontend/routes/examples/headless-presentation-modes.tsx` holds the mode switch and the deploy button.
-- `frontend/components/headless/fake-crm-configuration-form.tsx` draws both layouts.
+- `frontend/components/headless/fake-crm-configuration-form.tsx` renders both layouts.
 - `frontend/components/headless/configuration-editor.tsx` runs `init`, `save`, and `deploy`.

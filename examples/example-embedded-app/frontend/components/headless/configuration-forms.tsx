@@ -32,7 +32,7 @@ export interface ConfigurationFormProps {
 
 /**
  * The forms this app has for headless integrations. A headless integration
- * defines its schema, but your app decides how to draw it, so each form here is
+ * defines its schema, but your app decides how to render it, so each form here is
  * written for one integration.
  *
  * A form is matched to an integration by a server function only that

@@ -52,7 +52,7 @@ The screens a customer steps through to activate an integration.
   if your organization has a custom retention policy, which Prismatic support
   sets up.
 - `hideSidebar` — remove the wizard's sidebar.
-- `isInModal` — draw the wizard as a modal over your page.
+- `isInModal` — show the wizard as a modal over your page.
 
 ## configureInstance
 

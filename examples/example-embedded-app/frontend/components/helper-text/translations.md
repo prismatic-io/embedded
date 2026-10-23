@@ -90,7 +90,7 @@ A variable has one of two jobs, and the editor labels each row accordingly:
 - **Wording**, such as `integrationSingular` or `organization`. It carries an
   English default, and you can change it.
 - **Run time**, such as `usageCount` or `connectionName`. Prismatic fills it in
-  as the screen draws, so keep its `%{name}` in your template and do not set a
+  as the screen renders, so keep its `%{name}` in your template and do not set a
   value for it.
 
 ## Dynamic phrases
