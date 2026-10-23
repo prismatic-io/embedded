@@ -18,6 +18,8 @@ import { Route as ExamplesCustomMarketplaceUiRouteImport } from './routes/exampl
 import { Route as ExamplesDashboardRouteImport } from './routes/examples/dashboard'
 import { Route as ExamplesEditInstanceConfigurationRouteImport } from './routes/examples/edit-instance-configuration'
 import { Route as ExamplesHeadlessConfigurationRouteImport } from './routes/examples/headless-configuration'
+import { Route as ExamplesHeadlessOneClickListRouteImport } from './routes/examples/headless-one-click-list'
+import { Route as ExamplesHeadlessPresentationModesRouteImport } from './routes/examples/headless-presentation-modes'
 import { Route as ExamplesScreenConfigurationRouteImport } from './routes/examples/screen-configuration'
 import { Route as ExamplesTranslationsRouteImport } from './routes/examples/translations'
 import { Route as ExamplesWorkflowBuilderRouteImport } from './routes/examples/workflow-builder'
@@ -76,6 +78,18 @@ const ExamplesHeadlessConfigurationRoute =
     path: '/examples/headless-configuration',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ExamplesHeadlessOneClickListRoute =
+  ExamplesHeadlessOneClickListRouteImport.update({
+    id: '/examples/headless-one-click-list',
+    path: '/examples/headless-one-click-list',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ExamplesHeadlessPresentationModesRoute =
+  ExamplesHeadlessPresentationModesRouteImport.update({
+    id: '/examples/headless-presentation-modes',
+    path: '/examples/headless-presentation-modes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ExamplesScreenConfigurationRoute =
   ExamplesScreenConfigurationRouteImport.update({
     id: '/examples/screen-configuration',
@@ -124,6 +138,8 @@ export interface FileRoutesByFullPath {
   '/examples/dashboard': typeof ExamplesDashboardRoute
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
   '/examples/headless-configuration': typeof ExamplesHeadlessConfigurationRoute
+  '/examples/headless-one-click-list': typeof ExamplesHeadlessOneClickListRoute
+  '/examples/headless-presentation-modes': typeof ExamplesHeadlessPresentationModesRoute
   '/examples/screen-configuration': typeof ExamplesScreenConfigurationRoute
   '/examples/translations': typeof ExamplesTranslationsRoute
   '/examples/workflow-builder': typeof ExamplesWorkflowBuilderRoute
@@ -142,6 +158,8 @@ export interface FileRoutesByTo {
   '/examples/dashboard': typeof ExamplesDashboardRoute
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
   '/examples/headless-configuration': typeof ExamplesHeadlessConfigurationRoute
+  '/examples/headless-one-click-list': typeof ExamplesHeadlessOneClickListRoute
+  '/examples/headless-presentation-modes': typeof ExamplesHeadlessPresentationModesRoute
   '/examples/screen-configuration': typeof ExamplesScreenConfigurationRoute
   '/examples/translations': typeof ExamplesTranslationsRoute
   '/examples/workflow-builder': typeof ExamplesWorkflowBuilderRoute
@@ -161,6 +179,8 @@ export interface FileRoutesById {
   '/examples/dashboard': typeof ExamplesDashboardRoute
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
   '/examples/headless-configuration': typeof ExamplesHeadlessConfigurationRoute
+  '/examples/headless-one-click-list': typeof ExamplesHeadlessOneClickListRoute
+  '/examples/headless-presentation-modes': typeof ExamplesHeadlessPresentationModesRoute
   '/examples/screen-configuration': typeof ExamplesScreenConfigurationRoute
   '/examples/translations': typeof ExamplesTranslationsRoute
   '/examples/workflow-builder': typeof ExamplesWorkflowBuilderRoute
@@ -181,6 +201,8 @@ export interface FileRouteTypes {
     | '/examples/dashboard'
     | '/examples/edit-instance-configuration'
     | '/examples/headless-configuration'
+    | '/examples/headless-one-click-list'
+    | '/examples/headless-presentation-modes'
     | '/examples/screen-configuration'
     | '/examples/translations'
     | '/examples/workflow-builder'
@@ -199,6 +221,8 @@ export interface FileRouteTypes {
     | '/examples/dashboard'
     | '/examples/edit-instance-configuration'
     | '/examples/headless-configuration'
+    | '/examples/headless-one-click-list'
+    | '/examples/headless-presentation-modes'
     | '/examples/screen-configuration'
     | '/examples/translations'
     | '/examples/workflow-builder'
@@ -217,6 +241,8 @@ export interface FileRouteTypes {
     | '/examples/dashboard'
     | '/examples/edit-instance-configuration'
     | '/examples/headless-configuration'
+    | '/examples/headless-one-click-list'
+    | '/examples/headless-presentation-modes'
     | '/examples/screen-configuration'
     | '/examples/translations'
     | '/examples/workflow-builder'
@@ -236,6 +262,8 @@ export interface RootRouteChildren {
   ExamplesDashboardRoute: typeof ExamplesDashboardRoute
   ExamplesEditInstanceConfigurationRoute: typeof ExamplesEditInstanceConfigurationRoute
   ExamplesHeadlessConfigurationRoute: typeof ExamplesHeadlessConfigurationRoute
+  ExamplesHeadlessOneClickListRoute: typeof ExamplesHeadlessOneClickListRoute
+  ExamplesHeadlessPresentationModesRoute: typeof ExamplesHeadlessPresentationModesRoute
   ExamplesScreenConfigurationRoute: typeof ExamplesScreenConfigurationRoute
   ExamplesTranslationsRoute: typeof ExamplesTranslationsRoute
   ExamplesWorkflowBuilderRoute: typeof ExamplesWorkflowBuilderRoute
@@ -310,6 +338,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExamplesHeadlessConfigurationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/examples/headless-one-click-list': {
+      id: '/examples/headless-one-click-list'
+      path: '/examples/headless-one-click-list'
+      fullPath: '/examples/headless-one-click-list'
+      preLoaderRoute: typeof ExamplesHeadlessOneClickListRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/examples/headless-presentation-modes': {
+      id: '/examples/headless-presentation-modes'
+      path: '/examples/headless-presentation-modes'
+      fullPath: '/examples/headless-presentation-modes'
+      preLoaderRoute: typeof ExamplesHeadlessPresentationModesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/examples/screen-configuration': {
       id: '/examples/screen-configuration'
       path: '/examples/screen-configuration'
@@ -373,6 +415,9 @@ const rootRouteChildren: RootRouteChildren = {
   ExamplesEditInstanceConfigurationRoute:
     ExamplesEditInstanceConfigurationRoute,
   ExamplesHeadlessConfigurationRoute: ExamplesHeadlessConfigurationRoute,
+  ExamplesHeadlessOneClickListRoute: ExamplesHeadlessOneClickListRoute,
+  ExamplesHeadlessPresentationModesRoute:
+    ExamplesHeadlessPresentationModesRoute,
   ExamplesScreenConfigurationRoute: ExamplesScreenConfigurationRoute,
   ExamplesTranslationsRoute: ExamplesTranslationsRoute,
   ExamplesWorkflowBuilderRoute: ExamplesWorkflowBuilderRoute,
