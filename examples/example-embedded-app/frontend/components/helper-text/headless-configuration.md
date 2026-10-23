@@ -1,6 +1,6 @@
 # Headless Configuration
 
-A marketplace drawn with this app's own cards, for every integration in it. Integrations that support headless configuration are set up with this app's own forms instead of Prismatic's configuration wizard. The rest fall back to the wizard, in an iframe.
+A marketplace built with this app's own cards, for every integration in it. Integrations that support headless configuration are set up with this app's own forms instead of Prismatic's configuration wizard. The rest fall back to the wizard, in an iframe.
 
 The page uses Solis React (`@prismatic-io/solis-react`), Prismatic's custom UI SDK for React. Its `PrismaticProvider` takes the same embedded JWT as the other examples. Hooks then read and change Prismatic data:
 
@@ -14,7 +14,7 @@ The page uses Solis React (`@prismatic-io/solis-react`), Prismatic's custom UI S
 
 The card's badge comes from the marketplace's `configurationExperience`, which describes the integration's latest version. The setup dialog decides by the `configurationExperience` of the configuration it opens, which describes the version the customer's instance runs:
 
-- **`headless`**: this app's own form for the integration. A headless integration defines its schema, but this app decides how to draw it. The app has forms for Fake CRM and Slack, matched to an integration by a server function only that integration defines. An integration whose configuration has no fields, such as HubSpot Contacts, needs only a save. A headless integration with no form here shows its schema instead.
+- **`headless`**: this app's own form for the integration. A headless integration defines its schema, but this app decides how to render it. The app has forms for Fake CRM and Slack, matched to an integration by a server function only that integration defines. An integration whose configuration has no fields, such as HubSpot Contacts, needs only a save. A headless integration with no form here shows its schema instead.
 - **`hosted`**: `<HostedConfiguration>`, Prismatic's wizard, in an iframe inside the same dialog. Solis refreshes whatever the wizard changed when it closes.
 
 ## Reusing the customer's connections

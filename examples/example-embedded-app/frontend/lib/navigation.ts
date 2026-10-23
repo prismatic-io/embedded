@@ -97,7 +97,7 @@ export const prismaticNav: NavItem[] = [
 
 /**
  * Examples built with Solis (`@prismatic-io/solis-react`), where your app
- * draws integration setup with its own components instead of an iframe.
+ * renders integration setup with its own components instead of an iframe.
  */
 export const headlessNav: NavItem[] = [
   {
