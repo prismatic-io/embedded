@@ -10,7 +10,7 @@
         "@ai-sdk/react": "^4.0.130",
         "@fontsource-variable/geist": "^5.3.0",
         "@prismatic-io/embedded": "^4.14.0",
-        "@prismatic-io/solis-react": "^0.0.2-preview.7",
+        "@prismatic-io/solis-react": "^0.1.0",
         "@prismatic-io/translations": "^2.14.1",
         "@tailwindcss/vite": "^4.1.18",
         "@tanstack/react-devtools": "latest",
@@ -238,9 +238,9 @@
 
     "@prismatic-io/embedded": ["@prismatic-io/embedded@4.14.0", "", { "dependencies": { "@prismatic-io/translations": "^2.10.0", "json-schema-to-typescript": "^15.0.0", "lodash.merge": "4.6.2", "url-join": "5.0.0" }, "bin": { "generate-types": "bin/generate-types.js" } }, "sha512-Hra/hPcdyYtheETv+r7dJat2mA+u0NcG2EIN86sCwdeDSnIcNnnY0h+TWI4hgX8LCW4IJO/eMDrSb/XnVwv/pA=="],
 
-    "@prismatic-io/solis-core": ["@prismatic-io/solis-core@0.0.2-preview.6", "", { "dependencies": { "capnweb": "0.12.0" } }, "sha512-d4Gj9G8ih98JvdklMb+oEWcxSohOJcDy88Tb/vG5ppq/JUWVVMQ6tHHTcjk5+jr+q7ZZOddwDQLOEp0ucnhjxA=="],
+    "@prismatic-io/solis-core": ["@prismatic-io/solis-core@0.1.0", "", { "dependencies": { "capnweb": "0.12.0" } }, "sha512-kN3+8iV+E+o9JPN2ucv7diV7ZLoF3aoafcOpCkzefLCLQuJtzJX9UCMgyZiIMOklmCQ+O8chfUmWjJJ7jH3oRQ=="],
 
-    "@prismatic-io/solis-react": ["@prismatic-io/solis-react@0.0.2-preview.7", "", { "dependencies": { "@prismatic-io/solis-core": "^0.0.2-preview.6" }, "peerDependencies": { "react": "^18.0.0 || ^19.0.0" } }, "sha512-AcT5rnCCV54HWqSWdHwzp+ShPP8yMhnujLI6izFAwHrRF0rHYOj6ug+N5i2qtXpmswFikJnto91mE4Q0q7pYnA=="],
+    "@prismatic-io/solis-react": ["@prismatic-io/solis-react@0.1.0", "", { "dependencies": { "@prismatic-io/solis-core": "^0.1.0" }, "peerDependencies": { "react": "^18.0.0 || ^19.0.0" } }, "sha512-GxjlBVOo5JynY/eAC5nRpxrrX6K29wniKfw73Q9tqNySgAfHOxcTiSUBjxtGr/rPvzIU+8ZPi2s6B+sEWrt0EQ=="],
 
     "@prismatic-io/translations": ["@prismatic-io/translations@2.14.3", "", {}, "sha512-k6StEekOPtAgi/tjOGEiqz7sUk8SSzYL4Gv9R8kpCIw63krbJ+P4UooMraxuLhrF3lJ9G9k+ZMJ4dS2mOJl1kQ=="],
 

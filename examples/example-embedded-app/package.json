@@ -22,7 +22,7 @@
     "@ai-sdk/react": "^4.0.130",
     "@fontsource-variable/geist": "^5.3.0",
     "@prismatic-io/embedded": "^4.14.0",
-    "@prismatic-io/solis-react": "^0.0.2-preview.7",
+    "@prismatic-io/solis-react": "^0.1.0",
     "@prismatic-io/translations": "^2.14.1",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "latest",

@@ -15,21 +15,21 @@ Open a page in the browser, then read the file that makes it.
 Each page also has a **Read about this example** button.
 That text comes from [`frontend/components/helper-text/`](frontend/components/helper-text).
 
-| Example                                                                                     | What it shows                                                              |
-| ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| [`basic-embedded-marketplace.tsx`](frontend/routes/examples/basic-embedded-marketplace.tsx) | `showMarketplace` in an iframe inside the page.                            |
-| [`basic-marketplace-popover.tsx`](frontend/routes/examples/basic-marketplace-popover.tsx)   | `showMarketplace` in a popover above the page.                             |
-| [`custom-marketplace-ui.tsx`](frontend/routes/examples/custom-marketplace-ui.tsx)           | `graphqlRequest` to build your own marketplace UI.                         |
-| [`headless-configuration.tsx`](frontend/routes/examples/headless-configuration.tsx)         | `@prismatic-io/solis-react`: your own forms for headless integrations, Prismatic's wizard for the rest. Needs setup below. |
-| [`headless-one-click-list.tsx`](frontend/routes/examples/headless-one-click-list.tsx)       | A list with one-click **Connect**: OAuth, configure, and deploy.           |
-| [`headless-presentation-modes.tsx`](frontend/routes/examples/headless-presentation-modes.tsx) | One configuration as a single page or as a multi-step wizard.             |
-| [`screen-configuration.tsx`](frontend/routes/examples/screen-configuration.tsx)             | `screenConfiguration` options, with live controls.                         |
-| [`translations.tsx`](frontend/routes/examples/translations.tsx)                             | Phrase overrides and other languages.                                      |
-| [`connections.tsx`](frontend/routes/examples/connections.tsx)                               | `showConnections` for reusable connections.                                |
-| [`dashboard.tsx`](frontend/routes/examples/dashboard.tsx)                                   | `showDashboard`, and how to hide tabs.                                     |
-| [`workflow-builder.tsx`](frontend/routes/examples/workflow-builder.tsx)                     | `showWorkflows` for customer-built workflows.                              |
-| [`workflow-contexts.tsx`](frontend/routes/examples/workflow-contexts.tsx)                   | `createWorkflow` from a context blueprint. Needs setup in Prismatic first. |
-| [`chat-bot.tsx`](frontend/routes/examples/chat-bot.tsx)                                     | A chat bot that calls the Prismatic MCP server.                            |
+| Example                                                                                       | What it shows                                                                                                              |
+| --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| [`basic-embedded-marketplace.tsx`](frontend/routes/examples/basic-embedded-marketplace.tsx)   | `showMarketplace` in an iframe inside the page.                                                                            |
+| [`basic-marketplace-popover.tsx`](frontend/routes/examples/basic-marketplace-popover.tsx)     | `showMarketplace` in a popover above the page.                                                                             |
+| [`custom-marketplace-ui.tsx`](frontend/routes/examples/custom-marketplace-ui.tsx)             | `graphqlRequest` to build your own marketplace UI.                                                                         |
+| [`headless-configuration.tsx`](frontend/routes/examples/headless-configuration.tsx)           | `@prismatic-io/solis-react`: your own forms for headless integrations, Prismatic's wizard for the rest. Needs setup below. |
+| [`headless-one-click-list.tsx`](frontend/routes/examples/headless-one-click-list.tsx)         | A list with one-click **Connect**: OAuth, configure, and deploy.                                                           |
+| [`headless-presentation-modes.tsx`](frontend/routes/examples/headless-presentation-modes.tsx) | One configuration as a single page or as a multi-step wizard.                                                              |
+| [`screen-configuration.tsx`](frontend/routes/examples/screen-configuration.tsx)               | `screenConfiguration` options, with live controls.                                                                         |
+| [`translations.tsx`](frontend/routes/examples/translations.tsx)                               | Phrase overrides and other languages.                                                                                      |
+| [`connections.tsx`](frontend/routes/examples/connections.tsx)                                 | `showConnections` for reusable connections.                                                                                |
+| [`dashboard.tsx`](frontend/routes/examples/dashboard.tsx)                                     | `showDashboard`, and how to hide tabs.                                                                                     |
+| [`workflow-builder.tsx`](frontend/routes/examples/workflow-builder.tsx)                       | `showWorkflows` for customer-built workflows.                                                                              |
+| [`workflow-contexts.tsx`](frontend/routes/examples/workflow-contexts.tsx)                     | `createWorkflow` from a context blueprint. Needs setup in Prismatic first.                                                 |
+| [`chat-bot.tsx`](frontend/routes/examples/chat-bot.tsx)                                       | A chat bot that calls the Prismatic MCP server.                                                                            |
 
 **The authentication backend is in [`server/prismatic-auth.ts`](server/prismatic-auth.ts).**
 Every embedded screen needs a signed JWT. Your server signs that JWT, because the signing key must never reach the browser.
@@ -110,9 +110,6 @@ Headless configuration is available for code-native integrations only.
 Your organization needs the `headlessConfiguration` feature enabled before you import or publish one.
 Contact Prismatic to enable it.
 
-The integrations use Spectral `10.35.0`, and the app uses Solis React `0.0.2-preview.6`.
-Solis is in preview, so its APIs may change.
-
 You need the [Prism CLI](https://prismatic.io/docs/cli/) 10.6.0 or later, logged in to your organization.
 Prism 11 requires Node.js 22.19.0 or later.
 
@@ -168,9 +165,9 @@ Both integrations call their APIs directly with the customer's OAuth token, so t
 Each declares a customer-activated connection, which your organization defines once in Prismatic and each customer authorizes for themselves.
 Before you import the integrations, create these customer-activated connections in Prismatic:
 
-| Stable key      | Connection                     | OAuth scopes                                                       |
-| --------------- | ------------------------------ | ------------------------------------------------------------------ |
-| `hubspot-oauth` | HubSpot's OAuth 2.0 connection | `oauth`, `crm.objects.contacts.read`, `crm.objects.contacts.write` |
+| Stable key      | Connection                     | OAuth scopes                                                                 |
+| --------------- | ------------------------------ | ---------------------------------------------------------------------------- |
+| `hubspot-oauth` | HubSpot's OAuth 2.0 connection | `oauth`, `crm.objects.contacts.read`, `crm.objects.contacts.write`           |
 | `slack-oauth`   | Slack's OAuth 2.0 connection   | Bot scopes `channels:read`, `groups:read`, `chat:write`, `chat:write.public` |
 
 Use your own HubSpot and Slack OAuth apps for the client ID and secret.
@@ -203,33 +200,33 @@ server/     The backend. It signs the JWT and backs the chat bot.
 `server/` is where your own backend code would go. Here those files are Vite
 dev-server plugins, so they run under `bun run dev` only.
 
-| Path                                                     | What it holds                                         |
-| -------------------------------------------------------- | ----------------------------------------------------- |
-| `frontend/routes/examples/`                              | One route per example. Read these first.              |
-| `server/prismatic-auth.ts`                               | Dev-only backend. It signs the embedded JWT.          |
-| `server/prismatic-config.ts`                             | zod schema for `.env.local`.                          |
-| `server/acme-chat-bot.ts`                                | Dev-only backend for the chat bot example.            |
-| `server/prismatic-mcp.ts`                                | MCP client for the chat bot example.                  |
-| `frontend/components/workflow-context-prerequisites.tsx` | In-app setup steps for the workflow contexts example. |
-| `frontend/hooks/use-prismatic-auth.tsx`                  | The React binding for the token.                      |
-| `frontend/lib/navigation.ts`                             | The sidebar links. Add each new example here.         |
-| `frontend/lib/session.ts`                                | The signed-in user, read on the server.               |
-| `frontend/routes/placeholder/`                           | Static CRM pages. No Prismatic code.                  |
-| `integrations/fake-crm/`                                 | The code-native integration the headless example configures. |
-| `integrations/hubspot/`, `integrations/slack/`           | Integrations for the one-click connect example.       |
+| Path                                                     | What it holds                                                             |
+| -------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `frontend/routes/examples/`                              | One route per example. Read these first.                                  |
+| `server/prismatic-auth.ts`                               | Dev-only backend. It signs the embedded JWT.                              |
+| `server/prismatic-config.ts`                             | zod schema for `.env.local`.                                              |
+| `server/acme-chat-bot.ts`                                | Dev-only backend for the chat bot example.                                |
+| `server/prismatic-mcp.ts`                                | MCP client for the chat bot example.                                      |
+| `frontend/components/workflow-context-prerequisites.tsx` | In-app setup steps for the workflow contexts example.                     |
+| `frontend/hooks/use-prismatic-auth.tsx`                  | The React binding for the token.                                          |
+| `frontend/lib/navigation.ts`                             | The sidebar links. Add each new example here.                             |
+| `frontend/lib/session.ts`                                | The signed-in user, read on the server.                                   |
+| `frontend/routes/placeholder/`                           | Static CRM pages. No Prismatic code.                                      |
+| `integrations/fake-crm/`                                 | The code-native integration the headless example configures.              |
+| `integrations/hubspot/`, `integrations/slack/`           | Integrations for the one-click connect example.                           |
 | `frontend/components/headless/`                          | Shared pieces of the headless examples: forms, editor, connection picker. |
-| `frontend/components/`                                   | Shell components: sidebar, header, theme toggle.      |
-| `frontend/components/ui/`                                | Unmodified shadcn/ui parts. **Skip this folder.**     |
+| `frontend/components/`                                   | Shell components: sidebar, header, theme toggle.                          |
+| `frontend/components/ui/`                                | Unmodified shadcn/ui parts. **Skip this folder.**                         |
 
 ## Commands
 
-| Command                   | Result                                  |
-| ------------------------- | --------------------------------------- |
-| `bun run dev`             | Start the development server.           |
-| `bun run build`           | Build for production.                   |
+| Command                   | Result                                   |
+| ------------------------- | ---------------------------------------- |
+| `bun run dev`             | Start the development server.            |
+| `bun run build`           | Build for production.                    |
 | `bun run typecheck`       | Check TypeScript without emitting files. |
-| `bun run generate-routes` | Regenerate `frontend/routeTree.gen.ts`. |
-| `bun run check`           | Lint and format with Biome.             |
+| `bun run generate-routes` | Regenerate `frontend/routeTree.gen.ts`.  |
+| `bun run check`           | Lint and format with Biome.              |
 
 ## Stack
 
