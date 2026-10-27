@@ -12,7 +12,12 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { prismaticNav, workspaceNav } from "@/lib/navigation";
+import {
+  headlessNav,
+  type NavItem,
+  prismaticNav,
+  workspaceNav,
+} from "@/lib/navigation";
 
 export function AppSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -91,6 +96,8 @@ export function AppSidebar() {
             )}
           </SidebarMenu>
         </SidebarGroup>
+
+        <NavGroup label="Headless examples" items={headlessNav} />
       </SidebarContent>
 
       <SidebarFooter>
@@ -112,5 +119,30 @@ export function AppSidebar() {
 
       <SidebarRail />
     </Sidebar>
+  );
+}
+
+function NavGroup({ label, items }: { label: string; items: NavItem[] }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  return (
+    <SidebarGroup>
+      <SidebarGroupLabel>{label}</SidebarGroupLabel>
+      <SidebarMenu>
+        {items.map((item) => (
+          <SidebarMenuItem key={item.to}>
+            <SidebarMenuButton
+              asChild
+              tooltip={item.title}
+              isActive={pathname === item.to}
+            >
+              <Link to={item.to}>
+                {item.icon ? <item.icon className="size-4" /> : null}
+                <span>{item.title}</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        ))}
+      </SidebarMenu>
+    </SidebarGroup>
   );
 }

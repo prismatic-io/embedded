@@ -60,7 +60,7 @@ export const newDynamicPhrase = (): DynamicPhrase => ({
   target: "",
 });
 
-/** Long lists are slow to draw and hard to read, so show a page at a time. */
+/** Long lists are slow to render and hard to read, so show a page at a time. */
 const MAX_RESULTS = 60;
 
 function PhraseOption({
@@ -353,7 +353,7 @@ function PhraseRow({
               {entry.runtimeVariables.map((name) => `%{${name}}`).join(" and ")}{" "}
               in the text. Prismatic fills{" "}
               {entry.runtimeVariables.length > 1 ? "those" : "that"} in as the
-              screen draws.
+              screen renders.
             </p>
           ) : null}
         </>

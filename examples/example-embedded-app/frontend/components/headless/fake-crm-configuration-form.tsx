@@ -117,8 +117,15 @@ export function acmeFieldsFromSchema(
 }
 
 /**
- * A two-step setup form for the Fake CRM integration, drawn entirely with this
- * app's own components. Prismatic supplies the data: the JSON Schema of the
+ * How the form is presented. `wizard` asks one question per step: the record
+ * type, then the field mapping. `single-page` shows every question at once.
+ * Both collect the same values and save them the same way.
+ */
+export type FormLayout = "wizard" | "single-page";
+
+/**
+ * The setup form for the Fake CRM integration, built entirely with this app's
+ * own components. Prismatic supplies the data: the JSON Schema of the
  * configuration, and three server functions that read the customer's CRM.
  */
 export function FakeCrmConfigurationForm({
@@ -129,6 +136,7 @@ export function FakeCrmConfigurationForm({
   fieldErrors,
   onSubmit,
   onCancel,
+  layout = "wizard",
 }: {
   configuration: ConfigurationResource;
   /** The values the integration's `init` suggested. */
@@ -139,9 +147,11 @@ export function FakeCrmConfigurationForm({
   fieldErrors: { path: string | null; message: string }[];
   onSubmit: (values: FakeCrmConfiguration) => void;
   onCancel?: () => void;
+  layout?: FormLayout;
 }) {
   const [step, setStep] = useState<"recordType" | "mapping">("recordType");
   const [values, setValues] = useState<FakeCrmConfiguration>(initialValues);
+  const showMapping = layout === "single-page" || step === "mapping";
 
   const recordTypes = useServerFunctionQuery<
     Record<string, never>,
@@ -156,7 +166,7 @@ export function FakeCrmConfigurationForm({
   const preview = useServerFunctionQuery<FakeCrmConfiguration, SampleRecord>(
     configuration,
     "getSampleRecord",
-    step === "mapping" ? values : null,
+    showMapping && values.recordType ? values : null,
   );
 
   if (configuration.status !== "success") return null;
@@ -183,51 +193,161 @@ export function FakeCrmConfigurationForm({
       },
     }));
 
+  const recordTypePicker = (
+    <section className="flex flex-col gap-4">
+      <div>
+        <h3 className="font-medium">Where do you keep your people?</h3>
+        <p className="text-sm text-muted-foreground">
+          Choose the Fake CRM record type to sync to Acme as contacts.
+        </p>
+      </div>
+      {recordTypes.status === "error" ? (
+        <p className="text-sm text-destructive">{recordTypes.error}</p>
+      ) : !recordTypes.data ? (
+        <p className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="size-4 animate-spin" /> Reading record types from
+          Fake CRM…
+        </p>
+      ) : (
+        <div className="grid gap-3 sm:grid-cols-3">
+          {recordTypes.data.map((recordType) => (
+            <button
+              key={recordType.name}
+              type="button"
+              onClick={() => chooseRecordType(recordType.name)}
+              className={cn(
+                "rounded-lg border p-4 text-left transition-colors hover:bg-accent",
+                values.recordType === recordType.name &&
+                  "border-primary ring-2 ring-primary/30",
+              )}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-medium">{recordType.label}</span>
+                {recordType.custom ? (
+                  <Badge variant="outline">Custom</Badge>
+                ) : null}
+              </div>
+              <code className="text-xs text-muted-foreground">
+                {recordType.name}
+              </code>
+            </button>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+
+  const fieldMapper = (
+    <div className="grid gap-8 lg:grid-cols-2">
+      <section className="flex flex-col gap-4">
+        <div>
+          <h3 className="font-medium">Map fields</h3>
+          <p className="text-sm text-muted-foreground">
+            For each Acme contact field, choose the{" "}
+            <code>{values.recordType}</code> field to read.
+          </p>
+        </div>
+        {fields.status === "error" ? (
+          <p className="text-sm text-destructive">{fields.error}</p>
+        ) : null}
+        {acmeFields.map((acmeField) => {
+          const error = fieldErrors.find(({ path }) =>
+            path?.endsWith(acmeField.key),
+          );
+          return (
+            <div
+              key={acmeField.key}
+              className="grid grid-cols-[8rem_1fr] items-center gap-3"
+            >
+              <Label htmlFor={`map-${acmeField.key}`}>
+                {acmeField.title}
+                {acmeField.required ? (
+                  <span className="text-destructive">*</span>
+                ) : null}
+              </Label>
+              <div>
+                <Select
+                  value={values.fieldMapping[acmeField.key] ?? UNMAPPED}
+                  onValueChange={(value) => mapField(acmeField.key, value)}
+                  disabled={fields.status !== "success"}
+                >
+                  <SelectTrigger id={`map-${acmeField.key}`} className="w-full">
+                    <SelectValue placeholder="Loading fields…" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={UNMAPPED}>Don't sync</SelectItem>
+                    {fields.data?.map((field) => (
+                      <SelectItem key={field.name} value={field.name}>
+                        {field.label}{" "}
+                        <span className="text-muted-foreground">
+                          ({field.name})
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {error ? (
+                  <p className="mt-1 text-xs text-destructive">
+                    {error.message}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          );
+        })}
+      </section>
+
+      <MappingPreview
+        acmeFields={acmeFields}
+        mapping={values.fieldMapping}
+        preview={preview}
+      />
+    </div>
+  );
+
+  const submit = (
+    <>
+      <Button type="submit" disabled={busy || missing.length > 0}>
+        {busy ? <Loader2 className="animate-spin" /> : null}
+        {submitLabel}
+      </Button>
+      {missing.length > 0 ? (
+        <span className="text-sm text-muted-foreground">
+          Map {missing.map(({ title }) => title).join(" and ")} to continue.
+        </span>
+      ) : null}
+    </>
+  );
+  const cancel = onCancel ? (
+    <Button type="button" variant="outline" onClick={onCancel} disabled={busy}>
+      Cancel
+    </Button>
+  ) : null;
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    onSubmit(values);
+  };
+
+  if (layout === "single-page") {
+    return (
+      <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+        {recordTypePicker}
+        {values.recordType ? fieldMapper : null}
+        <div className="flex items-center gap-2 border-t pt-6">
+          {cancel}
+          {submit}
+        </div>
+      </form>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <Steps step={step} />
 
       {step === "recordType" ? (
-        <section className="flex flex-col gap-4">
-          <div>
-            <h3 className="font-medium">Where do you keep your people?</h3>
-            <p className="text-sm text-muted-foreground">
-              Choose the Fake CRM record type to sync to Acme as contacts.
-            </p>
-          </div>
-          {recordTypes.status === "error" ? (
-            <p className="text-sm text-destructive">{recordTypes.error}</p>
-          ) : !recordTypes.data ? (
-            <p className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Loader2 className="size-4 animate-spin" /> Reading record types
-              from Fake CRM…
-            </p>
-          ) : (
-            <div className="grid gap-3 sm:grid-cols-3">
-              {recordTypes.data.map((recordType) => (
-                <button
-                  key={recordType.name}
-                  type="button"
-                  onClick={() => chooseRecordType(recordType.name)}
-                  className={cn(
-                    "rounded-lg border p-4 text-left transition-colors hover:bg-accent",
-                    values.recordType === recordType.name &&
-                      "border-primary ring-2 ring-primary/30",
-                  )}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-medium">{recordType.label}</span>
-                    {recordType.custom ? (
-                      <Badge variant="outline">Custom</Badge>
-                    ) : null}
-                  </div>
-                  <code className="text-xs text-muted-foreground">
-                    {recordType.name}
-                  </code>
-                </button>
-              ))}
-            </div>
-          )}
+        <>
+          {recordTypePicker}
           <div className="flex gap-2">
             <Button
               disabled={!values.recordType}
@@ -235,92 +355,12 @@ export function FakeCrmConfigurationForm({
             >
               Next: map fields <ArrowRight data-icon="inline-end" />
             </Button>
-            {onCancel ? (
-              <Button variant="outline" onClick={onCancel}>
-                Cancel
-              </Button>
-            ) : null}
+            {cancel}
           </div>
-        </section>
+        </>
       ) : (
-        <form
-          className="flex flex-col gap-6"
-          onSubmit={(event) => {
-            event.preventDefault();
-            onSubmit(values);
-          }}
-        >
-          <div className="grid gap-8 lg:grid-cols-2">
-            <section className="flex flex-col gap-4">
-              <div>
-                <h3 className="font-medium">Map fields</h3>
-                <p className="text-sm text-muted-foreground">
-                  For each Acme contact field, choose the{" "}
-                  <code>{values.recordType}</code> field to read.
-                </p>
-              </div>
-              {fields.status === "error" ? (
-                <p className="text-sm text-destructive">{fields.error}</p>
-              ) : null}
-              {acmeFields.map((acmeField) => {
-                const error = fieldErrors.find(({ path }) =>
-                  path?.endsWith(acmeField.key),
-                );
-                return (
-                  <div
-                    key={acmeField.key}
-                    className="grid grid-cols-[8rem_1fr] items-center gap-3"
-                  >
-                    <Label htmlFor={`map-${acmeField.key}`}>
-                      {acmeField.title}
-                      {acmeField.required ? (
-                        <span className="text-destructive">*</span>
-                      ) : null}
-                    </Label>
-                    <div>
-                      <Select
-                        value={values.fieldMapping[acmeField.key] ?? UNMAPPED}
-                        onValueChange={(value) =>
-                          mapField(acmeField.key, value)
-                        }
-                        disabled={fields.status !== "success"}
-                      >
-                        <SelectTrigger
-                          id={`map-${acmeField.key}`}
-                          className="w-full"
-                        >
-                          <SelectValue placeholder="Loading fields…" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value={UNMAPPED}>Don't sync</SelectItem>
-                          {fields.data?.map((field) => (
-                            <SelectItem key={field.name} value={field.name}>
-                              {field.label}{" "}
-                              <span className="text-muted-foreground">
-                                ({field.name})
-                              </span>
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {error ? (
-                        <p className="mt-1 text-xs text-destructive">
-                          {error.message}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-                );
-              })}
-            </section>
-
-            <MappingPreview
-              acmeFields={acmeFields}
-              mapping={values.fieldMapping}
-              preview={preview}
-            />
-          </div>
-
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+          {fieldMapper}
           <div className="flex items-center gap-2">
             <Button
               type="button"
@@ -330,16 +370,7 @@ export function FakeCrmConfigurationForm({
             >
               Back
             </Button>
-            <Button type="submit" disabled={busy || missing.length > 0}>
-              {busy ? <Loader2 className="animate-spin" /> : null}
-              {submitLabel}
-            </Button>
-            {missing.length > 0 ? (
-              <span className="text-sm text-muted-foreground">
-                Map {missing.map(({ title }) => title).join(" and ")} to
-                continue.
-              </span>
-            ) : null}
+            {submit}
           </div>
         </form>
       )}

@@ -8,8 +8,10 @@ import {
   LayoutDashboard,
   LayoutGrid,
   ListChecks,
+  ListPlus,
   PictureInPicture2,
   Plug,
+  Rows3,
   Settings2,
   SlidersHorizontal,
   Store,
@@ -52,11 +54,6 @@ export const prismaticNav: NavItem[] = [
     icon: LayoutGrid,
   },
   {
-    title: "Headless Configuration",
-    to: "/examples/headless-configuration",
-    icon: ListChecks,
-  },
-  {
     title: "Edit Instance Configuration",
     to: "/examples/edit-instance-configuration",
     icon: Settings2,
@@ -95,5 +92,27 @@ export const prismaticNav: NavItem[] = [
     title: "Chat Bot",
     to: "/examples/chat-bot",
     icon: Bot,
+  },
+];
+
+/**
+ * Examples built with Solis (`@prismatic-io/solis-react`), where your app
+ * renders integration setup with its own components instead of an iframe.
+ */
+export const headlessNav: NavItem[] = [
+  {
+    title: "Headless Configuration",
+    to: "/examples/headless-configuration",
+    icon: ListChecks,
+  },
+  {
+    title: "One-Click Connect",
+    to: "/examples/headless-one-click-list",
+    icon: ListPlus,
+  },
+  {
+    title: "Presentation Modes",
+    to: "/examples/headless-presentation-modes",
+    icon: Rows3,
   },
 ];
