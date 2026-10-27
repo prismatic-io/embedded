@@ -49,7 +49,7 @@
     },
     "packages/solis-core": {
       "name": "@prismatic-io/solis-core",
-      "version": "0.0.2-preview.6",
+      "version": "0.1.0",
       "dependencies": {
         "capnweb": "0.12.0",
       },
