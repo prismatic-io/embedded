@@ -32,7 +32,7 @@ interface Listing {
 @Component({
   imports: [HeadlessSetup],
   template: `
-    <h2>Custom Marketplace</h2>
+    <h2>Headless Marketplace</h2>
     @if (status(); as status) {
       <p>{{ status }}</p>
     }
@@ -83,7 +83,7 @@ interface Listing {
     </dialog>
   `,
 })
-export class CustomMarketplace {
+export class HeadlessMarketplace {
   private readonly auth = inject(PrismaticAuth);
   private readonly popover = viewChild.required<ElementRef<HTMLDialogElement>>("popover");
   private readonly frame = viewChild.required<ElementRef<HTMLElement>>("frame");

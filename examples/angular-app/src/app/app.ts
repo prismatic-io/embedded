@@ -11,7 +11,7 @@ import { PrismaticAuth } from "./prismatic-auth";
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
         >Dashboard</a
       >
-      <a routerLink="/custom" routerLinkActive="active">Headless Marketplace</a>
+      <a routerLink="/headless" routerLinkActive="active">Headless Marketplace</a>
       <a routerLink="/hosted" routerLinkActive="active">Hosted Marketplace</a>
     </nav>
     <main>
