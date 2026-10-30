@@ -7,7 +7,7 @@ nav a { color: #d1d5db; text-decoration: none; padding: 0.5rem; border-radius: 6
 nav a.active, nav a:hover { background: #374151; color: white; }
 main { flex: 1; padding: 1.5rem; display: flex; flex-direction: column; min-width: 0; }
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
-.card, .panel { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+.card { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
 .card p { margin: 0; color: #6b7280; font-size: 0.9rem; }
 .card button { margin-top: auto; }
 .card-header { display: flex; align-items: center; gap: 0.75rem; }
@@ -17,12 +17,39 @@ main { flex: 1; padding: 1.5rem; display: flex; flex-direction: column; min-widt
 .badges { display: flex; gap: 0.25rem; }
 .badge { font-size: 0.75rem; padding: 0.1rem 0.5rem; border-radius: 999px; background: #e5e7eb; }
 .badge.installed { background: #dcfce7; color: #166534; }
-.panel { margin-top: 1rem; }
-.panel textarea { width: 100%; font-family: monospace; }
 /* A definite height: the iframes inside use height: 100%. */
 .embed { height: calc(100vh - 7rem); min-height: 600px; }
-.wizard { width: min(1100px, 92vw); height: 88vh; padding: 0; border: 0; border-radius: 12px; overflow: hidden; }
-.wizard::backdrop { background: rgb(0 0 0 / 0.5); }
-.wizard-frame { height: 100%; }
-.wizard .close { position: absolute; top: 0.5rem; right: 0.5rem; z-index: 1; border: 0; border-radius: 6px; padding: 0.25rem 0.5rem; background: #f3f4f6; cursor: pointer; }
+.muted { color: #6b7280; font-size: 0.9rem; }
+.actions { display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem; }
+
+/* The setup popover, for the hosted wizard and headless forms alike. */
+.popover { width: min(1100px, 92vw); max-height: 90vh; padding: 1.25rem 1.5rem; border: 0; border-radius: 12px; }
+.popover::backdrop { background: rgb(0 0 0 / 0.5); }
+.popover header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.popover h3 { margin: 0 0 0.25rem; }
+.popover .close { border: 0; border-radius: 6px; padding: 0.25rem 0.5rem; background: #f3f4f6; cursor: pointer; }
+.popover textarea { width: 100%; font-family: monospace; }
+.popover section { margin-bottom: 1.5rem; }
+.wizard-frame { height: 75vh; }
+.wizard-frame:empty { display: none; }
+.notice { margin: 0 0 1rem; padding: 0.75rem 0.75rem 0.75rem 2rem; border: 1px solid #fcd34d; border-radius: 8px; background: #fffbeb; }
+
+/* The Fake CRM form. */
+.choices { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+.choice { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 0.75rem; text-align: left; background: white; border: 1px solid #e5e7eb; border-radius: 8px; cursor: pointer; }
+.choice code { flex-basis: 100%; color: #6b7280; font-size: 0.75rem; }
+.choice.selected { border-color: #2563eb; box-shadow: 0 0 0 3px rgb(37 99 235 / 0.25); }
+.mapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+.field { display: grid; grid-template-columns: 8rem 1fr; align-items: center; gap: 0.25rem 0.75rem; margin-bottom: 0.75rem; }
+.field small { grid-column: 2; }
+.preview { padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #f9fafb; }
+.preview table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.preview th, .preview td { padding: 0.4rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
 .error { color: #b91c1c; }
+
+/* Headless setup: steps and the connection picker. */
+.steps { display: flex; gap: 1.5rem; margin: 0 0 1.25rem; padding: 0; list-style: none; color: #6b7280; }
+.steps .current { color: inherit; font-weight: 600; }
+.options { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem; }
+.options .choice { justify-content: space-between; }
+.choice:disabled { opacity: 0.5; cursor: default; }

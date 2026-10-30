@@ -1,6 +1,6 @@
 import { afterRenderEffect, Component, inject } from "@angular/core";
 import prismatic from "@prismatic-io/embedded";
-import { PrismaticAuth } from "./prismatic-auth";
+import { PrismaticAuth } from "../prismatic-auth";
 
 /** Prismatic's own marketplace UI, embedded as an iframe with @prismatic-io/embedded. */
 @Component({

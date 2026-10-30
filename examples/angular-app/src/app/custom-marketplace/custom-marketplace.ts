@@ -9,36 +9,28 @@ import {
 } from "@angular/core";
 import {
   type Client,
-  type ConfigurationStub,
   createClient,
-  type InstanceStub,
   type IntegrationStub,
   type VisibleFrameMount,
 } from "@prismatic-io/solis-core";
 import type { MarketplaceIntegrationState } from "@prismatic-io/solis-core/protocol";
-import { PrismaticAuth } from "./prismatic-auth";
+import { type HeadlessTarget, HeadlessSetup } from "./headless-setup/headless-setup";
+import { PrismaticAuth } from "../prismatic-auth";
 
 interface Listing {
   stub: IntegrationStub;
   state: MarketplaceIntegrationState;
 }
 
-/** A headless configuration being edited, prefilled with `init`'s suggestion. */
-interface Draft {
-  name: string;
-  instance: InstanceStub;
-  config: ConfigurationStub;
-  json: string;
-}
-
 /**
- * Your own marketplace UI, built on @prismatic-io/solis-core.
+ * Your own marketplace UI, built on @prismatic-io/solis-core. Setup opens in a
+ * popover:
  *
- * - "hosted" integrations open Prismatic's configuration wizard in an iframe.
- * - "headless" integrations are configured by this app: here, a JSON editor
- *   prefilled by the integration's `init`, then saved and deployed.
+ * - "hosted" integrations get Prismatic's configuration wizard in an iframe.
+ * - "headless" integrations get this app's own form (see headless-setup/headless-setup.ts).
  */
 @Component({
+  imports: [HeadlessSetup],
   template: `
     <h2>Custom Marketplace</h2>
     @if (status(); as status) {
@@ -71,33 +63,34 @@ interface Draft {
         </div>
       }
     </div>
-    @if (draft(); as draft) {
-      <div class="panel">
-        <h3>Configure {{ draft.name }}</h3>
-        <textarea #json rows="12" [value]="draft.json"></textarea>
-        <button (click)="saveAndDeploy(draft, json.value)" [disabled]="busy()">Save and deploy</button>
-        <button (click)="this.draft.set(null)">Cancel</button>
-      </div>
-    }
-    <!-- A popover for the hosted wizard. Closing it, by any means, removes the wizard. -->
-    <dialog #wizard class="wizard" (close)="mount?.dispose()">
-      <button class="close" (click)="wizard.close()" aria-label="Close">✕</button>
+
+    <!-- Closing the popover, by any means, removes what's in it. -->
+    <dialog #popover class="popover" (close)="closed()">
+      <header>
+        <h3>Configure {{ popoverTitle() }}</h3>
+        <button class="close" (click)="popover.close()" aria-label="Close">✕</button>
+      </header>
+      @if (headless(); as target) {
+        <app-headless-setup [target]="target" (deployed)="popover.close()" />
+      }
+      <!-- The hosted wizard's iframe goes here. CSS hides it while it's empty. -->
       <div #frame class="wizard-frame"></div>
     </dialog>
   `,
 })
 export class CustomMarketplace {
   private readonly auth = inject(PrismaticAuth);
-  private readonly wizard = viewChild.required<ElementRef<HTMLDialogElement>>("wizard");
+  private readonly popover = viewChild.required<ElementRef<HTMLDialogElement>>("popover");
   private readonly frame = viewChild.required<ElementRef<HTMLElement>>("frame");
   private client?: Client;
-  protected mount?: VisibleFrameMount;
+  private mount?: VisibleFrameMount;
   private destroyed = false;
 
   protected readonly listings = signal<Listing[]>([]);
   /** Image links by integration id. */
   protected readonly avatars = signal<Record<string, string>>({});
-  protected readonly draft = signal<Draft | null>(null);
+  protected readonly popoverTitle = signal("");
+  protected readonly headless = signal<HeadlessTarget | null>(null);
   protected readonly status = signal<string | null>(null);
   protected readonly busy = signal(false);
 
@@ -163,42 +156,33 @@ export class CustomMarketplace {
       const [existing] = await stub.instances();
       const instance = existing ?? (await stub.createInstance({ name: state.name }));
 
-      if (state.configurationExperience === "hosted") {
-        const { id } = await instance.refresh();
-        this.mount?.dispose();
-        const dialog = this.wizard().nativeElement;
+      // The version being configured decides who renders its configuration.
+      // The listing's `configurationExperience` is only its latest version's.
+      const config = await instance.configuration();
+      const configState = await config.refresh();
+      const popover = this.popover().nativeElement;
+      this.popoverTitle.set(state.name);
+
+      if (configState.configurationExperience === "hosted") {
         // The wizard deploys the instance itself. When it finishes, close the popover.
         this.mount = await this.client!.openVisibleFrame({
-          url: `/configure-instance/${encodeURIComponent(id)}/?reconfigure=true`,
+          url: `/configure-instance/${encodeURIComponent(configState.instanceId)}/?reconfigure=true`,
           container: this.frame().nativeElement,
           title: `Configure ${state.name}`,
-          onClose: () => dialog.close(),
+          onClose: () => popover.close(),
         });
-        // Show the popover once the wizard is ready, so it never opens blank.
-        dialog.showModal();
       } else {
-        const config = await instance.configuration();
-        const suggested = await config.init({});
-        if (suggested.status === "error") throw suggested.error;
-        const { configuration } = suggested.data as { configuration: unknown };
-        this.draft.set({
-          name: state.name,
-          instance,
-          config,
-          json: JSON.stringify(configuration, null, 2),
-        });
+        this.headless.set({ client: this.client!, instance, config, state: configState });
       }
+      // For the wizard, this waits until it's ready, so the popover never opens blank.
+      popover.showModal();
     });
   }
 
-  protected saveAndDeploy(draft: Draft, json: string) {
-    return this.run(`Deploying ${draft.name}…`, async () => {
-      // Prismatic validates the value against the integration's schema.
-      const saved = await draft.config.save({ value: JSON.parse(json) });
-      if (saved.status === "error") throw saved.error;
-      await draft.instance.deploy();
-      this.draft.set(null);
-    });
+  protected closed() {
+    this.mount?.dispose();
+    this.mount = undefined;
+    this.headless.set(null);
   }
 
   /** Shows `message` while `task` runs, and its error if it fails. */
