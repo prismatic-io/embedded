@@ -37,6 +37,7 @@ Each page has its own folder under `src/app/`, as Angular's [style guide](https:
 ## The custom marketplace
 
 The custom marketplace lists every integration in the marketplace. **Deploy** reuses the customer's instance of that integration, or creates one, and opens setup in a popover.
+**Remove** deletes the customer's instance, and its configuration with it.
 The configuration of the version being set up decides who renders it:
 
 - **hosted**: Prismatic's configuration wizard, in the iframe from `client.openVisibleFrame`. The wizard deploys the instance.

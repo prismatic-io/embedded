@@ -57,9 +57,14 @@ interface Listing {
               <span class="badge installed">Installed</span>
             }
           </div>
-          <button (click)="configure(listing)" [disabled]="busy()">
-            {{ listing.state.instances.length ? "Reconfigure" : "Deploy" }}
-          </button>
+          <div class="card-actions">
+            <button (click)="configure(listing)" [disabled]="busy()">
+              {{ listing.state.instances.length ? "Reconfigure" : "Deploy" }}
+            </button>
+            @if (listing.state.instances.length) {
+              <button class="danger" (click)="remove(listing)" [disabled]="busy()">Remove</button>
+            }
+          </div>
         </div>
       }
     </div>
@@ -176,6 +181,26 @@ export class CustomMarketplace {
       }
       // For the wizard, this waits until it's ready, so the popover never opens blank.
       popover.showModal();
+    });
+  }
+
+  /**
+   * Deletes the customer's instance: it stops running, and its configuration
+   * goes with it. Changing an instance through this session re-reads the
+   * listing, so the card updates on its own.
+   */
+  protected remove({ stub, state }: Listing) {
+    if (!window.confirm(`Remove ${state.name}? It stops running, and its configuration is deleted.`)) {
+      return;
+    }
+    return this.run(`Removing ${state.name}…`, async () => {
+      const [instance] = await stub.instances();
+      if (!instance) return;
+      const { permissions } = await instance.refresh();
+      if (!permissions.remove.allowed) {
+        throw new Error(`You can't remove ${state.name} (${permissions.remove.reason}).`);
+      }
+      await instance.delete();
     });
   }
 
