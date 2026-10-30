@@ -3,7 +3,7 @@
 The marketplace's headless integrations in a list, each with a **Connect** button. One click does everything:
 
 1. Creates an instance with `createInstance`, if the customer doesn't have one.
-2. Authorizes the customer's account with `createConnection`, which runs the OAuth flow in a new window.
+2. Authorizes the customer's account with `createConnection`, which runs the OAuth flow in a new window. If the customer already has an active credential the connection can use, such as one left from an integration they disconnected, the app asks whether to reuse it instead of making another.
 3. Runs the integration's `init` for its suggested configuration.
 4. Saves that configuration with `save({ value, connections })`, linking the new credential, then deploys the instance.
 
@@ -23,6 +23,8 @@ Both need customer-activated connections in your organization. See the README fo
 ## Opening the consent window
 
 Browsers only let a click open a window, and only before the click handler's first `await`. `createConnection` opens its window as it starts, but a new integration has nothing to call it on until its instance exists. So the click opens a blank window right away, and the app gives the session a `host` with an `openExternalUrl` capability. When Solis asks the host to open the consent screen, that capability sends the blank window there.
+
+A new instance's connection requirements, and so the credentials it could reuse, aren't known until the instance exists. So when `useConnections` shows the customer has any active credentials, the click skips the blank window. Once the requirements load, the app shows `ConnectionPicker`, where the customer can choose an existing credential or start a new authorization from a click of its own.
 
 ## Read the code
 

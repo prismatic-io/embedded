@@ -1,8 +1,10 @@
 import {
+  type ConfigurationConnectionRequirement,
   type ConfigurationConnectionSelection,
   type MarketplaceIntegration,
   type MarketplaceIntegrationActions,
   useConfiguration,
+  useConnections,
   useInstance,
   useMarketplace,
   usePrismatic,
@@ -18,6 +20,7 @@ import {
   unpopulatedFields,
 } from "#/components/headless/configuration-editor";
 import { findConfigurationForm } from "#/components/headless/configuration-forms";
+import { ConnectionPicker } from "#/components/headless/connection-picker";
 import {
   type ConsentWindow,
   openConsentWindow,
@@ -70,6 +73,11 @@ function RouteComponent() {
 /** Every headless integration in the marketplace, one per row. */
 function IntegrationList() {
   const marketplace = useMarketplace({ includeActiveIntegrations: true });
+  // Whether the customer has authorized any account already, which a new
+  // instance might reuse.
+  const connections = useConnections({ status: "ACTIVE" });
+  const hasConnections =
+    connections.status === "success" && connections.data.items.length > 0;
   // One connection at a time: there's one consent window to hand out.
   const [connecting, setConnecting] = useState<string | null>(null);
 
@@ -136,6 +144,7 @@ function IntegrationList() {
                 key={integration.id}
                 integration={integration}
                 createInstance={actions.createInstance}
+                hasConnections={hasConnections}
                 locked={connecting !== null && connecting !== integration.id}
                 setConnecting={setConnecting}
               />
@@ -168,9 +177,16 @@ const STAGE_LABELS: Record<Exclude<Stage, "idle">, string> = {
 
 /** A click that's waiting for the instance's connection requirements to load. */
 interface Attempt {
-  consent: ConsentWindow;
+  /** `null` when the click skipped the window to offer existing credentials. */
+  consent: ConsentWindow | null;
   controller: AbortController;
 }
+
+/** Whether the customer has an active credential this requirement can use. */
+const hasReusable = ({ options }: ConfigurationConnectionRequirement) =>
+  options.some(
+    (option) => option.status === "success" && option.data.status === "ACTIVE",
+  );
 
 const POPUP_BLOCKED =
   "Your browser blocked the sign-in window. Allow pop-ups for this site, then try again.";
@@ -180,7 +196,9 @@ const POPUP_BLOCKED =
  *
  * 1. Create an instance, if the customer has none.
  * 2. Make a credential for the integration's connection with
- *    `createConnection`, which runs the OAuth flow.
+ *    `createConnection`, which runs the OAuth flow. If the customer already
+ *    has an active credential for it, such as from an instance they removed,
+ *    ask whether to reuse it instead.
  * 3. Run `init` for the integration's suggested configuration.
  * 4. If the suggested configuration fills every required field in the
  *    integration's schema, save it, linking the new credential, and deploy.
@@ -189,11 +207,13 @@ const POPUP_BLOCKED =
 function IntegrationRow({
   integration,
   createInstance,
+  hasConnections,
   locked,
   setConnecting,
 }: {
   integration: MarketplaceIntegration;
   createInstance: MarketplaceIntegrationActions["createInstance"];
+  hasConnections: boolean;
   locked: boolean;
   setConnecting: React.Dispatch<React.SetStateAction<string | null>>;
 }) {
@@ -214,7 +234,10 @@ function IntegrationRow({
     ConfigurationConnectionSelection[] | null
   >(null);
   const [dialog, setDialog] = useState<
-    { kind: "finish"; proposal?: InitProposal } | { kind: "settings" } | null
+    | { kind: "choose" }
+    | { kind: "finish"; proposal?: InitProposal }
+    | { kind: "settings" }
+    | null
   >(null);
 
   // The steps run across several renders, so they read the latest resources.
@@ -283,23 +306,32 @@ function IntegrationRow({
   const authorize = async ({ consent, controller }: Attempt) => {
     if (!requirements) return;
     if (!requirements.instance) {
-      consent.close();
+      consent?.close();
       return fail(
         "This Prismatic stack can't link connections to an instance from Solis yet.",
       );
     }
     if (requirements.instance.length === 0) {
       // Nothing to authorize.
-      consent.close();
+      consent?.close();
       return configureAndDeploy([]);
     }
     if (requirements.instance.length > 1) {
-      consent.close();
+      consent?.close();
       return fail(
         "This integration needs more than one connection, so it can't be set up in one click.",
       );
     }
     const [requirement] = requirements.instance;
+    // Offer the customer's existing credentials rather than making another.
+    // Without a window, ask either way: only a click can open one now.
+    if (!consent || hasReusable(requirement)) {
+      consent?.close();
+      cancel.current = null;
+      setStage("idle");
+      setDialog({ kind: "choose" });
+      return;
+    }
     setStage("authorizing");
     consent.use();
     const created = await requirement.actions.createConnection.execute({
@@ -331,7 +363,7 @@ function IntegrationRow({
     if (!attempt || running.current) return;
     if (loadError) {
       setAttempt(null);
-      attempt.consent.close();
+      attempt.consent?.close();
       fail(loadError);
       return;
     }
@@ -351,21 +383,32 @@ function IntegrationRow({
       setDialog({ kind: "finish" });
       return;
     }
+    const [requirement] = requirements?.instance ?? [];
+    if (requirements?.instance?.length === 1 && hasReusable(requirement)) {
+      // The customer can reuse a credential, so there's no window to open yet.
+      setDialog({ kind: "choose" });
+      return;
+    }
     // Open the consent window now, synchronously, while the browser still
     // counts this as the click. It waits blank until the consent URL arrives.
-    const consent = openConsentWindow();
-    if (!consent) return fail(POPUP_BLOCKED);
+    // A new instance's requirements aren't known yet, so if the customer has
+    // credentials it might reuse, skip the window and ask once they load.
+    let consent: ConsentWindow | null = null;
+    if (instanceId || !hasConnections) {
+      consent = openConsentWindow();
+      if (!consent) return fail(POPUP_BLOCKED);
+    }
     const controller = new AbortController();
     cancel.current = controller;
     if (!instanceId) {
       setStage("creating");
       const created = await createInstance.execute({ name });
       if (created.status === "error") {
-        consent.close();
+        consent?.close();
         return fail(created.error.message);
       }
       if (controller.signal.aborted) {
-        consent.close();
+        consent?.close();
         setStage("idle");
         return;
       }
@@ -486,15 +529,27 @@ function IntegrationRow({
             <DialogTitle>
               {dialog?.kind === "settings"
                 ? `${name} settings`
-                : `Finish connecting ${name}`}
+                : dialog?.kind === "choose"
+                  ? `Connect ${name}`
+                  : `Finish connecting ${name}`}
             </DialogTitle>
             <DialogDescription>
               {dialog?.kind === "settings"
                 ? "Change how this integration works. Saving deploys your changes."
-                : `${name} is authorized. Choose the rest of its settings to connect it.`}
+                : dialog?.kind === "choose"
+                  ? "Use an account you've connected already, or connect a new one."
+                  : `${name} is authorized. Choose the rest of its settings to connect it.`}
             </DialogDescription>
           </DialogHeader>
-          {dialog && configuration.status === "success" ? (
+          {dialog?.kind === "choose" ? (
+            <ConnectionPicker
+              configuration={configuration}
+              onContinue={(chosen) => {
+                setDialog(null);
+                configureAndDeploy(chosen);
+              }}
+            />
+          ) : dialog && configuration.status === "success" ? (
             <ConfigurationEditor
               configuration={configuration}
               {...(dialog.kind === "finish"
