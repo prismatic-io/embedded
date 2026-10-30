@@ -39,7 +39,7 @@ jobs:
       version: ${{ steps.bump.outputs.version }}
       tag: ${{ steps.bump.outputs.tag }}
     steps:
-      - uses: actions/create-github-app-token@v3.2.0
+      - uses: actions/create-github-app-token@v3.3.0
         id: app-token
         with:
           client-id: ${{ secrets.RELEASE_APP_ID }}
@@ -49,7 +49,7 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
 
-      - uses: jdx/mise-action@v5.1.1
+      - uses: jdx/mise-action@v5.2.0
 
       - run: mise run install
 
@@ -87,7 +87,7 @@ jobs:
         with:
           ref: ${{ needs.release.outputs.tag }}
 
-      - uses: jdx/mise-action@v5.1.1
+      - uses: jdx/mise-action@v5.2.0
 
       - run: mise run install
       - run: bun install --frozen-lockfile --cwd examples/example-embedded-app
