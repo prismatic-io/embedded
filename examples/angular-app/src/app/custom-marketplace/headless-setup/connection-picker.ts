@@ -32,7 +32,9 @@ import { createConnection, type Requirement } from "../solis";
         </div>
         <button
           type="button"
-          [disabled]="!requirement.template || !requirement.createPermission.allowed || connecting()"
+          [disabled]="
+            !requirement.template || !requirement.createPermission.allowed || connecting()
+          "
           (click)="connect(requirement)"
         >
           {{
@@ -42,7 +44,9 @@ import { createConnection, type Requirement } from "../solis";
           }}
         </button>
         @if (!requirement.createPermission.allowed) {
-          <p class="muted">You can't connect a new account ({{ requirement.createPermission.reason }}).</p>
+          <p class="muted">
+            You can't connect a new account ({{ requirement.createPermission.reason }}).
+          </p>
         }
       </section>
     }
@@ -64,7 +68,9 @@ export class ConnectionPicker {
   /** Starts from the credential each connection is linked to, if any. */
   protected readonly chosen = linkedSignal<Record<string, string>>(() =>
     Object.fromEntries(
-      this.initialRequirements().flatMap(({ key, selected }) => (selected ? [[key, selected]] : [])),
+      this.initialRequirements().flatMap(({ key, selected }) =>
+        selected ? [[key, selected]] : [],
+      ),
     ),
   );
   protected readonly connecting = signal<string | null>(null);

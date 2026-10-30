@@ -33,10 +33,7 @@ export class PrismaticAuth {
 
       this.prismaticUrl.set(body.prismaticUrl);
       this.token.set(body.token);
-      setTimeout(
-        () => this.connect(),
-        (body.expiresIn - REFRESH_MARGIN_SECONDS) * 1000,
-      );
+      setTimeout(() => this.connect(), (body.expiresIn - REFRESH_MARGIN_SECONDS) * 1000);
     } catch (error) {
       this.error.set(error instanceof Error ? error.message : String(error));
     }

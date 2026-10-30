@@ -190,7 +190,9 @@ export class CustomMarketplace {
    * listing, so the card updates on its own.
    */
   protected remove({ stub, state }: Listing) {
-    if (!window.confirm(`Remove ${state.name}? It stops running, and its configuration is deleted.`)) {
+    if (
+      !window.confirm(`Remove ${state.name}? It stops running, and its configuration is deleted.`)
+    ) {
       return;
     }
     return this.run(`Removing ${state.name}…`, async () => {

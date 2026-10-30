@@ -8,9 +8,11 @@ import { PrismaticAuth } from "./prismatic-auth";
   template: `
     <nav>
       <h1>Acme SaaS</h1>
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-      <a routerLink="/hosted" routerLinkActive="active">Marketplace</a>
-      <a routerLink="/custom" routerLinkActive="active">Custom Marketplace</a>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        >Dashboard</a
+      >
+      <a routerLink="/custom" routerLinkActive="active">Headless Marketplace</a>
+      <a routerLink="/hosted" routerLinkActive="active">Hosted Marketplace</a>
     </nav>
     <main>
       @if (auth.error(); as error) {

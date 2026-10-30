@@ -42,7 +42,9 @@ interface InitProposal {
     @if (choices()?.instance?.length) {
       <ol class="steps">
         <li [class.current]="step() === 'connections'">1. Connect your accounts</li>
-        <li [class.current]="step() === 'configure'">2. Configure {{ target().state.integrationName }}</li>
+        <li [class.current]="step() === 'configure'">
+          2. Configure {{ target().state.integrationName }}
+        </li>
       </ol>
     }
 

@@ -41,7 +41,9 @@ export async function callServerFunction<T>(
   if (!byKey) serverFunctions.set(config, (byKey = new Map()));
   let fn = byKey.get(key);
   if (!fn) byKey.set(key, (fn = Promise.resolve(config.createServerFunction({ key }))));
-  const result = await (await fn).execute({
+  const result = await (
+    await fn
+  ).execute({
     inputs,
     ...(connections.length ? { connections } : {}),
   });
@@ -70,7 +72,8 @@ export interface ConnectionChoices {
 
 /** What connections a configuration needs, and the customer's credentials for each. */
 export async function readConnectionChoices(config: ConfigurationStub): Promise<ConnectionChoices> {
-  const choices = (await config.readConnectionOptions()) as unknown as ConfigurationConnectionOptions;
+  const choices =
+    (await config.readConnectionOptions()) as unknown as ConfigurationConnectionOptions;
   // `instance` is missing on Prismatic stacks without the `configuration.connections` feature.
   const instance = await Promise.all(
     (choices.instance ?? []).map(async (requirement) => ({
@@ -107,7 +110,9 @@ export async function createConnection(
   // Client-credentials connections connect as they're made, with no consent screen.
   const consent = grant && grant !== "client_credentials" ? openConsentWindow() : null;
   if (grant && grant !== "client_credentials" && !consent) {
-    throw new Error("Your browser blocked the sign-in window. Allow pop-ups for this site, then try again.");
+    throw new Error(
+      "Your browser blocked the sign-in window. Allow pop-ups for this site, then try again.",
+    );
   }
 
   try {

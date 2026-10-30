@@ -1,4 +1,12 @@
-import { Component, computed, input, linkedSignal, type OnInit, output, signal } from "@angular/core";
+import {
+  Component,
+  computed,
+  input,
+  linkedSignal,
+  type OnInit,
+  output,
+  signal,
+} from "@angular/core";
 import type { ConfigurationConnectionSelection, ConfigurationStub } from "@prismatic-io/solis-core";
 import { callServerFunction } from "../solis";
 

@@ -110,11 +110,17 @@ const FIELD_MAPPING_SCOPE = "#/properties/fieldMapping/properties/";
               <p class="muted">This record type has no records to preview.</p>
             } @else {
               <table>
-                <tr><th>Acme field</th><th>From Fake CRM</th><th>Value</th></tr>
+                <tr>
+                  <th>Acme field</th>
+                  <th>From Fake CRM</th>
+                  <th>Value</th>
+                </tr>
                 @for (field of acmeFields(); track field.key) {
                   <tr>
                     <td>{{ field.title }}</td>
-                    <td><code>{{ values().fieldMapping[field.key] ?? "—" }}</code></td>
+                    <td>
+                      <code>{{ values().fieldMapping[field.key] ?? "—" }}</code>
+                    </td>
                     <td>{{ preview()?.acmeContact?.[field.key] ?? "—" }}</td>
                   </tr>
                 }
