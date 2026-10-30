@@ -1,0 +1,29 @@
+{
+  "name": "angular-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --parallel server client",
+    "server": "bun --watch server.ts",
+    "client": "ng serve --port 4200",
+    "build": "ng build"
+  },
+  "dependencies": {
+    "@angular/common": "^22.2.4",
+    "@angular/compiler": "^22.2.4",
+    "@angular/core": "^22.2.4",
+    "@angular/platform-browser": "^22.2.4",
+    "@angular/router": "^22.2.4",
+    "@prismatic-io/embedded": "^4.14.0",
+    "@prismatic-io/solis-core": "^0.1.0",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.2.5",
+    "@angular/cli": "^22.2.5",
+    "@angular/compiler-cli": "^22.2.4",
+    "@types/jsonwebtoken": "^9.0.10",
+    "jsonwebtoken": "^9.0.3",
+    "typescript": "~6.0.3"
+  }
+}

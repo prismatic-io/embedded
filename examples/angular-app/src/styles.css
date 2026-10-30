@@ -1,0 +1,28 @@
+* { box-sizing: border-box; }
+body { margin: 0; display: flex; min-height: 100vh; font-family: system-ui, sans-serif; color: #1f2937; background: #f9fafb; }
+app-root { display: contents; }
+nav { width: 220px; padding: 1rem; background: #111827; display: flex; flex-direction: column; gap: 0.25rem; }
+nav h1 { color: white; font-size: 1.1rem; margin: 0 0 1rem; }
+nav a { color: #d1d5db; text-decoration: none; padding: 0.5rem; border-radius: 6px; }
+nav a.active, nav a:hover { background: #374151; color: white; }
+main { flex: 1; padding: 1.5rem; display: flex; flex-direction: column; min-width: 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.card, .panel { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+.card p { margin: 0; color: #6b7280; font-size: 0.9rem; }
+.card button { margin-top: auto; }
+.card-header { display: flex; align-items: center; gap: 0.75rem; }
+.card-header div { display: flex; flex-direction: column; }
+.card-header small { color: #6b7280; }
+.avatar { width: 40px; height: 40px; border-radius: 8px; object-fit: contain; padding: 4px; background: #f3f4f6; display: grid; place-items: center; font-weight: 600; color: #4b5563; }
+.badges { display: flex; gap: 0.25rem; }
+.badge { font-size: 0.75rem; padding: 0.1rem 0.5rem; border-radius: 999px; background: #e5e7eb; }
+.badge.installed { background: #dcfce7; color: #166534; }
+.panel { margin-top: 1rem; }
+.panel textarea { width: 100%; font-family: monospace; }
+/* A definite height: the iframes inside use height: 100%. */
+.embed { height: calc(100vh - 7rem); min-height: 600px; }
+.wizard { width: min(1100px, 92vw); height: 88vh; padding: 0; border: 0; border-radius: 12px; overflow: hidden; }
+.wizard::backdrop { background: rgb(0 0 0 / 0.5); }
+.wizard-frame { height: 100%; }
+.wizard .close { position: absolute; top: 0.5rem; right: 0.5rem; z-index: 1; border: 0; border-radius: 6px; padding: 0.25rem 0.5rem; background: #f3f4f6; cursor: pointer; }
+.error { color: #b91c1c; }
