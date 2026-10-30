@@ -123,13 +123,13 @@
     "@size-limit/preset-small-lib": "^14.2.0",
     "@types/node": "^24.19.2",
     "agadoo": "^3.0.0",
-    "jsdom": "^30.1.2",
+    "jsdom": "^30.1.3",
     "knip": "^6.41.0",
     "publint": "^0.3.25",
     "size-limit": "^14.1.0",
     "tsdown": "^0.23.1",
     "typescript": "~6.0.3",
-    "vitest": "5.0.4",
+    "vitest": "5.0.5",
     "zod": "^4.6.7"
   }
 }
