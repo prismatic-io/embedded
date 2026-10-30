@@ -29,7 +29,7 @@ updates:
       - dependency-name: "msw"
         update-types: ["version-update:semver-major"]
 
-  # The example app is a separate Bun project with its own bun.lock, outside
+  # The example apps are separate Bun projects with their own bun.lock, outside
   # the root workspaces.
   - package-ecosystem: "bun"
     directory: "/examples/example-embedded-app"
@@ -44,6 +44,25 @@ updates:
     ignore:
       # See the root entry: the biome.json $schema URL must be bumped manually.
       - dependency-name: "@biomejs/biome"
+
+  - package-ecosystem: "bun"
+    directory: "/examples/angular-app"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 14
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+    ignore:
+      # @angular/compiler-cli pins TypeScript to one minor (>=6.0 <6.1).
+      # Bump TypeScript only alongside Angular itself.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      # Angular majors need `ng update` migrations. Run it by hand.
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
