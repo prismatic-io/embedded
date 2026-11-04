@@ -88,11 +88,6 @@ export const prismaticNav: NavItem[] = [
     to: "/examples/workflow-contexts",
     icon: Workflow,
   },
-  {
-    title: "Chat Bot",
-    to: "/examples/chat-bot",
-    icon: Bot,
-  },
 ];
 
 /**
@@ -114,5 +109,14 @@ export const headlessNav: NavItem[] = [
     title: "Presentation Modes",
     to: "/examples/headless-presentation-modes",
     icon: Rows3,
+  },
+];
+
+/** Other examples not explicitly related to headless or hosted */
+export const otherNav: NavItem[] = [
+  {
+    title: "Chat Bot (+ MCP Flow Server)",
+    to: "/examples/chat-bot",
+    icon: Bot,
   },
 ];
