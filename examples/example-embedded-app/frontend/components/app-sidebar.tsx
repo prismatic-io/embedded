@@ -15,13 +15,12 @@ import {
 import {
   headlessNav,
   type NavItem,
+  otherNav,
   prismaticNav,
   workspaceNav,
 } from "@/lib/navigation";
 
 export function AppSidebar() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -45,59 +44,10 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
-          <SidebarMenu>
-            {workspaceNav.map((item) => (
-              <SidebarMenuItem key={item.to}>
-                <SidebarMenuButton
-                  asChild
-                  tooltip={item.title}
-                  isActive={pathname === item.to}
-                >
-                  <Link to={item.to}>
-                    {item.icon ? <item.icon className="size-4" /> : null}
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Prismatic examples</SidebarGroupLabel>
-          <SidebarMenu>
-            {prismaticNav.length === 0 ? (
-              <SidebarMenuItem>
-                <div className="px-2 py-1.5 text-xs text-muted-foreground group-data-[collapsible=icon]:hidden">
-                  No examples yet. Add them to{" "}
-                  <code className="text-[11px]">
-                    frontend/lib/navigation.ts
-                  </code>
-                  .
-                </div>
-              </SidebarMenuItem>
-            ) : (
-              prismaticNav.map((item) => (
-                <SidebarMenuItem key={item.to}>
-                  <SidebarMenuButton
-                    asChild
-                    tooltip={item.title}
-                    isActive={pathname === item.to}
-                  >
-                    <Link to={item.to}>
-                      {item.icon ? <item.icon className="size-4" /> : null}
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))
-            )}
-          </SidebarMenu>
-        </SidebarGroup>
-
-        <NavGroup label="Headless examples" items={headlessNav} />
+        <NavGroup label="Acme Workspace" items={workspaceNav} />
+        <NavGroup label="Headless Examples" items={headlessNav} />
+        <NavGroup label="Hosted Examples" items={prismaticNav} />
+        <NavGroup label="Other Embedded Examples" items={otherNav} />
       </SidebarContent>
 
       <SidebarFooter>
