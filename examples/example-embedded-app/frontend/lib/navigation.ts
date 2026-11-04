@@ -6,7 +6,6 @@ import {
   Gauge,
   Languages,
   LayoutDashboard,
-  LayoutGrid,
   ListChecks,
   ListPlus,
   PictureInPicture2,
@@ -47,11 +46,6 @@ export const prismaticNav: NavItem[] = [
     title: "Basic Marketplace Popover",
     to: "/examples/basic-marketplace-popover",
     icon: PictureInPicture2,
-  },
-  {
-    title: "Custom Marketplace UI",
-    to: "/examples/custom-marketplace-ui",
-    icon: LayoutGrid,
   },
   {
     title: "Edit Instance Configuration",
