@@ -30,10 +30,10 @@ export interface NavItem {
 
 /** Placeholder roots filled with example data */
 export const workspaceNav: NavItem[] = [
-  { title: "Dashboard", to: "/", icon: LayoutDashboard },
-  { title: "Leads", to: "/placeholder/leads", icon: UserSearch },
-  { title: "Contacts", to: "/placeholder/contacts", icon: Users },
-  { title: "Accounts", to: "/placeholder/accounts", icon: Building2 },
+  { title: "Acme Dashboard", to: "/", icon: LayoutDashboard },
+  { title: "Acme Leads", to: "/placeholder/leads", icon: UserSearch },
+  { title: "Acme Contacts", to: "/placeholder/contacts", icon: Users },
+  { title: "Acme Accounts", to: "/placeholder/accounts", icon: Building2 },
 ];
 
 /** Examples of how to embed Prismatic in an app */
