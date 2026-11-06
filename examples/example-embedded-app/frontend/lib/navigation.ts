@@ -6,7 +6,6 @@ import {
   Gauge,
   Languages,
   LayoutDashboard,
-  LayoutGrid,
   ListChecks,
   ListPlus,
   PictureInPicture2,
@@ -30,10 +29,10 @@ export interface NavItem {
 
 /** Placeholder roots filled with example data */
 export const workspaceNav: NavItem[] = [
-  { title: "Dashboard", to: "/", icon: LayoutDashboard },
-  { title: "Leads", to: "/placeholder/leads", icon: UserSearch },
-  { title: "Contacts", to: "/placeholder/contacts", icon: Users },
-  { title: "Accounts", to: "/placeholder/accounts", icon: Building2 },
+  { title: "Acme Dashboard", to: "/", icon: LayoutDashboard },
+  { title: "Acme Leads", to: "/placeholder/leads", icon: UserSearch },
+  { title: "Acme Contacts", to: "/placeholder/contacts", icon: Users },
+  { title: "Acme Accounts", to: "/placeholder/accounts", icon: Building2 },
 ];
 
 /** Examples of how to embed Prismatic in an app */
@@ -47,11 +46,6 @@ export const prismaticNav: NavItem[] = [
     title: "Basic Marketplace Popover",
     to: "/examples/basic-marketplace-popover",
     icon: PictureInPicture2,
-  },
-  {
-    title: "Custom Marketplace UI",
-    to: "/examples/custom-marketplace-ui",
-    icon: LayoutGrid,
   },
   {
     title: "Edit Instance Configuration",
@@ -88,11 +82,6 @@ export const prismaticNav: NavItem[] = [
     to: "/examples/workflow-contexts",
     icon: Workflow,
   },
-  {
-    title: "Chat Bot",
-    to: "/examples/chat-bot",
-    icon: Bot,
-  },
 ];
 
 /**
@@ -114,5 +103,14 @@ export const headlessNav: NavItem[] = [
     title: "Presentation Modes",
     to: "/examples/headless-presentation-modes",
     icon: Rows3,
+  },
+];
+
+/** Other examples not explicitly related to headless or hosted */
+export const otherNav: NavItem[] = [
+  {
+    title: "Chat Bot (+ MCP Flow Server)",
+    to: "/examples/chat-bot",
+    icon: Bot,
   },
 ];

@@ -60,7 +60,6 @@ type MarkdownFileId =
   | "basic-marketplace-popover"
   | "chat-bot"
   | "connections"
-  | "custom-marketplace-ui"
   | "dashboard"
   | "edit-instance-configuration"
   | "headless-configuration"
