@@ -14,7 +14,6 @@ import { Route as ExamplesBasicEmbeddedMarketplaceRouteImport } from './routes/e
 import { Route as ExamplesBasicMarketplacePopoverRouteImport } from './routes/examples/basic-marketplace-popover'
 import { Route as ExamplesChatBotRouteImport } from './routes/examples/chat-bot'
 import { Route as ExamplesConnectionsRouteImport } from './routes/examples/connections'
-import { Route as ExamplesCustomMarketplaceUiRouteImport } from './routes/examples/custom-marketplace-ui'
 import { Route as ExamplesDashboardRouteImport } from './routes/examples/dashboard'
 import { Route as ExamplesEditInstanceConfigurationRouteImport } from './routes/examples/edit-instance-configuration'
 import { Route as ExamplesHeadlessConfigurationRouteImport } from './routes/examples/headless-configuration'
@@ -55,12 +54,6 @@ const ExamplesConnectionsRoute = ExamplesConnectionsRouteImport.update({
   path: '/examples/connections',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ExamplesCustomMarketplaceUiRoute =
-  ExamplesCustomMarketplaceUiRouteImport.update({
-    id: '/examples/custom-marketplace-ui',
-    path: '/examples/custom-marketplace-ui',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ExamplesDashboardRoute = ExamplesDashboardRouteImport.update({
   id: '/examples/dashboard',
   path: '/examples/dashboard',
@@ -134,7 +127,6 @@ export interface FileRoutesByFullPath {
   '/examples/basic-marketplace-popover': typeof ExamplesBasicMarketplacePopoverRoute
   '/examples/chat-bot': typeof ExamplesChatBotRoute
   '/examples/connections': typeof ExamplesConnectionsRoute
-  '/examples/custom-marketplace-ui': typeof ExamplesCustomMarketplaceUiRoute
   '/examples/dashboard': typeof ExamplesDashboardRoute
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
   '/examples/headless-configuration': typeof ExamplesHeadlessConfigurationRoute
@@ -154,7 +146,6 @@ export interface FileRoutesByTo {
   '/examples/basic-marketplace-popover': typeof ExamplesBasicMarketplacePopoverRoute
   '/examples/chat-bot': typeof ExamplesChatBotRoute
   '/examples/connections': typeof ExamplesConnectionsRoute
-  '/examples/custom-marketplace-ui': typeof ExamplesCustomMarketplaceUiRoute
   '/examples/dashboard': typeof ExamplesDashboardRoute
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
   '/examples/headless-configuration': typeof ExamplesHeadlessConfigurationRoute
@@ -175,7 +166,6 @@ export interface FileRoutesById {
   '/examples/basic-marketplace-popover': typeof ExamplesBasicMarketplacePopoverRoute
   '/examples/chat-bot': typeof ExamplesChatBotRoute
   '/examples/connections': typeof ExamplesConnectionsRoute
-  '/examples/custom-marketplace-ui': typeof ExamplesCustomMarketplaceUiRoute
   '/examples/dashboard': typeof ExamplesDashboardRoute
   '/examples/edit-instance-configuration': typeof ExamplesEditInstanceConfigurationRoute
   '/examples/headless-configuration': typeof ExamplesHeadlessConfigurationRoute
@@ -197,7 +187,6 @@ export interface FileRouteTypes {
     | '/examples/basic-marketplace-popover'
     | '/examples/chat-bot'
     | '/examples/connections'
-    | '/examples/custom-marketplace-ui'
     | '/examples/dashboard'
     | '/examples/edit-instance-configuration'
     | '/examples/headless-configuration'
@@ -217,7 +206,6 @@ export interface FileRouteTypes {
     | '/examples/basic-marketplace-popover'
     | '/examples/chat-bot'
     | '/examples/connections'
-    | '/examples/custom-marketplace-ui'
     | '/examples/dashboard'
     | '/examples/edit-instance-configuration'
     | '/examples/headless-configuration'
@@ -237,7 +225,6 @@ export interface FileRouteTypes {
     | '/examples/basic-marketplace-popover'
     | '/examples/chat-bot'
     | '/examples/connections'
-    | '/examples/custom-marketplace-ui'
     | '/examples/dashboard'
     | '/examples/edit-instance-configuration'
     | '/examples/headless-configuration'
@@ -258,7 +245,6 @@ export interface RootRouteChildren {
   ExamplesBasicMarketplacePopoverRoute: typeof ExamplesBasicMarketplacePopoverRoute
   ExamplesChatBotRoute: typeof ExamplesChatBotRoute
   ExamplesConnectionsRoute: typeof ExamplesConnectionsRoute
-  ExamplesCustomMarketplaceUiRoute: typeof ExamplesCustomMarketplaceUiRoute
   ExamplesDashboardRoute: typeof ExamplesDashboardRoute
   ExamplesEditInstanceConfigurationRoute: typeof ExamplesEditInstanceConfigurationRoute
   ExamplesHeadlessConfigurationRoute: typeof ExamplesHeadlessConfigurationRoute
@@ -308,13 +294,6 @@ declare module '@tanstack/react-router' {
       path: '/examples/connections'
       fullPath: '/examples/connections'
       preLoaderRoute: typeof ExamplesConnectionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/examples/custom-marketplace-ui': {
-      id: '/examples/custom-marketplace-ui'
-      path: '/examples/custom-marketplace-ui'
-      fullPath: '/examples/custom-marketplace-ui'
-      preLoaderRoute: typeof ExamplesCustomMarketplaceUiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/examples/dashboard': {
@@ -410,7 +389,6 @@ const rootRouteChildren: RootRouteChildren = {
   ExamplesBasicMarketplacePopoverRoute: ExamplesBasicMarketplacePopoverRoute,
   ExamplesChatBotRoute: ExamplesChatBotRoute,
   ExamplesConnectionsRoute: ExamplesConnectionsRoute,
-  ExamplesCustomMarketplaceUiRoute: ExamplesCustomMarketplaceUiRoute,
   ExamplesDashboardRoute: ExamplesDashboardRoute,
   ExamplesEditInstanceConfigurationRoute:
     ExamplesEditInstanceConfigurationRoute,
