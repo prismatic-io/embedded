@@ -17,9 +17,9 @@
     "check": "biome check"
   },
   "dependencies": {
-    "@ai-sdk/mcp": "^2.0.83",
-    "@ai-sdk/openai": "^4.0.101",
-    "@ai-sdk/react": "^4.0.154",
+    "@ai-sdk/mcp": "^2.0.85",
+    "@ai-sdk/openai": "^4.0.103",
+    "@ai-sdk/react": "^4.0.158",
     "@fontsource-variable/geist": "^5.3.0",
     "@prismatic-io/embedded": "^4.14.0",
     "@prismatic-io/solis-react": "^0.1.0",
@@ -29,7 +29,7 @@
     "@tanstack/react-router": "latest",
     "@tanstack/react-router-devtools": "latest",
     "@tanstack/react-start": "latest",
-    "ai": "^7.0.150",
+    "ai": "^7.0.154",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.61.0",
