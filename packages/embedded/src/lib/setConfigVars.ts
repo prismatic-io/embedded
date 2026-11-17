@@ -55,6 +55,21 @@ export type SetConfigVarsProps =
  *   },
  * });
  *
+ * @example
+ * // Set a field mapping config var. Each row maps a source field (`key`)
+ * // to a destination field (`value`).
+ * prismatic.setConfigVars({
+ *   selector: "#config-container",
+ *   configVars: {
+ *     "Lead Field Mapping": {
+ *       value: [
+ *         { key: "email", value: "Email" },
+ *         { key: "last_name", value: "LastName" },
+ *       ],
+ *     },
+ *   },
+ * });
+ *
  * @see {@link https://prismatic.io/docs/embed/marketplace/ | Embedding the Marketplace}
  */
 export const setConfigVars = ({

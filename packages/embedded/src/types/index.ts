@@ -27,6 +27,7 @@ export type {
   ConnectionConfigVarInput,
   DefaultConfigVar,
   DefaultConfigVarInput,
+  FieldMappingValue,
 } from "./configVars";
 // BooleanOperator and TermOperator are runtime enums; the rest are pure types.
 export {

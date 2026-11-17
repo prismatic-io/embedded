@@ -13,10 +13,23 @@ type DefaultConfigVarDataTypeEnum =
   | "connection"
   | "credential"
   | "date"
+  | "fieldMapping"
+  | "objectFieldMap"
   | "picklist"
   | "schedule"
   | "string"
   | "timestamp";
+
+type ValueConfigVarDataType = Exclude<
+  DefaultConfigVarDataTypeEnum,
+  "fieldMapping"
+>;
+
+/**
+ * The value of a `fieldMapping` config variable. Each row maps a source field
+ * (`key`) to a destination field (`value`).
+ */
+export type FieldMappingValue = Array<{ key: string; value: string }>;
 
 type CollectionTypeEnum = "valuelist" | "keyvaluelist";
 
@@ -34,20 +47,31 @@ interface BaseConfigVar {
 
 interface StringConfigVar extends BaseConfigVar {
   collectionType: null;
+  dataType: ValueConfigVarDataType | null;
   value: string;
 }
 
 interface ValueListConfigVar extends BaseConfigVar {
   collectionType: "valuelist";
+  dataType: ValueConfigVarDataType | null;
   value: string[];
 }
 
 interface KeyValueListConfigVar extends BaseConfigVar {
   collectionType: "keyvaluelist";
+  dataType: ValueConfigVarDataType | null;
   value: Array<{ key: string; value: string }>;
 }
 
+interface FieldMappingConfigVar extends BaseConfigVar {
+  collectionType: null;
+  dataType: "fieldMapping";
+  /** A JSON string of a {@link FieldMappingValue}. */
+  value: string;
+}
+
 export type DefaultConfigVar =
+  | FieldMappingConfigVar
   | KeyValueListConfigVar
   | StringConfigVar
   | ValueListConfigVar;
@@ -63,6 +87,15 @@ export interface ConnectionConfigVar extends BaseConfigVar {
   status: InstanceConfigVariableStatus | null;
 }
 
+/**
+ * A config variable in a postMessage event. A connection config variable has
+ * no `value`, so check for `value` before you check `dataType`.
+ *
+ * @example
+ * if ("value" in configVar && configVar.dataType === "fieldMapping") {
+ *   const rows: FieldMappingValue = JSON.parse(configVar.value);
+ * }
+ */
 export type ConfigVar = DefaultConfigVar | ConnectionConfigVar;
 
 export type ConfigVars = Record<
@@ -82,6 +115,11 @@ interface KeyValueListConfigVarInput {
   value: Array<{ key: string; value: string }>;
 }
 
+interface FieldMappingConfigVarInput {
+  /** The rows, or a JSON string of the rows. */
+  value: FieldMappingValue | string;
+}
+
 interface ScheduleConfigVarInput {
   scheduleType: ScheduleTypeEnum;
   timeZone: string | undefined;
@@ -95,6 +133,7 @@ export interface ConnectionConfigVarInput {
 
 export type DefaultConfigVarInput =
   | BaseConfigVarInput
+  | FieldMappingConfigVarInput
   | KeyValueListConfigVarInput
   | ScheduleConfigVarInput
   | ValueListConfigVarInput;
