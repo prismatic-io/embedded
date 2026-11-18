@@ -28,8 +28,11 @@ function LinkNewWindow(
 const SOURCE_URL =
   "https://github.com/prismatic-io/embedded/blob/main/examples/example-embedded-app";
 
-/** A path to a file in this app, such as `frontend/lib/phrases.ts`. */
-const SOURCE_PATH = /^(frontend|server|integrations)\/[\w./-]+$/;
+/**
+ * A path to a file in this app, such as `frontend/lib/phrases.ts`, or in the
+ * example integrations beside it, such as `../integrations/slack/`.
+ */
+const SOURCE_PATH = /^(frontend\/|server\/|\.\.\/integrations\/)[\w./-]*$/;
 
 /**
  * Inline code that names a file in this app links to that file on GitHub.
@@ -43,7 +46,7 @@ function CodeOrSourceLink({
   if (typeof children === "string" && SOURCE_PATH.test(children)) {
     return (
       <a
-        href={`${SOURCE_URL}/${children}`}
+        href={new URL(children, `${SOURCE_URL}/`).href}
         target="_blank"
         rel="noopener noreferrer"
         title="View this file on GitHub"

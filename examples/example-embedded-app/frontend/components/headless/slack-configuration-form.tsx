@@ -17,7 +17,7 @@ import { useServerFunctionQuery } from "#/hooks/use-server-function-query";
 
 /**
  * The values the Slack integration saves. This mirrors the zod schema in
- * `integrations/slack/src/configuration.ts`.
+ * `../integrations/slack/src/configuration.ts`.
  */
 export interface SlackConfiguration {
   channelId: string;

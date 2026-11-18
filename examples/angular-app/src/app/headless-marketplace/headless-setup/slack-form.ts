@@ -12,7 +12,7 @@ import { callServerFunction } from "../solis";
 
 /**
  * The values the Slack integration saves. This mirrors the zod schema in
- * `examples/example-embedded-app/integrations/slack/src/configuration.ts`.
+ * `examples/integrations/slack/src/configuration.ts`.
  */
 export interface SlackConfiguration {
   channelId: string;

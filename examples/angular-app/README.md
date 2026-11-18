@@ -51,7 +51,7 @@ The configuration of the version being set up decides who renders it:
   2. **Configure.** The app runs the integration's `init` for suggested values and shows them in its form for that integration.
   3. **Save and deploy.** Saving links the chosen connections. Prismatic validates the values against the integration's schema, and the form shows invalid fields by path.
 
-The app has forms for the three example integrations in [`../example-embedded-app/integrations/`](../example-embedded-app/integrations):
+The app has forms for the three example integrations in [`../integrations/`](../integrations):
 
 | Integration | Form                                                                                      |
 | ----------- | ----------------------------------------------------------------------------------------- |

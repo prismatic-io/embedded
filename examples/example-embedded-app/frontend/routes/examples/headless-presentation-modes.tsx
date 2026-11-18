@@ -47,7 +47,7 @@ function RouteComponent() {
   );
 }
 
-/** The integration this example configures. Its source is in `integrations/fake-crm/`. */
+/** The integration this example configures. Its source is in `../integrations/fake-crm/`. */
 const FAKE_CRM = "Fake CRM";
 
 const LAYOUTS: { value: FormLayout; label: string; icon: typeof FileText }[] = [
@@ -114,7 +114,7 @@ function PresentationModes() {
       ) : (
         <p className="text-sm text-muted-foreground">
           This example needs the Fake CRM integration in your marketplace. Its
-          source and setup steps are in <code>integrations/fake-crm/</code>.
+          source and setup steps are in <code>../integrations/fake-crm/</code>.
         </p>
       )}
     </div>

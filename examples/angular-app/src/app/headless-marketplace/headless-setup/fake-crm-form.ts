@@ -14,7 +14,7 @@ import { callServerFunction } from "../solis";
 
 /**
  * The values the Fake CRM integration saves. This mirrors the zod schema in
- * `examples/example-embedded-app/integrations/fake-crm/src/configuration.ts`.
+ * `examples/integrations/fake-crm/src/configuration.ts`.
  * Prismatic validates saved values against that schema.
  */
 export interface FakeCrmConfiguration {

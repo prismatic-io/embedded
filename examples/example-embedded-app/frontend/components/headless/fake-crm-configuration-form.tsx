@@ -31,7 +31,7 @@ import { cn } from "#/lib/utils";
 
 /**
  * The values the Fake CRM integration saves. This mirrors the zod schema in
- * `integrations/fake-crm/src/configuration.ts`. Prismatic validates saved
+ * `../integrations/fake-crm/src/configuration.ts`. Prismatic validates saved
  * values against that schema, so this type only helps the form.
  */
 export interface FakeCrmConfiguration {

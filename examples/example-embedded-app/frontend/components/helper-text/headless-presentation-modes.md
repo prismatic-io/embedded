@@ -11,7 +11,7 @@ Click **Deploy Fake CRM** to start. Once the instance is deployed, **Reconfigure
 
 ## Set it up
 
-The page needs the Fake CRM integration in your marketplace. Its source is in `integrations/fake-crm/`. See the README for import and publish steps.
+The page needs the Fake CRM integration in your marketplace. Its source is in `../integrations/fake-crm/`. See the README for import and publish steps.
 
 ## Read the code
 
