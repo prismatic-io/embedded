@@ -28,10 +28,12 @@ import prismatic, {
   closePopover,
   configureInstance,
   createWorkflow,
+  type DefaultConfigVar,
   type DefaultConfigVarInput,
   type EditInstanceConfigurationProps,
   type EMBEDDED_DEFAULTS,
   editInstanceConfiguration,
+  type FieldMappingValue,
   type Filters,
   type FontConfiguration,
   type GoogleFontFamilies,
@@ -333,6 +335,19 @@ expectTypeOf<ConnectionConfigVarInput>().toHaveProperty("inputs");
 expectTypeOf<ConnectionConfigVarInput["inputs"]>().toEqualTypeOf<
   Record<string, { value: string }>
 >();
+
+// Field mapping: rows of source field (`key`) to destination field (`value`)
+expectTypeOf<FieldMappingValue>().toEqualTypeOf<
+  Array<{ key: string; value: string }>
+>();
+const fieldMappingConfigVars: ConfigVars = {
+  "Field Mapping Rows": { value: [{ key: "email", value: "Email" }] },
+  "Field Mapping String": { value: '[{"key":"email","value":"Email"}]' },
+};
+expectTypeOf(fieldMappingConfigVars).toMatchTypeOf<ConfigVars>();
+expectTypeOf<
+  Extract<DefaultConfigVar, { dataType: "fieldMapping" }>["value"]
+>().toEqualTypeOf<string>();
 
 // ---------------------------------------------------------------------------
 // ScreenConfiguration nesting
