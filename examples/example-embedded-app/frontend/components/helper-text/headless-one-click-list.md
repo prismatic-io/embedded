@@ -13,7 +13,7 @@ Integrations that use Prismatic's configuration wizard can't be set up this way,
 
 ## Try it with HubSpot and Slack
 
-Two integrations in `integrations/` show both cases:
+Two integrations in `../integrations/` show both cases:
 
 - **HubSpot Contacts** only needs a connection. Its configuration has no fields, so Connect deploys it straight after the customer authorizes HubSpot.
 - **Slack Notifications** needs a channel, which has no sensible default. Its `init` leaves the required channel empty, so the app asks for one. The dialog lists the workspace's channels with the integration's `listChannels` server function, run with the credential the customer just authorized.
@@ -31,4 +31,4 @@ A new instance's connection requirements, and so the credentials it could reuse,
 - `frontend/routes/examples/headless-one-click-list.tsx` runs the steps above.
 - `frontend/components/headless/consent-window.ts` opens the window inside the click.
 - `frontend/components/headless/configuration-editor.tsx` has `unpopulatedFields`, which finds the empty required fields.
-- `integrations/hubspot/src/configuration.ts` and `integrations/slack/src/configuration.ts` define each integration's schema and `init`.
+- `../integrations/hubspot/src/configuration.ts` and `../integrations/slack/src/configuration.ts` define each integration's schema and `init`.

@@ -27,7 +27,7 @@ When a newer version saves configuration in the same shape, the instance offers 
 
 ## Set it up
 
-The page needs the **Fake CRM** code-native integration in your organization's marketplace, and your organization needs the `headlessConfiguration` feature enabled before import or publish. Its source is in `integrations/fake-crm/`. From that directory, run `bun install` and `bun run import`, then publish the integration and make it available in your marketplace. The HubSpot and Slack integrations in `integrations/` work here too. See the README for installation and marketplace commands.
+The page needs the **Fake CRM** code-native integration in your organization's marketplace, and your organization needs the `headlessConfiguration` feature enabled before import or publish. Its source is in `../integrations/fake-crm/`. From that directory, run `bun install` and `bun run import`, then publish the integration and make it available in your marketplace. The HubSpot and Slack integrations in `../integrations/` work here too. See the README for installation and marketplace commands.
 
 ## Read the code
 
@@ -35,6 +35,6 @@ The page needs the **Fake CRM** code-native integration in your organization's m
 - `frontend/components/headless/connection-picker.tsx` chooses or creates credentials.
 - `frontend/components/headless/configuration-editor.tsx` runs `init`, `save`, and `deploy`.
 - `frontend/components/headless/configuration-forms.tsx` matches integrations to forms.
-- `integrations/fake-crm/src/configuration.ts` defines Fake CRM's schema, `init`, and server functions.
+- `../integrations/fake-crm/src/configuration.ts` defines Fake CRM's schema, `init`, and server functions.
 
 References: [Headless configuration](https://prismatic.io/docs/integrations/headless-configuration/), [Solis](https://prismatic.io/docs/embed/headless/), and [Get started with headless configuration](https://prismatic.io/docs/get-started/build-integrations/headless-configuration/).

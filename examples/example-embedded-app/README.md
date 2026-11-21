@@ -102,7 +102,7 @@ Four things to know:
 
 The **Headless Configuration** page configures an integration with this app's own UI instead of Prismatic's configuration wizard.
 It needs the **Fake CRM** integration in your organization's marketplace.
-That integration's source is in [`integrations/fake-crm/`](integrations/fake-crm).
+That integration's source is in [`../integrations/fake-crm/`](../integrations/fake-crm).
 It needs no connections: Fake CRM's records are static sample data.
 
 Headless configuration is available for code-native integrations only.
@@ -121,7 +121,7 @@ prism integrations:init my-integration --configuration-type headless
 To use the provided Fake CRM integration:
 
 ```bash
-cd integrations/fake-crm
+cd ../integrations/fake-crm
 bun install
 bun run import    # builds the integration and imports it into Prismatic
 ```
@@ -134,7 +134,7 @@ prism integrations:publish <integration-id>
 prism integrations:marketplace <version-id> --available --deployable
 ```
 
-The integration's configuration is in [`integrations/fake-crm/src/configuration.ts`](integrations/fake-crm/src/configuration.ts).
+The integration's configuration is in [`../integrations/fake-crm/src/configuration.ts`](../integrations/fake-crm/src/configuration.ts).
 It defines the schema, an `init` function that suggests values, and three server functions.
 Its layout is a JSON Forms `uiSchema`, declared as `ui: { type: "uiSchema", value }`.
 The app reads it from Solis as `configuration.data.ui`, and uses it to order the field mapper's fields.
@@ -150,9 +150,9 @@ The **Presentation Modes** page uses Fake CRM too.
 The **One-Click Connect** page lists your headless integrations, each with a **Connect** button.
 Two integrations show the two cases it handles:
 
-- **HubSpot Contacts**, in [`integrations/hubspot/`](integrations/hubspot), needs only a HubSpot connection.
+- **HubSpot Contacts**, in [`../integrations/hubspot/`](../integrations/hubspot), needs only a HubSpot connection.
   Its configuration has no fields, so **Connect** deploys it as soon as the customer authorizes HubSpot.
-- **Slack Notifications**, in [`integrations/slack/`](integrations/slack), also needs a channel.
+- **Slack Notifications**, in [`../integrations/slack/`](../integrations/slack), also needs a channel.
   Its `init` leaves the required channel empty, so the app asks for a channel in a dialog.
 
 After **Connect** runs `init`, the app checks its suggested configuration against the integration's JSON Schema.
@@ -175,7 +175,7 @@ For the steps, see [Customer-activated connections](https://prismatic.io/docs/in
 Then import, publish, and add each integration to your marketplace, as for Fake CRM:
 
 ```bash
-cd integrations/hubspot   # then the same in integrations/slack
+cd ../integrations/hubspot   # then the same in ../integrations/slack
 bun install
 bun run import
 ```
@@ -211,8 +211,8 @@ dev-server plugins, so they run under `bun run dev` only.
 | `frontend/lib/navigation.ts`                             | The sidebar links. Add each new example here.                             |
 | `frontend/lib/session.ts`                                | The signed-in user, read on the server.                                   |
 | `frontend/routes/placeholder/`                           | Static CRM pages. No Prismatic code.                                      |
-| `integrations/fake-crm/`                                 | The code-native integration the headless example configures.              |
-| `integrations/hubspot/`, `integrations/slack/`           | Integrations for the one-click connect example.                           |
+| `../integrations/fake-crm/`                              | The code-native integration the headless example configures.              |
+| `../integrations/hubspot/`, `../integrations/slack/`     | Integrations for the one-click connect example.                           |
 | `frontend/components/headless/`                          | Shared pieces of the headless examples: forms, editor, connection picker. |
 | `frontend/components/`                                   | Shell components: sidebar, header, theme toggle.                          |
 | `frontend/components/ui/`                                | Unmodified shadcn/ui parts. **Skip this folder.**                         |

@@ -107,7 +107,7 @@ function IntegrationList() {
     return (
       <p className="text-sm text-muted-foreground">
         This customer has no headless integrations in the marketplace. Import
-        the HubSpot and Slack integrations from <code>integrations/</code> to
+        the HubSpot and Slack integrations from <code>../integrations/</code> to
         try this example.
       </p>
     );

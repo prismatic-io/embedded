@@ -64,6 +64,27 @@ updates:
       - dependency-name: "@angular/*"
         update-types: ["version-update:semver-major"]
 
+  # The example integrations both example apps use. Each is its own Bun project
+  # with its own bun.lock; the glob picks up every directory under
+  # examples/integrations, including ones added later.
+  - package-ecosystem: "bun"
+    directories:
+      - "/examples/integrations/*"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 14
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+    ignore:
+      # See the root entry: each biome.json $schema URL must be bumped manually.
+      - dependency-name: "@biomejs/biome"
+      # Keep @types/node aligned with the Node runtime pinned in mise.toml.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
